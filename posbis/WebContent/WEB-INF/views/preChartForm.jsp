@@ -7,9 +7,9 @@
 
 <html>
  <head>
-  <title> PremiumCahrt </title>
+  <title> PremiumChart </title>
       <meta charset="utf-8">
-      <script src="jquery-1.11.0.min.js"></script>
+
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
      <script>
@@ -73,8 +73,7 @@
 	         ['2006',  660,       1120],
 	         ['2007',  1030,      540]
 	       ]);
-	
-	       
+
 	
 	       var options2 = {
 	         	title: '[월 매출]'
@@ -94,6 +93,9 @@
 				$('[name=changeBusinessNo]').change(function(){
 					checkBusinessNoForm();
 				});	
+
+				$('[name=changeBusinessNo]').change();
+				
 	
 				
 				
@@ -103,11 +105,12 @@
 		
      	function checkBusinessNoForm(){
 				alert($("[name=preChartForm]").serialize());
+
 				
 				//----------------------------------------------
 				// 현재 화면에서 페이지 이동 없이(=비동기 방식으로) 
 				// 서버쪽 loginProc.do 로 접속하여 아이디, 암호의 존재 개수를 얻기
-
+				
 				$.ajax({
 					// 서버 쪽 호출 URL 주소 지정
 					url : "/posbis/preChartProc.do"
@@ -124,24 +127,25 @@
 					// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
 					// 익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
 					// 현재 data라는 매개변수에는 아이디, 암호의 존재 개수가 들어온다. 1:성공, 0:아이디,암호 없음 , 그외:에러
-					, success : function(mav){
-						//alert( mav )
+					, success : function(salesMonthList){
+						
 						// 아이디 존재 개수가 1개면 /z_spring/boardListForm.do 로 이동
-						if(mav.size() != 0){
-							//alert("로그인 성공");
-							document.preChartForm.submit();
+						if(salesMonthList != null){
+							alert("성공");
+							alert(salesMonthList[0].sales_amount);
+							//document.preChartForm.submit();
 						}
-						else if (mav.size() == 0){
+						else if (salesMonthList.size() == 0){
 							alert("사업자번호가 존재하지 않습니다.");
 						}
 						else {
 							alert("서버 오류 발생. 관리자에게 문의 바람");
-						}
+						} 
 					}
 					
 					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-					, error : function(){
-						
+					, error : function(request, error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 						alert("서버 접속 실패");
 						
 					}
@@ -236,7 +240,7 @@
 					<table border=0 width=700  >
 						<tr>
 							<td align=right>
-								사업자번호
+								사업자번호 : 
 								<select name="changeBusinessNo">	<!-- 중요! -->
 									<!-- ************************************************************************************** -->
 									<!-- 사용자 정의 태그인 JSTL C코어 태그 중 <forEach> 태그를 사용하여 ModelAndView 객체에    -->

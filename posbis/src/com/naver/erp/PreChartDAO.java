@@ -16,6 +16,10 @@ public interface PreChartDAO {
 	// u_no을 가지고 business_no 과 business_name 얻기
 	List<Map<String, String>> getBusinessNoList(int user_no);
 	// List<String> getBusinessNoList(int user_no);
-	
+
+
+	List<Map<String, String>> getSalesMonthList(String changeBusinessNo);
+	//List<String> getSalesMonthList(String changeBusinessNo);
+		
 
 }

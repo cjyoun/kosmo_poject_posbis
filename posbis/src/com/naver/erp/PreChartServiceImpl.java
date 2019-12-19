@@ -39,6 +39,7 @@ public class PreChartServiceImpl implements PreChartService{
 		return businessNoList;
 		
 	}
+
 	
 	
 //	@Override
@@ -50,28 +51,23 @@ public class PreChartServiceImpl implements PreChartService{
 //		
 //	}
 	
-	
-	
-   
- /*  
-   // 검색한 게시판 목록 개수  리턴하는 메소드
-   public int getBoardListAllCnt(BoardSearchDTO boardSearchDTO) {
-	  
-      // BoardDAO 인터페이스를 구현하 객체의 getBoardListAllCnt 메소드를 호출 하여
-      // 검색한 게시판 목속 개수를 얻고, 리턴한다.
-      int boardListAllCnt = this.boardDAO.getBoardListAllCnt(boardSearchDTO);
-      
 
-      return boardListAllCnt;
-   }
-   */   
-   
-//--------------------------------------------------------------------------------------------------   
-
-   
+	@Override
+	public List<Map<String, String>> getSalesMonthList(String changeBusinessNo) {
+		System.out.println("service : getSalesMonthList 시작");
+		List<Map<String,String>> salesMonthList = this.preChartDAO.getSalesMonthList(changeBusinessNo);
+		System.out.println("service : getSalesMonthList 끝"); 
+		return salesMonthList;
+	}
 
 
-
+//	@Override
+//	public List<String> getSalesMonthList(String changeBusinessNo) {
+//		System.out.println("service : getSalesMonthList 시작");
+//		List<String> salesMonthList = this.preChartDAO.getSalesMonthList(changeBusinessNo);
+//		System.out.println("service : getSalesMonthList 끝"); 
+//		return salesMonthList;
+//	}
 	
 	
    

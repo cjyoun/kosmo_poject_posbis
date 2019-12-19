@@ -37,6 +37,37 @@
 			
 	</select> -->
 	
+<!-- ========================================================================================= -->
+	
+	<select id='getSalesMonthList' parameterType="String" resultType="java.util.HashMap">	
+		    select
+			    nvl(to_char(sum(m.menu_price * s.sales_count)),'0') as "sales_amount"
+			    , mon.month as "판매월"
+			    from
+			    (
+			        select '01' "MONTH" from dual
+			        union select '02' from dual
+			        union select '03' from dual
+			        union select '04' from dual
+			        union select '05' from dual
+			        union select '06' from dual
+			        union select '07' from dual
+			        union select '08' from dual
+			        union select '09' from dual
+			        union select '10' from dual
+			        union select '11' from dual
+			        union select '12' from dual
+			    ) mon
+			     left outer join sales s on mon.month=extract(month from s.sales_date)
+			     left outer join  business_info b on b.business_no=s.business_no
+			     left outer join menu m on s.menu_no=m.menu_no
+			     and b.business_no = #{changeBusinessNo}
+			    group by mon.month
+			    order by mon.month
+
+			
+	</select>
+	
 	
 	
 	
