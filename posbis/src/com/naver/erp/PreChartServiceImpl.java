@@ -61,6 +61,7 @@ public class PreChartServiceImpl implements PreChartService{
 	}
 
 
+
 //	@Override
 //	public List<String> getSalesMonthList(String changeBusinessNo) {
 //		System.out.println("service : getSalesMonthList 시작");
@@ -70,5 +71,14 @@ public class PreChartServiceImpl implements PreChartService{
 //	}
 	
 	
+	
+	@Override
+	public List<Map<String, String>> getAllSalesMonthList(String changeBusinessNo) {
+		System.out.println("service : getAllSalesMonthList 시작");
+		List<Map<String,String>> allSalesMonthList = this.preChartDAO.getAllSalesMonthList(changeBusinessNo);
+		System.out.println("service : getAllSalesMonthList 끝"); 
+		return allSalesMonthList;
+	}
+
    
 }

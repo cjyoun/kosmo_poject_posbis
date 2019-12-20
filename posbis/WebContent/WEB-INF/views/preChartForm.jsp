@@ -17,74 +17,7 @@
 	 	google.load("visualization", "1", {packages:["corechart"]});
    	    google.setOnLoadCallback(drawChart1);
    	    google.setOnLoadCallback(drawChart2);
-		
-	     
-	     function drawChart1() {
-	
-				/* var data = new google.visualization.DataTable();
-				data.addRows([
-					[1,30], [2,50], [3,45], [4,60], [5,77]
-					, [8,70], [9,50], [10,87], [11,68], [12,60]
-				]); */
-	
-	
-		   var data1 = google.visualization.arrayToDataTable([
-		   	 ['Month', 'My Store', 'Others Store'],
-	         ['1월',  1000,      400],
-	         ['2월',  1170,      460],
-	         ['3월',  660,       1120],
-	         ['4월',  1030,      540],
-	         ['5월',  1030,      540],
-	         ['6월',  1030,      540],
-	         ['7월',  1030,      540],
-	         ['8월',  1030,      540],
-	         ['9월',  1030,      540],
-	         ['10월',  1030,      540],
-	         ['11월',  1030,      540],
-	         ['12월',  1030,      540],
-	       ]);
-	
-	       
-	
-	       var options1 = {
-	         	title: '[월 매출]'
-		        , curveType : 'function'
-		     
-	       };
-	
-	       var chart1 = new google.visualization.LineChart(document.getElementById('chart_div1'));
-	       chart1.draw(data1, options1);
-	     }
-	
-	
-	     function drawChart2() {
-	
-				/* var data = new google.visualization.DataTable();
-				data.addRows([
-					[1,30], [2,50], [3,45], [4,60], [5,77]
-					, [8,70], [9,50], [10,87], [11,68], [12,60]
-				]); */
-	
-	
-		   var data2 = google.visualization.arrayToDataTable([
-	         ['Year', 'Sales', 'Expenses'],
-	         ['2004',  1000,      400],
-	         ['2005',  1170,      460],
-	         ['2006',  660,       1120],
-	         ['2007',  1030,      540]
-	       ]);
-
-	
-	       var options2 = {
-	         	title: '[월 매출]'
-		        
-		     
-	       };
-	
-	       var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
-	       chart2.draw(data2, options2);
-	     }
-	     
+		 
 
 	  	
 	     $(document).ready(function(){	
@@ -95,17 +28,29 @@
 				});	
 
 				$('[name=changeBusinessNo]').change();
-				
-	
-				
+							
 				
 	  	});
      	
-
-		
+	     var sales = new Array();
+	     var kkk;
+	     var kkk2;
+	     var kkk3;
+	     var kkk4;
+	     var kkk5;
+	     var kkk6;
+	     var kkk7;
+	     var kkk8;
+	     var kkk9;
+	     var kkk10;
+	     var kkk11;
+	     var kkk12;
+	     
+	     
      	function checkBusinessNoForm(){
 				alert($("[name=preChartForm]").serialize());
 
+				
 				
 				//----------------------------------------------
 				// 현재 화면에서 페이지 이동 없이(=비동기 방식으로) 
@@ -117,7 +62,8 @@
 					
 					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
 					, type : "post"
-					
+
+					, async : false
 					// 서버로 보낼 파라미터명과 파라미터 값을 설정
 					, data : $("[name=preChartForm]").serialize()				
 						// 위 코드는 아래로도 가능. 
@@ -133,10 +79,28 @@
 						if(salesMonthList != null){
 							alert("성공");
 							alert(salesMonthList[0].sales_amount);
+						 /* 	for(int i=0; i<12; i++){
+								sales[i] = salesMonthList[1].sales_amount
+								alert(sales[i]);
+							} */
+							kkk = salesMonthList[0].sales_amount;
+							kkk2 = salesMonthList[1].sales_amount;
+							kkk3 = salesMonthList[2].sales_amount;
+							kkk4 = salesMonthList[3].sales_amount;
+							kkk5 = salesMonthList[4].sales_amount;
+							kkk6 = salesMonthList[5].sales_amount;
+							kkk7 = salesMonthList[6].sales_amount;
+							kkk8 = salesMonthList[7].sales_amount;
+							kkk9 = salesMonthList[8].sales_amount;
+							kkk10 = salesMonthList[9].sales_amount;
+							kkk11 = salesMonthList[10].sales_amount;
+							kkk12 = salesMonthList[11].sales_amount;
+							
+							drawChart1(); 
 							//document.preChartForm.submit();
 						}
-						else if (salesMonthList.size() == 0){
-							alert("사업자번호가 존재하지 않습니다.");
+						else if (salesMonthList == null){
+							alert("실패");
 						}
 						else {
 							alert("서버 오류 발생. 관리자에게 문의 바람");
@@ -151,11 +115,134 @@
 					}
 					
 				});
-				
-				
-			}		
-			
 
+
+				$.ajax({
+					// 서버 쪽 호출 URL 주소 지정
+					url : "/posbis/preChartProc2.do"
+					
+					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+					, type : "post"
+
+					, async : false
+					// 서버로 보낼 파라미터명과 파라미터 값을 설정
+					, data : $("[name=preChartForm]").serialize()				
+						// 위 코드는 아래로도 가능. 
+						// data : "admin_id="+admin_id+"&pwd="+pwd
+						// data : { 'admin_id':admin_id, 'pwd':pwd}
+					
+					// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+					// 익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
+					// 현재 data라는 매개변수에는 아이디, 암호의 존재 개수가 들어온다. 1:성공, 0:아이디,암호 없음 , 그외:에러
+					, success : function(salesMonthList){
+						
+						// 아이디 존재 개수가 1개면 /z_spring/boardListForm.do 로 이동
+						if(salesMonthList != null){
+							alert("성공2");
+					
+						}
+						else if (salesMonthList == null){
+							alert("실패2");
+						}
+						else {
+							alert("서버 오류 발생. 관리자에게 문의 바람");
+						} 
+					}
+					
+					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+					, error : function(request, error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						alert("서버 접속 실패");
+						
+					}
+					
+				});
+
+				
+				
+				
+			}	
+
+			
+			
+     		function drawChart1() {
+     		
+			/* var data = new google.visualization.DataTable();
+			data.addRows([
+				[1,30], [2,50], [3,45], [4,60], [5,77]
+				, [8,70], [9,50], [10,87], [11,68], [12,60]
+			]); */
+				alert("kkk ====> " + kkk);
+				kkk *=1;
+				kkk2 *=1;
+				kkk3 *=1;
+				kkk4 *=1;
+				kkk5 *=1;
+				kkk6 *=1;
+				kkk7 *=1;
+				kkk8 *=1;
+				kkk9 *=1;
+				kkk10 *=1;
+				kkk11 *=1;
+				kkk12 *=1;
+				
+
+			   var data1 = google.visualization.arrayToDataTable([
+			   	 ['Month', 'My Store', 'Others Store'],
+		         ['1월',  kkk,      400],
+		         ['2월',  kkk2,      460],
+		         ['3월',  kkk3,       1120],
+		         ['4월',  kkk4,      540],
+		         ['5월',  kkk5,      540],
+		         ['6월',  kkk6,      540],
+		         ['7월',  kkk7,      540],
+		         ['8월',  kkk8,      540],
+		         ['9월',  kkk9,      540],
+		         ['10월',  kkk10,      540],
+		         ['11월',  kkk11,      540],
+		         ['12월',  kkk12,      540],
+		       ]);
+		
+		       
+		
+		       var options1 = {
+		         	title: '[월 매출]'
+			        , curveType : 'function'
+			     
+		       };
+		
+		       var chart1 = new google.visualization.LineChart(document.getElementById('chart_div1'));
+		       chart1.draw(data1, options1);
+		     }
+		
+		
+		     function drawChart2() {
+		
+					/* var data = new google.visualization.DataTable();
+					data.addRows([
+						[1,30], [2,50], [3,45], [4,60], [5,77]
+						, [8,70], [9,50], [10,87], [11,68], [12,60]
+					]); */
+			
+			
+				   var data2 = google.visualization.arrayToDataTable([
+			         ['Year', 'Sales', 'Expenses'],
+			         ['2004',  1000,      400],
+			         ['2005',  1170,      460],
+			         ['2006',  660,       1120],
+			         ['2007',  1030,      540]
+			       ]);
+			
+			
+			       var options2 = {
+			         	title: '[월 매출]'
+				        
+				     
+			       };
+			
+			       var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
+			       chart2.draw(data2, options2);
+		     }	
 
 
      

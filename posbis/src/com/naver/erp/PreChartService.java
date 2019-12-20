@@ -20,8 +20,11 @@ public interface PreChartService {
 
 
 	List<Map<String, String>> getSalesMonthList(String changeBusinessNo);
-	
 	//List<String> getSalesMonthList(String changeBusinessNo);
+	
+
+	List<Map<String, String>> getAllSalesMonthList(String changeBusinessNo);
+	
 	
 	
 	

@@ -82,7 +82,8 @@ public class PreChartDAOImpl implements PreChartDAO{
 		
 		return salesMonthList;
 	}
-	
+
+
 //	@Override
 //	public List<String> getSalesMonthList(String changeBusinessNo) {
 //		System.out.println("DAO : getSalesMonthList 시작");
@@ -97,6 +98,23 @@ public class PreChartDAOImpl implements PreChartDAO{
 //		return salesMonthList;
 //	}
 //	
+	
+	
+	@Override
+	public List<Map<String, String>> getAllSalesMonthList(String changeBusinessNo) {
+		System.out.println("DAO : getAllSalesMonthList 시작");
+		System.out.println("changeBusinessNo : " + changeBusinessNo);
+		List<Map<String,String>> allSalesMonthList = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getAllSalesMonthList"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getAllSalesMonthList 끝");
+		
+		return allSalesMonthList;
+	}
+	
+	
+	
 	
 	
 
