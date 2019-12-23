@@ -31,16 +31,15 @@
 <script src="/posbis/resources/jquery-1.11.0.min.js" ></script>
 
 
-<!-- 
+
 <script>
 
 	$(document).ready(function(){
 		if( location.href.indexOf("loginForm.do") < 0 ){
-			$("body").prepend("<center><input type=button value='로그아웃' onClick=\"location.replace('/z_spring/logout.do')\"></center>")
+			$("body").prepend("<center><input type=button value='로그아웃' onClick=\"location.replace('/posbis/mainForm.do')\"></center>")
 		}
 	});
 	
 </script>
 
- -->
 

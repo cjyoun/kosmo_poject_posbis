@@ -197,67 +197,67 @@ public class LoginController {
 //	}
 //	
 //	
-	
-	
-	@RequestMapping( value="/qstnContentForm.do" )	
-	public ModelAndView qstnContentForm() {		// 메소드 이름은 상관 없음.
-
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("qstnContentForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
-		return mav;
-		
-	}
-	
-	
-	
-	
-	
-	@RequestMapping( value="/qstnForm.do" )	
-	public ModelAndView qstnForm() {		// 메소드 이름은 상관 없음.
-
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("qstnForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
-		return mav;
-		
-	}
+//	
+//	
+//	@RequestMapping( value="/qstnContentForm.do" )	
+//	public ModelAndView qstnContentForm() {		// 메소드 이름은 상관 없음.
+//
+//		// [ModelAndView 객체] 생성.
+//		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+//		// [ModelAndView 객체] 리턴하기
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("qstnContentForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+//		return mav;
+//		
+//	}
+//	
 	
 	
 	
-	
-	
-	@RequestMapping( value="/qstnRegForm.do" )	
-	public ModelAndView qstnRegForm() {		// 메소드 이름은 상관 없음.
-
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("qstnRegForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
-		return mav;
-		
-	}
+//	
+//	@RequestMapping( value="/qstnForm.do" )	
+//	public ModelAndView qstnForm() {		// 메소드 이름은 상관 없음.
+//
+//		// [ModelAndView 객체] 생성.
+//		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+//		// [ModelAndView 객체] 리턴하기
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("qstnForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+//		return mav;
+//		
+//	}
 	
 	
 	
 	
+//	
+//	@RequestMapping( value="/qstnRegForm.do" )	
+//	public ModelAndView qstnRegForm() {		// 메소드 이름은 상관 없음.
+//
+//		// [ModelAndView 객체] 생성.
+//		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+//		// [ModelAndView 객체] 리턴하기
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("qstnRegForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+//		return mav;
+//		
+//	}
+//	
 	
-	@RequestMapping( value="/qstnUpDelForm.do" )	
-	public ModelAndView qstnUpDelForm() {		// 메소드 이름은 상관 없음.
-
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("qstnUpDelForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
-		return mav;
-		
-	}
+	
+	
+//	
+//	@RequestMapping( value="/qstnUpDelForm.do" )	
+//	public ModelAndView qstnUpDelForm() {		// 메소드 이름은 상관 없음.
+//
+//		// [ModelAndView 객체] 생성.
+//		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+//		// [ModelAndView 객체] 리턴하기
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("qstnUpDelForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+//		return mav;
+//		
+//	}
 	
 	
 
