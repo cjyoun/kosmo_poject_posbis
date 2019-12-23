@@ -128,12 +128,17 @@ public class PreChartDAOImpl implements PreChartDAO{
 	// business_no 가지고 우리가게 인기메뉴 구하기
 	@Override
 	public List<Map<String,String>> getMyPopularityMenu(String changeBusinessNo) {
+	//public List<String> getMyPopularityMenu(String changeBusinessNo) {
 		System.out.println("DAO : getMyPopularityMenu 시작");
 		System.out.println("changeBusinessNo : " + changeBusinessNo);
 		List<Map<String,String>> myPopularityMenu = this.sqlSession.selectList(
 				 "com.naver.erp.PreChartDAO.getMyPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
 				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
+//		List<String> myPopularityMenu = this.sqlSession.selectList(
+//				 "com.naver.erp.PreChartDAO.getMyPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
+//				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+//		);
 		System.out.println("DAO : getMyPopularityMenu 끝");
 		
 		return myPopularityMenu;
@@ -145,19 +150,38 @@ public class PreChartDAOImpl implements PreChartDAO{
 	// business_no 가지고 다른가게 인기메뉴 구하기
 	@Override
 	public List<Map<String,String>> getOthersPopularityMenu(String changeBusinessNo) {
+	//public List<String> getOthersPopularityMenu(String changeBusinessNo) {
 		System.out.println("DAO : getOthersPopularityMenu 시작");
 		System.out.println("changeBusinessNo : " + changeBusinessNo);
 		List<Map<String,String>> othersPopularityMenu = this.sqlSession.selectList(
 				 "com.naver.erp.PreChartDAO.getOthersPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
 				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
+//		List<String> othersPopularityMenu = this.sqlSession.selectList(
+//		 "com.naver.erp.PreChartDAO.getOthersPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
+//		, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+//		);
+
+		
+		
 		System.out.println("DAO : getOthersPopularityMenu 끝");
 		
 		return othersPopularityMenu;
 	}
 			
 	
-	
+//--------------------------------------------------------------------------------------------------   
+	// business_no 가지고 같은 업종, 같은 동네 점포수 구하기
+	@Override
+	public String getStoreCount(String changeBusinessNo) {
+		System.out.println("DAO : getStoreCount 시작");
+		String storeCount = this.sqlSession.selectOne(
+				 "com.naver.erp.PreChartDAO.getStoreCount"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getStoreCount 끝"); 
+		return storeCount;
+	}	
 
 
 }

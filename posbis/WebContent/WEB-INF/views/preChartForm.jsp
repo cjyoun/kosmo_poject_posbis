@@ -47,6 +47,7 @@
 	     var kkk10;
 	     var kkk11;
 	     var kkk12;
+	     
 		// Controller에서 받아온 같은 동네, 같은 업종의 다른 가게들 평균 월별 매출을 담을 변수 선언.
 	     var aaa2;
 	     var aaa3;
@@ -138,71 +139,10 @@
 					
 				});
 				
-				
-				//----------------------------------------------
-				// 현재 화면에서 페이지 이동 없이(=비동기 방식으로) 
-				// 서버쪽 loginProc.do 로 접속하여 아이디, 암호의 존재 개수를 얻기
-/*			
-				$.ajax({
-					// 서버 쪽 호출 URL 주소 지정
-					url : "/posbis/preChartProc.do"
-					
-					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
-					, type : "post"
 
-					, async : false
-					// 서버로 보낼 파라미터명과 파라미터 값을 설정
-					, data : $("[name=preChartForm]").serialize()				
-						// 위 코드는 아래로도 가능. 
-						// data : "admin_id="+admin_id+"&pwd="+pwd
-						// data : { 'admin_id':admin_id, 'pwd':pwd}
-					
-					// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
-					// 익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
-					// 현재 data라는 매개변수에는 아이디, 암호의 존재 개수가 들어온다. 1:성공, 0:아이디,암호 없음 , 그외:에러
-					, success : function(salesMonthList){
-						
-						// 아이디 존재 개수가 1개면 /z_spring/boardListForm.do 로 이동
-						if(salesMonthList != null){
-							alert("성공");
-							alert(salesMonthList[0].sales_amount);
-						// 	for(int i=0; i<12; i++){
-						//		sales[i] = salesMonthList[1].sales_amount
-						//		alert(sales[i]);
-						//	} 
-							kkk = salesMonthList[0].sales_amount;
-							kkk2 = salesMonthList[1].sales_amount;
-							kkk3 = salesMonthList[2].sales_amount;
-							kkk4 = salesMonthList[3].sales_amount;
-							kkk5 = salesMonthList[4].sales_amount;
-							kkk6 = salesMonthList[5].sales_amount;
-							kkk7 = salesMonthList[6].sales_amount;
-							kkk8 = salesMonthList[7].sales_amount;
-							kkk9 = salesMonthList[8].sales_amount;
-							kkk10 = salesMonthList[9].sales_amount;
-							kkk11 = salesMonthList[10].sales_amount;
-							kkk12 = salesMonthList[11].sales_amount;
-							
-							drawChart1(); 
-							//document.preChartForm.submit();
-						}
-						else if (salesMonthList == null){
-							alert("실패");
-						}
-						else {
-							alert("서버 오류 발생. 관리자에게 문의 바람");
-						} 
-					}
-					
-					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-					, error : function(request, error){
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-						alert("서버 접속 실패");
-						
-					}
-					
-				});
-*/
+
+				//-----------------------------------------------------------------
+				// 두번째 ajax : 우리가게, 다른가게 인기메뉴 구하기
 
   				$.ajax({
 					// 서버 쪽 호출 URL 주소 지정
@@ -220,18 +160,34 @@
 					
 					// myPopularityListDTO 안의 나의 가게 인기메뉴를 골라 class=myPopularityMenu안에 append로 입력.
 					, success : function(myPopularityListDTO){
+						alert(typeof(myPopularityListDTO));
+
 
 						if(myPopularityListDTO != null){
 							alert("성공2");
-							$('.menu').remove();
-							var menu = myPopularityListDTO.myPopularityMenu[0].MENU_NAME ;
-							alert("menu => " + menu);
-							$('.myPopularityMenu').append('<td align=center class="menu">'+ menu +'</td>');
+							$(".menu").remove();
+							$(".menu2").remove();
+							$(".menu3").remove();
+
+							// 우리가게 인기메뉴 가져와서 보여주기
+							for(var i=0; i<myPopularityListDTO.myPopularityMenu.length; i++){
+								var menu = myPopularityListDTO.myPopularityMenu[i].MENU_NAME ;
+								alert("menu => " + menu);
+								$('.myPopularityMenu').append('<tr class="menu2"><td align=center >'+ menu +'</td>');
+							}
+						
 							
-							var menu2 = myPopularityListDTO.othersPopularityMenu[0].MENU_NAME ;
-							alert("menu2 => " + menu2);
-							$('.othersPopularityMenu').append('<td align=center class="menu">'+ menu2 +'</td>');
-					
+							// 다른가게 인기메뉴 가져와서 보여주기
+							for(var i=0; i<myPopularityListDTO.othersPopularityMenu.length; i++){
+								var menu = myPopularityListDTO.othersPopularityMenu[i].MENU_NAME ;
+								alert("menu => " + menu);
+								$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >'+ menu +'</td>');
+							}
+
+							var storeCount = myPopularityListDTO.storeCount;
+							alert("storeCount => " + storeCount)
+							$('.store_count').append('<td align=center class="menu3" >'+ storeCount +'</td>');
+
 						}
 						else if (myPopularityListDTO == null){
 							alert("실패2");
@@ -244,14 +200,10 @@
 					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 					, error : function(request, error){
 						alert("서버 접속 실패2");
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-						
-						
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
 					}
 					
-				});
- 
-				
+				});		
 				
 				
 			}	
@@ -324,7 +276,8 @@
 		       chart1.draw(data1, options1);
 		     }
 		
-		
+
+    		
 		/*      function drawChart2() {
 			
 				   var data2 = google.visualization.arrayToDataTable([
@@ -469,8 +422,10 @@
 		      <input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp;
 		
 		         <br><br><br>
+		         <h1><script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script></h1>
+		         <br>
 		         [월매출]<br>
-		         - 차트<br><br>
+		         <br><br>
 		         <div id="chart_div1" style="width: 700px; height: 200px;"></div>
 
 <!-- 		
@@ -481,19 +436,22 @@
 		 		<br>    
 		         
 		         우리점포 인기메뉴<br>
-		         <table border=1 width=200 >
-		         	<tr class="myPopularityMenu">		
+		         <table border=1 width=200 class="myPopularityMenu" >
+	
 		         </table>
 		         
 		         
 		         <br><br>
 		         다른 가게 인기메뉴<br>
-		         <table border=1 width=200 >
-		         	<tr class="othersPopularityMenu">		
+		         <table border=1 width=200 class="othersPopularityMenu" >
+		         		
 		         </table>
 		         
 		         <br><br>
-		         매출 등..
+		         같은 동네, 같은 업종 의 점포수
+		         <table border=1 width=200 >
+		         	<tr class="store_count">		
+		         </table>
 		         
          
             </div>

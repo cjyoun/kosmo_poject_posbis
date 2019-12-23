@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	
+	
+
+
+<mapper namespace="com.naver.erp.PreSearchDAO">
+
+	
+ 
+<!-- 	<sql id="preSearchWhere">
+						and s.menu_no=m.menu_no
+				 and extract(month from s.sales_date)=(extract(month from sysdate)-1)
+		    	<if test="addrGu1!=null and addrGu1.length()>0">
+		    	and (select a.addr_gu
+		      		  from addr a, business_info bi
+		       		 where bi.addr_no=a.addr_no
+		            		and bi.business_no=s.business_no)=#{addrGu1}
+				</if>	
+				<if test="business_type_name1!=null and business_type_name1.length()>0">
+			    and (select cbt.business_type_name1
+			            from code_business_type cbt, business_info bi
+			            where cbt.business_type_code=bi.business_type_code
+			                and bi.business_no=s.business_no) = #{business_type_name1}
+			  	</if>
+			  	<if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+			    and (select cbt.business_type_name2
+			            from code_business_type cbt, business_info bi
+			            where cbt.business_type_code=bi.business_type_code
+			                and bi.business_no=s.business_no) = #{business_type_name2}
+               	</if>
+			    and s.sales_count*m.menu_price >= ${month_sales}
+               	
+		group by s.business_no
+	</sql> -->
+ 
+
+
+
+
+	<!-- ===== [프리미엄 검색 리스트] =================================================================-->	
+	<select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(		
+				select
+   						 s.business_no
+					    , sum(s.sales_count*m.menu_price)   as "months_sales"
+					    , (select cbt.business_type_name2
+					        	from code_business_type cbt, business_info bi
+					       		 where cbt.business_type_code=bi.business_type_code
+					          				  and s.business_no=bi.business_no)    as "business_type"
+					    , (select a.addr_dong
+					       		 from addr a, business_info bi
+					      		  where bi.addr_no=a.addr_no
+					            				and bi.business_no=s.business_no)    "dong"
+				from sales s , menu m
+				where 1=1
+						and s.menu_no=m.menu_no
+						and extract(month from s.sales_date)=(extract(month from sysdate)-1)
+				    	<if test="addrGu1!=null and addrGu1.length()>0">
+				    	and (select a.addr_gu
+				      		  from addr a, business_info bi
+				       		 where bi.addr_no=a.addr_no
+				            		and bi.business_no=s.business_no)=#{addrGu1}
+						</if>	
+						<if test="business_type_name1!=null and business_type_name1.length()>0">
+					    and (select cbt.business_type_name1
+					            from code_business_type cbt, business_info bi
+					            where cbt.business_type_code=bi.business_type_code
+					                and bi.business_no=s.business_no) = #{business_type_name1}
+					  	</if>
+					  	<if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+					    and (select cbt.business_type_name2
+					            from code_business_type cbt, business_info bi
+					            where cbt.business_type_code=bi.business_type_code
+					                and bi.business_no=s.business_no) = #{business_type_name2}
+		               	</if>
+		               	and s.sales_count*m.menu_price >= ${month_sales}
+					
+				group by s.business_no
+				order by sum(s.sales_count*m.menu_price) desc
+									<!-- <include refid="preSearchWhere"/> -->
+						
+		) zzz) where 
+			<![CDATA[
+			RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1}
+			 and RNUM<=${selectPageNo*rowCntPerPage}
+			 ]]>
+				
+	</select>
+	
+
+	<!--====[프리미엄 검색 개수]===========================================================================-->	
+	<select id="getPreResultAllCnt" parameterType="com.naver.erp.PreSearchDTO" resultType="int">
+		select count(*)
+		from (select  *
+					from sales s , menu m
+					where 1=1
+								and s.menu_no=m.menu_no
+		   						 and extract(month from s.sales_date)=(extract(month from sysdate)-1)
+						    	<if test="addrGu1!=null and addrGu1.length()>0">
+						    	and (select a.addr_gu
+						      		  from addr a, business_info bi
+						       		 where bi.addr_no=a.addr_no
+						            		and bi.business_no=s.business_no)=#{addrGu1}
+								</if>	
+								<if test="business_type_name1!=null and business_type_name1.length()>0">
+							    and (select cbt.business_type_name1
+							            from code_business_type cbt, business_info bi
+							            where cbt.business_type_code=bi.business_type_code
+							                and bi.business_no=s.business_no) = #{business_type_name1}
+							  	</if>
+							  	<if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+							    and (select cbt.business_type_name2
+							            from code_business_type cbt, business_info bi
+							            where cbt.business_type_code=bi.business_type_code
+							                and bi.business_no=s.business_no) = #{business_type_name2}
+				               	</if>
+							    and s.sales_count*m.menu_price >= ${month_sales}
+					group by s.business_no)
+							<!-- 	<include refid="preSearchWhere"/> -->
+	</select>
+	
+	
+	<select id="getBusinessInfoList" parameterType="int" resultType="java.util.HashMap">
+		select 
+			business_no   as "business_no"
+			, business_name   as "business_name"
+		from business_info
+		where u_no=#{u_no}
+	</select>
+		
+
+<!-- =====[구 리스트] 얻기====================================================================== -->		
+	<!-- [select / addrGu1]얻기 -->
+	<select id="getAddrGu1List"  resultType="java.util.HashMap">
+		select
+  				 distinct(addr_gu)  as "addr_gu"
+		from addr
+	</select>
+		
+
+<!-- ====[UserNo] 얻기============================================================================ -->		
+		
+   <select id='getUserNo' parameterType="String" resultType="int">   
+      select u_no from user_info where user_id=#{user_id}
+   </select>
+
+	<!-- =====[BusinessNoList] 얻기========================================================================= -->
+
+	<select id='getBusinessNoList' parameterType="int"
+		resultType="java.util.HashMap">
+		select
+		business_no as "business_no"
+		, business_name as "business_name"
+
+		from business_info
+		where
+		1=1
+		and u_no=#{u_no}
+
+	</select>
+	
+
+<!-- =====[business type 대분류 리스트] 얻기========================================================================= -->	
+	<select id="getBusinessTypeName1List"  resultType="java.util.HashMap">
+		select
+  				 distinct(BUSINESS_TYPE_NAME1)  as "business_type_name1"
+		from code_business_type
+	</select>
+	
+
+<!-- =====[business type 소분류 리스트] 얻기========================================================================= -->	
+	<select id="getBusinessTypeName2" parameterType="String" resultType="String">
+		select
+  				 business_type_name2  as "business_type_name2"
+		from code_business_type
+		where 1=1
+				and business_type_name1 = #{business_type_name1}
+	</select>
+	
+	
+	
+	
+	
+</mapper>	
+	

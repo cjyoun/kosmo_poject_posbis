@@ -33,5 +33,14 @@ public interface PreChartDAO {
 	List<Map<String,String>> getOthersPopularityMenu(String changeBusinessNo);
 	
 	
+//	// business_no 가지고 우리 가게 인기메뉴 구하기
+//	List<String> getMyPopularityMenu(String changeBusinessNo);
+//
+//	// business_no 가지고 다른 가게 인기메뉴 구하기
+//	List<String> getOthersPopularityMenu(String changeBusinessNo);
+	
+	// business_no 가지고 같은 업종, 같은 동네 점포수 구하기
+	String getStoreCount(String changeBusinessNo);
+	
 	
 }

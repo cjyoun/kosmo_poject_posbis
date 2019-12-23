@@ -1,5 +1,6 @@
 package com.naver.erp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -260,10 +261,14 @@ public class PreChartController {
 
 	) {
 		System.out.println("preChartProc2 시작1");
-		List<Map<String,String>> myPopularityMenu = null;
+		List<Map<String,String>> myPopularityMenu = new ArrayList<Map<String,String>>();
 		
-		List<Map<String,String>> othersPopularityMenu = null;
+		List<Map<String,String>> othersPopularityMenu = new ArrayList<Map<String,String>>();
+		
 
+//		List<String> myPopularityMenu = new ArrayList<String>();
+//		List<String> othersPopularityMenu = new ArrayList<String>();
+		
 		System.out.println("business_no ===> " + changeBusinessNo);
 
 		try {
@@ -289,6 +294,15 @@ public class PreChartController {
 			}
 
 			myPopularityListDTO.setOthersPopularityMenu(othersPopularityMenu);
+			
+			
+// 같은 동네, 같은 업종 점포수 구하기.
+//==================================================================================================================			
+			String storeCount = this.preChartService.getStoreCount(changeBusinessNo);
+			
+			System.out.println("storeCount ===> " + storeCount);
+			
+			myPopularityListDTO.setStoreCount(storeCount);
 			
 
 		} catch (Exception e) {

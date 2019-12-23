@@ -63,6 +63,7 @@
 			     left outer join  business_info b on b.business_no=s.business_no
 			     left outer join menu m on s.menu_no=m.menu_no
 			     and b.business_no = #{changeBusinessNo}
+			     and extract(year from s.sales_date) = extract(year from sysdate)
 			    group by mon.month
 			    order by mon.month
 
@@ -105,6 +106,7 @@
 			     and b.business_no != #{changeBusinessNo}
 			     and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			     and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
+			     and extract(year from s.sales_date) = extract(year from sysdate)
 			    group by mon.month
 			    order by mon.month
 			
@@ -114,7 +116,8 @@
 <!-- ============== 나의 가게 인기메뉴 구하기 =========================================================================== -->
 <!-- rank로 순서를 정하고 sua(s.sales_count)를 문자형으로 고쳐서 List<Map<String,String>> 형태를 맞춰줌. -->
  	
-	<select id='getMyPopularityMenu' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getMyPopularityMenu' parameterType="String" resultType="java.util.HashMap">
+	<!-- <select id='getMyPopularityMenu' parameterType="String" resultType="String"> -->	
 		     select menu_name, sales_count from(
 			    select
 			        s.menu_no "menu_no"
@@ -122,7 +125,7 @@
 			        , sum(s.sales_count)||'' "SALES_COUNT"
 			        ,rank() over (order by sum(s.sales_count) desc) "RN"
 			    from sales s
-			      where s.business_no=#{changeBusinessNo}
+			      where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
 			      group by s.menu_no
 			      )
 			where rn=1
@@ -132,7 +135,8 @@
 	
 <!-- ============== 다른 가게 인기메뉴 구하기 =========================================================================== -->
 	
-	<select id='getOthersPopularityMenu' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getOthersPopularityMenu' parameterType="String" resultType="java.util.HashMap">
+	<!-- <select id='getOthersPopularityMenu' parameterType="String" resultType="String">	 -->
 		     select menu_name, sales_count from(
 			    select
 			        s.menu_no "menu_no"
@@ -144,13 +148,23 @@
 			        and b.business_no != #{changeBusinessNo}
 			        and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			        and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
+			        and extract(year from s.sales_date) = extract(year from sysdate)
 			      group by s.menu_no
 			      order by 3 desc)
 			where rn=1 
 
 	</select>
 
-		
+
+<!-- ============== 다른 가게 인기메뉴 구하기 =========================================================================== -->
+	
+	<select id='getStoreCount' parameterType="String" resultType="String">
+		select count(*)||'' "store_count"  from business_info b
+		    where b.business_no != #{changeBusinessNo}
+		    and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
+		    and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
+
+	</select>		
 		
 	
 </mapper>
