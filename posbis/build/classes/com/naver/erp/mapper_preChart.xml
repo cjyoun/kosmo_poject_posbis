@@ -10,12 +10,13 @@
 <mapper namespace="com.naver.erp.PreChartDAO">
 
 
+<!-- ============== u_no 얻기 =========================================================================== -->
 
 	<select id='getUserNo' parameterType="String" resultType="int">	
 		select u_no from user_info where user_id=#{user_id}
 	</select>
 	
-<!-- ========================================================================================= -->
+<!-- ============== business_no 얻기 =========================================================================== -->
 	
 	<select id='getBusinessNoList' parameterType="int" resultType="java.util.HashMap">	
 		select 
@@ -37,7 +38,7 @@
 			
 	</select> -->
 	
-<!-- ========================================================================================= -->
+<!-- ============== 나의 가게 월 매출 구하기 =========================================================================== -->
 	
 	<select id='getSalesMonthList' parameterType="String" resultType="java.util.HashMap">	
 		    select
@@ -69,7 +70,7 @@
 	</select>
 	
 	
-<!-- ========================================================================================= -->
+<!-- ============== 같은 업종, 같은 동네 가게들 월평균 구하기 =========================================================================== -->
 	
 	<select id='getAllSalesMonthList' parameterType="String" resultType="java.util.HashMap">	
 		     select
@@ -108,8 +109,48 @@
 			    order by mon.month
 			
 	</select>
+
+	
+<!-- ============== 나의 가게 인기메뉴 구하기 =========================================================================== -->
+<!-- rank로 순서를 정하고 sua(s.sales_count)를 문자형으로 고쳐서 List<Map<String,String>> 형태를 맞춰줌. -->
+ 	
+	<select id='getMyPopularityMenu' parameterType="String" resultType="java.util.HashMap">	
+		     select menu_name, sales_count from(
+			    select
+			        s.menu_no "menu_no"
+			        , (select m.menu_name from menu m where s.menu_no = m.menu_no) "MENU_NAME"
+			        , sum(s.sales_count)||'' "SALES_COUNT"
+			        ,rank() over (order by sum(s.sales_count) desc) "RN"
+			    from sales s
+			      where s.business_no=#{changeBusinessNo}
+			      group by s.menu_no
+			      )
+			where rn=1
+
+	</select>
 	
 	
+<!-- ============== 다른 가게 인기메뉴 구하기 =========================================================================== -->
+	
+	<select id='getOthersPopularityMenu' parameterType="String" resultType="java.util.HashMap">	
+		     select menu_name, sales_count from(
+			    select
+			        s.menu_no "menu_no"
+			        , (select m.menu_name from menu m where s.menu_no = m.menu_no) "MENU_NAME"
+			        , sum(s.sales_count)||'' "SALES_COUNT"
+			        ,rank() over (order by sum(s.sales_count) desc) "RN"
+			    from sales s , business_info b
+			      where s.business_no = b.business_no
+			        and b.business_no != #{changeBusinessNo}
+			        and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
+			        and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
+			      group by s.menu_no
+			      order by 3 desc)
+			where rn=1 
+
+	</select>
+
+		
 		
 	
 </mapper>

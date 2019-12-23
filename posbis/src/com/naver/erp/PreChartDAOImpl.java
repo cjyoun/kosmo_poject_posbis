@@ -69,7 +69,11 @@ public class PreChartDAOImpl implements PreChartDAO{
 //		return businessNoList;
 //	}
 
+
 	
+//--------------------------------------------------------------------------------------------------   
+	
+	// business_no 가지고 나의 가게 월매출 얻기
 	@Override
 	public List<Map<String, String>> getSalesMonthList(String changeBusinessNo) {
 		System.out.println("DAO : getSalesMonthList 시작");
@@ -99,7 +103,10 @@ public class PreChartDAOImpl implements PreChartDAO{
 //	}
 //	
 	
-	
+
+//--------------------------------------------------------------------------------------------------   
+
+	// business_no 가지고 같은 동네, 같은 업종의 가게들의 월 평균 매출 얻기	
 	@Override
 	public List<Map<String, String>> getAllSalesMonthList(String changeBusinessNo) {
 		System.out.println("DAO : getAllSalesMonthList 시작");
@@ -115,6 +122,40 @@ public class PreChartDAOImpl implements PreChartDAO{
 	
 	
 	
+
+//--------------------------------------------------------------------------------------------------   
+
+	// business_no 가지고 우리가게 인기메뉴 구하기
+	@Override
+	public List<Map<String,String>> getMyPopularityMenu(String changeBusinessNo) {
+		System.out.println("DAO : getMyPopularityMenu 시작");
+		System.out.println("changeBusinessNo : " + changeBusinessNo);
+		List<Map<String,String>> myPopularityMenu = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getMyPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getMyPopularityMenu 끝");
+		
+		return myPopularityMenu;
+	}
+	
+	
+//--------------------------------------------------------------------------------------------------   
+
+	// business_no 가지고 다른가게 인기메뉴 구하기
+	@Override
+	public List<Map<String,String>> getOthersPopularityMenu(String changeBusinessNo) {
+		System.out.println("DAO : getOthersPopularityMenu 시작");
+		System.out.println("changeBusinessNo : " + changeBusinessNo);
+		List<Map<String,String>> othersPopularityMenu = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getOthersPopularityMenu"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getOthersPopularityMenu 끝");
+		
+		return othersPopularityMenu;
+	}
+			
 	
 	
 
