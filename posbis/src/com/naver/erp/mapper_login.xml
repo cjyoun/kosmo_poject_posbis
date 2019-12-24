@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+
+<mapper namespace="com.naver.erp.LoginDAO">
+<!--********************************************************************-->
+<!--로그인 아이디 암호 개수  -->
+	<select id='getAdminCnt' parameterType="hashmap" resultType="int">
+		select 
+			count(*) 
+		from user_info 
+		where user_id=#{user_id} and user_pwd=#{user_pwd}
+	</select>
+
+
+
+<!--********************************************************************-->
+ <!-- 아이디 중복 겁사 -->
+	<select id='getJoinIDCnt' parameterType="hashmap" resultType="int">
+		select count(*) from user_info where user_id=#{user_id} 
+	</select>
+  
+<!--********************************************************************-->
+<!-- 주소 구데이터 가져오기 -->   
+   	<select id='getAddrListGu' resultType="java.util.HashMap"   >
+	select	
+		distinct addr_gu  		as "addr_gu"
+ 	from addr
+	where 1=1 
+	</select>
+ 
+ 
+ 
+<!--********************************************************************-->
+<!-- 동 구데이터 가져오기  resultType는 한 행에 대한 결과의 자료형-->   
+   	<select id='getAddrListDong' parameterType="String"  resultType="String" >
+	select	
+		addr_dong 		as "addr_dong"
+ 	from addr
+	where 1=1 and addr_gu=#{addr_gu} 
+	</select>
+ 
+<!--********************************************************************-->
+<!-- 업종1 구데이터 가져오기 -->   
+   	<select id='getbusinessTypeList1' resultType="java.util.HashMap"   >
+	select
+		distinct business_type_name1   		as "business_type_name1"
+ 	from code_business_type
+	where 1=1 
+	</select>
+  	
+<!--********************************************************************-->
+<!-- 업종2 구데이터 가져오기 -->    	
+	<select id='getbusinessTypeList2' resultType="String" parameterType="String"  >
+	select	
+		business_type_name2 		as "business_type_name2"
+ 	from code_business_type
+	where 1=1 and business_type_name1=#{business_type_name1} 
+	</select>
+<!--********************************************************************-->
+<!--회원가입 등록 대표자 정보 -->   
+   <insert id='insertJoinUser' parameterType="com.naver.erp.joinDTO">
+   insert into user_info(
+          u_no
+          ,user_id         
+          ,user_pwd         
+          ,rank_code
+          ,user_name 
+          ,birth
+          ,email 
+          ,question_code
+          ,answer 
+	)values (
+        (select nvl(max(u_no),0)+1 from user_info)
+          ,#{user_id}
+          ,#{user_pwd}
+          ,#{rank_code}   
+          ,#{user_name} 
+          ,#{birth}
+          ,#{email}
+          ,#{question_code}
+          ,#{answer}
+		)
+   </insert>
+<!--********************************************************************-->
+<!--회원가입 등록 사업장 정보 -->   
+   <insert id='insertJoinBusinessInfo' parameterType="com.naver.erp.joinDTO">
+  insert into business_info(
+          business_no
+          ,u_no         
+          ,business_name 
+          ,addr_no
+          ,addr_detail
+          ,business_type_code
+          ,store_tel_num 
+ 
+	)values (
+          #{business_no}
+          ,(select u_no from(select * from user_info order by rownum desc) where rownum=1) 
+          ,#{business_name}
+          ,(select addr_no from addr where addr_no = (select addr_no from addr where addr_gu=#{addr_gu} and addr_dong=#{addr_dong}))
+          ,#{addr_detail} 
+          ,(select distinct business_type_code from code_business_type where business_type_code = (select business_type_code from code_business_type where business_type_name1=#{business_type_name1} and business_type_name2=#{business_type_name2}))
+          ,#{store_tel_num}
+		)
+         
+   </insert>
+<!--********************************************************************-->
+<!--탈퇴시 아이디 암호 조회 및 삭제  -->
+<!-- 1 -->  
+	 <delete id="deleteSalesBusi" parameterType="hashmap" >
+	delete from sales where business_no in (select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd}))
+	
+	</delete>  
+	
+	<!-- <delete id="deleteSalesMenu" parameterType="hashmap" >
+	delete from sales where menu_no=(select menu_no from menu where business_no=(select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd})))
+	</delete>   -->
+	
+	<delete id="deleteMenu" parameterType="hashmap" >
+	delete from menu where business_no in (select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd}) )
+	</delete>  
+	
+	<delete id="deletebusinessInfo" parameterType="hashmap" >
+	delete from business_info where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
+	</delete>  
+	
+	<delete id="deleteCard" parameterType="hashmap" >
+	delete from card where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
+	</delete>  
+	
+	<delete id="deleteQna" parameterType="hashmap" >
+	delete from qna where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
+	</delete>  
+	
+	<delete id="deleteUserInfo" parameterType="hashmap" >
+	delete from user_info where u_no=(select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
+	</delete>  
+
+
+<!--********************************************************************-->
+<!--로그인 아이디 암호 개수  -->
+	<select id='getBusinessnoCnt' parameterType="hashmap" resultType="int">
+		select 
+			count(*) 
+		from business_info 
+		where business_no=#{business_no}
+	</select>
+
+<!--********************************************************************-->
+<!-- 아이디 암호 사업자번호 조회 후  개수- -->
+	<select id='getfindBusinessNoCnt' parameterType="hashmap" resultType="int">
+		select 
+			count(*) 
+		from business_info 
+		where business_no = #{business_no} 
+	</select>
+	
+	<select id='getfindIDPasswordCnt' parameterType="hashmap" resultType="int">
+		select 
+			count(*) 
+		from user_info 
+		where user_name=#{user_name} and question_code=#{question_code} and answer=#{answer}
+	</select>
+	
+<!--********************************************************************-->
+<!-- 아이디 암호 사업자번호 조회 후  개수- -->
+
+	<select id='getfindIDPwd' parameterType="hashmap" resultType="com.naver.erp.searchIDPwdDTO">
+		select 
+			user_id		as "user_id"
+			,user_pwd	as "user_pwd"
+		from user_info 
+		where user_name=#{user_name} and question_code=#{question_code} and answer=#{answer}
+	</select>
+<!--********************************************************************-->
+
+
+</mapper>

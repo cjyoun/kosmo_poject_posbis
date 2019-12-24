@@ -224,9 +224,6 @@
 			alert("메뉴별 검색 실행");
          }
 
-       function goMainForm(){
-           location.replace("/posbis/mainForm.do");
-        }
 
 		function goSearchAll(){
 
@@ -239,6 +236,56 @@
 		inputData("[name=changeBusinessNo]","${salesSearchDTO.changeBusinessNo}");
 		goSearch();
 		}
+
+
+		function goPreSearchForm(){
+	         location.replace("/posbis/preSearchForm.do");
+	      }
+	
+	
+    	function goMyPageForm(){
+          alert("goMyPageForm.jsp로 이동")
+          location.replace("/posbis/myPageForm.do")
+       	}
+
+       	function goMenuForm(){
+          alert("goMenuForm.jsp로 이동")
+          location.replace("/posbis/menuForm.do")
+       	}
+     
+       	function goSalesForm(){
+          alert("goSalesForm.jsp로 이동")
+          location.replace("/posbis/salesForm.do")
+       	}
+     
+       	function goPreChartForm(){
+          alert("goPreChartForm.jsp로 이동")
+          location.replace("/posbis/preChartForm.do")
+       	}
+
+       	function goMainForm(){
+          alert("goMainForm.jsp로 이동")
+          location.replace("/posbis/mainForm.do")
+       	}
+       
+       	function goInfoUpdateForm(){
+          alert("goInfoUpdateForm.jsp로 이동")
+          location.replace("/posbis/infoUpdateForm.do")
+       	}
+       
+       	function gowithdrawalForm(){
+          alert("gowithdrawalForm.jsp로 이동")
+          location.replace("/posbis/withdrawalForm.do")
+       	}
+
+
+       	function goMainForm(){
+           alert("메인으로 이동");
+           location.replace("/posbis/mainForm.do");
+        	}
+
+
+		
 
       </script>
 

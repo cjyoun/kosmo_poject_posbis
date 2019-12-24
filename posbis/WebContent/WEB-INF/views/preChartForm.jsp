@@ -436,7 +436,7 @@
 		 		<br>    
 		         
 		         우리점포 인기메뉴<br>
-		         <table border=1 width=200 class="myPopularityMenu" >
+		         <table border=1 width=200 class="myPopularityMenu"  >
 	
 		         </table>
 		         
