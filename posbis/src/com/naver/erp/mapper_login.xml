@@ -178,4 +178,66 @@
 <!--********************************************************************-->
 
 
+
+
+<!-- business_no에 따른 나의 정보 얻어 오기 -->
+
+	<select id='getMyInfo' parameterType="String" resultType="java.util.HashMap">
+		select
+		    u.user_id "user_id"
+		    , u.user_name "user_name"
+		    , email "email"
+		    , b.business_no "business_no"
+		    , b.business_name "business_name"
+		    , (SELECT
+		        substr(xmlagg(xmlelement(x,',', a.addr_gu||' '||a.addr_dong ||' '|| b.addr_detail
+		        )).extract('//text()'),2)
+		      from addr a where b.addr_no = a.addr_no ) "store_addr"
+		    , (SELECT
+		        substr(xmlagg(xmlelement(x,',', c.business_type_name1||' ('||c.business_type_name2 ||')'
+		        )).extract('//text()'),2)
+		      from code_business_type c where b.business_type_code = c.business_type_code ) "business_type"
+		    , b.store_tel_num "store_tel_num"
+		from user_info u , business_info b
+		where u.u_no = b.u_no and business_no = #{business_no}
+	</select>
+
+
+
+
+
+
+<!-- business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분) -->
+
+	<select id='getMyNStoreInfo' parameterType="String" resultType="java.util.HashMap">
+		select
+		    u.user_id "user_id"
+		    , u.user_name "user_name"
+		    , u.email "email"
+		    , u.birth "birth"
+		    , u.rank_code "rank_code"
+		    , b.business_no "business_no"
+		    , b.business_name "business_name"
+		    , (select a.addr_gu from addr a where a.addr_no = b.addr_no) "addr_gu"  
+		    , (select a.addr_dong from addr a where a.addr_no = b.addr_no) "addr_dong"
+		    , b.addr_detail "addr_detail"  
+		    , (select c.business_type_name1 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name1"  
+		    , (select c.business_type_name2 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name2"
+		    , b.store_tel_num "store_tel_num"
+		from user_info u , business_info b
+		where u.u_no = b.u_no and business_no = #{business_no}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

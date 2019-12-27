@@ -1,6 +1,7 @@
 package com.naver.erp;
 import java.util.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class MenuController {
 	public ModelAndView menuForm(
 		MenuSearchDTO menuSearchDTO
 		,HttpSession session
+		, HttpServletResponse response
 	) {
 		
 		ModelAndView mav = new ModelAndView();
@@ -29,7 +31,8 @@ public class MenuController {
 		try {
 			
 			// 사업자 번호 얻기 
-			String user_id = "user7";
+			String user_id = (String)session.getAttribute("user_id");
+			//String user_id = "user7";
 			System.out.println("user_no 얻기 시작");
 			System.out.println(user_id);
 			

@@ -181,7 +181,45 @@ public class PreChartDAOImpl implements PreChartDAO{
 		);
 		System.out.println("DAO : getStoreCount 끝"); 
 		return storeCount;
+	}
+	
+	
+
+//--------------------------------------------------------------------------------------------------   
+	// business_no 가지고 상품별 판매 횟수 구하기.
+	@Override
+	public List<Map<String, String>> getMenuSalesCount(String changeBusinessNo) {
+		System.out.println("DAO : getMenuSalesCount 시작");
+		System.out.println("changeBusinessNo : " + changeBusinessNo);
+		List<Map<String,String>> menuSalesCount = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getMenuSalesCount"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);		
+		
+		System.out.println("DAO : getMenuSalesCount 끝");
+		
+		return menuSalesCount;
 	}	
 
+	
+	
+//--------------------------------------------------------------------------------------------------   
+	// business_no 가지고 상품별 순이익 구하기.
+	@Override
+	public List<Map<String, String>> getSalesBenefit(String changeBusinessNo) {
+		System.out.println("DAO : getSalesBenefit 시작");
+		System.out.println("changeBusinessNo : " + changeBusinessNo);
+		List<Map<String,String>> salesBenefit = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getSalesBenefit"		// 실행할 SQL 구문의 위치 지정 
+				, changeBusinessNo 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);		
+		
+		System.out.println("DAO : getSalesBenefit 끝");
+		
+		return salesBenefit;
+	}	
+	
+	
+	
 
 }

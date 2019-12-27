@@ -86,20 +86,17 @@
 		    -->
 
 <!-- 모든 url 주소 중에 /loginForm.do 와 /loginProc.do 빼고 다른 주소로 들어오면 SessionIterceptor클래스의 메소드 먼저 호출. -->
-<!-- 	<interceptors>
+	<!-- <interceptors>
         <interceptor>
 			<mapping path="/**/*" />                    
-            <exclude-mapping path="/loginForm.do"/>
-            <exclude-mapping path="/loginProc.do"/>
+            <exclude-mapping path="/mainForm.do"/>
+            <exclude-mapping path="/mainProc.do"/>
             <exclude-mapping path="/logout.do"/>
-            <exclude-mapping path="/contactRegForm.do"/>
-            <exclude-mapping path="/contactRegProc.do"/>
             <exclude-mapping path="/resources/**"/>
             <beans:bean class="com.naver.erp.SessionInterceptor"></beans:bean>            
         </interceptor>        
-    </interceptors>  
+    </interceptors>   -->
 
-	  -->
 	<!-- 위 코드는 아래 코드로 대체 가능. 
 		
 	<mvc:interceptors>

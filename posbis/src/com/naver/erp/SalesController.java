@@ -32,14 +32,17 @@
   @RequestMapping( value="/salesForm.do" ) 
  public ModelAndView getSalesList(
 		  	SalesSearchDTO salesSearchDTO
+		  	,HttpSession session
 		 ) { 
 	  ModelAndView mav = new ModelAndView();
 	  mav.setViewName("salesForm.jsp");
+	 
   
  try {
 	// 사업자번호 (가게명) 얻기.         
 	//=========================================================================================================
-     String user_id = "user7";
+	 String user_id = (String)session.getAttribute("user_id");
+	 //String user_id = "user7";
      //System.out.println(user_id);
      // user_id 를 가지고 u_no 값 얻기
      int user_no = this.salesService.getUserNo(user_id);

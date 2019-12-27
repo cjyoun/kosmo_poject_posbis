@@ -42,6 +42,13 @@ public interface PreChartService {
 	
 	// business_no 가지고 같은 업종, 같은 동네 점포수 구하기
 	String getStoreCount(String changeBusinessNo);
+
+
+	// business_no 가지고 상품별 판매 횟수 구하기.
+	List<Map<String, String>> getMenuSalesCount(String changeBusinessNo);
+
+	// business_no 가지고 상품별 순이익 구하기.
+	List<Map<String, String>> getSalesBenefit(String changeBusinessNo);
 	
 	
 	

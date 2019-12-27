@@ -150,7 +150,7 @@
 		<tr>	
 	 		<td><span onClick=goIdPwdSearchForm()>[아이디찾기/암호찾기]   | </span> &nbsp;
 				<span onClick=goJoinForm()>[회원가입]   | </span>&nbsp;
-				<span onClick=goWithdrawalForm()>[회원탈퇴]   | </span>
+				<span onClick=goWithdrawalForm()>[회원탈퇴]    </span>
 			
 		</table>
 	</form>

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,16 +25,21 @@ public class PreChartController {
 	// 가상주소 /posbis/preChartForm.do 로 접근하면 호출되는 메소드 선언.
 	// -------------------------------------------------------------------------------
 	@RequestMapping(value = "/preChartForm.do")
-	public ModelAndView goPreChartForm() {
+	public ModelAndView goPreChartForm(
+			HttpSession session
+			, HttpServletResponse response
+			) {
 		// ModelAndView 객체 생성하고 ModelAndView 객체에 호출 JSP 페이지명을 저장하기.
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("preChartForm.jsp");
 
 		try {
+			
+			String user_id = (String)session.getAttribute("user_id");
 
 // 사업자번호 (가게명) 얻기.			
 //=========================================================================================================
-			String user_id = "master44";
+			//String user_id = "master44";
 			System.out.println("user_no 얻기 시작");
 			System.out.println(user_id);
 
@@ -304,6 +312,9 @@ public class PreChartController {
 			
 			myPopularityListDTO.setStoreCount(storeCount);
 			
+				
+			
+			
 
 		} catch (Exception e) {
 			// try 구문에서 예외가 발생하면 실행할 구문 설정
@@ -315,5 +326,73 @@ public class PreChartController {
 		return myPopularityListDTO;
 
 	}
+	
+	
+	
+	
+	// -------------------------------------------------------------------------------
+	// /preChartProc3.do 로 접근하면 호출되는 메소드 선언.
+	// -------------------------------------------------------------------------------
+	@RequestMapping(value = "/preChartProc3.do" // 접속하는 클라이언트의 URL주소 설정
+	// , method=RequestMethod.POST // 접속하는 클라이언트의 파라미터값 전송.
+			, produces = "application/json;charset=UTF-8" // 응답할 데이터 종류는 json으로 설정.
+	)
+	@ResponseBody
+	public MySalesRatioDTO preChartProc3(
+
+			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			, MySalesRatioDTO mySalesRatioDTO
+
+	) {
+		System.out.println("preChartProc3 시작1");
+		List<Map<String,String>> menuSalesCount = new ArrayList<Map<String,String>>();
+		List<Map<String,String>> salesBenefit = new ArrayList<Map<String,String>>();
+		
+		System.out.println("business_no ===> " + changeBusinessNo);
+
+		try {
+			
+// 상품별 판매 개수 구하기
+//==================================================================================================================			
+			menuSalesCount = this.preChartService.getMenuSalesCount(changeBusinessNo);
+			
+			System.out.println("menuSalesCount ===> " + menuSalesCount.size());
+			for (int i = 0; i < menuSalesCount.size(); i++) {
+				System.out.println("menuSalesCount.get(\"menuSalesCount\")=>" + menuSalesCount.get(i));
+			}
+
+			mySalesRatioDTO.setMenuSalesCount(menuSalesCount);
+			
+			
+			
+// 상품별 순이익 구하기
+//==================================================================================================================			
+			salesBenefit = this.preChartService.getSalesBenefit(changeBusinessNo);
+			
+			System.out.println("salesBenefit ===> " + salesBenefit.size());
+			for (int i = 0; i < salesBenefit.size(); i++) {
+				System.out.println("salesBenefit.get(\"salesBenefit\")=>" + salesBenefit.get(i));
+			}
+
+			mySalesRatioDTO.setSalesBenefit(salesBenefit);			
+				
+			
+			
+
+		} catch (Exception e) {
+			// try 구문에서 예외가 발생하면 실행할 구문 설정
+			System.out.println("e.getMessage()" + e.getMessage());
+			System.out.println("preChartProc2 <에러발생>");
+		}
+
+		System.out.println("myPopularityListDTO 리턴한다~~~~");
+		return mySalesRatioDTO;
+
+	}
+
+	
+	
+	
+	
 
 }

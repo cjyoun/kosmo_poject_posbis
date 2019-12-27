@@ -6,7 +6,7 @@
       <title> </title>
       <meta charset="utf-8">
       <script>
-         function goMainForm(){
+         function findIdPwdStart(){
         	 
  			 alert("아이디/비밀번호 찾기 시작")
 	    	  
@@ -39,11 +39,11 @@
        
          }
 
-    /*      function goMainForm(){
+        function goMainForm(){
              alert("메인으로 이동");
              location.replace("/posbis/mainForm.do");
           }
- 			 */
+ 			 
  		
          
       </script>
@@ -81,7 +81,7 @@
             <td><input type="answer" name="answer" maxlength=15> 
          </tr>   
       </table>
-      <input type="button" value="아이디/비밀번호 찾기" onClick="goMainForm()"> 
+      <input type="button" value="아이디/비밀번호 찾기" onClick="findIdPwdStart()"> 
      </form>
    </body>
 

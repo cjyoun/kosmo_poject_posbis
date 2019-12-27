@@ -1,6 +1,7 @@
 package com.naver.erp;
 import java.util.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class PreSearchController {
 	@RequestMapping(value ="/preSearchForm.do")
 	public ModelAndView getSearchList(
 		PreSearchDTO preSearchDTO
-		//, HttpSession session 
+		, HttpSession session
+		, HttpServletResponse response 
 	) {
 		System.out.println("Controller/getSearchList 호출");
 		ModelAndView mav = new ModelAndView();
@@ -36,7 +38,8 @@ public class PreSearchController {
 			
 			
 			//===================select / 사업자번호 얻기==================
-	         String user_id = "user10";
+			String user_id = (String)session.getAttribute("user_id");
+	        // String user_id = "user10";
 	         System.out.println("user_no 얻기 시작");
 	        // System.out.println(user_id);
 	         

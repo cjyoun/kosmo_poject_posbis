@@ -156,7 +156,7 @@
 	</select>
 
 
-<!-- ============== 다른 가게 인기메뉴 구하기 =========================================================================== -->
+<!-- ============== 같은 업종, 같은 동네 가게들 수 구하기 =========================================================================== -->
 	
 	<select id='getStoreCount' parameterType="String" resultType="String">
 		select count(*)||'' "store_count"  from business_info b
@@ -164,7 +164,46 @@
 		    and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 		    and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
 
-	</select>		
+	</select>	
+	
+	
+	
+	
+<!-- ============== 상품별 판매 횟수 구하기 =========================================================================== -->
+	
+	<select id='getMenuSalesCount' parameterType="String" resultType="java.util.HashMap">	
+		    select menu_name, sales_count from(
+			    select
+				    s.menu_no "menu_no"
+				    , (select m.menu_name from menu m where s.menu_no = m.menu_no) "MENU_NAME"
+				    , sum(s.sales_count)||'' "SALES_COUNT"
+				    ,rank() over (order by sum(s.sales_count) desc) "RN"
+				from sales s
+				  where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
+				  group by s.menu_no
+			  )
+			
+	</select>	
+		
+		
+		
+<!-- ============== 상품별 순이익 구하기 =========================================================================== -->
+	
+	<select id='getSalesBenefit' parameterType="String" resultType="java.util.HashMap">	
+			select menu_name, sales_income from(
+				  select
+				      s.menu_no "menu_no"
+				      , (select m.menu_name from menu m where s.menu_no = m.menu_no) "MENU_NAME"
+				      , sum(((m.menu_price * s.sales_count)-(m.menu_cost * s.sales_count)))||'' "SALES_INCOME"
+				      ,rank() over (order by sum(s.sales_count) desc) "RN"
+				  from sales s , menu m
+				    where s.menu_no=m.menu_no and s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
+				    group by s.menu_no
+			)
+			
+	</select>			
+		
+		
 		
 	
 </mapper>

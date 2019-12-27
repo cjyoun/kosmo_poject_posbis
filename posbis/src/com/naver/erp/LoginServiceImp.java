@@ -105,8 +105,6 @@ public class LoginServiceImp implements LoginService {
 		//---------------------------------------------------------------------------------
 		public int deleteUserInfo(Map<String, String> user_id_pwd) {
 			
-			
-			
 		
 		int deleteSalesBusiCnt=this.loginDAO.deleteSalesBusi(user_id_pwd);
 		 if(deleteSalesBusiCnt==0) {return -1;}
@@ -175,14 +173,31 @@ public class LoginServiceImp implements LoginService {
 		
 		
 		//마이페이지 데이터 가져오기---------------------------------------------------------------------------------- 
-		public mypageDTO getmypageList() {
+		public MyPageDTO getmypageList() {
 			
-			mypageDTO mypageList = this.loginDAO.getmypageList();
+			MyPageDTO mypageList = this.loginDAO.getmypageList();
 		    return mypageList;
 			
+		}
+
+
+		// business_no 에 따른 나의 정보 얻어오기.
+		@Override
+		public List<Map<String, String>> getMyInfo(String changeBusinessNo) {
+			List<Map<String, String>> myInfo = this.loginDAO.getMyInfo(changeBusinessNo);
+			
+			return myInfo;
 		};
 		
 		 
+		
+		// business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분)
+		@Override
+		public List<Map<String, String>> getMyNStoreInfo(String changeBusinessNo) {
+			List<Map<String, String>> myNStoreInfo = this.loginDAO.getMyNStoreInfo(changeBusinessNo);
+			
+			return myNStoreInfo;
+		};
 		
 		
 }

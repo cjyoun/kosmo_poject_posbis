@@ -52,7 +52,7 @@
 					    , (select a.addr_dong
 					       		 from addr a, business_info bi
 					      		  where bi.addr_no=a.addr_no
-					            				and bi.business_no=s.business_no)    "dong"
+					            				and bi.business_no=s.business_no)    "addr_dong"
 				from sales s , menu m
 				where 1=1
 						and s.menu_no=m.menu_no

@@ -128,5 +128,28 @@ public class PreChartServiceImpl implements PreChartService{
 		return storeCount;
 	}
 
+	
+	
+//--------------------------------------------------------------------------------------------------   
+	// business_no 가지고 상품별 판매 횟수 구하기
+	@Override
+	public List<Map<String, String>> getMenuSalesCount(String changeBusinessNo) {
+		System.out.println("service : getMenuSalesCount 시작");
+		List<Map<String, String>> menuSalesCount = this.preChartDAO.getMenuSalesCount(changeBusinessNo);
+		System.out.println("service : getMenuSalesCount 끝"); 
+		return menuSalesCount;
+	}
+	
+	
+//--------------------------------------------------------------------------------------------------   
+	// business_no 가지고 상품별 순이익 구하기
+	@Override
+	public List<Map<String, String>> getSalesBenefit(String changeBusinessNo) {
+		System.out.println("service : getSalesBenefit 시작");
+		List<Map<String, String>> salesBenefit = this.preChartDAO.getSalesBenefit(changeBusinessNo);
+		System.out.println("service : getSalesBenefit 끝"); 
+		return salesBenefit;
+	}
+
    
 }

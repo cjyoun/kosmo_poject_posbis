@@ -138,8 +138,8 @@ public class LoginDAOImp implements LoginDAO{
 		);
 	 System.out.println(deleteSalesBusiCnt); 
 	 System.out.println("1실행후"); 
-	 return
-	  deleteSalesBusiCnt; };
+	 return deleteSalesBusiCnt; 
+	 };
 
 
 	public int deleteSalesMenu(Map<String, String> user_id_pwd) {
@@ -281,16 +281,39 @@ public class LoginDAOImp implements LoginDAO{
 		
 		
 	//마이페이지 데이터 가져오기---------------------------------------------------------------------------------- 
-	public mypageDTO getmypageList() {
+	public MyPageDTO getmypageList() {
 		
-		mypageDTO mypageList = (mypageDTO) this.sqlSession.selectList(
+		MyPageDTO mypageList = (MyPageDTO) this.sqlSession.selectList(
 				"com.naver.erp.LoginDAO.getmypageList"
 				);
 		
 	    return mypageList;
 		
+	}
+
+	// business_no 에 따른 나의 정보 얻어오기.
+	@Override
+	public List<Map<String, String>> getMyInfo(String changeBusinessNo) {
+		List<Map<String, String>> myInfo = this.sqlSession.selectList(
+				"com.naver.erp.LoginDAO.getMyInfo"
+				, changeBusinessNo
+				);
+		return myInfo;
 	};
 			
-			 	
+		
+	
+	
+	// business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분)
+		@Override
+		public List<Map<String, String>> getMyNStoreInfo(String changeBusinessNo) {
+			List<Map<String, String>> myNStoreInfo = this.sqlSession.selectList(
+					"com.naver.erp.LoginDAO.getMyNStoreInfo"
+					, changeBusinessNo
+					);
+			return myNStoreInfo;
+		};
+	
+	
 
 }

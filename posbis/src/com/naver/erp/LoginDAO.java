@@ -49,7 +49,13 @@ public interface LoginDAO {
 	
 	
 	//마이페이지 데이터 가져오기---------------------------------------------------------------------------------- 
-	mypageDTO getmypageList();
+	MyPageDTO getmypageList();
 	
  
+	// business_no에 따른 나의 정보 얻어오기
+	List<Map<String, String>> getMyInfo(String changeBusinessNo);
+		
+	// business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분)
+	List<Map<String, String>> getMyNStoreInfo(String business_no);
+	
 }

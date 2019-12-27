@@ -27,7 +27,7 @@
 				
 				}else if(withdrawalCnt==-1){
 						alert("이미 탈퇴한 회원 또는 등록된 사용자가 아닙니다.");
-						location.replace("/posbis/mainForm.do")
+						location.replace("/posbis/withdrawalForm.do")
 				
 				}else if(withdrawalCnt==0){
 						alert("아이디 비밀번호 확인 요청");

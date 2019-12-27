@@ -35,7 +35,7 @@
 <script>
 
 	$(document).ready(function(){
-		if( location.href.indexOf("loginForm.do") < 0 ){
+		if( location.href.indexOf("mainForm.do") < 0 ){
 			$("body").prepend("<center><input type=button value='로그아웃' onClick=\"location.replace('/posbis/mainForm.do')\"></center>")
 		}
 	});
