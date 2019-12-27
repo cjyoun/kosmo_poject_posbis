@@ -48,6 +48,10 @@ public class QstnController {
 			//------------------------------------------------------
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("qstnForm.jsp");
+			
+
+		      String rank_code = (String)session.getAttribute("rank_code");
+		      mav.addObject("rank_code",rank_code);
 			try {
 				// HttpSession 객체에 uri라는 키값으로 저장된 문자열 꺼내기
 				String uri=(String)session.getAttribute("uri");
@@ -139,13 +143,16 @@ public class QstnController {
 	   // 가상 주소 /qstnRegForm.do 로 접근하면 호출되는 메소드 선언
 	   // --------------------------------------------------------
 	   @RequestMapping(value = "/qstnRegForm.do")
-	   public ModelAndView goQstnRegForm(QstnDTO qstnDTO) {
+	   public ModelAndView goQstnRegForm(QstnDTO qstnDTO , HttpSession session) {
 	      // --------------------------------------------------------
 	      // [ModelAndView 객체] 생성하기
 	      // [ModelAndView 객체]에 [호출 JSP 페이지명]을 저장하기
 	      // --------------------------------------------------------
 	      ModelAndView mav = new ModelAndView();
 	      mav.setViewName("qstnRegForm.jsp");
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+	      mav.addObject("rank_code",rank_code);
 
 	      String writer = null;
 	      try {
@@ -248,6 +255,9 @@ public class QstnController {
 			//-------------------------------------------------------		
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("qstnContentForm.jsp");
+
+		      String rank_code = (String)session.getAttribute("rank_code");
+		      mav.addObject("rank_code",rank_code);
 			try {
 				session.setAttribute("uri","qstnContentForm.do");
 				//----------------------------------------------------------------
@@ -287,6 +297,9 @@ public class QstnController {
 		//******************************************************
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("qstnUpDelForm.jsp");
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+	      mav.addObject("rank_code",rank_code);
 		try {
 			session.setAttribute("uri","qstnUpDelForm.do");
 			//******************************************

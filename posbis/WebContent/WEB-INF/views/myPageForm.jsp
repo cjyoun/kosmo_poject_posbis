@@ -104,48 +104,20 @@
 
 
       
-    
+      // 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수   
       function goPreChartForm(){
-         alert("goPreChartForm.jsp로 이동");
-
-         $.ajax({
-				// 서버 쪽 호출 URL 주소 지정
-				url : "/posbis/myPageProc2.do"
-				
-				// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
-				, type : "post"
-
-				, async : false
-				// 서버로 보낼 파라미터명과 파라미터 값을 설정
-				, data : $("[name=myPageForm]").serialize()				
-					
-				, success : function(myPageDTO){
-					//alert("salesMonthList : "+ preChartListDTO.salesMonthList[0].sales_amount);
-					//alert("allSalesMonthList : "+ preChartListDTO.allSalesMonthList[0].sales_amount);
-					alert("프리미엄 이동----------");
-
-					if(myPageDTO != null){
-						
-
-					else if (myPageDTO == null){
-						alert("실패");
-					}
-					else {
-						alert("서버 오류 발생. 관리자에게 문의 바람");
-					} 
+		 var rank_code = ${rank_code};
+         if(rank_code == 2){
+         	location.replace("/posbis/preChartForm.do");
+         }
+         else{
+        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+					return;
 				}
-				
-				// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-				, error : function(request, error){
-					alert("서버 접속 실패");
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					
-					
-				}
-				
-			});
-			
-         location.replace("/posbis/preChartForm.do");
+        	 else{
+        		 location.replace("/posbis/payForm.do");
+             }
+         }
       }
 
 

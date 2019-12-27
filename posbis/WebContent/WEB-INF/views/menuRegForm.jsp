@@ -139,8 +139,28 @@
 					alert("서버 접속에 실패하였습니다.");
 				}
 			});
+
 			
 		} //function checkMenuRegForm(){
+
+
+		// 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수   
+	      function goPreChartForm(){
+			 var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	         	location.replace("/posbis/preChartForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payForm.do");
+	             }
+	         }
+	      }
+
+
 		
 	</script>
 	</head>

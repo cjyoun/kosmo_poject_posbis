@@ -41,6 +41,23 @@
             location.replace("/posbis/mainForm.do");
          }
 
+
+
+         function goPreChartForm(){
+    		 var rank_code = ${rank_code};
+             if(rank_code == 2){
+             	location.replace("/posbis/preChartForm.do");
+             }
+             else{
+            	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+    					return;
+    				}
+            	 else{
+            		 location.replace("/posbis/payForm.do");
+                 }
+             }
+          }
+
  
       </script>
       

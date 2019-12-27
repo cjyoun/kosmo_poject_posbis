@@ -29,7 +29,10 @@ public class MenuController {
 		mav.setViewName("menuForm.jsp");
 		
 		try {
-			
+
+		      String rank_code = (String)session.getAttribute("rank_code");
+		      mav.addObject("rank_code",rank_code);
+		      
 			// 사업자 번호 얻기 
 			String user_id = (String)session.getAttribute("user_id");
 			//String user_id = "user7";
@@ -109,13 +112,16 @@ public class MenuController {
 		
 	
 	@RequestMapping( value="/menuRegForm.do" )	
-	public ModelAndView menuRegForm() {		// 메소드 이름은 상관 없음.
+	public ModelAndView menuRegForm(HttpSession session) {		// 메소드 이름은 상관 없음.
 
 		// [ModelAndView 객체] 생성.
 		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
 		// [ModelAndView 객체] 리턴하기
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("menuRegForm.jsp");
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+	      mav.addObject("rank_code",rank_code);
 		
 		try {
 			//주소 구 데이터 가져오기-------------------------------------------------------------------
@@ -193,6 +199,9 @@ public class MenuController {
 		//----------------------------------
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("menuUpDelForm.jsp");
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+	      mav.addObject("rank_code",rank_code);
 		
 		try {
 			session.setAttribute("uri","menuUpDelForm.do");

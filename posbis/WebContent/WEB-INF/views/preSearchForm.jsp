@@ -316,7 +316,7 @@
 					style="float: right; border: 1px solid; 20 px , margin : 10px; width: 80%; height: 100%;">
 					<br> <input type="button" value="분석페이지로가기" style="" onClick="goPreChartForm();">&nbsp;
 							 <input type="button" value="마이페이지로가기" style="" onClick="location.replace('/posbis/myPageForm.do');">&nbsp;
-							<input type="button" value="q&a로가기" style="" onClick="location.replace('/posbis/qstnForm.do');">&nbsp;
+							<input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp;
 					<br>
 					<br>
 

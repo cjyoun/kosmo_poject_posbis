@@ -197,6 +197,14 @@ public class LoginServiceImp implements LoginService {
 			List<Map<String, String>> myNStoreInfo = this.loginDAO.getMyNStoreInfo(changeBusinessNo);
 			
 			return myNStoreInfo;
+		}
+
+
+		// 등급 코드 얻기.
+		@Override
+		public String getRankCode(String user_id) {
+			String rank_code = this.loginDAO.getRankCode(user_id);
+			return rank_code;
 		};
 		
 		

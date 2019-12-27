@@ -36,7 +36,9 @@
 		 ) { 
 	  ModelAndView mav = new ModelAndView();
 	  mav.setViewName("salesForm.jsp");
-	 
+
+      String rank_code = (String)session.getAttribute("rank_code");
+      mav.addObject("rank_code",rank_code);
   
  try {
 	// 사업자번호 (가게명) 얻기.         

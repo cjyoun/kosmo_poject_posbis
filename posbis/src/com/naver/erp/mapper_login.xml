@@ -229,7 +229,12 @@
 	</select>
 	
 	
-	
+
+<!-- 등급코드 얻기 -->
+
+	<select id='getRankCode' parameterType="String" resultType="String">
+		select rank_code from user_info where user_id = #{user_id}
+	</select>	
 	
 	
 	

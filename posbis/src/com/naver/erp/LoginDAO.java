@@ -58,4 +58,11 @@ public interface LoginDAO {
 	// business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분)
 	List<Map<String, String>> getMyNStoreInfo(String business_no);
 	
+	
+	// 등급 코드 얻기
+	String getRankCode(String user_id);
+		
+	
+	
+	
 }

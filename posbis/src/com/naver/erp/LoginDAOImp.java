@@ -305,14 +305,26 @@ public class LoginDAOImp implements LoginDAO{
 	
 	
 	// business_no에 따른 나의 정보, 가게 정보 얻어오기 (회원정보 수정 부분)
-		@Override
-		public List<Map<String, String>> getMyNStoreInfo(String changeBusinessNo) {
-			List<Map<String, String>> myNStoreInfo = this.sqlSession.selectList(
-					"com.naver.erp.LoginDAO.getMyNStoreInfo"
-					, changeBusinessNo
-					);
-			return myNStoreInfo;
-		};
+	@Override
+	public List<Map<String, String>> getMyNStoreInfo(String changeBusinessNo) {
+		List<Map<String, String>> myNStoreInfo = this.sqlSession.selectList(
+				"com.naver.erp.LoginDAO.getMyNStoreInfo"
+				, changeBusinessNo
+				);
+		return myNStoreInfo;
+	}
+
+
+	// 등급코드 얻기
+	@Override
+	public String getRankCode(String user_id) {
+		String rank_code = this.sqlSession.selectOne(
+				"com.naver.erp.LoginDAO.getRankCode"
+				, user_id
+				);
+		
+		return rank_code;
+	};
 	
 	
 

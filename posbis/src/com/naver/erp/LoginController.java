@@ -44,6 +44,84 @@ public class LoginController {
 		return mav;
 
 	}
+	
+	
+	// -----------------------------------------------------------------------------
+		// 아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기
+		@RequestMapping(value = "/loginProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+		@ResponseBody
+		public int loginProc(
+				@RequestParam(value = "user_id") String user_id,
+				@RequestParam(value = "user_pwd") String user_pwd,
+				@RequestParam(value = "is_login", required = false) String is_login, 
+				HttpSession session,
+				HttpServletResponse response
+			) 
+		{
+			System.out.println("user_id = " + user_id);
+			System.out.println("user_pwd = " + user_pwd);
+			System.out.println("is_login = " + is_login);
+
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("user_id", user_id);
+			map.put("user_pwd", user_pwd);
+
+			int admin_idCnt = 0;
+
+			try {
+
+				admin_idCnt = this.loginService.getAdminCnt(map);
+
+				if (admin_idCnt == 1) {
+					System.out.println("user_id = " + user_id);
+					System.out.println("user_pwd = " + user_pwd);
+					
+					// 로그인한 user_id를 세션에 담기
+					session.setAttribute("user_id", user_id);
+					
+					String rank_code = this.loginService.getRankCode(user_id);
+					System.out.println("rank_code ===== " + rank_code);
+					// 로그인한 rank_code를 세션에 담기
+					session.setAttribute("rank_code", rank_code);
+					
+					if (is_login != null) {
+						System.out.println("if(is_login != null)접속성공");
+
+						Cookie cookie1 = new Cookie("user_id", user_id);
+						cookie1.setMaxAge(60 * 60 * 24);
+						response.addCookie(cookie1);
+
+						Cookie cookie2 = new Cookie("user_pwd", user_pwd);
+						cookie2.setMaxAge(60 * 60 * 24);
+						response.addCookie(cookie2);
+					} else {
+
+						Cookie cookie1 = new Cookie("user_id", null);
+						cookie1.setMaxAge(0);
+						response.addCookie(cookie1);
+
+						Cookie cookie2 = new Cookie("user_pwd", null);
+						cookie2.setMaxAge(0);
+						response.addCookie(cookie2);
+					}
+
+				}
+
+				System.out.println("loginProc접속성공");
+
+			} catch (Exception e) {
+				System.out.println("e.getMessage()" + e.getMessage());
+				System.out.println("loginProc접속실패");
+				admin_idCnt = -1;
+			}
+
+			return admin_idCnt;
+		}
+	
+	
+	
+	
+	
 
 //---------회원정보 띄워주기 ----------------	
 
@@ -69,6 +147,8 @@ public class LoginController {
 		  
 	// 사업자번호 (가게명) 얻기.			
 	//=========================================================================================================
+			  	String rank_code = (String)session.getAttribute("rank_code");
+			  	System.out.println("로그인한 아이디의 등급 코드 ======= "+ rank_code);
 			    String user_id = (String) session.getAttribute("user_id");
 				//String user_id = "master44";
 				System.out.println("myPage user_no 얻기 시작");
@@ -88,7 +168,7 @@ public class LoginController {
 				// ModelAndView 객체에 저장된 DB 연동 결과물은 JSP 페이지에서 EL 문법으로 꺼낼 수 있다. ${저장키값명}
 				// JSP 페이지에서 사용하기 위해 addObject를 사용하여 ModelAndView 객체에 저장.
 				mav.addObject("businessNoList", businessNoList);
-	
+				mav.addObject("rank_code", rank_code);
 
 	//==================================================================================================================================
 	  
@@ -111,12 +191,16 @@ public class LoginController {
 
 			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
 			, MyPageDTO myPageDTO
+			, HttpSession session
 
 	) {
 		System.out.println("myPageProc 시작1");
 
 		System.out.println("business_no ===> " + changeBusinessNo);
 		try {
+			
+			String rank_code = (String)session.getAttribute("rank_code");
+		  	System.out.println("로그인한 아이디의 등급 코드 ======= "+ rank_code);
 
 // 사업자번호별 나의 정보 얻어 오기
 //==================================================================================================================			
@@ -190,6 +274,38 @@ public class LoginController {
 		return mav;
 
 	}
+	
+	
+	
+	
+	// -----------------------------------------------------------------------------
+	// 아이디 중복 확인
+
+	@RequestMapping(value = "/joinProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@ResponseBody
+	public int joinProc(@RequestParam(value = "user_id") String user_id) {
+
+		System.out.println("user_id = " + user_id);
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("user_id", user_id);
+
+		int join_idCnt = 0;
+
+		try {
+			join_idCnt = this.loginService.getJoinIDCnt(map);
+
+			System.out.println("<접속성공> [접속 URL]->/joinProc.do [호출메소드] -> LoginController.joinProc(~) \n\n\n");
+		} catch (Exception e) {
+			System.out.println("<접속실패> [접속 URL]->/joinProc.do [호출메소드] -> LoginController.joinProc(~) \n\n\n");
+			join_idCnt = -1;
+		}
+
+		return join_idCnt;
+	}
+
+	
+	
 
 	
 //------------------------------------------------------------------------------------	
@@ -208,52 +324,7 @@ public class LoginController {
 	}
 	
 	
-//------------------------------------------------------------------------------------		
-	
 
-	@RequestMapping(value = "/infoUpdateForm.do")
-	public ModelAndView infoUpdateForm(
-			@RequestParam(value = "business_no") String business_no
-		) {
-		System.out.println("business_no =====> " + business_no);
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("infoUpdateForm.jsp"); 
-		
-		
-		try {
-			// business_no에 따른 회원정보 가져오기
-			List<Map<String, String>> myNStoreInfo = this.loginService.getMyNStoreInfo(business_no);
-			System.out.println("myNStoreInfo : " + myNStoreInfo.size());
-			System.out.println("myNStoreInfo.get(\"myNStoreInfo\")=>" + myNStoreInfo.get(0));
-			mav.addObject("myNStoreInfo", myNStoreInfo);
-			
-			// 주소 구 데이터
-			// 가져오기-------------------------------------------------------------------
-			List<Map<String, String>> addrListGu = this.loginService.getAddrListGu();
-			mav.addObject("addrListGu", addrListGu);
-			System.out.println("addrListGu : " + addrListGu.size());
-
-			// 업종 타입 1 데이터
-			// 가져오기-------------------------------------------------------------------
-			List<Map<String, String>> businessTypeList1 = this.loginService.getbusinessTypeList1();
-			mav.addObject("businessTypeList1", businessTypeList1);
-			System.out.println("businessTypeList1.size() : " + businessTypeList1.size());
-			
-
-
-		} catch (Exception e) {
-			System.out.println("<addrList 에러발생>");
-			System.out.println(e.getMessage());
-		}
-		
-		
-		return mav;
-
-	}
-	
 	
 	
 	
@@ -261,7 +332,11 @@ public class LoginController {
 	
 
 	@RequestMapping(value = "/introForm.do")
-	public ModelAndView introForm() { // 메소드 이름은 상관 없음.
+	public ModelAndView introForm(
+			HttpSession session
+			
+			) 
+	{ // 메소드 이름은 상관 없음.
 
 		// [ModelAndView 객체] 생성.
 		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
@@ -269,6 +344,9 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("introForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49
 											// 줄이 접두사 , 접미사 설정이 되어있음.
+		
+		String rank_code = (String)session.getAttribute("rank_code");
+		mav.addObject("rank_code",rank_code);
 		return mav;
 
 	}
@@ -280,7 +358,7 @@ public class LoginController {
 	
 
 	@RequestMapping(value = "/withdrawalForm.do")
-	public ModelAndView withdrawalForm() { // 메소드 이름은 상관 없음.
+	public ModelAndView withdrawalForm(HttpSession session) { // 메소드 이름은 상관 없음.
 
 		// [ModelAndView 객체] 생성.
 		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
@@ -288,6 +366,10 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("withdrawalForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에
 												// 46~49 줄이 접두사 , 접미사 설정이 되어있음.
+		
+		
+		String rank_code = (String)session.getAttribute("rank_code");
+		mav.addObject("rank_code",rank_code);
 		return mav;
 
 	}
@@ -332,31 +414,58 @@ public class LoginController {
 	
 //--------------------------------------------------------------------------------------------------------	
 
-	// -----------------------------------------------------------------------------
-	// 아이디 중복 확인
+	
+	//------------------------------------------------------------------------------------		
+	
 
-	@RequestMapping(value = "/joinProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
-	@ResponseBody
-	public int joinProc(@RequestParam(value = "user_id") String user_id) {
+		@RequestMapping(value = "/infoUpdateForm.do")
+		public ModelAndView infoUpdateForm(
+				@RequestParam(value = "business_no") String business_no,
+				HttpSession session
+			) {
+			System.out.println("business_no =====> " + business_no);
+			// [ModelAndView 객체] 생성.
+			// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+			// [ModelAndView 객체] 리턴하기
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("infoUpdateForm.jsp"); 
+			
+			String rank_code = (String)session.getAttribute("rank_code");
+			mav.addObject("rank_code",rank_code);
+			
+			try {
+				// business_no에 따른 회원정보 가져오기
+				List<Map<String, String>> myNStoreInfo = this.loginService.getMyNStoreInfo(business_no);
+				System.out.println("myNStoreInfo : " + myNStoreInfo.size());
+				System.out.println("myNStoreInfo.get(\"myNStoreInfo\")=>" + myNStoreInfo.get(0));
+				mav.addObject("myNStoreInfo", myNStoreInfo);
+				
+				// 주소 구 데이터
+				// 가져오기-------------------------------------------------------------------
+				List<Map<String, String>> addrListGu = this.loginService.getAddrListGu();
+				mav.addObject("addrListGu", addrListGu);
+				System.out.println("addrListGu : " + addrListGu.size());
 
-		System.out.println("user_id = " + user_id);
+				// 업종 타입 1 데이터
+				// 가져오기-------------------------------------------------------------------
+				List<Map<String, String>> businessTypeList1 = this.loginService.getbusinessTypeList1();
+				mav.addObject("businessTypeList1", businessTypeList1);
+				System.out.println("businessTypeList1.size() : " + businessTypeList1.size());
+				
 
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_id", user_id);
 
-		int join_idCnt = 0;
+			} catch (Exception e) {
+				System.out.println("<addrList 에러발생>");
+				System.out.println(e.getMessage());
+			}
+			
+			
+			return mav;
 
-		try {
-			join_idCnt = this.loginService.getJoinIDCnt(map);
-
-			System.out.println("<접속성공> [접속 URL]->/joinProc.do [호출메소드] -> LoginController.joinProc(~) \n\n\n");
-		} catch (Exception e) {
-			System.out.println("<접속실패> [접속 URL]->/joinProc.do [호출메소드] -> LoginController.joinProc(~) \n\n\n");
-			join_idCnt = -1;
 		}
+		
 
-		return join_idCnt;
-	}
+	
 
 	// -----------------------------------------------------------------------------
 	// 구 체크 후 동체크
@@ -439,70 +548,9 @@ public class LoginController {
 
 	
 
-	// -----------------------------------------------------------------------------
-	// 아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기
-	@RequestMapping(value = "/loginProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
-	@ResponseBody
-	public int loginProc(@RequestParam(value = "user_id") String user_id,
-			@RequestParam(value = "user_pwd") String user_pwd,
-			@RequestParam(value = "is_login", required = false) String is_login, HttpSession session,
-			HttpServletResponse response) {
-		System.out.println("user_id = " + user_id);
-		System.out.println("user_pwd = " + user_pwd);
-		System.out.println("is_login = " + is_login);
-
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_id", user_id);
-		map.put("user_pwd", user_pwd);
-
-		int admin_idCnt = 0;
-
-		try {
-
-			admin_idCnt = this.loginService.getAdminCnt(map);
-
-			if (admin_idCnt == 1) {
-				System.out.println("user_id = " + user_id);
-				System.out.println("user_pwd = " + user_pwd);
-				
-				//user_id를 세션에 담기
-				session.setAttribute("user_id", user_id);
-
-				
-				
-				
-				if (is_login != null) {
-					System.out.println("if(is_login != null)접속성공");
-
-					Cookie cookie1 = new Cookie("user_id", user_id);
-					cookie1.setMaxAge(60 * 60 * 24);
-					response.addCookie(cookie1);
-
-					Cookie cookie2 = new Cookie("user_pwd", user_pwd);
-					cookie2.setMaxAge(60 * 60 * 24);
-					response.addCookie(cookie2);
-				} else {
-
-					Cookie cookie1 = new Cookie("user_id", null);
-					cookie1.setMaxAge(0);
-					response.addCookie(cookie1);
-
-					Cookie cookie2 = new Cookie("user_pwd", null);
-					cookie2.setMaxAge(0);
-					response.addCookie(cookie2);
-				}
-
-			}
-
-			System.out.println("loginProc접속성공");
-
-		} catch (Exception e) {
-			System.out.println("loginProc접속실패");
-			admin_idCnt = -1;
-		}
-
-		return admin_idCnt;
-	}
+	
+//------------------------------------------------------------------------	
+	
 
 	@RequestMapping(value = "/logout.do")
 	public ModelAndView logout(
@@ -593,6 +641,35 @@ public class LoginController {
 		return findfindIDPwd;
 	}
 
+	
+	
+	
+	//----------------------------------------------------------------
+	
+	
+	@RequestMapping( value="/payForm.do" )   
+	   public ModelAndView payForm(HttpSession session) {      // 메소드 이름은 상관 없음.
+
+	      // [ModelAndView 객체] 생성.
+	      // [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+	      // [ModelAndView 객체] 리턴하기
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("payForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+	      mav.addObject("rank_code",rank_code);
+	      
+	      return mav;
+	      
+	   }
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 // xxx.do로 접속하면 @Controller 가 붙어있는 클래스 안에 @RequestMapping( value="/xxx.do" ) 가 붙어있는 메소드 호출.

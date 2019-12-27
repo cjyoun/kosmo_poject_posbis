@@ -54,7 +54,11 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		// Session 객체에서 키값이 admin_id 로 저장된 데이터 꺼내기. 
 		// 즉 로그인 정보 꺼내기
 		//-------------------------------------
-		String admin_id = (String)session.getAttribute("user_id");		
+		String admin_id = (String)session.getAttribute("user_id");	
+		
+		// 로그인한 등급코드 꺼내기
+		String rank_code = (String)session.getAttribute("rank_code");	
+		
 		//-------------------------------------
 		// 컨택스트 루트명 구하기.  URL 주소에 존재하는 Project 이름이 컨택스트 루트명이다.
 		//-------------------------------------
