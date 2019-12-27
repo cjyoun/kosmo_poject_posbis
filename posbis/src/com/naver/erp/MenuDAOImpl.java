@@ -13,32 +13,32 @@ public class MenuDAOImpl implements MenuDAO{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	// [검색한 게시판 목록] 리턴하는 메소드 선언
-	public List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO){
-		List<Map<String,String>> menuList = this.sqlSession.selectList(
-				"com.naver.erp.MenuDAO.getMenuList"	// 실행할 SQL 구문의 위치 지정
-				,menuSearchDTO						 	// 실행할 SQL 구문에서 사용할 데이터 지정
-				);
-		/* System.out.println(menuList); */
-		return menuList;
-	}
-
+	
+	
 	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
-	public int getMenuAllCnt(MenuSearchDTO menuSearchDTO) {
-		int menuAllCnt = this.sqlSession.selectOne(
-				// "com.naver.erp.BoardDAO. 까지가 mapper_login에있는
-				// <mapper namespace="com.naver.erp.BoardDAO"> 이다. 
-				// boardListAllCnt는 mapper 태그에 id 값과 일치해야 한다.
-				"com.naver.erp.MenuDAO.getMenuAllCnt" // 실행할 SQL 구문의 위치 지정
+	public int getMenuListAllCnt(MenuSearchDTO menuSearchDTO) {
+		int menuListAllCnt = this.sqlSession.selectOne(
+				"com.naver.erp.MenuDAO.getMenuListAllCnt"   // 실행할 SQL 구문의 위치 지정
 				,menuSearchDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
-		return menuAllCnt;
+		return menuListAllCnt;
 	}
 	
+	// [검색한 게시판 목록] 리턴하는 메소드 선언
+	public List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO){
+		System.out.println("menuSearchDTO===>"+menuSearchDTO);
+		List<Map<String,String>> menuList = this.sqlSession.selectList(
+			
+			"com.naver.erp.MenuDAO.getMenuList" // 실행할 SQL 구문의 위치 지정 
+			,menuSearchDTO
+			
+		);
+		System.out.println("menuListDAO===>"+menuList);
+		return menuList;
+	}	
 	// [게시판 글 입력 후 입력 적용 행의 개수]를 리턴하는 메소드 선언
 	public int insertMenu(MenuDTO menuDTO) {
 		//System.out.println("12344=>" + menuDTO.getU_no());
-		System.out.println("시작아앙ㅇ아앙아아아아");
 		int menuRegCnt = this.sqlSession.insert(
 				"com.naver.erp.MenuDAO.insertMenu"    // 실행할 SQL 구문의 위치 지정
 				,menuDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
@@ -51,12 +51,13 @@ public class MenuDAOImpl implements MenuDAO{
 	// [1개 메뉴]리턴하는 메소드 선언
 
 	public MenuDTO getMenuDTO(int menu_no) {
-		
+		System.out.println("getMenuDTO시작==>" + menu_no);
 		// [SqlSessionTemplate 객체]의 selectOne(~,~) 를 호출하여 1개의 메뉴 얻기
 		MenuDTO menuDTO = this.sqlSession.selectOne(
 				"com.naver.erp.MenuDAO.getMenuDTO"    // 실행할 SQL 구문의 위치 지정
 				,menu_no								// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
+		System.out.println("getMenuDTO 끝==>" + menuDTO.getBusiness_name());
 		return menuDTO;
 	}
 	
@@ -103,9 +104,9 @@ public class MenuDAOImpl implements MenuDAO{
 	}
 	
 	// [1개 메뉴 출력번호 수정하고 수정 행의 개수]를 리턴하는 메소드 선언
-	public int menuPrintNo(MenuDTO menuDTO) {
+	public int updatePrintNo(MenuDTO menuDTO) {
 		int menuPrintNo = this.sqlSession.update(
-				"com.naver.erp.MenuDAO.menuPrintNo"    	// 실행할 SQL 구문의 위치 지정
+				"com.naver.erp.MenuDAO.updatePrintNo"    	// 실행할 SQL 구문의 위치 지정
 				,menuDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
 		return menuPrintNo;
@@ -175,6 +176,8 @@ public class MenuDAOImpl implements MenuDAO{
     );
     System.out.println("DAO / menuCategory3" + menuCategory3);
     return menuCategory3;
-    };
+    }
+
+
 		
 }

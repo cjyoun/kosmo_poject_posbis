@@ -26,13 +26,14 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 
 	//[검색한 게시판 목록] 리턴하는 메소드 선언
 	public List<Map<String, String>> getPreResultList(PreSearchDTO preSearchDTO){
-		
-		System.out.println("DAO  getPreResultList 호출");
+		//System.out.println("DAO/DTO.business_name1===>"+preSearchDTO.getBusiness_type_name1());
+		//System.out.println("DAO  getPreResultList 호출");
+		System.out.println("DAO/DTO.sort==>"+preSearchDTO.getSort());
 		List<Map<String, String>> preResultList = this.sqlSession.selectList(
 				"com.naver.erp.PreSearchDAO.getPreResultList"  
 				, preSearchDTO				
 		);
-		System.out.println("DAO/preResultList===>"+preResultList);
+		//System.out.println("DAO/preResultList===>"+preResultList);
 		return preResultList;
 	}
 	
@@ -57,7 +58,7 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 		//[BoardDAO 인터페이스]를 구현한 객체의 getBoardListAllCnt 메소드 호출
 		//[검색한 게시판 목록 개수] 를 얻는다
 		//[검색한 게시판 목록 개수] 를 리턴받는다
-		System.out.println("DAO  getPreResultAllCnt 호출");
+		//System.out.println("DAO  getPreResultAllCnt 호출");
 		int preResultAllCnt = this.sqlSession.selectOne(
 				"com.naver.erp.PreSearchDAO.getPreResultAllCnt"   //실행할 SQL 구문의 위치 지정
 				, preSearchDTO						//실행할 SQL 구문에서 사용할 데이터 지정
@@ -74,7 +75,7 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 
 	//[select / addrGu1]얻기
 	public List<String> getAddrGu1List(){
-		System.out.println("DAO  getAddrGu1List 호출");
+		//System.out.println("DAO  getAddrGu1List 호출");
 		List<String> addrGu1List = this.sqlSession.selectList(
 				"com.naver.erp.PreSearchDAO.getAddrGu1List"
 		);
@@ -88,13 +89,11 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 	   // user_id 를 가지고 u_no 얻기
 	   @Override
 	   public int getUserNo(String user_id) {
-	      System.out.println("DAO/user_id=>"+user_id);
-	      System.out.println("getUserNo 메소드 시작");
+	      //System.out.println("getUserNo 메소드 시작");
 	      int user_no = this.sqlSession.selectOne(
 	             "com.naver.erp.PreSearchDAO.getUserNo"      // 실행할 SQL 구문의 위치 지정
 	            , user_id    
 	         );
-	      System.out.println(user_no);
 	
 
 	      return user_no;
@@ -106,13 +105,12 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 	   // u_no을 가지고 business_no 과 business_name 얻기
 	   @Override
 	   public List<Map<String, String>> getBusinessNoList(int user_no) {
-	      System.out.println("DAO : businessNoList 시작");
-	      System.out.println("user_no : " + user_no);
+	      //System.out.println("DAO : businessNoList 시작");
 	      List<Map<String,String>> businessNoList = this.sqlSession.selectList(
 	             "com.naver.erp.PreSearchDAO.getBusinessNoList"      // 실행할 SQL 구문의 위치 지정 
 	            , user_no                      // 실행할 SQL 구문에서 사용할 데이터 지정
 	      );
-	      System.out.println("DAO : businessNoList 끝");
+	     // System.out.println("DAO : businessNoList 끝");
 	      
 	      return businessNoList;
 	   }
@@ -123,7 +121,7 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 
 		//[select / BusinessTypeName1List]얻기
 		public List<String> getBusinessTypeName1List(){
-			System.out.println("DAO  getBusinessTypeName1List 호출");
+			//System.out.println("DAO  getBusinessTypeName1List 호출");
 			List<String> businessTypeName1List = this.sqlSession.selectList(
 					"com.naver.erp.PreSearchDAO.getBusinessTypeName1List"
 			);
@@ -143,7 +141,7 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 				"com.naver.erp.PreSearchDAO.getBusinessTypeName2"
 				, business_type_name1
 			);
-			System.out.println("DAO/businessTypeName2List==>"+businessTypeName2List);
+			//System.out.println("DAO/businessTypeName2List==>"+businessTypeName2List);
 			return businessTypeName2List;
 		}
 	

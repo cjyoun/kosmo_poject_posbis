@@ -12,9 +12,6 @@ public class MenuDTO {
 	private String mid_category_name;
 	private String sub_category_name;
 	private String business_name;
-	//private int u_no=7;
-	
-	
 	
 	
 	public String getBusiness_name() {

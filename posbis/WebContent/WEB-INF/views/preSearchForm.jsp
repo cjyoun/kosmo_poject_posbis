@@ -13,111 +13,18 @@
 
 <script>
 
-
-		
+			
 
 	  	   $(document).ready(function(){
-
-			  	
-		  	   //첫째 tr 태그 내부의 th 태그를 클릭하면 발생할 일 설정
-				//-------------------------------
-				$(".preResult thead:eq(0) tr:eq(0) th").click( function(){
-					//클릭한 th태그를 관리하는 JQuery 객체 메위주를 얻어 변수에 저장
-					var thisThObj = $(this);
-					//내림차순 오름차순 여부를 저장할 변수선언
-					var ascDesc = "";
-					//클릭한 th 형제의 th태그 안의 문자열에 ▲,▼ 제거
-					thisThObj.siblings().each( function(){
-						//i번째 th태그 안의 문자열을 얻자
-						var txt = $(this).text();
-						//앞뒤공백제거
-						txt = $.trim(txt);
-						//▲제거
-						txt = txt.replace("▲","");
-						//▼제거
-						txt = txt.replace("▼","");
-						//i번째 th 태그 안에 ▲,▼ 제거한 문자열 넣기
-						$(this).text( txt );
-					});
-					//클릭한 th안의 문자열 뒤에 ▲ 또는 ▼ 붙이기
-					//--------------------------------
-					//클릭한 th안의 문자열을 얻어 변수 str저장
-					var txt = thisThObj.text();
-					//txt 변수 안의 문자열에 ▲가 있으면 ▼로 바꾸고 ascDesc변수에 'desc'저장
-					if( txt.indexOf("▲")>=0 ){
-						txt=txt.replace("▲","▼");
-						ascDesc = "desc";
-					}
-					//txt 변수 안의 문자열에 ▼가 있으면 ▲로 바꾸고 ascDesc변수에 'asc'저장
-					else if( txt.indexOf("▼")>=0 ){
-						txt=txt.replace("▼","▲");
-						ascDesc = "asc";
-					}
-					//txt 변수 안의 문자열에 ▼, ▲둘다 없을 경우 ▲넣어주고 ascDesc 변수에 "asc'저장
-					else{
-						txt= txt+ "▲"
-						ascDesc="asc";
-					}
-					//txt 안의 데이터를 클릭한 th 안의 문자열로 갱신
-					thisThObj.text(txt);
-
-					//Array 객체에 각각의 tr을 관리하는 JQuery 객체들을 생성해서 저장
-					//원하는 정렬 기준에 따라 JQuery 객체의 위치를 바꾼다.
-					//-------------------------------
-					//정렬 대상이 되는 모든 tr 태그를 관리하는 JQuery 객체 생성해 저장
-					var allTrObj = $('.preResult tbody:eq(0)').children();
-					//각각의 tr을 관리하는 JQuery 객체들을 생성하여 Array 객체에 저장
-					//--------------------------------
-					var trObjs = [];
-					allTrObj.each(function(){
-						trObjs.push( $(this) );
-					});
-					//클릭한 th 태그의 인덱스 번호 저장.
-					var thIndex = thisThObj.index();
-
-					//반복문을 사용하여 클릭한 th열과 동이한 열의 데이터를 오름 또는 내림 정렬에 맞추어
-					//Array 객체에 저장된 tr 태그 관리 JQuery 객체를 재 배치
-					//----------------------------------
-					for( var j=0; j<trObjs.length-1; j++){
-						for( var k=j+1; k<trObjs.length; k++){
-							//j번째 jquery 객체의 관리 tr의 x번째 열의 문자얻고 소문자로 바꾸기
-							var td1Text = trObjs[j].children('td').eq(thIndex).text();
-							td1Text = ($.trim(td1Text)).toLowerCase();
-							if(thIndex==2){
-								td1Text = parseInt(td1Text,10);
-							}
-							//k번째 jquery 객체의 관리 tr의 x번째 열의 문자얻고 소문자로 바꾸기
-							var td2Text = trObjs[k].children('td').eq(thIndex).text();
-							td2Text = ($.trim(td2Text)).toLowerCase();
-
-							if( thIndex==2){ td2Text = parseInt(td2Text,10); }
-							//-----------
-							//만약 내림차순 의도가 있고 [j번째 x번째 열의 문자]<[k번째 x번째 열의 문자]면
-							//j번째 jquery 객체와 k번째 jquery 객체의 위치 바꾸기
-							if( ascDesc=="desc" && td1Text<td2Text ){
-								var tmp = trObjs[j];
-								trObjs[j] = trObjs[k];
-								trObjs[k] = tmp;
-							}
-							//오름차순 의도가 있고 [j번째 x번째 열의 문자]>[k번째 x번째 열의 문자]면
-							//j번째 jquery객체와 k번째 jquery 객체의 위치 바꾸기
-							else if( ascDesc=="asc" && td1Text>td2Text ){
-								var tmp = trObjs[j];
-								trObjs[j] = trObjs[k];
-								trObjs[k] = tmp;
-							}
-						}
-					}
-
-					//기존 tr 태그 지우기
-					$('.preResult tbody:eq(0)').empty();
-					//Array 객체에 저장된 JQuery 객체가 관리하는 tr 태그 삽입
-					for( var j=0; j<trObjs.length; j++){
-						$('.preResult tbody:eq(0)').append( trObjs[j] );
-					}
-					
-				});
-
+		  	   //alert("ready!");
+		  	   
+		  	   //월매출 콤마 넣기
+	  		    $(".month_sales").each(function() {
+                var num = $(this).text();
+                var commaNum = numberWithCommas(num);
+                $(this).text(commaNum+ "원");
+        		 });
+				
 
 				
  	  		 	$('[name=rowCntPerPage]').change(function(){
@@ -160,16 +67,20 @@
 						//alert("business_type_name2/"+"${preSearchDTO.business_type_name2}");
 					}
 				//inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
-				inputData("[name=addrGu1]","${preSearchDTO.addrGu1}");
+				inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
 				inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
 				inputData("[name=selectPageNo]","${preSearchDTO.selectPageNo}");
 				inputData("[name=month_sales]","${preSearchDTO.month_sales}");
 
 
 
+
+	  			
+
+
 	  	   });	 
 		
-		
+
 			function getBusinessTypeName2(){
 
 				
@@ -179,7 +90,7 @@
 					, data : "business_type_name1="+$('[name=business_type_name1]').val()
 					, success : function(data){
 							$("[name=business_type_name2]").empty();
-							$("[name=business_type_name2]").append("<option value=''>==중분류==</option>");
+							$("[name=business_type_name2]").append("<option value=''>===중분류===</option>");
 							//alert("business_type_name2///"+data[0]);
 							for( var i=0; data.length>i; i++){
 								//alert();
@@ -204,18 +115,32 @@
 
 
 
+			//월매출 콤마 넣기
+	         function numberWithCommas(number) {
+	             var parts = number.toString().split(".");
+	             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	             return parts.join(".");
+	         }
 
-	
-			function goOrderByRnum(){
-				var str = "order_by=rnum&"+$("[name=preSearchForm]").serialize();
-				
-				location.replace("/posbis/preSearchForm.do?"+str);
-			}
-				
-		
+		   
+
+
 	      function goPreSearch(){	         
+	    	  /* $.ajax({
+					url : "/posbis/getPreResultProc.do"
+					, type : "post"
+					, data : $("[name=preSearchForm]").serialize() 
+					, success : function(data){
+							alert("ajax 성공");
+
+					}
+					, error : function(request,status,error){
+						alert("서버 접속 실패");
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+					}
+				}) */
 				document.preSearchForm.submit();
-			
 	      }   
 
 	      function goPreSearchAll(){
@@ -278,8 +203,8 @@
 
 <body>
 	<center>
-
-
+		
+		
 		<div class="right">
 			<input type=button value="메인으로" onClick="goMainForm()">
 		</div>
@@ -288,7 +213,7 @@
 
 		<div
 			style="border: 1px solid; 20 px , margin : 10px; height: 100%; width: 100%;">
-
+			
 			<!---------------- 상단바 ------------------------->
 			<div style="float: left; border: 1px solid; 20 px , margin : 10px; height: 15%; width: 100%;">
 				<center>
@@ -312,11 +237,15 @@
 				</div>
 
 				<!------------------ 메인으로 보여줄 div -------------------->
-				<div
-					style="float: right; border: 1px solid; 20 px , margin : 10px; width: 80%; height: 100%;">
-					<br> <input type="button" value="분석페이지로가기" style="" onClick="goPreChartForm();">&nbsp;
-							 <input type="button" value="마이페이지로가기" style="" onClick="location.replace('/posbis/myPageForm.do');">&nbsp;
-							<input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp;
+				<div style="float: right; border: 1px solid; 20 px , margin : 10px; width: 80%; height: 100%;">
+				
+				<h2 align=left>&nbsp;&nbsp;&nbsp;[프리미엄 검색]</h2>
+					<br> <input type="button" value="분석페이지로가기" style=""
+						onClick="goPreChartForm();">&nbsp; <input type="button"
+						value="마이페이지로가기" style=""
+						onClick="location.replace('/posbis/myPageForm.do');">&nbsp;
+					<input type="button" value="q&a로가기" style=""
+						onClick="location.replace('/posbis/qstnForm.do');">&nbsp;
 					<br>
 					<br>
 
@@ -327,7 +256,8 @@
 					<!--======================-->
 
 					<!-- 검색조건 form -->
-					<form name="preSearchForm" method="post" action="/posbis/preSearchForm.do">
+					<form name="preSearchForm" method="post"
+						action="/posbis/preSearchForm.do">
 
 						<br>
 						<br> <select name="changeBusinessNo">
@@ -345,6 +275,20 @@
 							<caption align=top>
 								<b>[검색 조건]</b>
 							</caption>
+							
+							
+							<!--======================-->
+							<!-----------지역------------>
+							<!--======================-->
+							<tr>
+								<th align=center>지 역</th>
+								<td><select name="addr_gu1">
+										<option value="">==구선택==</option>
+										<c:forEach items="${addrGu1List}" var="addrGu1">
+											<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
+										</c:forEach>
+								</select> &nbsp;</td>
+							</tr>
 
 							<!--======================-->
 							<!--------업종-------------->
@@ -360,18 +304,6 @@
 											</c:forEach>
 								</select> &nbsp; <select name="business_type_name2">
 										<option value="">==소분류==
-								</select> &nbsp;</td>
-							</tr>
-							<!--======================-->
-							<!-----------지역------------>
-							<!--======================-->
-							<tr>
-								<th align=center>지 역</th>
-								<td><select name="addrGu1">
-										<option value="">==구선택==</option>
-										<c:forEach items="${addrGu1List}" var="addrGu1">
-											<option value="${addrGu1.addr_gu}">${addrGu1.addr_gu}</option>
-										</c:forEach>
 								</select> &nbsp;</td>
 							</tr>
 							
@@ -390,9 +322,9 @@
 							</tr>
 						</table>
 						<br> 
+						<input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
 						<input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
-						<input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp; <br>
-						<br>
+						 <br><br>
 						
 						
 						
@@ -419,6 +351,7 @@
 			
 					
 						<input type="hidden" name="selectPageNo">		
+						<input type="hidden" name="sort" value="rnum asc">		
 					</form>
 					<!-- /preSearchForm  -->
 
@@ -434,24 +367,94 @@
 					<!--======검색결과=======-->
 					<!--======================-->
 					<form name="preResultForm">
-						<input type="hidden" name="order_by" value="rnum">
-						<b>[검색결과]</b>
-						<table class="preResult" border=0 cellspacing=0 cellpadding=5 width=700>
-							<thead>
+						<table class="boardTable tbcss2" border=0 cellspacing=0 cellpadding=5 width=700>
 							<tr bgcolor="gray">
-								<th style="cursor:pointer" class="rnum">순위
-								<th style="cursor:pointer" class="months_sales">월매출(지난달 기준)
-								<th style="cursor:pointer" class="business_type">업종
-								<th style="cursor:pointer" class="best_menu_type">인기메뉴분류
-								<th style="cursor:pointer" class="addr_dong">동 
-							</thead>
+								
+							<!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='rnum desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('rnum asc'); goPreSearch();">매출순위▼
+									</c:when>
+									<c:when test="${param.sort=='rnum asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('rnum desc'); goPreSearch();">매출순위▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('rnum asc'); goPreSearch();">매출순위
+									</c:otherwise>
+								</c:choose>
+							<!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='month_sales desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
+									</c:when>
+									<c:when test="${param.sort=='month_sales asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
+									</c:otherwise>
+								</c:choose>
+								<!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='business_type desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">업&nbsp;&nbsp;종▼
+									</c:when>
+									<c:when test="${param.sort=='business_type asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('business_type desc'); goPreSearch();">업&nbsp;&nbsp;종▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('business_type asc'); goPreSearch();">업&nbsp;&nbsp;종
+									</c:otherwise>
+								</c:choose>
+								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='best_menu_type desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
+									</c:when>
+									<c:when test="${param.sort=='best_menu_type asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
+									</c:otherwise>
+								</c:choose>
+								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='addr_dong desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)▼
+									</c:when>
+									<c:when test="${param.sort=='addr_dong asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong desc'); goPreSearch();">지역(동단위)▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)
+									</c:otherwise>
+								</c:choose>
+
+
+
 							<c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
 							<tr>
 								<td align=center>${preResult.RNUM}
-								<td align=center>${preResult.months_sales}
-								<td align=center>${preResult.business_type}
-								<td align=center>메뉴분류
-								<td align=center>${preResult.addr_dong}
+								<td align=center class=month_sales>${preResult.MONTH_SALES}
+								<td align=center>${preResult.BUSINESS_TYPE}
+								<td align=center>${preResult.BEST_MENU_TYPE}
+								<td align=center>${preResult.ADDR_DONG}
 							</c:forEach>
 						</table>
 					</form>

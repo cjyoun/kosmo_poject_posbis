@@ -32,6 +32,34 @@ public class SalesServiceImpl implements SalesService{
 		return salesList;
 	}
 	
+	
+	
+	
+	//[검색한 게시판 목록 총 개수] 리턴하는 메소드 선언
+	public int getMenuSalesListAllCnt(MenuSalesSearchDTO menuSalesSearchDTO) {
+		
+		//[BoardDAO 인터페이스]를 구현한  객체의 getBoardListAllCnt 메소드를 호출하여
+		//[검색한 게시판 목록 개수]를 얻는다.
+		//[검색한 게시판 목록 개수]를 리턴받는다.
+		int menuSalesListAllCnt= this.salesDAO.getMenuSalesListAllCnt(menuSalesSearchDTO);
+		//[검색한 게시판 목록 개수]를 리턴한다.
+		return menuSalesListAllCnt;
+		
+	}
+	
+	//[검색한 게시판 목록] 리턴하는 메소드 선언
+	public List<Map<String,String>> getMenuSalesList(MenuSalesSearchDTO menuSalesSearchDTO){
+	    //System.out.println("service : getSalesList 시작");
+		List<Map<String,String>> menuSalesList = this.salesDAO.getMenuSalesList(menuSalesSearchDTO);
+	    //System.out.println("service : getSalesList 끝");
+		return menuSalesList;
+	}
+	
+	
+	
+	
+	
+	
 	   // user_id 를 가지고 u_no 얻기
 	   @Override
 	   public int getUserNo(String user_id) {
@@ -50,7 +78,16 @@ public class SalesServiceImpl implements SalesService{
 	      List<Map<String,String>> businessNoList = this.salesDAO.getBusinessNoList(u_no);
 	      //System.out.println("service : businessNoList 끝"); 
 	      return businessNoList;
-	      
+	   }
+
+	   
+	//--------------------------------------------------------------------------------------------------   
+
+		// 홈페이지 매출 현황
+	   public List<Map<String, String>> getSalesNow(int u_no){
+		      List<Map<String,String>> salesNow = this.salesDAO.getSalesNow(u_no);
+
+		      return salesNow;
 	   }
 
 }

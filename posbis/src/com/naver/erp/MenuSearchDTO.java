@@ -3,6 +3,7 @@ package com.naver.erp;
 public class MenuSearchDTO {
 	
 	private String keyword;
+	private String business_name;
 	private String main_category_name;
 	private String mid_category_name;
 	private String sub_category_name;
@@ -13,27 +14,23 @@ public class MenuSearchDTO {
 	private String business_no;
 	private int selectPageNo=1;
 	private int rowCntPerPage=15;
-	private String changeBusinessNo;
-	private String user_id;
+	private int u_no=7;
+	private String chooseAllBusinessNo;
+	private String[] chooseBusinessNo;
 	
 	
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public String getChangeBusinessNo() {
-		return changeBusinessNo;
-	}
-	public void setChangeBusinessNo(String changeBusinessNo) {
-		this.changeBusinessNo = changeBusinessNo;
-	}
+	
 	public String getKeyword() {
 		return keyword;
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	public String getBusiness_name() {
+		return business_name;
+	}
+	public void setBusiness_name(String business_name) {
+		this.business_name = business_name;
 	}
 	public String getMain_category_name() {
 		return main_category_name;
@@ -95,6 +92,26 @@ public class MenuSearchDTO {
 	public void setRowCntPerPage(int rowCntPerPage) {
 		this.rowCntPerPage = rowCntPerPage;
 	}
+	public int getU_no() {
+		return u_no;
+	}
+	public void setU_no(int u_no) {
+		this.u_no = u_no;
+	}
+	public String[] getChooseBusinessNo() {
+		return chooseBusinessNo;
+	}
+	public void setChooseBusinessNo(String[] chooseBusinessNo) {
+		this.chooseBusinessNo = chooseBusinessNo;
+	}
+	public String getChooseAllBusinessNo() {
+		return chooseAllBusinessNo;
+	}
+	public void setChooseAllBusinessNo(String chooseAllBusinessNo) {
+		this.chooseAllBusinessNo = chooseAllBusinessNo;
+	}
+	
+
 	
 }
 

@@ -1,7 +1,6 @@
 package com.naver.erp;
 import java.util.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +18,38 @@ public class PreSearchController {
 	@Autowired
 	private PreSearchService preSearchService;
 		
+
+	 @RequestMapping( value="/getPreResultProc.do" //접속하는 클래스의 URL 주소 설정
+			 ,method=RequestMethod.POST ,produces="application/json;charset=UTF-8" )
+	 
+	 @ResponseBody
+	 public  List<Map<String,String>> getPreResultProc( 
+			 PreSearchDTO preSearchDTO 
+	) {
+		 System.out.println("proc시작");
+		List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
+		System.out.println("preResultList===>" +preResultList);
+		
+		
+		 return preResultList;
+	 } 
+	 
+	
+	
+	
 	
 
 	@RequestMapping(value ="/preSearchForm.do")
 	public ModelAndView getSearchList(
 		PreSearchDTO preSearchDTO
-		, HttpSession session
-		, HttpServletResponse response 
+		//, HttpSession session 
 	) {
-		System.out.println("Controller/getSearchList 호출");
+		//System.out.println("Controller/getSearchList 호출");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "preSearchForm.jsp");
-		
+		System.out.println("getSearchList시작");
+		System.out.println("Controller/DTO.getAddr_gu1==>"+preSearchDTO.getAddr_gu1());
+		System.out.println("Controller/DTO.getSort==>"+preSearchDTO.getSort());
 		
 		
 		try {
@@ -38,9 +57,8 @@ public class PreSearchController {
 			
 			
 			//===================select / 사업자번호 얻기==================
-			String user_id = (String)session.getAttribute("user_id");
-	        // String user_id = "user10";
-	         System.out.println("user_no 얻기 시작");
+	         String user_id = "user10";
+	         //System.out.println("user_no 얻기 시작");
 	        // System.out.println(user_id);
 	         
 	         // user_id 를 가지고 u_no 값 얻기
@@ -51,7 +69,7 @@ public class PreSearchController {
 	         List<Map<String,String>> businessNoList = this.preSearchService.getBusinessNoList(user_no);
 	         //List<String> businessNoList = this.preChartService.getBusinessNoList(user_no);
 
-	         System.out.println("Controller/businessNoList 끝");
+	         //System.out.println("Controller/businessNoList 끝");
 	         
 	         
 	         mav.addObject("businessNoList" , businessNoList);
@@ -88,15 +106,15 @@ public class PreSearchController {
 			
 			// 총 개수와 선택한 페이지 번호간의 이상관계 시 보정
 			
-					if(preResultAllCnt>0) {
-						int selectPageNo =  preSearchDTO.getSelectPageNo();
-						int rowCntPerPage = preSearchDTO.getRowCntPerPage();
-						int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
-						
-						if( beginRowNo < selectPageNo ) {
-							preSearchDTO.setSelectPageNo(1);
-						}
-					}
+			if(preResultAllCnt>0) {
+				int selectPageNo =  preSearchDTO.getSelectPageNo();
+				int rowCntPerPage = preSearchDTO.getRowCntPerPage();
+				int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
+				
+				if( beginRowNo < selectPageNo ) {
+					preSearchDTO.setSelectPageNo(1);
+				}
+			}
 			
 			
 			
@@ -115,8 +133,8 @@ public class PreSearchController {
 			
 			
 			
-			System.out.println("Controller/preSearchDTO.rowCntPerPage===>"+preSearchDTO.getRowCntPerPage());
-			System.out.println("Controller/preSearchDTO.selectPageNo===>"+preSearchDTO.getSelectPageNo());
+			//System.out.println("Controller/preSearchDTO.rowCntPerPage===>"+preSearchDTO.getRowCntPerPage());
+			//System.out.println("Controller/preSearchDTO.selectPageNo===>"+preSearchDTO.getSelectPageNo());
 			
 			
 			mav.addObject("preSearchDTO", preSearchDTO);
@@ -146,17 +164,17 @@ public class PreSearchController {
 			//파라미터값을 저장할 [BoardDTO 객체]를 매개변수로 선언
 			@RequestParam(value="business_type_name1") String business_type_name1 
 	) {
-		System.out.println("Controller/business_type_name1"+business_type_name1);
+		//System.out.println("Controller/business_type_name1"+business_type_name1);
 		List<String> businessTypeName2List;
 		try {
 			businessTypeName2List = this.preSearchService.getBusinessTypeName2(business_type_name1);
 		}
 		catch(Exception e) {
-			System.out.println("getBusinessTypeName2 <에러발생>");
-			System.out.println(e.getMessage());
+			//System.out.println("getBusinessTypeName2 <에러발생>");
+			//System.out.println(e.getMessage());
 			businessTypeName2List = null;
 		}
-		System.out.println("Controller/businessTypeName2List===>"+businessTypeName2List);
+		//System.out.println("Controller/businessTypeName2List===>"+businessTypeName2List);
 		return businessTypeName2List;
 	}
 	

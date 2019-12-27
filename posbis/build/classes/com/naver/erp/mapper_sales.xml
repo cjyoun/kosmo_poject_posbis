@@ -39,23 +39,30 @@
 						s.sales_date &lt;= to_date('${sales_date_t2}','yyyy-mm-dd')
 				)
 			</if>
-					<if test='sales_date=="1"'>
-					and(
-						s.sales_date = sysdate
-					)
-					</if>
-					<if test='sales_date=="2"'>
-					and(
-						s.sales_date &lt;= sysdate and
-						s.sales_date >= sysdate-6
-					)
-					</if>
-					<if test='sales_date=="3"'>
-					and(
-						to_char(sysdate,'yyyymm')=to_char(s.sales_date,'yyyymm')
-					)
-					</if>
-
+			
+			<if test='sales_date=="1"'>
+			and(
+				s.sales_date = sysdate
+			)
+			</if>
+			<if test='sales_date=="2"'>
+			and(
+				s.sales_date &lt;= sysdate and
+				s.sales_date >= sysdate-6
+			)
+			</if>
+			<if test='sales_date=="3"'>
+			and(
+				to_char(sysdate,'yyyymm')=to_char(s.sales_date,'yyyymm')
+			)
+			</if>
+					
+ 			<if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
+			and s.business_no in
+				<foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
+						#{chooseBusinessNo}
+				</foreach>
+			</if>
 	 </sql>
 	
 	
@@ -66,18 +73,20 @@
 		<!-- number 자료형을 문자형으로 바꾸는 이유는 HashMap 객체에 String으로 저장되기 때문이다.  -->
 		select * from(select zzz.*, rownum RNUM from(
 			select
-			    m.menu_category_code    				as  "menu_category_code"
+                b.business_name                         as  "business_name"
+			    ,m.menu_category_code    				as  "menu_category_code"
 			    ,m.menu_name            				as  "menu_name"
 			    ,m.menu_price||''           			as  "menu_price"
 			    ,s.sales_count||''          			as  "sales_count"
 			    ,(m.menu_price * s.sales_count)||'' 	as  "sales_amount"
-			    ,to_char(s.sales_date,'yyyy-mm-dd')     as  "sales_date"
-			from sales s, menu m
-			where s.menu_no=m.menu_no
-			and s.business_no like '%${changeBusinessNo}%'
+			    ,((m.menu_price * s.sales_count)-(m.menu_cost* s.sales_count))||'' 	as  "sales_income"
+			    ,to_char(s.sales_date,'yyyy-mm-dd day')     as  "sales_date"
+			from sales s, menu m, business_info b
+			where s.menu_no=m.menu_no and b.business_no = m.business_no
+			<!-- and s.business_no like '%${changeBusinessNo}%' -->
 			<!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
  		 <include refid="salesWhere"/>
-
+			order by s.sales_date desc
 
 		)zzz) where <!-- xml에서 <>는 부등호가 아닌 태그의 시작과 끝이다. <![CDATA[ ]]>로 구문을 감싸면 <>를 태그가 아닌 부등호로 인식 -->
 			<![CDATA[
@@ -92,12 +101,67 @@
 	<select id="getSalesListAllCnt" parameterType="com.naver.erp.SalesSearchDTO" resultType="int">
 		select 
 			count(*) 
-		from sales s, menu m
-		where s.menu_no=m.menu_no
-			and s.business_no like '%${changeBusinessNo}%'
+		from sales s, menu m, business_info b
+		where s.menu_no=m.menu_no and b.business_no = m.business_no
+			<!-- and s.business_no like '%${changeBusinessNo}%' -->
 			<!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
  		 <include refid="salesWhere"/>	
 	</select>
+	
+	
+	
+	
+	
+	<!--**************************************************************************-->
+	<!-- 게시판 검색하는 select 문을 내포한 select 태그 선언 -->
+	<!--**************************************************************************-->
+	<select id="getMenuSalesList" parameterType="com.naver.erp.MenuSalesSearchDTO" resultType="java.util.HashMap">
+		<!-- number 자료형을 문자형으로 바꾸는 이유는 HashMap 객체에 String으로 저장되기 때문이다.  -->
+		select * from(select zzz.*, rownum RNUM from(
+			select
+                  b.business_name                       as  "business_name2"
+				 ,m.menu_category_code    				as  "menu_category_code2"
+				 ,m.menu_name            				as  "menu_name2"
+				 ,m.menu_price||''           			as  "menu_price2"
+				 ,sum(s.sales_count)||''          			as  "sales_count2"
+				 ,sum(m.menu_price * s.sales_count)||'' 	as  "sales_amount2"
+			     ,sum((m.menu_price * s.sales_count)-(m.menu_cost* s.sales_count))||'' 	as  "sales_income2"
+			from sales s, menu m, business_info b
+			where s.menu_no=m.menu_no and b.business_no = m.business_no
+				<!-- and s.business_no like '%${changeBusinessNo}%' -->
+	 		 <include refid="salesWhere"/>
+	 		 	group by b.business_name, m.menu_category_code, m.menu_name, m.menu_price||''
+			)zzz )where <!-- xml에서 <>는 부등호가 아닌 태그의 시작과 끝이다. <![CDATA[ ]]>로 구문을 감싸면 <>를 태그가 아닌 부등호로 인식 -->
+			<![CDATA[
+				RNUM>= ${selectPageNo*menuRowCntPerPage-menuRowCntPerPage+1}
+				and RNUM<= ${selectPageNo*menuRowCntPerPage}
+			]]> 
+
+	</select>
+	
+	<!--*************************************************************-->
+	<!-- 게시판 글 목록 총 개수 구하는  select 태그 선언-->
+	<!--*************************************************************-->
+	<select id="getMenuSalesListAllCnt" parameterType="com.naver.erp.MenuSalesSearchDTO" resultType="int">
+		select 
+			count(*) from
+			(
+			select
+                  b.business_name                       as  "business_name2"
+				 ,m.menu_category_code    				as  "menu_category_code2"
+				 ,m.menu_name            				as  "menu_name2"
+				 ,m.menu_price||''           			as  "menu_price2"
+				 ,sum(s.sales_count)||''          			as  "sales_count2"
+				 ,sum(m.menu_price * s.sales_count)||'' 	as  "sales_amount2"
+			    , sum((m.menu_price * s.sales_count)-(m.menu_cost* s.sales_count))||'' 	as  "sales_income"
+			from sales s, menu m, business_info b
+			where s.menu_no=m.menu_no and b.business_no = m.business_no
+				<!-- and s.business_no like '%${changeBusinessNo}%' -->
+	 		 <include refid="salesWhere"/>
+	 		 	group by b.business_name, m.menu_category_code, m.menu_name, m.menu_price||''
+	 		)
+	</select>
+	
 	
 <!-- ========================================================================================= -->
 	
@@ -115,6 +179,23 @@
          where 
             1=1 
             and u_no=#{u_no}
+   </select>
+   
+   
+<!-- ========================================================================================= -->
+   <select id='getSalesNow' parameterType="int" resultType="java.util.HashMap">   
+	
+	select
+	    to_char(s.sales_date,'yyyy.mm')   as "now_sales_date"
+	    ,sum(m.menu_price * s.sales_count)||'' 	as  "now_sales_amount"
+	    ,sum((m.menu_price * s.sales_count)-(m.menu_cost* s.sales_count))||'' 	as  "now_sales_income"
+	from sales s, menu m
+	where s.menu_no=m.menu_no
+		and s.business_no in (select business_no from business_info where u_no = #{u_no})
+	group by to_char(s.sales_date,'yyyy.mm')
+		having (to_char(s.sales_date,'yyyy.mm') = to_char(sysdate,'yyyy.mm') )  or (to_char(s.sales_date,'yyyy.mm') = to_char(add_months(sysdate,-1),'yyyy.mm') )
+	order by to_char(s.sales_date,'yyyy.mm')
+	
    </select>
 	
 	

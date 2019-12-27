@@ -26,7 +26,7 @@ public class PreSearchServiceImpl implements PreSearchService{
 	
 	//[검색한 게시판 목록 개수] 리턴하는 메소드 선언
 	public int getPreResultAllCnt(PreSearchDTO preSearchDTO) {
-		System.out.println("Service/getPreResultAllCnt 시 작");
+		//System.out.println("Service/getPreResultAllCnt 시 작");
 		//[BoardDAO 인터페이스]를 구현한 객체의 getBoardListAllCnt 메소드 호출
 		//[검색한 게시판 목록 개수] 를 얻는다
 		//[검색한 게시판 목록 개수] 를 리턴받는다
@@ -77,7 +77,7 @@ public class PreSearchServiceImpl implements PreSearchService{
    // user_id 를 가지고 u_no 얻기
    @Override
    public int getUserNo(String user_id) {
-      System.out.println("service : "+user_id);
+      //System.out.println("service : "+user_id);
       int user_no = this.preSearchDAO.getUserNo(user_id);
       
       return user_no;
@@ -88,9 +88,9 @@ public class PreSearchServiceImpl implements PreSearchService{
    // u_no을 가지고 business_no 과 business_name 얻기   
    @Override
    public List<Map<String, String>> getBusinessNoList(int user_no) {
-      System.out.println("service : businessNoList 시작");
+      //System.out.println("service : businessNoList 시작");
       List<Map<String,String>> businessNoList = this.preSearchDAO.getBusinessNoList(user_no);
-      System.out.println("service : businessNoList 끝"); 
+     // System.out.println("service : businessNoList 끝"); 
       return businessNoList;
       
    }
@@ -101,9 +101,9 @@ public class PreSearchServiceImpl implements PreSearchService{
    
 	//[select / getBusinessTypeName1List]얻기
 	public List<String> getBusinessTypeName1List(){
-	      System.out.println("service : getBusinessTypeName1List 시작");
+	      //System.out.println("service : getBusinessTypeName1List 시작");
 	      List<String> businessTypeName1List = this.preSearchDAO.getBusinessTypeName1List();
-	      System.out.println("service : businessNoList 끝"); 
+	      //System.out.println("service : businessNoList 끝"); 
 	      return businessTypeName1List;
 	}
 	

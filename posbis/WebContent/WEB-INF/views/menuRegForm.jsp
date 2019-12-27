@@ -69,7 +69,6 @@
     	 
 		// [메뉴 등록 화면]에 입력된 데이터의 유효성 체크 함수 선언
 		function checkMenuRegForm(){
-			alert("dd");
 			if(is_empty("[name=main_category_name]")){
 				alert("대분류를 선택해주세요");
 				$("[name=middle_category]").focus();
@@ -86,7 +85,6 @@
 				alert("소분류를 선택해주세요.");
 				$("[name=menu_name]").focus();
 				return;
-				
 			}
 			if(is_empty("[name=menu_name]")){
 				alert("메뉴이름을 입력해주세요.");
@@ -104,10 +102,8 @@
 				alert("메뉴원가를 입력해주세요.");
 				return;
 			}
-			
-			/* if(confirm("정말 등록하시겠습니까?")==false){return;} */
 
-			alert($('[name=menuRegForm]').serialize());
+			//alert($('[name=menuRegForm]').serialize());
 			// 메뉴 등록 후 메뉴 입력 행 개수를 받기
 			$.ajax({
 				// 서버 쪽 호출 URL 주소 지정
@@ -123,7 +119,7 @@
 				// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
 				// 매개변수 menuRegCnt 에는 입력 행의 개수가 들어온다.
 				, success : function(menuRegCnt){
-					alert("메뉴 등록??" + menuRegCnt);
+					alert("메뉴 등록하시겠습니까?"+menuRegCnt);
 				// [메뉴 등록 적용 개수]가 1개면(=insert 라 한 번 성공했따는 뜻)
 					if(menuRegCnt==1){
 						alert("메뉴 등록 성공!");
@@ -139,13 +135,12 @@
 					alert("서버 접속에 실패하였습니다.");
 				}
 			});
-
 			
 		} //function checkMenuRegForm(){
 
 
-		// 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수   
-	      function goPreChartForm(){
+		 // 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수
+	    function goPreChartForm(){
 			 var rank_code = ${rank_code};
 	         if(rank_code == 2){
 	         	location.replace("/posbis/preChartForm.do");
@@ -160,54 +155,66 @@
 	         }
 	      }
 
-
 		
 	</script>
 	</head>
-		<body>
-		<form name = "menuRegForm" method="post" action="/posbis/menuRegForm.do"><center>
-		<input type="hidden" name="business_no" value="502-37-52145" }>
-		<input type="hidden" name="user_id" value="user7" }>
-		<input type="hidden" name="u_no" value="7" }>
-			<h2>[메뉴 등록]</h2>
-			<table class = "tbcss1" border=1 bordercolor=FFEFDC cellspacing=0 cellpadding=5 align=center width="500">
-			<th bgcolor="FFEFDC">분류
-               <td><!-- 대분류 -->
-               <select name="main_category_name" class="main_category_name">
-                  <option value="" selected>---대분류---</option>
-                  <c:forEach items="${menuCategory1}" var="menucate">
-                     <option value="${menucate.main_category_name}">${menucate.main_category_name}</option>
-                  </c:forEach>
-               </select>
-               
-               <!-- 중분류 -->
-               <select name="mid_category_name" class="mid_category_name">
-                  <option value="" selected>---중분류---</option>
-               </select>
-               
-               <!-- 소분류 -->
-               <select name="sub_category_name" class="sub_category_name">
-                  <option value="" selected>---소분류---</option>
-               </select>
-					
-				<!-- 메뉴이름 -->
+		<body><center>
+			<form name = "menuRegForm" method="post" action="/posbis/menuRegForm.do">
+			<input type="text" name="u_no" value="7" readonly >
+			
+			<select name="business_no">
+				<!-- 중요! -->
+				<option value="" selected>사업자번호를 선택해주세요
+				<c:forEach items="${businessNoList}" var="businessNoList">
+					<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
+					</option>
+				</c:forEach>
+			</select>
+
+			<!------------------------------------------------------------->
+			<table class = "tbcss1" border=1 bordercolor=grary cellspacing=0 cellpadding=5 align=center>
 				<tr>
-					<th bgcolor="FFEFDC">메뉴이름
-					<td><input type="text" size="10" maxlength="10" name="menu_name">
+				<th bgcolor="FFEFDC">분류
+					<td><!-- 대분류 -->
+					<select name="main_category_name" class="main_category_name">
+						<option value="" selected>---대분류---</option>
+						<c:forEach items="${menuCategory1}" var="menucate">
+							<option value="${menucate.main_category_name}">${menucate.main_category_name}</option>
+						</c:forEach>
+					</select>
 					
-				<!-- 메뉴가격 -->
-				<tr>
-					<th bgcolor="FFEFDC">메뉴가격
-					<td><input type="text" size="40" maxlength="50" name="menu_price">
+					<!-- 중분류 -->
+					<select name="mid_category_name" class="mid_category_name">
+						<option value="" selected>---중분류---</option>
+					</select>
 					
-				<!-- 메뉴원가 -->
-				<tr>
-					<th bgcolor="FFEFDC">메뉴원가
-					<td><input type="text" size="40" maxlength="50" name="menu_cost">
+					<!-- 소분류 -->
+					<select name="sub_category_name" class="sub_category_name">
+						<option value="" selected>---소분류---</option>
+					</select>
+					
+					<!-- 메뉴이름 -->
+					<tr>
+						<th bgcolor="FFEFDC">메뉴이름
+						<td><input type="text" size="10" maxlength="10" name="menu_name">
+						
+					<!-- 메뉴가격 -->
+					<tr>
+						<th bgcolor="FFEFDC">메뉴가격
+						<td><input type="text" size="40" maxlength="50" name="menu_price">
+						
+					<!-- 메뉴원가 -->
+					<tr>
+						<th bgcolor="FFEFDC">메뉴원가
+						<td><input type="text" size="40" maxlength="50" name="menu_cost">
 			</table><br>
-				<input type="button" value="등록" onClick="checkMenuRegForm();">
-				<input type="reset" value="다시작성">
-				<input type="button" value="취소" onClick="location.replace('/posbis/menuForm.do')">
-			</center></form>
-		</body>
+					<input type="button" value="등록" onClick="checkMenuRegForm();">
+					<input type="reset" value="다시작성">
+					<input type="button" value="취소" onClick="location.replace('/posbis/menuForm.do')">
+			<!----------------------------------------------------------------------------------------->
+</form>
+		
+		
+		
+		</center></body>
 </html>

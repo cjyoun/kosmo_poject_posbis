@@ -88,7 +88,7 @@
 					, success : function(data){
 						if( data==1 ){
 							alert("로그인 성공");
-							location.replace("/posbis/myPageForm.do");
+							location.replace("/posbis/homePageForm.do");
 						}
 						 else if(data == 0) {
 							 alert("아이디 또는 암호가 존재하지 않습니다. 재입력 바람");

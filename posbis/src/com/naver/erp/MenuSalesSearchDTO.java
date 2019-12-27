@@ -1,16 +1,15 @@
 package com.naver.erp;
 
-public class SalesSearchDTO {
+public class MenuSalesSearchDTO {
 	private String user_id;
 	private String keyword;
 	private String sales_date;
 	private String sales_date_t1;
 	private String sales_date_t2;
 	private int selectPageNo=1;
-	private int rowCntPerPage=10;
+	private int menuRowCntPerPage=10;
 	private String[] chooseBusinessNo;
 	private String chooseAllBusinessNo;
-	
 	
 	public String getUser_id() {
 		return user_id;
@@ -36,23 +35,23 @@ public class SalesSearchDTO {
 	public void setSales_date_t2(String sales_date_t2) {
 		this.sales_date_t2 = sales_date_t2;
 	}
+	public String getSales_date() {
+		return sales_date;
+	}
+	public void setSales_date(String sales_date) {
+		this.sales_date = sales_date;
+	}
 	public int getSelectPageNo() {
 		return selectPageNo;
 	}
 	public void setSelectPageNo(int selectPageNo) {
 		this.selectPageNo = selectPageNo;
 	}
-	public int getRowCntPerPage() {
-		return rowCntPerPage;
+	public int getMenuRowCntPerPage() {
+		return menuRowCntPerPage;
 	}
-	public void setRowCntPerPage(int rowCntPerPage) {
-		this.rowCntPerPage = rowCntPerPage;
-	}
-	public String getSales_date() {
-		return sales_date;
-	}
-	public void setSales_date(String sales_date) {
-		this.sales_date = sales_date;
+	public void setMenuRowCntPerPage(int menuRowCntPerPage) {
+		this.menuRowCntPerPage = menuRowCntPerPage;
 	}
 	public String[] getChooseBusinessNo() {
 		return chooseBusinessNo;

@@ -11,12 +11,12 @@ public interface MenuDAO {
 	List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO);
 
 	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
-	int getMenuAllCnt(MenuSearchDTO menuSearchDTO);
+	int getMenuListAllCnt(MenuSearchDTO menuSearchDTO);
 
 	// 메뉴 입력 후 입력 적용 행의 개수 리턴하는 메소드 선언
 	int insertMenu(MenuDTO menuDTO);
 	
-	// 1개의 메뉴를 리턴하는 메소드 선언
+	// 유저 정보를 를 리턴하는 메소드 선언
 	int getUserNo(String user_id);
 
 	List<Map<String, String>> getBusinessNoList(int user_no);
@@ -24,17 +24,20 @@ public interface MenuDAO {
 	// 1개의 메뉴 정보를 리턴하는 메소드 선언
 	MenuDTO getMenuDTO(int menu_no);
 
-	// 삭제할 메뉴의 존재 개수를 리턴하는 메소드 
-	int getMenuCnt(MenuDTO menuDTO);
-	
 	// 수정할 메뉴 존재 개수를 리턴하는 메소드 선언
 	int updateMenu(MenuDTO menuDTO);
+	
+	// 삭제할 메뉴의 존재 개수를 리턴하는 메소드 
+	int getMenuCnt(MenuDTO menuDTO);
 
+	// 출력 순서 번호 감소 시킬 적용행의 개수를 리턴하는 메소드 
+	int downPrintNo(MenuDTO menuDTO);
+	
 	// 메뉴 삭제 명령한 후 삭제 적용행의 개수를 리턴하는 메소드 선언
 	int deleteMenu(MenuDTO menuDTO);
 
 	// 1개의 메뉴 출력번호 수정하고 수정 행의 개수 리턴하는 메소드 선언
-	int menuPrintNo(MenuDTO menuDTO);
+	int updatePrintNo(MenuDTO menuDTO);
 	
 	   // 대분류 데이터 가져오기
 	   List<Map<String, String>> getMenuCategory1();
@@ -44,4 +47,5 @@ public interface MenuDAO {
 
 	   // 소분류 데이터 가져오기
 	   List<String> getMenuCategory3(String mid_category_name);
+
 }

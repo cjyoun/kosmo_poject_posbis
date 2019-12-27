@@ -15,13 +15,13 @@ public class MenuServiceImpl implements MenuService{
 	//--------------------------------------------
 	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
 	//--------------------------------------------
-	public int getMenuAllCnt(MenuSearchDTO menuSearchDTO){
+	public int getMenuListAllCnt(MenuSearchDTO menuSearchDTO){
 
 		// [검색한 메뉴 목록 개수]를 리턴 받는다.
-		int menuAllCnt = this.menuDAO.getMenuAllCnt(menuSearchDTO);
+		int menuListAllCnt = this.menuDAO.getMenuListAllCnt(menuSearchDTO);
 
 		// [검색한 메뉴 목록 총 개수] 를 리턴한다.
-		return menuAllCnt;
+		return menuListAllCnt;
 	}
 		
 	//--------------------------------------------
@@ -29,6 +29,7 @@ public class MenuServiceImpl implements MenuService{
 	//--------------------------------------------
 	public List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO){
 		List<Map<String,String>> menuList = this.menuDAO.getMenuList(menuSearchDTO);
+		System.out.println("menuList=======>"+ menuList);
 		return menuList;
 	}
 	
@@ -47,12 +48,28 @@ public class MenuServiceImpl implements MenuService{
 	// 1개 메뉴를 리턴하는 메소드 선언
 	//--------------------------------------------
 	public MenuDTO getMenuDTO(int menu_no) {
-		
+		System.out.println("menu_no====>"+menu_no);
 		// [MenuDTOImple] 객체의 getMenuDTO 메소드를 호출하여
 		// [1개 게시판 글] 을 얻는다.
 		MenuDTO menuDTO = this.menuDAO.getMenuDTO(menu_no);
 	
 		// 1개의 메뉴가 저장된 menuDTO 객체 리턴하기
+		System.out.println("menuDTO=====>"+menuDTO);
+		return menuDTO;
+	}
+	
+	//-------------------------------------------
+	// 1개 메뉴를 리턴하는 메소드 선언
+	//-------------------------------------------
+	public MenuDTO getMenuDTO_upDel(int menu_no) {
+		//-------------------------------------------
+		// [BoardDAO 인터페이스]를 구현한 객체의 getBoardDTO 메소드를 호출하여
+		// 조회수 증가 없이 [1개 게시판 글]을 얻는다.
+		//-------------------------------------------
+		MenuDTO menuDTO = this.menuDAO.getMenuDTO(menu_no);
+		//-------------------------------------------
+		// [1개 게시판 글] 이 저장된 BoardDTO 객체 리턴하기
+		//-------------------------------------------
 		return menuDTO;
 	}
 	
@@ -92,7 +109,7 @@ public class MenuServiceImpl implements MenuService{
 		// 삭제될 게시판 이후 글의 출력 순서번호를 1씩 감소 시킨 후
 		// 수정 적용행의 개수를 얻는다.
 
-		int menuPrintNo = this.menuDAO.menuPrintNo(menuDTO);
+		int downPrintNoCnt = this.menuDAO.downPrintNo(menuDTO);
 
 		// [MenuDAOImpl]객체의 deleteMenu 메소드를 호출하여
 		// 게시판 삭제 명령한 후 삭제 적용행의 개수를 얻는다.
@@ -101,7 +118,7 @@ public class MenuServiceImpl implements MenuService{
 		return deleteCnt;
 		
 	}
-	
+
 	
    // user_id 를 가지고 u_no 얻기
    @Override
@@ -139,7 +156,7 @@ public class MenuServiceImpl implements MenuService{
    public List<String> getMenuCategory3(String mid_category_name){
       List<String> menuCategory3 = this.menuDAO.getMenuCategory3(mid_category_name);
          return menuCategory3;
-   };
-	
+   }
+
 }
 	

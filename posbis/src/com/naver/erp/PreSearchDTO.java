@@ -2,16 +2,25 @@ package com.naver.erp;
 
 public class PreSearchDTO {
 	
+	private int rnum=0;
 	private int u_no =7;
 	private String business_no;
 	private String business_type_name1;
 	private String business_type_name2;
-	private String addrGu1;
+	private String addr_gu1;
 	private int month_sales=0;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
+	private String sort="rnum asc";
 	
 	
+	
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getU_no() {
 		return u_no;
 	}
@@ -36,11 +45,11 @@ public class PreSearchDTO {
 	public void setBusiness_type_name2(String business_type_name2) {
 		this.business_type_name2 = business_type_name2;
 	}
-	public String getAddrGu1() {
-		return addrGu1;
+	public String getAddr_gu1() {
+		return addr_gu1;
 	}
-	public void setAddrGu1(String addrGu1) {
-		this.addrGu1 = addrGu1;
+	public void setAddr_gu1(String addr_gu1) {
+		this.addr_gu1 = addr_gu1;
 	}
 	public int getMonth_sales() {
 		return month_sales;
@@ -60,8 +69,17 @@ public class PreSearchDTO {
 	public void setRowCntPerPage(int rowCntPerPage) {
 		this.rowCntPerPage = rowCntPerPage;
 	}
-
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	
+	
+	
+	
+		
 	
 	
 	
