@@ -63,6 +63,27 @@ public interface LoginDAO {
 	String getRankCode(String user_id);
 		
 	
+	// 유저 정보 업데이트
+	int updateInfoUser(UpdateInfoDTO updateInfoDTO);
+		
+	// 가게 정보 업데이트
+	int updateInfoBusiness(UpdateInfoDTO updateInfoDTO);
+		
+	// 카드 갯수 얻기
+	int getCardCnt(int u_no);
+		
+	// 카드 지우기
+	int deleteinfoCard(int u_no);
 	
+	// 카드 생성하기
+	int insertCard(CardDTO cardDTO);
 	
+	// 카드 등록 시 유저 등급 업데이트
+	int updateRank(int u_no);
+	
+	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
+	List<Map<String, String>> getMyStoreInfoList(int u_no);
+		
+	
+		
 }

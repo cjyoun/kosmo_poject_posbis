@@ -30,41 +30,52 @@
 		)
 		
 	</if>
-
+	
 	<!-- 선택한 사업자 번호 구하는 조건문 설정 -->
-	 <if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
+	<if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
 		and m.business_no in
-		<foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
-			#{chooseBusinessNo}
-		</foreach>
-	 </if>
+			<foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
+				#{chooseBusinessNo}
+			</foreach>
+	</if>
+	
+	<if test='menu_using=="Y" or menu_using=="N"'>
+		 and menu_using=#{menu_using}
+	</if>
+
+
 
 </sql>
 
 
-<!-- 게시판 검색하는 select 문을 내포한 select 태그 선언 -->
+<!-- 메뉴 리스트 select -->
 <!--**************************************************************************-->
   <select id="getMenuList" parameterType="com.naver.erp.MenuSearchDTO" resultType="java.util.HashMap">
-	select * from (select zzz.*, rownum RNUM from(
+	select * from(select zzz.*, rownum RNUM from(
 		select
-		b.business_no				  "business_no"
-		,b.business_name               "business_name"
-		, m.menu_no                       "menu_no"
-		, m.menu_name               	"menu_name"
-		, c.main_category_name    		"main_category_name"
-		, c.mid_category_name	  		"mid_category_name"
-		, c.sub_category_name	  		"sub_category_name"
-		, m.menu_price            		"menu_price"
-		, m.menu_cost             		"menu_cost"
-	   from menu m  left join code_menu_category c on m.menu_category_code = c.menu_category_code
-	    left join business_info b on b.business_no=m.business_no where b.u_no='7'
-	    <include refid="menuWhere"/>
-		) zzz  ) where
-	
-	<![CDATA[
-		RNUM>=${selectPageNo*rowCntPerPage-rowCntPerPage+1}
-			and RNUM<=${selectPageNo*rowCntPerPage}               
-	]]>
+        m.business_no                  		"business_no"
+        , b.business_name              		"business_name"
+        , m.menu_no                       	"menu_no"
+        , m.menu_name                 		"menu_name"
+        , c.main_category_name            	"main_category_name"
+        , c.mid_category_name              	"mid_category_name"
+        , c.sub_category_name              	"sub_category_name"
+        , m.menu_price                 		"menu_price"
+        , m.menu_cost                  		"menu_cost"
+        ,(m.menu_price-m.menu_cost)			"menu_avail"
+        , m.menu_using                    	"menu_using"
+       from menu m, business_info b, code_menu_category c, user_info u
+       where 
+       	1=1
+       	and m.menu_category_code = c.menu_category_code 
+       		and m.business_no=b.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
+	    	<include refid="menuWhere"/>
+	    	order by ${sort}
+		) zzz ) where 
+			<![CDATA[
+				RNUM>= ${selectPageNo*rowCntPerPage-rowCntPerPage+1}
+				and RNUM<= ${selectPageNo*rowCntPerPage}
+			]]>
    </select>
 
    <!-- 메뉴 목록 총 개수 구하는  select 태그 선언-->
@@ -72,9 +83,10 @@
 
 	select 
 	  count(*)
-	from menu m join code_menu_category c on m.menu_category_code = c.menu_category_code
-	join business_info b on b.business_no=m.business_no where b.u_no='7'
-	
+	 from menu m, business_info b, code_menu_category c
+       where m.menu_category_code = c.menu_category_code 
+                and m.business_no=b.business_no
+		<include refid="menuWhere"/>
 	</select>
    
 	<!-- 메뉴 기본 정보 입력하는 insert 문을 내포한 insert 태그 선언-->
@@ -87,6 +99,7 @@
 					, menu_price
 					, menu_cost
 					, menu_category_code
+					, menu_using
 			)values(
 					(select nvl(max(menu_no),0)+1 from menu)
 					,( select business_no
@@ -100,16 +113,12 @@
 					        	main_category_name=#{main_category_name}
 					        	and mid_category_name=#{mid_category_name}
 					        	and sub_category_name=#{sub_category_name})
+					,'Y'
    		)
    		
 	</insert>
 	
-	<!-- 사업자 번호 가져오기 -->
-	<select id='getUserNo' parameterType="String" resultType="int">   
-		select u_no from user_info where user_id=#{user_id}
-	</select>
-   
-<!-- ========================================================================================= -->
+
 	<!-- 사업자 번호 가져오기 -->
 	<select id='getBusinessNoList' parameterType="int" resultType="java.util.HashMap">
 	   select 
@@ -131,10 +140,41 @@
 		,m.menu_name     			"menu_name"
 		,m.menu_price				"menu_price"
 		,m.menu_cost				"menu_cost"
+		,m.menu_using				"menu_using"
 	from menu m  left join code_menu_category c on m.menu_category_code = c.menu_category_code
 	    left join business_info b on b.business_no=m.business_no where menu_no=#{menu_no}
    </select>
 
+	<!-- 메뉴 수정 후 수정행의 적용개수를 리턴하는 메소드 선언-->
+	<update id="updateMenu" parameterType="com.naver.erp.MenuDTO">
+		update menu set 
+			menu_name=#{menu_name}
+			, menu_price=#{menu_price}
+			, menu_cost=#{menu_cost}
+			, menu_category_code=(select menu_category_code from code_menu_category
+					        where
+					        	main_category_name=#{main_category_name}
+					        	and mid_category_name=#{mid_category_name}
+					        	and sub_category_name=#{sub_category_name})
+			, menu_using=#{menu_using}
+		where menu_no=#{menu_no}
+	</update>
+
+
+	<!-- 삭제/수정 메뉴의 존재개수를 리턴하는 select 선언-->
+	<select id="getMenuCnt" resultType="int" parameterType="com.naver.erp.MenuDTO">
+		select count(*) from menu where menu_no=#{menu_no}
+	</select>
+	
+	<!-- user_id 로  u_no 가져오기 -->
+	<select id='getUserNo' parameterType="String" resultType="int">   
+		select u_no from user_info where user_id=#{user_id}
+	</select>
+	
+	<!-- 삭제할 메뉴의 존재개수를 리턴하는 select 선언-->
+	<delete id="deleteMenu" parameterType="com.naver.erp.MenuDTO">
+		delete from menu where menu_no=#{menu_no}
+	</delete>
 
 
 

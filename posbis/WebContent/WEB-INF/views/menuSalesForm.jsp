@@ -1,23 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>   <!--page language="java" 생략 가능 -->
-<%@ page import="java.util.*" %>
-<!-- JSP 기술의 한 종류인 [Include Directive]를 이용하여 common.jsp 파일 내의 소스를 삽입하기 -->
-<%@include file="/WEB-INF/views/common.jsp" %>
+    pageEncoding="UTF-8"%>
+<%@ include file="common.jsp"%> 
 
+<!DOCTYPE html>
 <html>
-   <head>
-       <title> new document </title>
-      <meta charset="utf-8">
+<head>
+  <meta charset="utf-8">
+  <title>Rapid Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="resources/intro/img/favicon.png" rel="icon">
+  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="resources/intro/css/style.css" rel="stylesheet">
+  
+   <!-- Bootstrap CSS -->
+  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
+  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
+<!--   <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
+  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> -->
+  <!-- =======================================================
+  
+  
+
+  <!-- =======================================================
+    Theme Name: Rapid
+    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
       <script>         
       
 		$(document).ready(function(){
 			
-		    $('#menuSales').hide();
-		    $('.pagingDiv2').hide();
-		    $('#select').hide();
+		     
 			
 			$('[name=menuRowCntPerPage]').change(function(){
-				document.menuSalesForm.submit();
+			  	goSearch();
 			});
 			
 			//==============================================================================================
@@ -29,7 +85,7 @@
 					,"${menuSalesSearchDTO.selectPageNo}"	//선택된 현재 페이지번호
 					,"${menuSalesSearchDTO.menuRowCntPerPage}"	//페이지 당 출력행의 개수
 					,"15"								//페이지 당 보여줄 페이지번호 개수
-					,"showMenuSales();"					//페이지번호 클릭 후 실행할 자스코드
+					,"goSearch();" 				//페이지번호 클릭 후 실행할 자스코드
 				)
 			);
 
@@ -44,6 +100,8 @@
 			inputData("[name=sales_date_t2]","${menuSalesSearchDTO.sales_date_t2}");
 			inputData("[name=chooseAllBusinessNo]","${menuSalesSearchDTO.chooseAllBusinessNo}");
 
+			inputData("[name=sort]","${menuSalesSearchDTO.sort}");
+			
 			<c:forEach items="${menuSalesSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
 				inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
 			</c:forEach> 
@@ -175,8 +233,45 @@
   			if(!is_empty("[name=menuSalesForm] [name=sales_date_t2]")){
  				$("[name=menuSalesForm] [name=sales_date]").val("");
  			} 
- 			//name=salesForm을 가진 form 태그의 action 값의 URL로 웹서버에 접속하기
- 			document.menuSalesForm.submit();
+ 			 
+  			
+  			 
+  			//ajax자리
+
+			$.ajax({
+				// 서버 쪽 호출 URL 주소 지정
+				url : "/posbis/menuSalesProc.do"
+				
+				// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+				, type : "post"
+
+				// 서버로 보낼 파라미터명과 파라미터 값을 설정
+				, data : $("[name=menuSalesForm]").serialize()				
+				
+				// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+				// 익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
+				, success : function(menuSalesDTO){
+					if(menuSalesDTO != null){
+									$("body").load("/posbis/menuSalesForm.do",$("[name=menuSalesForm]").serialize());
+
+					}
+					else if (menuSalesForm == null){
+						alert("실패");
+					}
+					else {
+						alert("서버 오류 발생. 관리자에게 문의 바람");
+					} 
+				}
+				
+				// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+				, error : function(request, error){
+					alert("서버 접속 실패");
+					
+				}
+				
+			});
+  			
+  			
          }
 
 //=====================================================================================================
@@ -234,125 +329,381 @@
 			goSearch();
 		}
 
-		function showMenuSales(){
-			
-			document.menuSalesForm.submit();
-		}
+	 
 		
 		function goSalesForm(){
 			document.salesForm.submit();
 		}
+	     
+		//--------------------------------------------------------
+	   	   //로고 클릭시
+	   	     function goMainForm(){
+	   	        //alert("메인으로 이동");
+	   	        location.replace("/posbis/mainForm.do");
+	   	     }
+	   		
+	   		//회사소개-pobis 클릭시
+	   		
+	   		function goIntroForm(){
+	   	        //alert("회사소개로 이동");
+	   	        location.replace("/posbis/introForm.do");
+	   	     }
+	   		
+	   		//마이페이지-매출관리
+	   	    function goSalesForm(){
+	   	       //alert("매출관리로 이동");
+	   	        location.replace("/posbis/salesForm.do");
+	   	     } 
+	   		//마이페이지-메뉴관리
+	   		function goMenuForm(){
+	   	        //alert("메뉴관리로 이동");
+	   	        location.replace("/posbis/menuForm.do");
+	   	     }
+	   		//분석현황-검색관리
+	   		function goPreSearchForm(){
+	   	        //alert("검색관리로 이동");
+	   	        location.replace("/posbis/preSearchForm.do");
+	   	     }
+	   		//분석현황-차트관리
+	   		function goPreChartForm(){
+	   	        //alert("차트관리로 이동");
+	   	        location.replace("/posbis/preChartForm.do");
+	   	     }
+	   		//내정보관리-내정보 보기
+	   		function goMyPageForm(){
+	   	        //alert("내정보 보기으로 이동");
+	   	        location.replace("/posbis/myPageForm.do");
+	   	     }
+
+	   		//qna 게시판- 질문하기
+	   		function goqstnRegForm(){
+	   	        //alert("질문하기으로 이동");
+	   	        location.replace("/posbis/qstnRegForm.do");
+	   	     }
+	   	    //qna 게시판- 내글보기
+	   		 function goQstnForm(){
+	   	        //alert("내글보기으로 이동");
+	   	        location.replace("/posbis/myQstn.do");
+	   	     }
+	   		 
+	   		//통합 관리
+	   		 function goHomePageForm(){
+ 		    //alert("통합 관리으로 이동");
+ 		    location.replace("/posbis/homePageForm.do");
+ 		 }
+	   		//--------------------------------------------------------
+
+	   		
+	   		function goMessageForm(){
+	   		    alert("건의사항이 접수 되었습니다. 감사합니다");
+	   	 
+	   		 }
+	      
+
 
       </script>
 
    </head>
 
 
-   <body><center>
-    <div class="right"><input type=button value="메인으로" onClick="goMainForm()"></div>&nbsp;&nbsp;
-    
-    
-      <div style="border:1px solid; 20px, margin:10px; height:100%; width: 100%; ">
+   <body>
+   <!--==========================
+  Header
+  ============================-->
+ <header id="header">
 
-         <!---------------- 상단바 ------------------------->
-         <div style="float: left; border:1px solid; 20px, margin:10px; height:15%; width: 100%; ">
-         <center><h2>상단바</h2></center>
+         <div id="topbar">
+           <div class="container">
+             <div class="social-links">
+               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+               <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+               <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+               <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+             </div>
+           </div>
          </div>
-      
-         <div style="display:table; border:1px solid; 20px, margin:10px; height:85%; width: 100%;">
-            <!------------------ 사이드바 ---------------------->
-            <div style="float:left; width: 15%; border:1px solid; padding:30px; height:90%;"><br><Br>
-               <h3>마이페이지</h3><br>
-                  <a onClick="goMyPageForm()">내 정보관리</a><br><br>
-                  <a onClick="goMenuForm()">메뉴관리</a><br><br>
-                  <a onClick="goSalesForm()">매출관리</a><br><br>
-                  <a onClick="goPreChartForm()">프리미엄</a><br><br>
-            </div>
-       <br>
 
+         <div class="container">
+
+           <div class="logo float-left">
+             <!-- Uncomment below if you prefer to use an image logo -->
+             <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+           </div>
+
+           <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+            </ul>
+          </li>
+           
+           <li class="drop-down"><a href="">마이페이지</a>
+            <ul>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
+              <li><a onClick="goSalesForm();">매출 관리</a></li>
+              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
+              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+ 
+            </ul>
+          </li>
+           <li class="drop-down"><a href="">분석현황</a>
+            <ul>
+              <li><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li><a onClick="goPreChartForm();">차트관리</a></li>
+            </ul>
+          </li>
+           <li class="drop-down"><a href="">Q&A게시판</a>
+            <ul>
+              <li><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+            </ul>
+          </li>    
+        
+         
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+           <ul>
+           		
+              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
+           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+            </ul>  
+          </li>     
+        
+        </ul>
+      </nav><!-- .main-nav -->
+           
+         </div>
+       </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-md-6 intro-info order-md-first order-last">
+          <h2>MYPAGE<br>In <br><span>POSBIS</span></h2>
+        
+        </div>
+  
+        <div class="col-md-6 intro-img order-md-last order-first">
+          <img src="resources/intro/img/features-2.svg" alt="" class="img-fluid">
+        </div>
+      </div>
+
+    </div>
+  </section><!-- #intro -->
+  
+ 
+    <!--==========================
+      매출관리
+    ============================-->
+  <main id="main">
+  
+      <section id="main-content">
+      <section class="wrapper">
+        <!--overview start-->
+ 		  <div class="row">
+          <div class="col-lg-10">
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">마이페이지</a></li>
+              <li><i class="icon_documents_alt"></i>매출관리</li>
+            </ol> 
+  
+  <center>
+
+ <div class="col-lg-10" align="center">
+            <section class="panel">
+              <header class="panel-heading">
+                	메뉴별 매출관리
+              </header>
+			<div class="panel-body"> 
 				   	<form name="salesForm" method="post" action="/posbis/salesForm.do">
 					</form>
-
-    <form name = "menuSalesForm" method="post" action="/posbis/menuSalesForm.do">
-	<div style="width:800">
-	
-		       <!-- ================================================================================================================================================ -->
-		       사업자번호:
-		       	<input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
+   <form name = "menuSalesForm" method="post" action="/posbis/menuSalesForm.do">
+					<div  class="form-group">
+						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
+						<br> 
+							<span class="help-block">사업자번호:
+				       	<input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
 		      <c:forEach items="${businessNoList}" var="businessNoList">
 		        <input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
 		      </c:forEach>
-		       <!-- ================================================================================================================================================ -->
-			
-     
-               <h2>[메뉴별 매출관리]</h2>
-
-               [키워드] : <input type = "text" name="keyword" class="keyword">&nbsp;
-
-               [기간선택]
-               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
-               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
-               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br><br>
-               
+						      </span>
+						      
+				                <span class="help-block">[키워드] : <input type = "text" name="keyword" class="keyword"></span>&nbsp;
+				
+				               <span class="help-block">[기간선택]
+				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
+				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
+				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br></span>
+ 
+				   
 				[기간설정]: <input type="date" name="sales_date_t1" class="sales_date_t1"> ~ <input type="date" name="sales_date_t2" class="sales_date_t2">
-               
-               <input type="button" value="검   색" onClick="goSearch();">&nbsp;
-               <input type="button" value="모두 검색" onClick="goSearchAll();">&nbsp;
-               
-               <a href="javascript:;" onclick="goSalesForm();" >[매출관리]로 이동</a>&nbsp;&nbsp;
+
+				               
+				             <input type="button" value="검   색" onClick="goSearch();">&nbsp;
+              				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span>&nbsp;&nbsp;
+                <a href="javascript:;" onclick="goSalesForm();" >[매출관리]로 이동</a>&nbsp;&nbsp;
+ 
+						
+						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
+						<!-- 선택한 페이지번호는 DB 연동시 아주 중요한 역할을 한다 -->
+						<!-- 개발중에는 테스트를 위해 type을 text로 바꿔놓으면 눈에 보여서 편하다 -->
+						<input type="hidden" name="selectPageNo"> 
+						<input type="hidden" name="sort" value=“s.menu_name_asc”> 
+						<input type="hidden" name="user_id" value="${user_id}">  
+						
+					</div>	
+					
+					
+					
+     <div class="col-sm-12" align="center">
+		      <table class="table table-striped table-advance table-hover" id="select">
+                <thead>
 		
-		<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
-		<!-- 선택한 페이지번호는 DB 연동시 아주 중요한 역할을 한다 -->
-		<!-- 개발중에는 테스트를 위해 type을 text로 바꿔놓으면 눈에 보여서 편하다 -->
-		<input type="hidden" name="selectPageNo"> 
-		<input type="hidden" name="user_id" value="${user_id}">  
-				
-	</div>	
-	<table border=0 width=700 id="select">
 		<tr>
-			<td align=right>
-				
-				[메뉴 수]: ${menuSalesListAllCnt}&nbsp;&nbsp;
-				<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기 -->
-				<!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
-
-				<select name="menuRowCntPerPage">
-					<option value="10">10
-					<option value="15">15
-					<option value="20">20
-					<option value="25">25
-					<option value="30">30
-				</select> 행보기
-
-	</table>
-   </form>
-   
+                  <td align=right>
+                  <!-- EL 문법으로 게시판 검색 총 개수 출력하기 -->
+            <!-- 달러{salesAllCnt} 은  컨트롤러 클래스 내부에 -->       <!-- EL문법은 주석문 안에 들어가더라도 소스보기 했을 때 실행결과가 삽입된다. 문법에 맞지 않는 내용을 삽입할 시에는 에러발생 -->
+            <!-- ModelAndView 객체에 salesAllCnt 라는 키값으로 저장된 -->
+            <!-- 데이터를 EL로 표현하여 삽입하라는 뜻이다. -->
+            			[메뉴 수]: ${menuSalesListAllCnt}&nbsp;&nbsp;
+            <!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기 -->
+            <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
+			            <select name="menuRowCntPerPage">
+			               <option value="10">10
+			               <option value="15">15
+			               <option value="20">20
+			               <option value="25">25
+			               <option value="30">30
+			            </select> 행보기
+			   </table>
+			</form>
        <!-- ==================================================================================== -->         
             
-        <!-- 페이징 번호를 삽입할 span 태그 선언하기  -->
-		<div class="pagingDiv2">&nbsp;<span class="pagingNumber2"></span>&nbsp;</div>
-						           
-            <table border=1 cellspacing=0 cellpadding=5 align=center width="800" id="menuSales">
-                     
-             <thead>
+                   <!-- 페이징 번호를 삽입할 span 태그 선언하기  -->
+      <div class="pagingDiv2">&nbsp;<span class="pagingNumber2"></span>&nbsp;</div>
+      	<table class="table table-striped table-advance table-hover " id="menuSales">
+            <thead>
                 <tr>
-                  <th>no
-                  <th>상호명
-                  <th>카테고리
-                  <th>메뉴
-                  <th>가격
-                  <th>수량
-                  <th>총매출
-                  <th>순매출
-                </tr>
-             </thead>
-             <tbody>
-             <c:forEach items="${menuSalesList}" var="menuSales" varStatus="loopTagStatus">  <!-- requestScope.은 생략 가능 -->
-				<tr>
-					<td align=center>
+             <th>no
+                <c:choose>
+				<c:when test="${param.sort=='1 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('1 asc'); goSearch();">상호명 ▼
+				</c:when>
+				<c:when test="${param.sort=='1 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('1 desc'); goSearch();">상호명 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('1 asc'); goSearch();">상호명
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='2 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('2 asc'); goSearch();">카테고리 ▼
+				</c:when>
+				<c:when test="${param.sort=='2 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('2 desc'); goSearch();">카테고리 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('2 asc'); goSearch();">카테고리
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='3 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">메뉴 ▼
+				</c:when>
+				<c:when test="${param.sort=='3 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('3 desc'); goSearch();">메뉴 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">메뉴
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='4 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격 ▼
+				</c:when>
+				<c:when test="${param.sort=='4 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 desc'); goSearch();">가격 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='5 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량 ▼
+				</c:when>
+				<c:when test="${param.sort=='5 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('5 desc'); goSearch();">수량 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='6 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출 ▼
+				</c:when>
+				<c:when test="${param.sort=='6 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('6 desc'); goSearch();">총매출 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출
+				</c:otherwise>
+				</c:choose>
+				
+                <c:choose>
+				<c:when test="${param.sort=='7 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출 ▼
+				</c:when>
+				<c:when test="${param.sort=='7 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('7 desc'); goSearch();">순매출 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출
+				</c:otherwise>
+				</c:choose>
+ 
+                  </tr>
+                </thead>
+            <tbody>
+                <c:forEach items="${menuSalesList}" var="menuSales" varStatus="loopTagStatus">  <!-- requestScope.은 생략 가능 -->
+                  <tr>
+                    <td align=center>
 					<%-- 게시판 목록 중에 각 행의 정순 일련번호 출력--%>
-					${menuSalesSearchDTO.selectPageNo*menuSalesSearchDTO.menuRowCntPerPage-menuSalesSearchDTO.menuRowCntPerPage+1
-																					+loopTagStatus.index} 
+		${menuSalesSearchDTO.selectPageNo*menuSalesSearchDTO.menuRowCntPerPage-menuSalesSearchDTO.menuRowCntPerPage+1
+																					+loopTagStatus.index}  
 					<!-- 각 행의 상호명 출력 -->
 					<td align=center>${menuSales.business_name2}
 					<!-- 각 행의 메뉴카테고리 출력 -->
@@ -367,11 +718,14 @@
 					<td align=center class="menu_sales_amount">${menuSales.sales_amount2}
 					<!-- 각 행의 순매출 출력 -->
 					<td align=center class="menu_sales_income">${menuSales.sales_income2}
-			</c:forEach>
-			</tbody>
-			<tfoot>
-			<tr>
-				<td align=center>total
+					
+					
+                  </tr>
+                 </c:forEach>
+                 </tbody>
+                 <tfoot>
+                  <tr>
+ 				<td align=center>total
 				<td align=center>
 				<td align=center>
 				<td align=center>
@@ -381,17 +735,162 @@
 				<td align=center class="total-menu_sales_income">
 			</tfoot>
             </table>
-
-       <!-- ==================================================================================== -->     
-	<c:if test="${empty menuSalesList}">
+         <c:if test="${empty salesList}">
 		검색결과 없음
-	</c:if> 
-</center>
-
-
-	</div>
-</div>
+		</c:if> 
+    		</div>
+        </div>
+</section>
+</section>
+ 
+</main>
     
-   </body>
+          
+   <!--==========================
+    꼬리말
+  ============================-->
+  <footer id="footer" class="section-bg">
+    <div class="footer-top">
+      <div class="container">
 
-</html>
+        <div class="row">
+
+          <div class="col-lg-6">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                  <div class="footer-info">
+                    <h3>POSBIS</h3>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+                  </div>
+
+                  <!-- <div class="footer-newsletter">
+                    <h4>Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem.</p>
+                    <form action="" method="post">
+                      <input type="email" name="email"><input type="submit"  value="Subscribe">
+                    </form>
+                  </div> -->
+
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="footer-links">
+                    <h4>빠른 이동</h4>
+                    <ul>
+                      <li><a onClick="goIntroForm();">회사소개 </a></li>
+                      <li><a onClick="goMainForm();">로그인</a></li>
+                      <li><a onClick="goqstnRegForm();">질문하기</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="footer-links">
+                    <h4>연락망</h4>
+                    <p>
+                      월드메르디앙벤쳐 2차 <br>
+                      Korea, Seoul 가산디지털단지역<br>
+                      용기의 방, 409호 <br>
+                      <strong>Phone:</strong> +1 5589 55488 55<br>
+                      <strong>Email:</strong> info@example.com<br>
+                    </p>
+                  </div>
+
+                  <div class="social-links">
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                  </div>
+
+                </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="form">
+              
+              <h4>건의 사항</h4>
+              <p>POSBIS는 고객의 말에 늘 귀기울이고 있습니다. <br>불편한 점 또는 좋은 제안이 있으시다면 언제든지 건의해 주세요. </p>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="name" id="name" placeholder="성함" data-rule="minlen:2" data-msg="2자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="이메일" data-rule="email" data-msg="이메일을 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="제목" data-rule="minlen:4" data-msg="제목을 4자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="내용" data-msg="내용을 입력해 주십시오"></textarea>
+                  <div class="validation"></div>
+                </div>
+
+               <!--  <div id="sendmessage">건의사항이 무사히 전달됐습니다. 감사합니다!</div>
+                <div id="errormessage"></div> -->
+
+                <div class="text-center"><button type="submit" title="Send Message" onClick="goMessageForm();">전송</button></div>
+              </form>
+            </div>
+
+          </div>
+
+          
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Rapid
+        -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+ 
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
+  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/intro/lib/easing/easing.min.js"></script>
+  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
+  <script src="resources/intro/lib/wow/wow.min.js"></script>
+  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
+  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
+  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="resources/intro/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="resources/intro/js/main.js"></script>
+  
+  
+
+</body>
+</html> 

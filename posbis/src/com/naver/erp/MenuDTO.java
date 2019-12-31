@@ -12,8 +12,15 @@ public class MenuDTO {
 	private String mid_category_name;
 	private String sub_category_name;
 	private String business_name;
+	private String menu_using;
 	
 	
+	public String getMenu_using() {
+		return menu_using;
+	}
+	public void setMenu_using(String menu_using) {
+		this.menu_using = menu_using;
+	}
 	public String getBusiness_name() {
 		return business_name;
 	}

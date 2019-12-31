@@ -19,7 +19,7 @@ public interface MenuDAO {
 	// 유저 정보를 를 리턴하는 메소드 선언
 	int getUserNo(String user_id);
 
-	List<Map<String, String>> getBusinessNoList(int user_no);
+	List<Map<String, String>> getBusinessNoList(int u_no);
 	
 	// 1개의 메뉴 정보를 리턴하는 메소드 선언
 	MenuDTO getMenuDTO(int menu_no);

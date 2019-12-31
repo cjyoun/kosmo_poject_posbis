@@ -27,6 +27,7 @@ public class MenuDAOImpl implements MenuDAO{
 	// [검색한 게시판 목록] 리턴하는 메소드 선언
 	public List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO){
 		System.out.println("menuSearchDTO===>"+menuSearchDTO);
+		System.out.println("DAO/DTO.sort==>"+menuSearchDTO.getSort());
 		List<Map<String,String>> menuList = this.sqlSession.selectList(
 			
 			"com.naver.erp.MenuDAO.getMenuList" // 실행할 SQL 구문의 위치 지정 
@@ -57,7 +58,7 @@ public class MenuDAOImpl implements MenuDAO{
 				"com.naver.erp.MenuDAO.getMenuDTO"    // 실행할 SQL 구문의 위치 지정
 				,menu_no								// 실행할 SQL 구문에서 사용할 데이터 지정
 		);
-		System.out.println("getMenuDTO 끝==>" + menuDTO.getBusiness_name());
+		System.out.println("getMenuDTO 끝==>" + menuDTO.getMenu_using());
 		return menuDTO;
 	}
 	

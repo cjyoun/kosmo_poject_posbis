@@ -1,16 +1,76 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="common.jsp"%>
-
-
-
-
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+  <meta charset="utf-8">
+  <title>Rapid Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="resources/intro/img/favicon.png" rel="icon">
+  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="resources/intro/css/style.css" rel="stylesheet">
+  
+  
+  
+  
+   <!-- Bootstrap CSS -->
+  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
+  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
+  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
+  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
+  <!-- =======================================================
+  
+  
+
+  <!-- =======================================================
+    Theme Name: Rapid
+    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
 
 <script>
-      $(document).ready(function() {
+  $(document).ready(function() {
     
      
          $("[name=user_pwd]").val("1234567890");
@@ -367,196 +427,505 @@
      
       }  /* function checkBusinessNo(){ */
  
-//--------------------------------------------------------------------------------------------------
-   </script>
+  	//--------------------------------------------------------
+  	   //로고 클릭시
+  	     function goMainForm(){
+  	        //alert("메인으로 이동");
+  	        location.replace("/posbis/mainForm.do");
+  	     }
+  		
+  		//회사소개-pobis 클릭시
+  		
+  		function goIntroForm(){
+  	        //alert("회사소개로 이동");
+  	        location.replace("/posbis/introForm.do");
+  	     }
+  		
+  		//마이페이지-매출관리
+  	    function goSalesForm(){
+  	       //alert("매출관리로 이동");
+  	        location.replace("/posbis/salesForm.do");
+  	     } 
+  		//마이페이지-메뉴관리
+  		function goMenuForm(){
+  	        //alert("메뉴관리로 이동");
+  	        location.replace("/posbis/menuForm.do");
+  	     }
+  		//분석현황-검색관리
+  		function goPreSearchForm(){
+  	        //alert("검색관리로 이동");
+  	        location.replace("/posbis/preSearchForm.do");
+  	     }
+  		//분석현황-차트관리
+  		function goPreChartForm(){
+  	        //alert("차트관리로 이동");
+  	        location.replace("/posbis/preChartForm.do");
+  	     }
+  		//내정보관리-내정보 보기
+  		function goMyPageForm(){
+  	        //alert("내정보 보기으로 이동");
+  	        location.replace("/posbis/myPageForm.do");
+  	     }
 
-</head>
+  		//qna 게시판- 질문하기
+  		function goqstnRegForm(){
+  	        //alert("질문하기으로 이동");
+  	        location.replace("/posbis/qstnRegForm.do");
+  	     }
+  	    //qna 게시판- 내글보기
+  		 function goQstnForm(){
+  	        //alert("내글보기으로 이동");
+  	        location.replace("/posbis/myQstn.do");
+  	     }
+  		 
+  		//통합 관리
+  		 function goHomePageForm(){
+		    //alert("통합 관리으로 이동");
+		    location.replace("/posbis/homePageForm.do");
+		 }
+  		//--------------------------------------------------------
+
+  		
+  		function goMessageForm(){
+  		    alert("건의사항이 접수 되었습니다. 감사합니다");
+  	 
+  		 }
+</script>
 
 <body>
-   <center>
-      <h3>회원가입</h3>
-      <FORM class="joinForm" method="post" name="joinForm"
-         action="/posbis/joinForm.do">
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
 
-         <table>
-            <tbody>
-               <tr>
-                  <td align="center" colspan=2>--대표자 정보--</td>
-               </tr>
+    <div id="topbar">
+      <div class="container">
+        <div class="social-links">
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
 
-               <tr>
+    <div class="container">
 
-                  <td>아이디</td>
-                  <td><input type="text" name="user_id" class="user_id"
-                     placeholder="ID" /> <input type="button" value="중복확인"
-                     onclick="checkOverlap();" /></td>
-               </tr>
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+      </div>
 
-               <tr>
-                  <td>비밀번호</td>
-                  <td><input type="password" name="user_pwd" class="user_pwd"
-                     placeholder="PASSWORD"  maxlength="10" required />&nbsp;&nbsp;*숫자 10자리 입력하세요</td>
-               </tr>
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+            </ul>
+          </li>
+           
+         <li class="drop-down"><a href="">마이페이지</a>
+            <ul>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
+              <li><a onClick="goSalesForm();">매출 관리</a></li>
+              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
+              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+   
+            </ul>
+          </li>
+ 
+           <li class="drop-down"><a href="">분석현황</a>
+            <ul>
+              <li><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li><a onClick="goPreChartForm();">차트관리</a></li>
+            </ul>
+          </li>
+ 
+ 
+           <li class="drop-down"><a href="">Q&A게시판</a>
+            <ul>
+              <li><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+            </ul>
+          </li>  
+ 
+        </ul>
+      </nav><!-- .main-nav -->
+      
+    </div>
+  </header><!-- #header -->
 
-               <tr>
-                  <td>비밀번호 확인</td>
-                  <td><input type="password" name="checkPwd2" class="checkPwd2"
-                     placeholder="Confirm PASSWORD" maxlength="10" required /><font name="check" size="2" color="red"></font></td>
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-md-6 intro-info order-md-first order-last">
+          <h2>Business<br>Bank In <span>Sign up</span></h2>
+ 
+        </div>
+  
+        <div class="col-md-6 intro-img order-md-last order-first">
+          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
+        </div>
+      </div>
+
+    </div>
+  </section> 
+
+<body> 
+    <!--==========================
+   회원가입 폼
+  ============================-->
+  <main id="main">
+ 
+ 
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-10"> 
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">로그인</a></li>
+              <li><i class="fa fa-user-md"></i>회원가입</li>
+            </ol>
+          </div>
+        </div>
+ 
+   	<div class="row">
+          <div class="col-lg-8">
+            <section class="panel">
+              <header class="panel-heading">
+                 [회원가입]
+              </header>
+              
+              <div class="panel-body">
+                <form class="form-horizontal joinForm" method="post" name="joinForm"  action="/posbis/joinForm.do">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">아이디</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="user_id" class="form-control user_id" placeholder="ID" >
+                    </div>
+ 
+							<a class="btn btn-default"onclick="checkOverlap();" title="Bootstrap 3 themes generator" >중복확인</a>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">비밀번호</label>
+                    <div class="col-sm-6">
+                      <input type="password" name="user_pwd" class="form-control user_pwd" maxlength="10"><br>
+                      <input type="password"  name="checkPwd2" class="form-control checkPwd2" maxlength="10">
+                      <span class="help-block">*숫자 10자리 입력하세요.</span>
+                    </div>
+          		  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">성명</label>
+                    <div class="col-sm-6">
+                      <input class="form-control user_name" id="focusedInput" type="text"  name="user_name" value="This is focused...">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">생년월일</label>
+                    <div class="col-sm-6">
+                      <input class="form-control birth" id="disabledInput" type="text" name="birth"  >
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">이메일</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="email" class="form-control email" placeholder="">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 control-label">질문</label>
+                    <div class="col-lg-6">
+                       <select class="form-control m-bot15 question_code" name="question_code" >
+                                              <option>--질문 선택--</option>
+                                              <option value="1">내가 졸업한 초등학교 이름은?</option>
+                                              <option value="2">나의 보물 1호는?</option>
+                                              <option value="3">가장 기억에 남는 선생님의 이름은?</option>
+                                              <option value="4">가장 감명깊게 본 영화는?</option>
+                       </select>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">답변</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control answer" name="answer" >
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  <!-- 사업장 정보 -->
+                  
+                   <div class="form-group">
+                    <label class="col-sm-2 control-label">사업자 번호</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control business_no" name="business_no">
                      
-               </tr>
-               
-               <tr>
-                  <td>성명</td>
-                  <td><input type="text" name="user_name" class="user_name"
-                     placeholder="Name" /></td>
-               </tr>
+                    </div>
+					<a class="btn btn-default"onclick="checkBusinessNo();" title="Bootstrap 3 themes generator" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo">사업자 번호 중복확인</a>
+                  </div>
+                  
+                   <div class="form-group">
+                    <label class="col-sm-2 control-label">상호명</label>
+                    <div class="col-sm-6">
+                      <input type="text" class="form-control business_name" name="business_name">
+                    </div>
+                  </div>
+                  
+                   <div class="form-group">
+                    <label class="col-sm-2 control-label">주소</label>
+                    <div class="col-lg-6">
+                       <select class="form-control m-bot15 addr_gu" name="addr_gu">
+                                              <option>--구 선택--</option>
+                                              <c:forEach items="${addrListGu}" var="addrGu">
+													<option value="${addrGu.addr_gu}">${addrGu.addr_gu}</option>
+											  </c:forEach>
+                       </select>
+                       
+                       <select class="form-control m-bot15 addr_dong" name="addr_dong" >
+                                              <option>--동 선택--</option>
+ 
+                       </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">상세주소</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="addr_detail" class="form-control addr_detail">
+                    </div>
+                  </div>
+                  
+                   <div class="form-group">
+                    <label class="col-sm-2 control-label">업종</label>
+                    <div class="col-lg-6">
+                       <select class="form-control m-bot15 business_type_name1" name="business_type_name1">
+                                              <option>--선택--</option>
+                                              <c:forEach items="${businessTypeList1}" var="busiType1">
+													<option value="${busiType1.business_type_name1}">${busiType1.business_type_name1}
+													</option>
+											 </c:forEach>
+                       </select>
+                       
+                       <select class="form-control m-bot15 business_type_name2" name="business_type_name2" onchange="getbusiListname2();" >
+                                              <option>--선택--</option>
+  
+                       </select>
+                    </div>
+                  </div>
+              	<div class="form-group">
+                    <label class="col-sm-2 control-label">매장번호</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="store_tel_num" class="form-control store_tel_num">
+                    </div>
+                  </div>
 
-               <tr>
-                  <td>생년월일</td>
-                  <td><input type="text" class="birth" id="birth" name="birth"
-                     placeholder="ex) 19990415" maxlength="8" required></td>
-               </tr>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">회원등급</label>&nbsp;
+                     <div class="btn-group" data-toggle="buttons"> 
+ 					    <label class="btn btn-default active">
+                                        <input type="radio" class="rank_code" name="rank_code" id="option1" value="1"> 일반
+                                      </label>
+                    <label class="btn btn-default">
+                                          <input type="radio"class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
+                                          
+                                      </label>
+                                      <br><br><span class="help-block">
+                                       <br><a class="help">(월10,000원)&nbsp;&nbsp; [회원등급혜택]</a></span>
+ 					</div>
+                  </div>
+               <div class="form-group">
+					<label class="col-sm-2 control-label">서비스이용약관</label>
+					<div class="col-sm-6">
+                         <textarea class="form-control ckeditor" name="editor1" rows="6" readonly></textarea>
+                          <br><div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-info">
+                                          <input type="checkbox" class="agree_checkbox" name="agree_checkbox" value=""> 약관동의
+                                      </label>
+ 
+                  </div>
+       
+                    </div>
+				
+				
+		 
+                 
+				
+				
+					
+ 
+                </div>	
+                <div style="float:right">
+  					<button class="btn btn-info" type="button" value="등록" onClick="checkUserRegForm();" >가입 </button> 
+	 				
+	 				<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
+	 				<button class="btn btn-danger" type="button" value="취소" onClick="goMainForm();" >가입취소 </button>
+                </div>
+                </form>
 
-               <tr>
-                  <td>이메일</td>
-                  <td><input type="text" name="email" class="email"
-                     placeholder="E-mail" /></td>
-               </tr>
+             
+              
+              
+              
+            </section>
+          </div>
+ 
+      </section>
+ 
+    </section>
+           
+ </main>
 
-               <tr>
-                  <td>질문</td>
-                  <td><select name="question_code" class="question">
-                        <option value="" placeholder="--질문 선택--">--질문 선택--</option>
-                        <option value="1">내가 졸업한 초등학교 이름은?</option>
-                        <option value="2">나의 보물 1호는?</option>
-                        <option value="3">가장 기억에 남는 선생님의 이름은?</option>
-                        <option value="4">가장 감명깊게 본 영화는?</option>
-                  </select></td>
-               </tr>
+  <!--==========================
+    꼬리말
+  ============================-->
+  <footer id="footer" class="section-bg">
+    <div class="footer-top">
+      <div class="container">
 
+        <div class="row">
 
-               <tr>
-                  <td>답변</td>
-                  <td><input type="text" name="answer" class="answer"
-                     placeholder="답변" /></td>
-               </tr>
+          <div class="col-lg-6">
 
-               <tr>
-                  <td>&nbsp;
-               </tr>
+            <div class="row">
 
-               <tr>
-                  <td align="center" colspan=2>--사업장 정보--</td>
-               </tr>
+                <div class="col-sm-6">
 
-               <tr>
-                  <td>사업자 번호</td>
-                  <td><input type="text" name="business_no" class="business_no" placeholder="(10자리, 000-00-0000)" maxlength="12" required/>
-                  <input type="button" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo" value="사업자 번호 중복확인"
-                     onclick="checkBusinessNo();" /></td>
-                  </td>
-               </tr>
+                  <div class="footer-info">
+                    <h3>POSBIS</h3>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+                  </div>
 
-               <tr>
-                  <td>상호명</td>
-                  <td><input type="text" name="business_name"
-                     class="business_name" placeholder="상호명"/></td>
-               </tr>
+                  <!-- <div class="footer-newsletter">
+                    <h4>Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem.</p>
+                    <form action="" method="post">
+                      <input type="email" name="email"><input type="submit"  value="Subscribe">
+                    </form>
+                  </div> -->
 
-               <tr>
-                  <td>주소</td>
-                  <td>
-                     <!--********************************************************************** -->
-                
-                  <select name="addr_gu" class="addr_gu">
-                     <!--  onchange="getAddrDong()" -->
-                        <option value="" selected>--구 선택--</option>
-                        <c:forEach items="${addrListGu}" var="addrGu">
-                           <option value="${addrGu.addr_gu}">${addrGu.addr_gu}</option>
-                        </c:forEach>
+                </div>
 
+                <div class="col-sm-6">
+                  <div class="footer-links">
+                    <h4>빠른 이동</h4>
+                    <ul>
+                      <li><a onClick="goIntroForm();">회사소개 </a></li>
+                      <li><a onClick="goMainForm();">로그인</a></li>
+                      <li><a onClick="goqstnRegForm();">질문하기</a></li>
+                    </ul>
+                  </div>
 
-                  </select> 
-                  <select name="addr_dong" class="addr_dong"">
-                        <option value="" selected>--동 선택--</option>
-                   
-                      
-                  </select> <!--********************************************************************** -->
-                
+                  <div class="footer-links">
+                    <h4>연락망</h4>
+                    <p>
+                      월드메르디앙벤쳐 2차 <br>
+                      Korea, Seoul 가산디지털단지역<br>
+                      용기의 방, 409호 <br>
+                      <strong>Phone:</strong> +1 5589 55488 55<br>
+                      <strong>Email:</strong> info@example.com<br>
+                    </p>
+                  </div>
 
-                  </td>
-               </tr>
-               <tr>
-                  <td>상세주소</td>
-                  <td><input type="text" size=50 name="addr_detail"
-                     class="addr_detail" /></td>
-               </tr>
+                  <div class="social-links">
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                  </div>
 
-               <tr>
-                  <td>업종</td>
-                  <!--********************************************************************** -->
+                </div>
 
-                  <td><select name="business_type_name1"
-                     class="business_type_name1">
-                        <option value="">--선택--</option>
-                        <c:forEach items="${businessTypeList1}" var="busiType1">
-                           <option value="${busiType1.business_type_name1}">${busiType1.business_type_name1}
-                           </option>
-                        </c:forEach>
-                  </select> <select name="business_type_name2" class="business_type_name2"
-                     onchange="getbusiListname2();">
-                        <option value="">--선택--</option>
+            </div>
 
-                  </select></td>
-                  <!--********************************************************************** -->
+          </div>
 
-               </tr>
+          <div class="col-lg-6">
 
-               <tr>
-                  <td>매장 번호</td>
-                  <td><input type="text" size="12" name="store_tel_num"
-                     class="store_tel_num" />&nbsp;&nbsp;*숫자만 입력하세요</td>
-               </tr>
+            <div class="form">
+              
+              <h4>건의 사항</h4>
+              <p>POSBIS는 고객의 말에 늘 귀기울이고 있습니다. <br>불편한 점 또는 좋은 제안이 있으시다면 언제든지 건의해 주세요. </p>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="name" id="name" placeholder="성함" data-rule="minlen:2" data-msg="2자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="이메일" data-rule="email" data-msg="이메일을 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="제목" data-rule="minlen:4" data-msg="제목을 4자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="내용" data-msg="내용을 입력해 주십시오"></textarea>
+                  <div class="validation"></div>
+                </div>
 
-               <tr>
-                  <td>회원등급</td>
-                  <td><input type="radio" name="rank_code" class="rank_code"
-                     value="1">일반 
-                     <input type="radio" name="rank_code"
-                     class="rank_code" value="2">프리미엄 &nbsp;&nbsp;(월
-                     10,000원)&nbsp;&nbsp; <a class="help">[회원등급혜택]</a></td>
-               </tr>
+               <!--  <div id="sendmessage">건의사항이 무사히 전달됐습니다. 감사합니다!</div>
+                <div id="errormessage"></div> -->
 
-               <tr>
+                <div class="text-center"><button type="submit" title="Send Message" onClick="goMessageForm();">전송</button></div>
+              </form>
+            </div>
 
-                  <td colspan="3" class="signUp_agree"><br>서비스이용 약관</td>
-               </tr>
-               <tr>
-                  <td colspan="3" class="signUp_agree_textarea"><textarea
-                        cols="70" rows="10" readonly="readonly">회원가입~~~~</textarea></td>
-               </tr>
-               <tr>
-                  <td colspan="3" class="signUp_agree_ checkbox" id="agree_checkbox"><input
-                     type="checkbox" class="agree_checkbox" name="agree_checkbox">약관
-                     동의</td>
-               </tr>
+          </div>
 
+          
 
+        </div>
 
-            </tbody>
+      </div>
+    </div>
 
-         </table>
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Rapid
+        -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
 
-         <div style="height: 20;"></div>
+ 
+  </footer><!-- #footer -->
 
-         <input type="button" value="가입" onclick="checkUserRegForm();">
-         <input type="reset" value="다시 작성"> <input type="button"
-            value="가입취소" onclick="goMainForm();">
-            
-         <!--  <input type="hidden" name=u_no value=""> -->
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
 
-      </form>
-   </center>
+  <!-- JavaScript Libraries -->
+  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
+  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/intro/lib/easing/easing.min.js"></script>
+  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
+  <script src="resources/intro/lib/wow/wow.min.js"></script>
+  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
+  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
+  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="resources/intro/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="resources/intro/js/main.js"></script>
+  
+  
 
 </body>
-</html>
+</html> 

@@ -28,5 +28,8 @@ public interface PreSearchDAO {
 	// select  / BusinessTypeName2 얻기
 	List<String> getBusinessTypeName2(String business_type_name1);
 	
+	// select / AddrGu2 얻기
+	List<String> getAddrGu2(String addr_gu1);
+	
 	
 }

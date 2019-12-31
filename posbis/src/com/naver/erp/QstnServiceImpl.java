@@ -186,6 +186,29 @@ public class QstnServiceImpl implements QstnService {
 		//System.out.println(masterCnt);
 		return writer;
 	}
+	
+////////////////////////////////////성유진//////////////////////////////////////////////////
+	
+	//*************************************************
+	// 내가쓴글 목록 불러오기 
+	//*************************************************
+	@Override
+	public List<Map<String,String>> getMyQstnList(MyQstnSearchDTO myQstnSearchDTO){
+		
+		List<Map<String,String>> myQstnList = this.qstnDAO.getMyQstnList(myQstnSearchDTO);
+
+		return myQstnList;
+	}
+	
+	//*************************************************
+	// 내가쓴글 목록 개수 불러오기
+	//*************************************************
+	@Override
+	public int getMyQstnAllCnt (MyQstnSearchDTO myQstnSearchDTO){
+		int myQstnAllCnt = this.qstnDAO.getMyQstnAllCnt(myQstnSearchDTO);
+		
+		return myQstnAllCnt;
+	}
 }
 
 

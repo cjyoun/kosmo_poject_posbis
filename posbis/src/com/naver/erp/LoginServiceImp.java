@@ -106,28 +106,28 @@ public class LoginServiceImp implements LoginService {
 		public int deleteUserInfo(Map<String, String> user_id_pwd) {
 			
 		
-		int deleteSalesBusiCnt=this.loginDAO.deleteSalesBusi(user_id_pwd);
-		 if(deleteSalesBusiCnt==0) {return -1;}
-		 
-		/*
-		 * int deleteSalesMenuCnt=this.loginDAO.deleteSalesMenu(user_id_pwd);
-		 * if(deleteSalesMenuCnt==0) {return -2;}
-		 */
+			int deleteSalesBusiCnt=this.loginDAO.deleteSalesBusi(user_id_pwd);
+			 if(deleteSalesBusiCnt==0) {return -1;}
+			 
+			/*
+			 * int deleteSalesMenuCnt=this.loginDAO.deleteSalesMenu(user_id_pwd);
+			 * if(deleteSalesMenuCnt==0) {return -2;}
+			 */
+				
+			int deleteMenuCnt=this.loginDAO.deleteMenu(user_id_pwd);
+			if(deleteMenuCnt==0) {return -3;}
 			
-		int deleteMenuCnt=this.loginDAO.deleteMenu(user_id_pwd);
-		if(deleteMenuCnt==0) {return -3;}
-		
-		int deletebusinessInfoCnt=this.loginDAO.deletebusinessInfo(user_id_pwd);
-		if(deletebusinessInfoCnt==0) {return -4;}
-		
-		int deleteCardCnt=this.loginDAO.deleteCard(user_id_pwd);
-		if(deleteCardCnt==0) {return -5;}
-		
-		int deleteQnaCnt=this.loginDAO.deleteQna(user_id_pwd);
-		if(deleteQnaCnt==0) {return -6;}
-
-		int deleteUserInfoCnt=this.loginDAO.deleteUserInfo(user_id_pwd);
-		return deleteUserInfoCnt;
+			int deletebusinessInfoCnt=this.loginDAO.deletebusinessInfo(user_id_pwd);
+			if(deletebusinessInfoCnt==0) {return -4;}
+			
+			int deleteCardCnt=this.loginDAO.deleteCard(user_id_pwd);
+			if(deleteCardCnt==0) {return -5;}
+			
+			int deleteQnaCnt=this.loginDAO.deleteQna(user_id_pwd);
+			if(deleteQnaCnt==0) {return -6;}
+	
+			int deleteUserInfoCnt=this.loginDAO.deleteUserInfo(user_id_pwd);
+			return deleteUserInfoCnt;
 			
 		};
 		
@@ -205,6 +205,59 @@ public class LoginServiceImp implements LoginService {
 		public String getRankCode(String user_id) {
 			String rank_code = this.loginDAO.getRankCode(user_id);
 			return rank_code;
+		}
+
+
+		// 유저 정보 업데이트
+		@Override
+		public int updateInfoUser(UpdateInfoDTO updateInfoDTO) {
+			int updateInfoUserCnt = this.loginDAO.updateInfoUser(updateInfoDTO);
+			return updateInfoUserCnt;
+		};
+		
+		
+		// 가게 정보 업데이트
+		@Override
+		public int updateInfoBusiness(UpdateInfoDTO updateInfoDTO) {
+			int updateInfoBusinessCnt = this.loginDAO.updateInfoBusiness(updateInfoDTO);
+			return updateInfoBusinessCnt;
+		}
+
+
+		// 카드 갯수 얻기
+		@Override
+		public int getCardCnt(int u_no) {
+			int cardCnt = this.loginDAO.getCardCnt(u_no);
+			return cardCnt;
+		};
+		
+		// 카드 지우기
+		@Override
+		public int deleteinfoCard(int u_no) {
+			int deleteCard = this.loginDAO.deleteinfoCard(u_no);
+			return deleteCard;
+		};
+		
+		
+		// 카드 생성하기
+		@Override
+		public int insertCard(CardDTO cardDTO) {
+			int insertCard = this.loginDAO.insertCard(cardDTO);
+			return insertCard;
+		};
+		
+		// 카드 등록 시 유저 등급 업데이트
+		@Override
+		public int updateRank(int u_no) {
+			int updateRank = this.loginDAO.updateRank(u_no);
+			return updateRank;
+		};
+		
+		
+		// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
+		public List<Map<String, String>> getMyStoreInfoList(int u_no){
+			List<Map<String, String>> myStoreInfoList = this.loginDAO.getMyStoreInfoList(u_no);
+			return myStoreInfoList;
 		};
 		
 		

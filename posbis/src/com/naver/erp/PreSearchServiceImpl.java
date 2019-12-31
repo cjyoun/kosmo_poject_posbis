@@ -119,6 +119,21 @@ public class PreSearchServiceImpl implements PreSearchService{
 		return businessTypeName2List;
 	}
 	
+
+	//--------------------------------------------------------------------------------------------------   
+	
+	
+
+	// select / AddrGu2 얻기
+	public List<String> getAddrGu2(String addr_gu1) {
+		List<String> addrGu2List;
+		addrGu2List = this.preSearchDAO.getAddrGu2(addr_gu1);
+		return addrGu2List;
+	}
+	
+	
+	
+	
 	
 	
 	

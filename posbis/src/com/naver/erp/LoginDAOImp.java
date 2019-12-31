@@ -324,8 +324,89 @@ public class LoginDAOImp implements LoginDAO{
 				);
 		
 		return rank_code;
+	}
+
+
+	// 유저정보 업데이트
+	@Override
+	public int updateInfoUser(UpdateInfoDTO updateInfoDTO) {
+		System.out.println("DAO Imp 회원정보 수정에서 유저정보 업데이트 시작");
+		System.out.println("DAO Imp user_id"+updateInfoDTO.getUser_id());
+		int updateInfoUserCnt = this.sqlSession.update(
+				 "com.naver.erp.LoginDAO.updateInfoUser"		// 실행할 SQL 구문의 위치 지정
+				, updateInfoDTO 	
+		);
+		System.out.println("DAO Imp 회원정보 수정에서 유저정보 업데이트 끝");
+		return updateInfoUserCnt;
 	};
 	
 	
+	// 가게정보 업데이트
+	@Override
+	public int updateInfoBusiness(UpdateInfoDTO updateInfoDTO) {
+		System.out.println("----------------- " + updateInfoDTO.getBusiness_no());
+		int updateInfoBusinessCnt = this.sqlSession.update(
+				 "com.naver.erp.LoginDAO.updateInfoBusiness"		// 실행할 SQL 구문의 위치 지정
+				, updateInfoDTO 	
+		);
+		return updateInfoBusinessCnt;
+	};
+	
+	
+	// 카드갯수 구하기
+	@Override
+	public int getCardCnt(int u_no) {
+		int cardCnt = this.sqlSession.selectOne(
+				 "com.naver.erp.LoginDAO.getCardCnt"		// 실행할 SQL 구문의 위치 지정
+				, u_no 	
+		);
+		return cardCnt;
+	};
+	
+	
+	
+	// 카드지우기
+	@Override
+	public int deleteinfoCard(int u_no) {
+		int deleteCard = this.sqlSession.delete(
+				 "com.naver.erp.LoginDAO.deleteinfoCard"		// 실행할 SQL 구문의 위치 지정
+				, u_no 	
+		);
+		return deleteCard;
+	};
+	
+	
+	// 카드 생성하기
+	@Override
+	public int insertCard(CardDTO cardDTO) {
+		int insertCard = this.sqlSession.insert(
+				 "com.naver.erp.LoginDAO.insertCard"		// 실행할 SQL 구문의 위치 지정
+				, cardDTO 	
+		);
+		return insertCard;
+	};
+	
+	// 카드 등록 시 유저 등급 업데이트
+	@Override
+	public int updateRank(int u_no) {
+		int updateRank = this.sqlSession.update(
+				 "com.naver.erp.LoginDAO.updateRank"		// 실행할 SQL 구문의 위치 지정
+				, u_no 	
+		);
+		return updateRank;
+	};
+	
+	
+	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
+	public List<Map<String, String>> getMyStoreInfoList(int u_no){
+		List<Map<String, String>> myStoreInfoList = this.sqlSession.selectList( 
+				"com.naver.erp.LoginDAO.getMyStoreInfoList"
+				, u_no
+		);
+		//System.out.println("DAO/myStoreInfoList===>"+myStoreInfoList);
+		return myStoreInfoList;
+	};
+	
+
 
 }

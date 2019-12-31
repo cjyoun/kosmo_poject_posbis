@@ -28,7 +28,7 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 	public List<Map<String, String>> getPreResultList(PreSearchDTO preSearchDTO){
 		//System.out.println("DAO/DTO.business_name1===>"+preSearchDTO.getBusiness_type_name1());
 		//System.out.println("DAO  getPreResultList 호출");
-		System.out.println("DAO/DTO.sort==>"+preSearchDTO.getSort());
+		//System.out.println("DAO/DTO.sort==>"+preSearchDTO.getSort());
 		List<Map<String, String>> preResultList = this.sqlSession.selectList(
 				"com.naver.erp.PreSearchDAO.getPreResultList"  
 				, preSearchDTO				
@@ -56,8 +56,6 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 	//[검색한 게시판 목록 개수] 리턴하는 메소드 선언
 	public int getPreResultAllCnt(PreSearchDTO preSearchDTO) {    //예외가 발생하면 서비스층으로 넘김
 		//[BoardDAO 인터페이스]를 구현한 객체의 getBoardListAllCnt 메소드 호출
-		//[검색한 게시판 목록 개수] 를 얻는다
-		//[검색한 게시판 목록 개수] 를 리턴받는다
 		//System.out.println("DAO  getPreResultAllCnt 호출");
 		int preResultAllCnt = this.sqlSession.selectOne(
 				"com.naver.erp.PreSearchDAO.getPreResultAllCnt"   //실행할 SQL 구문의 위치 지정
@@ -144,5 +142,22 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 			//System.out.println("DAO/businessTypeName2List==>"+businessTypeName2List);
 			return businessTypeName2List;
 		}
+		
+
+		//--------------------------------------------------------------------------------------------------   
+		
+		
+
+		// select / AddrGu2 얻기
+		public List<String> getAddrGu2(String addr_gu1) {
+			//System.out.println("DAO/addr_gu1===>"+addr_gu1);
+			List<String> addrGu2List;
+			addrGu2List = this.sqlSession.selectList(
+					"com.naver.erp.PreSearchDAO.getAddrGu2"
+					, addr_gu1
+			);
+			return addrGu2List;
+		}
+		
 	
 }

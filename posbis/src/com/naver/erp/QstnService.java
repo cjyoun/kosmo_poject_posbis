@@ -14,18 +14,7 @@ public interface QstnService {
 	//*************************************************
 	int getQstnAllCnt (QstnSearchDTO qstnSearchDTO);
 	
-	
-	
-	
-	
 	public String writer(QstnDTO qstnDTO);
-	
-	
-	
-	
-	
-	
-	
 	
 	//***************************************************************
 	// [게시판 글 입력 후 입력 적용 행의 개수] 리턴하는 메소드 선언 
@@ -51,6 +40,19 @@ public interface QstnService {
 	// 관리자 계정의 개수 리턴하는 메소드 선언
 	//***************************************************************
 	public int masterQstn(QstnDTO qstnDTO);
+	
+	
+	
+///////////////////////////////////성유진////////////////////////////////////////////
+	
+	//*************************************************
+	// 내가쓴글 목록 불러오기
+	//*************************************************
+	List<Map<String,String>> getMyQstnList(MyQstnSearchDTO myQstnSearchDTO);
+	//*************************************************
+	// 내가쓴글 목록 개수 불러오기
+	//*************************************************
+	int getMyQstnAllCnt (MyQstnSearchDTO myQstnSearchDTO);
 }
 	
 

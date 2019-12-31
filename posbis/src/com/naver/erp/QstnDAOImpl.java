@@ -242,4 +242,37 @@ public class QstnDAOImpl implements QstnDAO{
 	      
 	   }
 
+   
+ //-------------------------------성유진-------------------------------------------------------------------   
+   // 검색한 게시판 목록 리턴하는 메소드 선언
+   public List<Map<String,String>> getMyQstnList(MyQstnSearchDTO myQstnSearchDTO){
+      
+       List<Map<String,String>> myQstnList = this.sqlSession.selectList(
+             "com.naver.erp.QstnDAO.getMyQstnList"      // 실행할 SQL 구문의 위치 지정 
+            , myQstnSearchDTO                      // 실행할 SQL 구문에서 사용할 데이터 지정
+      );
+       
+      return myQstnList;      
+   }
+   
+   
+   //---------------------------------------------------------
+   // 검색한 게시판 목록 개수 리턴하는 메소드 선언
+   //---------------------------------------------------------
+   @Override
+   public int getMyQstnAllCnt(MyQstnSearchDTO myQstnSearchDTO) {
+
+      //System.out.println(qstnSearchDTO.getU_no());
+      // QstnDAO 인터페이스를 구현한 객체의  getQstnAllCnt 메소드를 호출하여 검색한 게시판 목록 총 개수를 얻는다.
+	  // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
+      int myQstnAllCnt = this.sqlSession.selectOne(
+             "com.naver.erp.QstnDAO.getMyQstnAllCnt"      // 실행할 SQL 구문의 위치 지정
+            , myQstnSearchDTO                            // SQL 구문의 parameterType 지정.
+            
+         );
+      System.out.println("myQstnAllCnt"+myQstnAllCnt);
+
+      return myQstnAllCnt;
+   }
+
 }

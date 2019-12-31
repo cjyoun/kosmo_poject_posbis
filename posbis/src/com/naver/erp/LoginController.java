@@ -84,6 +84,12 @@ public class LoginController {
 					// 로그인한 rank_code를 세션에 담기
 					session.setAttribute("rank_code", rank_code);
 					
+					// user_id 를 가지고 u_no 값 얻기
+					int u_no = this.preChartService.getUserNo(user_id);
+					System.out.println("user_no : " + u_no);
+					session.setAttribute("u_no", u_no);
+					
+					
 					if (is_login != null) {
 						System.out.println("if(is_login != null)접속성공");
 
@@ -154,13 +160,11 @@ public class LoginController {
 				System.out.println("myPage user_no 얻기 시작");
 				System.out.println(user_id);
 	
-				// user_id 를 가지고 u_no 값 얻기
-				int user_no = this.preChartService.getUserNo(user_id);
-				System.out.println("user_no : " + user_no);
+				int u_no = (int) session.getAttribute("u_no");
 	
 				// u_no 값 가지고 business_no, business_name 값 얻기 (N행 N열이라 List<Map<String,String>>
 				// . N행 1열이면 List<String> )
-				List<Map<String, String>> businessNoList = this.preChartService.getBusinessNoList(user_no);
+				List<Map<String, String>> businessNoList = this.preChartService.getBusinessNoList(u_no);
 	
 				System.out.println("businessNoList 끝");
 	
@@ -302,6 +306,33 @@ public class LoginController {
 		}
 
 		return join_idCnt;
+	}
+
+	
+	
+	// -----------------------------------------------------------------------------
+	// 회원가입 등록 ajax
+	@RequestMapping(value = "/joinRegProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@ResponseBody
+	public int joinRegProc(joinDTO joinDTO , HttpSession session) {
+		// 사용자 등록
+		int insertJoinCnt = 0;
+
+		try {
+			insertJoinCnt = this.loginService.insertJoinUser(joinDTO);
+			
+			int u_no = this.preChartService.getUserNo(joinDTO.getUser_id());
+			System.out.println("user_no : " + u_no);
+			session.setAttribute("u_no", u_no);
+
+		} catch (Exception e) {
+
+			System.out.println("<insertJoin 에러발생>");
+			System.out.println(e.getMessage());
+
+		}
+
+		return insertJoinCnt;
 	}
 
 	
@@ -464,6 +495,110 @@ public class LoginController {
 
 		}
 		
+		
+		
+		@RequestMapping(value = "/infoUpdateProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+		@ResponseBody
+		public int infoUpdateProc(
+				UpdateInfoDTO updateInfoDTO 
+				, HttpSession session 
+			) 
+		{
+			int updateSuccess = 0;
+			// 사용자 정보 업데이트 갯수
+			int infoUpdateUserCnt = 0;
+			// 사용자 정보 업데이트 갯수
+			int infoUpdateBusinessCnt = 0;
+			// 사용자가 저장한 카드의 갯수
+			int cardCnt = 0;
+			
+			int u_no = (int)session.getAttribute("u_no");
+			updateInfoDTO.setU_no(u_no);
+			
+			System.out.println("getU_no=======> " + updateInfoDTO.getU_no());
+			//System.out.println("getU_no=======> " + updateInfoDTO.getNewPwd());
+
+			String rank_code = (String)session.getAttribute("rank_code");
+			System.out.println("업데이트 전 rank_code " + rank_code);
+			
+			try {
+
+				// 유저 정보 업데이트
+				infoUpdateUserCnt = this.loginService.updateInfoUser(updateInfoDTO);
+				System.out.println("infoUpdateCnt ======> " + infoUpdateUserCnt);
+								
+				// 가게 정보 업데이트
+				infoUpdateBusinessCnt = this.loginService.updateInfoBusiness(updateInfoDTO);
+				System.out.println("infoUpdateBusinessCnt ======> " + infoUpdateBusinessCnt);
+				
+				// 업데이트된 등급 구하기
+				String newRankCode = this.loginService.getRankCode(updateInfoDTO.getUser_id());
+				System.out.println("newRankCode ======> " + newRankCode);
+				
+				// 카드갯수 구하기
+				cardCnt = this.loginService.getCardCnt(u_no);
+				System.out.println("cardCnt ======> " + cardCnt);
+				
+				// 유저정보와 가게정보 업데이트가 성공했다면
+				if(infoUpdateUserCnt!=0 && infoUpdateBusinessCnt!=0) {
+				    // 기존 등급에서 등급을 변경했을 때
+					if(!rank_code.equals(newRankCode)) {				
+						// 새로 업데이트된 등급이 프리미엄 등급일 때
+						System.out.println("newRankCode2 ======> " + newRankCode);
+						if( newRankCode.equals("2")) {
+							// 카드가 등록되어 있지 않을 때
+							if(cardCnt == 0) {
+								updateSuccess = 1;
+								System.out.println("카드가 등록되어 있지 않을 때 (프리미엄) ======> updateSuccess  " + updateSuccess);
+							}
+							// 카드가 이미 1개 등록되어 있을 때
+							else if(cardCnt == 1){
+								updateSuccess = 2;
+								System.out.println("카드가 이미 1개 등록되어 있을 때 (프리미엄) ======> updateSuccess " + updateSuccess);
+							}
+							// 그 외의 경우
+							else {
+								updateSuccess = 3;
+								System.out.println("cardCnt ======> updateSuccess " + updateSuccess);
+							}
+						}
+						// 새로 업데이트된 등급이 일반 등급일 때
+						else {
+							// 카드가 등록되어 있지 않을 때
+							if(cardCnt == 0) {
+								updateSuccess = 4;
+								System.out.println("카드가 등록되어 있지 않을 때 (일반) ======> updateSuccess " + updateSuccess);
+							}
+							// 카드가 등록되어 있을 때
+							else {
+								// 등록된 카드 삭제
+								int deleteCard = this.loginService.deleteinfoCard(updateInfoDTO.getU_no());
+								updateSuccess = 5;
+								System.out.println("카드가 등록되어 있을 때 (일반) ======> updateSuccess " + updateSuccess);
+							}
+							
+							
+						}
+						
+				    }else {
+				    		updateSuccess = 6;
+				    }
+
+					
+				}
+				
+				
+				
+			} catch (Exception e) {
+
+				System.out.println("<infoUpdateProc 에러발생>");
+				System.out.println(e.getMessage());
+
+			}
+
+			return updateSuccess;
+		}
+		
 
 	
 
@@ -525,26 +660,6 @@ public class LoginController {
 
 	}
 
-	// -----------------------------------------------------------------------------
-	// 회원가입 등록 ajax
-	@RequestMapping(value = "/joinRegProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
-	@ResponseBody
-	public int joinRegProc(joinDTO joinDTO) {
-		// 사용자 등록
-		int insertJoinCnt = 0;
-
-		try {
-			insertJoinCnt = this.loginService.insertJoinUser(joinDTO);
-
-		} catch (Exception e) {
-
-			System.out.println("<insertJoin 에러발생>");
-			System.out.println(e.getMessage());
-
-		}
-
-		return insertJoinCnt;
-	}
 
 	
 
@@ -567,10 +682,10 @@ public class LoginController {
 		return mav;
 	}
 
-	@ExceptionHandler(Exception.class)
-	public String handlerException(HttpServletRequest request) {
-		return "logout.jsp";
-	}
+//	@ExceptionHandler(Exception.class)
+//	public String handlerException(HttpServletRequest request) {
+//		return "logout.jsp";
+//	}
 //-----------------------------------------------------------------------------		
 	// 사업자 아이디 중복
 
@@ -659,12 +774,48 @@ public class LoginController {
 	      String rank_code = (String)session.getAttribute("rank_code");
 	      mav.addObject("rank_code",rank_code);
 	      
+	     // int u_no = (int)session.getAttribute("u_no");
+	      
 	      return mav;
 	      
 	   }
 	
 	
-	
+	@RequestMapping(value = "/payProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@ResponseBody
+	public int payProc(
+			CardDTO cardDTO 
+			, HttpSession session 
+		) 
+	{
+		int insertCard = 0;
+		
+		int u_no = (int)session.getAttribute("u_no");
+		
+		//System.out.println("u_no =======> " + u_no);
+		cardDTO.setU_no(u_no);
+		System.out.println("getU_no=======> " + cardDTO.getU_no());
+		//System.out.println("getU_no=======> " + updateInfoDTO.getNewPwd());
+
+		try {
+			String credit_no = cardDTO.getCreditNum1() + cardDTO.getCreditNum2() + cardDTO.getCreditNum3() + cardDTO.getCreditNum4() ;
+			cardDTO.setCredit_no(credit_no);
+			insertCard = this.loginService.insertCard(cardDTO);		
+			
+			int updateRank = this.loginService.updateRank(cardDTO.getU_no());
+			
+				
+			
+
+		} catch (Exception e) {
+
+			System.out.println("<infoUpdateProc 에러발생>");
+			System.out.println(e.getMessage());
+
+		}
+
+		return insertCard;
+	}
 	
 	
 	

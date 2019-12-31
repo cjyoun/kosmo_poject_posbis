@@ -10,6 +10,7 @@ public class SalesSearchDTO {
 	private int rowCntPerPage=10;
 	private String[] chooseBusinessNo;
 	private String chooseAllBusinessNo;
+	private String sort="s.sales_date desc";
 	
 	
 	public String getUser_id() {
@@ -66,6 +67,11 @@ public class SalesSearchDTO {
 	public void setChooseAllBusinessNo(String chooseAllBusinessNo) {
 		this.chooseAllBusinessNo = chooseAllBusinessNo;
 	}
-	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	
 }

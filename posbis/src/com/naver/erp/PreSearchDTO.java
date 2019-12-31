@@ -1,38 +1,22 @@
 package com.naver.erp;
 
+import java.util.List;
+import java.util.Map;
+
 public class PreSearchDTO {
 	
-	private int rnum=0;
-	private int u_no =7;
-	private String business_no;
+	//검색조건
 	private String business_type_name1;
 	private String business_type_name2;
 	private String addr_gu1;
+	private String addr_gu2;
 	private int month_sales=0;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
-	private String sort="rnum asc";
+	private String sort="ranking asc";
+
 	
 	
-	
-	public int getRnum() {
-		return rnum;
-	}
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
-	}
-	public int getU_no() {
-		return u_no;
-	}
-	public void setU_no(int u_no) {
-		this.u_no = u_no;
-	}
-	public String getBusiness_no() {
-		return business_no;
-	}
-	public void setBusiness_no(String business_no) {
-		this.business_no = business_no;
-	}
 	public String getBusiness_type_name1() {
 		return business_type_name1;
 	}
@@ -50,6 +34,12 @@ public class PreSearchDTO {
 	}
 	public void setAddr_gu1(String addr_gu1) {
 		this.addr_gu1 = addr_gu1;
+	}
+	public String getAddr_gu2() {
+		return addr_gu2;
+	}
+	public void setAddr_gu2(String addr_gu2) {
+		this.addr_gu2 = addr_gu2;
 	}
 	public int getMonth_sales() {
 		return month_sales;
@@ -75,12 +65,6 @@ public class PreSearchDTO {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
-	
-	
-	
-	
-		
-	
 	
 	
 	

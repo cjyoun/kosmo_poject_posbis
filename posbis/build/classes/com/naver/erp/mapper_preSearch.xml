@@ -9,7 +9,8 @@
 
 	<sql id="preSearchWhere">
 	select business_no, month_sales, business_type, addr_dong,
-					  SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type from
+					  SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type 
+					  , RANK() OVER (ORDER BY month_sales desc)   RANKING from
 					(select
 					 sm.business_no
 					  ,sm.month_sales
@@ -53,13 +54,13 @@
 				    and (select a.addr_gu
 				            from addr a, business_info bi
 				            where bi.addr_no=a.addr_no
-				                and bi.business_no=result.business_no) = #{addr_gu1}
-					</if>	
-					<if test="business_type_name1!=null and business_type_name1.length()>0">
-				    and (select cbt.business_type_name1
-				            from code_business_type cbt, business_info bi
-				            where cbt.business_type_code=bi.business_type_code
-				                and bi.business_no=result.business_no) = #{business_type_name1}
+				                and bi.business_no=result.business_no)  in ( #{addr_gu1} <if test="addr_gu2!=null and addr_gu2.length()>0"> , #{addr_gu2} </if> )
+				</if>
+				<if test="business_type_name1!=null and business_type_name1.length()>0">
+			    and (select cbt.business_type_name1
+			            from code_business_type cbt, business_info bi
+			            where cbt.business_type_code=bi.business_type_code
+			                and bi.business_no=result.business_no) = #{business_type_name1}
 			  	</if>
 			  	<if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
 				    and (select cbt.business_type_name2
@@ -80,14 +81,12 @@
 	<select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
 			select * from(
 			select b.* , rownum PAGINGRNUM from(
-			select a.*  from(select zzz.*, rownum RNUM from(
 				<include refid="preSearchWhere"/>
-				)  zzz   ) a  order by ${sort} )b)
+				) b order by ${sort})
 			
 					where pagingrnum &gt; =${selectPageNo*rowCntPerPage-rowCntPerPage+1}
 							 and pagingrnum &lt; =${selectPageNo*rowCntPerPage}
 							
-			 
 				
 	</select>
 	
@@ -125,6 +124,7 @@
    <select id='getUserNo' parameterType="String" resultType="int">   
       select u_no from user_info where user_id=#{user_id}
    </select>
+   
 
 	<!-- =====[BusinessNoList] 얻기========================================================================= -->
 
@@ -163,7 +163,18 @@
 	</select>
 	
 	
+<!-- =====[addr_gu2 리스트] 얻기========================================================================= -->	
+	<select id="getAddrGu2" parameterType="String" resultType="String">
+		select
+  				 distinct addr_gu  as "addr_gu2"
+		from addr
+		where 1=1
+				and addr_gu != #{addr_gu1}
+		order by addr_gu
+	</select>
 	
+	
+	 
 	
 	
 </mapper>	

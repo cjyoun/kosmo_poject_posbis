@@ -2,19 +2,15 @@ package com.naver.erp;
 
 import java.util.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -28,32 +24,44 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomePageController {
 	
 	 @Autowired private SalesService salesService;
+	 @Autowired private LoginService loginService;
+	 @Autowired private QstnService qstnService;
 	  
 	@RequestMapping( value="/homePageForm.do" )	
 	public ModelAndView homePageForm(
 			HttpSession session
 			) {		// 메소드 이름은 상관 없음.
-
+		
 		// [ModelAndView 객체] 생성.
 		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
 		// [ModelAndView 객체] 리턴하기
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("homePageForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
 
+		
+	
 	    String rank_code = (String)session.getAttribute("rank_code");
 	    mav.addObject("rank_code",rank_code);
 
 		try {
-			// 사업자번호 (가게명) 얻기.         
+			
+			
+			// id,  u_no 얻기      
 			//=========================================================================================================
 			String user_id = (String)session.getAttribute("user_id"); 
 			//String user_id = "user7";
 		     //System.out.println(user_id);
 		     // user_id 를 가지고 u_no 값 얻기
 		     int u_no = this.salesService.getUserNo(user_id);
-		     System.out.println("user_no : " + u_no);
+		    
+		     //System.out.println("user_no : " + u_no);
 
-		     // u_no 값 가지고 business_no, business_name 값 얻기 (N행 N열이라 List<Map<String,String>> .  N행 1열이면 List<String> )
+
+		     
+		     
+				//========================================================================
+				//차트
+				//========================================================================
 		     List<Map<String,String>> salesNow = this.salesService.getSalesNow(u_no);
 		     
 		     // ModelAndView 객체에 검색 개수, 게시판 검색 목록 저장하기
@@ -63,6 +71,49 @@ public class HomePageController {
 		     mav.addObject("salesNow" , salesNow);
 		     
 			//mav.addObject("salesSearchDTO",salesSearchDTO); //자동 기능...안써도 감...? => 안 쓰면 안찍힘...
+		     
+		     
+		     
+		     //성유진
+		     MyQstnSearchDTO myQstnSearchDTO = new MyQstnSearchDTO();
+		     
+		     myQstnSearchDTO.setU_no(u_no);
+				int myQstnAllCnt = this.qstnService.getMyQstnAllCnt(myQstnSearchDTO);
+				System.out.println("myQstnAllCnt==>"+myQstnAllCnt);
+				if(myQstnAllCnt>0) {
+					// 선택한 페이지 번호 구하기
+					int selectPageNo = myQstnSearchDTO.getSelectPageNo();
+					// 한 화면에 보여지는 행의 개수 구하기
+					int rowCntPerPage = myQstnSearchDTO.getRowCntPerPage();
+					// 검색할 시작행 번호 구하기
+					int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
+					// 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
+					// 선택한 페이지 번호를 1로 세팅하기
+					if(myQstnAllCnt < beginRowNo) {
+						myQstnSearchDTO.setSelectPageNo(1);
+					}
+				}
+				
+				List<Map<String,String>> myQstnList = this.qstnService.getMyQstnList(myQstnSearchDTO);
+				System.out.println("myQstnList.size()=>" +myQstnList.size());
+				
+				
+				System.out.println("getU_no ====> "+ myQstnSearchDTO.getU_no());
+				System.out.println("getSelectPageNo ====> "+ myQstnSearchDTO.getSelectPageNo());
+
+				
+				mav.addObject("myQstnList", myQstnList);
+				mav.addObject("myQstnAllCnt", myQstnAllCnt);
+				mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
+		     
+
+			//========================================================================
+		    // 내 가게 정보 /////////////////////////////////////////////////////////이정숙꺼
+			//========================================================================
+		     List<Map<String,String>> myStoreInfoList = this.loginService.getMyStoreInfoList(u_no);
+		     mav.addObject("myStoreInfoList" , myStoreInfoList);
+		     
+
 			 		
 			 }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
 				 	System.out.println("<에러발생>");
@@ -77,6 +128,6 @@ public class HomePageController {
 }
 
 
-// xxx.do로 접속하면 @Controller 가 붙어있는 클래스 안에 @RequestMapping( value="/xxx.do" ) 가 붙어있는 메소드 호출.
+
 
 

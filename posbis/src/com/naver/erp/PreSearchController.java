@@ -17,21 +17,61 @@ public class PreSearchController {
 	
 	@Autowired
 	private PreSearchService preSearchService;
+	
 		
 
 	 @RequestMapping( value="/getPreResultProc.do" //접속하는 클래스의 URL 주소 설정
-			 ,method=RequestMethod.POST ,produces="application/json;charset=UTF-8" )
-	 
+			 						,produces="application/json;charset=UTF-8" )	 
 	 @ResponseBody
-	 public  List<Map<String,String>> getPreResultProc( 
+	 public  PreResultDTO getPreResultProc( 
 			 PreSearchDTO preSearchDTO 
 	) {
 		 System.out.println("proc시작");
-		List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
-		System.out.println("preResultList===>" +preResultList);
-		
-		
-		 return preResultList;
+		 
+
+		 PreResultDTO preResultDTO= new PreResultDTO();
+			try {
+
+		       //================[프리미엄 검색 총 개수] 얻기=====================
+					int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
+					//System.out.println("Controller/preResultAllCnt===>"+preResultAllCnt);
+					//================끝  [프리미엄 검색 총 개수] 얻기=====================
+					
+					
+					// 총 개수와 선택한 페이지 번호간의 이상관계 시 보정
+					
+					if(preResultAllCnt>0) {
+						int selectPageNo =  preSearchDTO.getSelectPageNo();
+						int rowCntPerPage = preSearchDTO.getRowCntPerPage();
+						int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
+						
+						if(  preResultAllCnt < beginRowNo ) {
+							preSearchDTO.setSelectPageNo(1);
+						}
+					}
+					
+					
+					
+					//=====================[검색 목록] 얻기===========================
+					List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
+					//System.out.println("preResultList.size() => " + preResultList.size() );
+					//System.out.println("Controller/preResultList===>"+preResultList);
+					//===================끝  [검색 목록] 얻기===========================
+					System.out.println("controller/preResultAllCnt==>"+preResultAllCnt);
+					System.out.println("controller/preResultList==>"+preResultList);
+
+					//preResultDTO.setPreResultAllCnt(preResultAllCnt);
+					//preResultDTO.setPreResultList(preResultList);
+					
+
+			}
+			catch(Exception e) {
+				System.out.println("getPreResultProc <에러발생>");
+				System.out.println(e.getMessage());
+			}
+			
+			
+			 return preResultDTO;
 	 } 
 	 
 	
@@ -44,12 +84,8 @@ public class PreSearchController {
 		PreSearchDTO preSearchDTO
 		//, HttpSession session 
 	) {
-		//System.out.println("Controller/getSearchList 호출");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "preSearchForm.jsp");
-		System.out.println("getSearchList시작");
-		System.out.println("Controller/DTO.getAddr_gu1==>"+preSearchDTO.getAddr_gu1());
-		System.out.println("Controller/DTO.getSort==>"+preSearchDTO.getSort());
 		
 		
 		try {
@@ -83,7 +119,24 @@ public class PreSearchController {
 			//=================끝 select / 사업자번호 얻기============
 	         
 
+	       //================[프리미엄 검색 총 개수] 얻기=====================
+				int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
+				mav.addObject("preResultAllCnt", preResultAllCnt);
+				//System.out.println("Controller/preResultAllCnt===>"+preResultAllCnt);
+				//================끝  [프리미엄 검색 총 개수] 얻기=====================
 				
+				
+				// 총 개수와 선택한 페이지 번호간의 이상관계 시 보정
+				
+				if(preResultAllCnt>0) {
+					int selectPageNo =  preSearchDTO.getSelectPageNo();
+					int rowCntPerPage = preSearchDTO.getRowCntPerPage();
+					int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
+					
+					if(  preResultAllCnt < beginRowNo ) {
+						preSearchDTO.setSelectPageNo(1);
+					}
+				}
 				
 				
 				
@@ -97,24 +150,7 @@ public class PreSearchController {
 	         
 	         
 	
-			//================[프리미엄 검색 총 개수] 얻기=====================
-			int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
-			mav.addObject("preResultAllCnt", preResultAllCnt);
-			//System.out.println("Controller/preResultAllCnt===>"+preResultAllCnt);
-			//================끝  [프리미엄 검색 총 개수] 얻기=====================
 			
-			
-			// 총 개수와 선택한 페이지 번호간의 이상관계 시 보정
-			
-			if(preResultAllCnt>0) {
-				int selectPageNo =  preSearchDTO.getSelectPageNo();
-				int rowCntPerPage = preSearchDTO.getRowCntPerPage();
-				int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
-				
-				if( beginRowNo < selectPageNo ) {
-					preSearchDTO.setSelectPageNo(1);
-				}
-			}
 			
 			
 			
@@ -152,15 +188,43 @@ public class PreSearchController {
 	}
 	
 	
-
 	
-	// select  / BusinessTypeName2 얻기
-	@RequestMapping( value="/getBusinessTypeName2.do" //접속하는 클래스의 URL 주소 설정
+
+	// addr_gu2 얻기
+	@RequestMapping( value="/getAddrGu2Proc.do" //접속하는 클래스의 URL 주소 설정
 		 		,method=RequestMethod.POST //접속하는 클래스의 파라미터값 전송 방법
 		 	,produces="application/json;charset=UTF-8" //응답할 데이터 종류 설정(여기선 json) )
 	)
 	@ResponseBody 
-	public List<String> getBusinessTypeName2(
+	public List<String> getAddrGu2Proc(
+			@RequestParam(value="addr_gu1") String addr_gu1 
+	) {
+		//System.out.println("Controller/addr_gu1===>"+addr_gu1);
+		List<String> addrGu2List;
+		try {
+			addrGu2List = this.preSearchService.getAddrGu2(addr_gu1);
+		}
+		catch(Exception e) {
+			System.out.println("getAddrGu2Proc <에러발생>");
+			System.out.println(e.getMessage());
+			addrGu2List = null;
+		}
+		//System.out.println("Controller/addrGu2List===>"+addrGu2List);
+		return addrGu2List;
+	}
+	
+	
+	
+	
+
+	
+	// BusinessTypeName2 얻기
+	@RequestMapping( value="/getBusinessTypeName2Proc.do" //접속하는 클래스의 URL 주소 설정
+		 		,method=RequestMethod.POST //접속하는 클래스의 파라미터값 전송 방법
+		 	,produces="application/json;charset=UTF-8" //응답할 데이터 종류 설정(여기선 json) )
+	)
+	@ResponseBody 
+	public List<String> getBusinessTypeName2Proc(
 			//파라미터값을 저장할 [BoardDTO 객체]를 매개변수로 선언
 			@RequestParam(value="business_type_name1") String business_type_name1 
 	) {
@@ -177,6 +241,9 @@ public class PreSearchController {
 		//System.out.println("Controller/businessTypeName2List===>"+businessTypeName2List);
 		return businessTypeName2List;
 	}
+	
+	
+	
 	
 	
 	

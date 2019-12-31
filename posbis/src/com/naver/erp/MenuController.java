@@ -29,39 +29,21 @@ import org.springframework.web.servlet.ModelAndView;
 		      String rank_code = (String)session.getAttribute("rank_code");
 		      mav.addObject("rank_code",rank_code);
 		      String user_id = (String)session.getAttribute("user_id");
+		      mav.addObject("user_id",user_id);
 				
 			try {
 				
-				// <1> HttpSession 객체에 uri 라는 키값으로 저장된 문자열 꺼내기
-				String uri=(String)session.getAttribute("uri");
-				// <2>만약 꺼낸 문자열이 null 이거나 "boardListForm" 이라면
-				// 매개변수로 받은 boardSearchDTO 객체를 HttpSession 객체에
-				// boardSearchDTO 라는 키값으로 저장하기
-				if(uri==null || uri.equals("menuForm.do")) {
-					session.setAttribute("menuSearchDTO", menuSearchDTO);
-				}
-				// <3> 만약 꺼낸 문자열이  null도 아니고 "boardListForm.do"도 아니라면
-				// HttpSession 객체에 boardSearchDTO 라는 키값으로 저장된 놈 꺼내서 
-				// 매개변수 boardSearchDTO 에 저장하기
-				else {
-					menuSearchDTO=(MenuSearchDTO)session.getAttribute("menuSearchDTO");
-				}
-				// <4> HttpSession 객체에 uri 라는 키값으로 "boardListForm.do" 문자열 저장하기
-				session.setAttribute("uri", "menuForm.do");
-				
-				
-				
 				 //String user_id = "user7";
-		         System.out.println("user_no 얻기 시작");
-		         System.out.println(user_id);
+		         //System.out.println("user_no 얻기 시작");
+		         //System.out.println(user_id);
 		         // user_id 를 가지고 u_no 값 얻기
 		         int user_no = this.menuService.getUserNo(user_id);
-		         System.out.println("user_no : " + user_no);
+		         //System.out.println("user_no : " + user_no);
 		         
 		         // u_no 값 가지고 business_no, business_name 값 얻기 (N행 N열이라 List<Map<String,String>> .  N행 1열이면 List<String> )
 		         List<Map<String,String>> businessNoList = this.menuService.getBusinessNoList(user_no);
 
-		         System.out.println("businessNoList 끝");
+		         //System.out.println("businessNoList 끝");
 		         
 		         
 		         // ModelAndView 객체에 검색 개수, 게시판 검색 목록 저장하기
@@ -70,9 +52,9 @@ import org.springframework.web.servlet.ModelAndView;
 		         
 		         mav.addObject("businessNoList" , businessNoList);
 		         
-		         System.out.println(businessNoList);
-		         System.out.println( "businessNoList.size()=>" + businessNoList.size());
-		         System.out.println( "businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no") );
+		         //System.out.println(businessNoList);
+		         //System.out.println( "businessNoList.size()=>" + businessNoList.size());
+		         //System.out.println( "businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no") );
 
 				
 				int menuListAllCnt = this.menuService.getMenuListAllCnt(menuSearchDTO);
@@ -90,7 +72,7 @@ import org.springframework.web.servlet.ModelAndView;
 						menuSearchDTO.setSelectPageNo(1);
 					}
 				}
-				 
+				
 				List<Map<String,String>> menuList = this.menuService.getMenuList(menuSearchDTO);
 				System.out.println("menuList.size()=>" +menuList.size());
 				
@@ -98,10 +80,6 @@ import org.springframework.web.servlet.ModelAndView;
 				mav.addObject("menuListAllCnt", menuListAllCnt);
 				mav.addObject("menuSearchDTO", menuSearchDTO);
 				
-				System.out.println("menuSearchDTO====>"+menuSearchDTO.getU_no());
-				
-				
-			
 			}catch(Exception e) {
 				//-------------------------------------
 				// try 구문에서 예외가 발생하면 실행할 구문 설정
@@ -129,6 +107,8 @@ import org.springframework.web.servlet.ModelAndView;
 		      String rank_code = (String)session.getAttribute("rank_code");
 		      mav.addObject("rank_code",rank_code);
 		      String user_id = (String)session.getAttribute("user_id");
+		      mav.addObject("user_id",user_id);
+		      
 			try {
 				
 				 //String user_id = "user7";
@@ -195,7 +175,6 @@ import org.springframework.web.servlet.ModelAndView;
 			System.out.println("main_category_name ====> "+ menuDTO.getMain_category_name());
 			System.out.println("mid_category_name ====> "+ menuDTO.getMid_category_name());
 			System.out.println("sub_category_name ====> "+ menuDTO.getSub_category_name());
-	
 			
 				
 			menuRegCnt = this.menuService.insertMenu(menuDTO);
@@ -239,6 +218,7 @@ import org.springframework.web.servlet.ModelAndView;
 					//----------------------------------
 					mav.addObject("menuDTO",menuDTO);
 					System.out.println("Controller menuDTO==>"+ menuDTO);
+					System.out.println("Controller getMenu_using==>"+ menuDTO.getMenu_using());
 					System.out.println("<접속성공> [접속 URI]->/menuUpDelForm.do [호출메소드]->MenuController.gomenuUpDelForm(~) \n\n\n");
 					
 					//대분류 데이터 가져오기-------------------------------------------------------------------

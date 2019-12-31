@@ -237,12 +237,104 @@
 	</select>	
 	
 	
+
+<!-- (회원정보) 유저정보 수정하기 -->
+	
+ 	<update id="updateInfoUser" parameterType="com.naver.erp.UpdateInfoDTO">
+		update user_info set 
+			user_id = #{user_id}
+			<if test="newPwd != null and newPwd.length() > 0">
+				, user_pwd = #{newPwd}	
+			</if>
+			, rank_code = #{rank_code}
+			, user_name = #{user_name}
+			, birth = #{birth}
+			, email = #{email}
+		where u_no=#{u_no} and user_pwd = #{user_pwd}
+	
+	</update>
 	
 	
+<!-- (회원정보) 가게정보 수정하기 -->
+	
+ 	<update id="updateInfoBusiness" parameterType="com.naver.erp.UpdateInfoDTO">
+		update business_info set 
+			business_name = #{business_name}
+			, addr_no = (select addr_no from addr where addr_no = (select addr_no from addr where addr_gu=#{addr_gu} and addr_dong=#{addr_dong}))
+			, addr_detail = #{addr_detail}
+			, business_type_code = (select distinct business_type_code from code_business_type where business_type_code = (select business_type_code from code_business_type where business_type_name1=#{business_type_name1} and business_type_name2=#{business_type_name2}))
+			, store_tel_num = #{store_tel_num}
+		where u_no=#{u_no} and business_no = #{business_no} 
+	
+	</update>	
+
+
+
+<!-- 카드갯수구하기 -->
+
+	<select id='getCardCnt' parameterType="int" resultType="int">
+		select count(*) from card where u_no = #{u_no}
+	</select>
+
+
+<!-- 카드 지우기 -->
+	<delete id='deleteinfoCard' parameterType="int" >
+		delete from card where u_no = #{u_no}
+	</delete> 
 	
 	
+<!-- 카드 생성하기 -->   
+   <insert id='insertCard' parameterType="com.naver.erp.CardDTO">
+   insert into card(
+          u_no
+          ,credit_no         
+          ,ex_year        
+          ,ex_month
+          ,cvc_no 
+          ,jumin_no
+          ,credit_pwd 
+
+	)values (
+       	#{u_no}
+          ,#{credit_no}
+          ,#{ex_year}
+          ,#{ex_month}   
+          ,#{cvc_no} 
+          ,#{jumin_no}
+          ,#{credit_pwd}
+
+		)
+   </insert>	
+
+
+<!-- 카드 등록 시 유저 등급 업데이트 -->
+ 	<update id="updateRank" parameterType="int">
+		update user_info set rank_code = '2' where u_no=#{u_no}
 	
-	
-	
+	</update>
+
+
+<!-- 내 가게 정보 (홈페이지)      이정숙꺼 -->
+	<select id='getMyStoreInfoList' parameterType="int" resultType="java.util.HashMap">
+		select
+		    u.user_id "user_id"
+		    , u.user_name "user_name"
+		    , u.email "email"
+		    , u.birth "birth"
+		    , u.rank_code "rank_code"
+		    , b.business_no "business_no"
+		    , b.business_name "business_name"
+		    , (select a.addr_gu from addr a where a.addr_no = b.addr_no) "addr_gu"  
+		    , (select a.addr_dong from addr a where a.addr_no = b.addr_no) "addr_dong"
+		    , b.addr_detail "addr_detail"  
+		    , (select c.business_type_name1 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name1"  
+		    , (select c.business_type_name2 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name2"
+		    , b.store_tel_num "store_tel_num"
+		from user_info u , business_info b
+		where u.u_no = b.u_no 
+				and u.u_no = #{u_no}
+
+	</select>
+		
 	
 </mapper>

@@ -10,6 +10,7 @@ public class MenuSalesSearchDTO {
 	private int menuRowCntPerPage=10;
 	private String[] chooseBusinessNo;
 	private String chooseAllBusinessNo;
+	private String sort="s.menu_name asc";
 	
 	public String getUser_id() {
 		return user_id;
@@ -64,6 +65,12 @@ public class MenuSalesSearchDTO {
 	}
 	public void setChooseAllBusinessNo(String chooseAllBusinessNo) {
 		this.chooseAllBusinessNo = chooseAllBusinessNo;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 	
 	

@@ -28,8 +28,9 @@ public class MenuServiceImpl implements MenuService{
 	// [검색한 게시판 목록] 리턴하는 메소드 선언
 	//--------------------------------------------
 	public List<Map<String,String>> getMenuList(MenuSearchDTO menuSearchDTO){
+		System.out.println("service : getMenuList 시작");
 		List<Map<String,String>> menuList = this.menuDAO.getMenuList(menuSearchDTO);
-		System.out.println("menuList=======>"+ menuList);
+		System.out.println("service : getMenuList 끝");
 		return menuList;
 	}
 	
@@ -62,6 +63,7 @@ public class MenuServiceImpl implements MenuService{
 	// 1개 메뉴를 리턴하는 메소드 선언
 	//-------------------------------------------
 	public MenuDTO getMenuDTO_upDel(int menu_no) {
+		
 		//-------------------------------------------
 		// [BoardDAO 인터페이스]를 구현한 객체의 getBoardDTO 메소드를 호출하여
 		// 조회수 증가 없이 [1개 게시판 글]을 얻는다.
@@ -131,9 +133,9 @@ public class MenuServiceImpl implements MenuService{
    
    // u_no을 가지고 business_no 과 business_name 얻기   
    @Override
-   public List<Map<String, String>> getBusinessNoList(int user_no) {
+   public List<Map<String, String>> getBusinessNoList(int u_no) {
       System.out.println("service : businessNoList 시작");
-      List<Map<String,String>> businessNoList = this.menuDAO.getBusinessNoList(user_no);
+      List<Map<String,String>> businessNoList = this.menuDAO.getBusinessNoList(u_no);
       System.out.println("service : businessNoList 끝"); 
       return businessNoList;
       

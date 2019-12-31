@@ -6,9 +6,57 @@
 
 
 <html>
- <head>
+<head>
+  <meta charset="utf-8">
+  <title>Rapid Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+   <!-- Favicons -->
+  <link href="resources/intro/img/favicon.png" rel="icon">
+  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+   <!-- Bootstrap CSS File -->
+  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+   <!-- Libraries CSS Files -->
+  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <!-- Main Stylesheet File -->
+  <link href="resources/intro/css/style.css" rel="stylesheet">
+  
+  <!-- Bootstrap CSS -->
+  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
+  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
+  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
+  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
+  
+   
+  
+  
   <title> PremiumChart </title>
-      <meta charset="utf-8">
+  
 
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
@@ -84,7 +132,7 @@
 						//alert("allSalesMonthList : "+ preChartListDTO.allSalesMonthList[0].sales_amount);
 						// 아이디 존재 개수가 1개면 /z_spring/boardListForm.do 로 이동
 						if(preChartListDTO != null){
-							alert("성공");
+							//alert("성공");
 
 							var xxx= preChartListDTO.salesMonthList.length;
 							// Controller에서 가져온 DTO값들을 뽑아서 변수에 저장.
@@ -147,7 +195,7 @@
 
 
 						if(myPopularityListDTO != null){
-							alert("성공2");
+							//alert("성공2");
 							$(".menu").remove();
 							$(".menu2").remove();
 							$(".menu3").remove();
@@ -219,7 +267,7 @@
 
 
 						if(mySalesRatioDTO != null){
-							alert("성공3");
+							//alert("성공3");
 							//alert(mySalesRatioDTO.menuSalesCount[0].MENU_NAME);
 
 							// 우리가게 상품별 판매 횟수, 이름 구하기
@@ -418,7 +466,7 @@
 		    	 		salesBenefitMenu[i] *=1;
 		    	 		sum = sum + salesBenefitMenu[i];
 					}
-					alert(sum);
+					//alert(sum);
 
 			       var data3 = google.visualization.arrayToDataTable([
 					   	 ['메뉴', 				'총이익(원)',		'순이익(원)',     			 ],
@@ -449,46 +497,70 @@
 	      }
 	
 	
-	      function goMyPageForm(){
-	          alert("goMyPageForm.jsp로 이동")
-	          location.replace("/posbis/myPageForm.do")
-	       }
-	
-	       function goMenuForm(){
-	          alert("goMenuForm.jsp로 이동")
-	          location.replace("/posbis/menuForm.do")
-	       }
-	     
-	       function goSalesForm(){
-	          alert("goSalesForm.jsp로 이동")
-	          location.replace("/posbis/salesForm.do")
-	       }
-	     
-	       function goPreChartForm(){
-	          alert("goPreChartForm.jsp로 이동")
-	          location.replace("/posbis/preChartForm.do")
-	       }
-	
-	       function goMainForm(){
-	          alert("goMainForm.jsp로 이동")
-	          location.replace("/posbis/mainForm.do")
-	       }
-	       
-	       function goInfoUpdateForm(){
-	          alert("goInfoUpdateForm.jsp로 이동")
-	          location.replace("/posbis/infoUpdateForm.do")
-	       }
-	       
-	       function gowithdrawalForm(){
-	          alert("gowithdrawalForm.jsp로 이동")
-	          location.replace("/posbis/withdrawalForm.do")
-	       }
-	
-	
-	       function goMainForm(){
-	           alert("메인으로 이동");
-	           location.replace("/posbis/mainForm.do");
-	        }
+	  	//--------------------------------------------------------
+	   	   //로고 클릭시
+	   	     function goMainForm(){
+	   	        //alert("메인으로 이동");
+	   	        location.replace("/posbis/mainForm.do");
+	   	     }
+	   		
+	   		//회사소개-pobis 클릭시
+	   		
+	   		function goIntroForm(){
+	   	        //alert("회사소개로 이동");
+	   	        location.replace("/posbis/introForm.do");
+	   	     }
+	   		
+	   		//마이페이지-매출관리
+	   	    function goSalesForm(){
+	   	       //alert("매출관리로 이동");
+	   	        location.replace("/posbis/salesForm.do");
+	   	     } 
+	   		//마이페이지-메뉴관리
+	   		function goMenuForm(){
+	   	        //alert("메뉴관리로 이동");
+	   	        location.replace("/posbis/menuForm.do");
+	   	     }
+	   		//분석현황-검색관리
+	   		function goPreSearchForm(){
+	   	        //alert("검색관리로 이동");
+	   	        location.replace("/posbis/preSearchForm.do");
+	   	     }
+	   		//분석현황-차트관리
+	   		function goPreChartForm(){
+	   	        //alert("차트관리로 이동");
+	   	        location.replace("/posbis/preChartForm.do");
+	   	     }
+	   		//내정보관리-내정보 보기
+	   		function goMyPageForm(){
+	   	        //alert("내정보 보기으로 이동");
+	   	        location.replace("/posbis/myPageForm.do");
+	   	     }
+
+	   		//qna 게시판- 질문하기
+	   		function goqstnRegForm(){
+	   	        //alert("질문하기으로 이동");
+	   	        location.replace("/posbis/qstnRegForm.do");
+	   	     }
+	   	    //qna 게시판- 내글보기
+	   		 function goQstnForm(){
+	   	        //alert("내글보기으로 이동");
+	   	        location.replace("/posbis/myQstn.do");
+	   	     }
+	   		 
+	   		//통합 관리
+	   		 function goHomePageForm(){
+   		    //alert("통합 관리으로 이동");
+   		    location.replace("/posbis/homePageForm.do");
+   		 }
+	   		//--------------------------------------------------------
+
+	   		
+	   		function goMessageForm(){
+	   		    alert("건의사항이 접수 되었습니다. 감사합니다");
+	   	 
+	   		 }
+	   	
 	      
 				
 	      
@@ -496,29 +568,119 @@
      </script>
  </head>
 
- <body><center>
- 
-  <div class="right"><input type=button value="메인으로" onClick="goMainForm()"></div>&nbsp;&nbsp;
-		
-         <!---------------- 상단바 ------------------------->
-         <div style="float: left; border:1px solid;  height:10%; width: 100%; ">
-         	<center><h2>상단바</h2></center>
-         	
-         </div>
+ <body>
+ <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+  
+  <div id="topbar">
+      <div class="container">
+        <div class="social-links">
+          
+        </div>
+      </div>
+    </div>
+   <div class="container">
       
-         <div style="display:table; border:1px solid; height:90%; width: 100%;">
-            <!------------------ 사이드바 ---------------------->
-            <div style="float:left; width: 9%; border:1px solid;  height:100%;"><br><Br>
-               <h3>마이페이지</h3><br>
-                  <a onClick="goMyPageForm()">내 정보관리</a><br><br>
-                  <a onClick="goMenuForm()">메뉴관리</a><br><br>
-                  <a onClick="goSalesForm()">매출관리</a><br><br>
-                  <a onClick="goPreChartForm()">프리미엄</a><br><br>
-            </div>
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span> POSBIS</span></a></h1>
+        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+      </div>
 
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+            </ul>
+          </li>
+           <li class="drop-down"><a href="">마이페이지</a>
+            <ul>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
+              <li><a onClick="goSalesForm();">매출 관리</a></li>
+              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
+              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+ 
+            </ul>
+          </li>
+                <li class="drop-down"><a href="">분석현황</a>
+            <ul>
+              <li><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li><a onClick="goPreChartForm();">차트관리</a></li>
+            </ul>
+          </li>
+         <li class="drop-down"><a href="">Q&A게시판</a>
+            <ul>
+              <li><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+            </ul>
+          </li>   
+         
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+           <ul>
+           		
+              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
+           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+            </ul>  
+          </li>     
+        
+        </ul>
+      </nav><!-- .main-nav -->
+      
+    </div>
+  </header><!-- #header -->          
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro" class="clearfix">
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-md-6 intro-info order-md-first order-last">
+          <h2>Q&A<br>In<br><span>POSBIS</span></h2>
+        
+        </div>
+  
+        <div class="col-md-6 intro-img order-md-last order-first">
+          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
+     
+
+    </div>
+  </section><!-- #intro -->  
+  
+   <!--==========================
+	 분석 차트
+  ============================--> 
+ <main id="main">
+   <section id="main-content">
+   <section class="wrapper">
+     <div class="row">
+           <div class="col-lg-10" align="center">
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">분석현황</a></li>
+              <li><i class="fa fa-user-md"></i>차트관리</li>
+   
+            </ol>
+          </div>
+        </div>
+		    <div class="col-lg-10" align="center">
+            <section class="panel">
+              <header class="panel-heading">
+                	 차트관리
+              </header>
+              <div class="panel-body">
+ 
+
+      <div class="container">
+      
+ 
+          
+        
             <!------------------ 메인으로 보여줄 div -------------------->
 
-            	<div style="float: right; border:1px solid; width: 89%; height:10%;">
+            	 
 	            	<form name="preChartForm" method="post" action="/posbis/preChartForm.do"> 
 	
 						<table border=0 width=700  >
@@ -545,7 +707,7 @@
 											* 어느 부분이 틀리면 그 부분만 나오지 않고 다른 부분은 화면에 나옴.
 										--%> 
 								<!-- ------------------------------------------------------------------------------------------------------------------- -->
-								 		<option value="all">모두검색
+								 		<!-- <option value="all">모두검색 -->
 								 		<c:forEach items="${businessNoList}" var="businessNoList">
 											
 												<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
@@ -559,19 +721,20 @@
 						
 	             	  <br>
 	               
-				      <input type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">&nbsp;
+				    <!--   <input type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">&nbsp;
 				      <input type="button" value="마이페이지로가기" style="width=130" onClick="location.replace('/posbis/myPageForm.do')">&nbsp;
-				      <input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp;
+				      <input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp; -->
+				
 				</div>
-			
+				<br><br>
 
-					<div style="float: left; border:1px solid;  width: 45%; height:90%;">
+					 <div class="panel-body">
 				         <br><br><br>
-				         <h1><script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script></h1>
+				          <script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script> 
 				         <br>
 				         [월매출]<br>
 				         <br><br>
-				         <div id="chart_div1" style="width: 700px; height: 200px;"></div>
+				         <div id="chart_div1" style="width: 900px; height: 500px;"></div>
 		
 		
 				 		<br>    
@@ -600,11 +763,11 @@
 				    	 <div id="chart_div2" style="width: 300px; height: 200px;"></div> -->
 	   				</div>
 	   				
-	   				<div style="float: right; border:1px solid;  width: 45%; height:90%;">
+	   				 <div class="panel-body">
 
 
 				         <br><br><br>
-				         <h1><script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script></h1>
+				          <script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script> 
 				         <br>
 				         [월매출]<br>
 				         <br><br>
@@ -612,33 +775,185 @@
 				         
 				         <table class="columns">
 					      <tr>
-					        <td><div id="chart_div2_1" style="width: 400px; height: 300px;"></div></td>
-					        <td><div id="chart_div2_2" style="width: 400px; height: 250px;"></div></td>
+					        <td><div id="chart_div2_1" style="width: 700px; height: 500px;"></div><br></td>
+					       </tr>
+					       <tr>
+					        <td><div id="chart_div2_2" style="width: 700px; height: 500px;"></div><br></td>
+					      </tr>
+					       <tr>
+					        <td><div id="chart_div3" style="width: 700px; height: 500px;"></div><br></td>
 					      </tr>
 					    </table>
-				       
-					     
-				 		<br>    
-				         
-				         <div id="chart_div3" style="width: 500px; height: 300px;"></div>
-				        
-				         
-				         <br><br>
+			 
 				        <!--  <br><br>
 				         우리가게 인기메뉴<br>
 				    	 <div id="chart_div2" style="width: 300px; height: 200px;"></div> -->
+				    	 
+				    	 <button class="btn btn-info" type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">검색페이지로가기</button>&nbsp;&nbsp;
+				      <button class="btn btn-primary" type="button" value="마이페이지로가기" style="width=130" onClick="location.replace('/posbis/myPageForm.do')">마이페이지로가기</button>&nbsp;&nbsp;
+				      <button class="btn btn-success"  value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">q&a로가기</button>
+	         	        
+	          		<br>
+	          		<br>
 	   				</div>
 	   				
-	         	
 	         	
 	         	
 	         	</div>
 
 
 
-         
+         </section>
+         </div>
+         </section>
+         </section>
+         </main>
+
+  <!--==========================
+    꼬리말
+  ============================-->
+  <footer id="footer" class="section-bg">
+    <div class="footer-top">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-6">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                  <div class="footer-info">
+                    <h3>POSBIS</h3>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
+                  </div>
+
+                  <!-- <div class="footer-newsletter">
+                    <h4>Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem.</p>
+                    <form action="" method="post">
+                      <input type="email" name="email"><input type="submit"  value="Subscribe">
+                    </form>
+                  </div> -->
+
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="footer-links">
+                    <h4>빠른 이동</h4>
+                    <ul>
+                      <li><a onClick="goIntroForm();">회사소개 </a></li>
+                      <li><a onClick="goMainForm();">로그인</a></li>
+                      <li><a onClick="goqstnRegForm();">질문하기</a></li>
+                    </ul>
+                  </div>
+
+                  <div class="footer-links">
+                    <h4>연락망</h4>
+                    <p>
+                      월드메르디앙벤쳐 2차 <br>
+                      Korea, Seoul 가산디지털단지역<br>
+                      용기의 방, 409호 <br>
+                      <strong>Phone:</strong> +1 5589 55488 55<br>
+                      <strong>Email:</strong> info@example.com<br>
+                    </p>
+                  </div>
+
+                  <div class="social-links">
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                  </div>
+
+                </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="form">
+              
+              <h4>건의 사항</h4>
+              <p>POSBIS는 고객의 말에 늘 귀기울이고 있습니다. <br>불편한 점 또는 좋은 제안이 있으시다면 언제든지 건의해 주세요. </p>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="name" id="name" placeholder="성함" data-rule="minlen:2" data-msg="2자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="이메일" data-rule="email" data-msg="이메일을 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="제목" data-rule="minlen:4" data-msg="제목을 4자 이상 입력해 주십시오" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="내용" data-msg="내용을 입력해 주십시오"></textarea>
+                  <div class="validation"></div>
+                </div>
+
+               <!--  <div id="sendmessage">건의사항이 무사히 전달됐습니다. 감사합니다!</div>
+                <div id="errormessage"></div> -->
+
+                <div class="text-center"><button type="submit" title="Send Message" onClick="goMessageForm();">전송</button></div>
+              </form>
+            </div>
+
+          </div>
+
+          
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Rapid
+        -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
 
  
+  </footer><!-- #footer -->
 
- </body>
-</html>
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!-- JavaScript Libraries -->
+  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
+  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/intro/lib/easing/easing.min.js"></script>
+  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
+  <script src="resources/intro/lib/wow/wow.min.js"></script>
+  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
+  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
+  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="resources/intro/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="resources/intro/js/main.js"></script>
+  
+  
+
+</body>
+</html> 
