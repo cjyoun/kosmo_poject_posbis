@@ -263,72 +263,101 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
       }
       
       
- 	//--------------------------------------------------------
- 	   //로고 클릭시
- 	     function goMainForm(){
- 	        //alert("메인으로 이동");
- 	        location.replace("/posbis/mainForm.do");
- 	     }
- 		
- 		//회사소개-pobis 클릭시
- 		
- 		function goIntroForm(){
- 	        //alert("회사소개로 이동");
- 	        location.replace("/posbis/introForm.do");
- 	     }
- 		
- 		//마이페이지-매출관리
- 	    function goSalesForm(){
- 	       //alert("매출관리로 이동");
- 	        location.replace("/posbis/salesForm.do");
- 	     } 
- 		//마이페이지-메뉴관리
- 		function goMenuForm(){
- 	        //alert("메뉴관리로 이동");
- 	        location.replace("/posbis/menuForm.do");
- 	     }
- 		//분석현황-검색관리
- 		function goPreSearchForm(){
- 	        //alert("검색관리로 이동");
- 	        location.replace("/posbis/preSearchForm.do");
- 	     }
- 		//분석현황-차트관리
- 		function goPreChartForm(){
- 	        //alert("차트관리로 이동");
- 	        location.replace("/posbis/preChartForm.do");
- 	     }
- 		//내정보관리-내정보 보기
- 		function goMyPageForm(){
- 	        //alert("내정보 보기으로 이동");
- 	        location.replace("/posbis/myPageForm.do");
- 	     }
+   //--------------------------------------------------------
+	   //로고 클릭시
+	     function goMainForm(){
+	        //alert("메인으로 이동");
+	        location.replace("/posbis/mainForm.do");
+	     }
+		
+		//회사소개-pobis 클릭시
+		
+		function goIntroForm(){
+	        //alert("회사소개로 이동");
+	        location.replace("/posbis/introForm.do");
+	     }
+		
+		//마이페이지-매출관리
+	    function goSalesForm(){
+	        //alert("매출관리로 이동");
+	        location.replace("/posbis/salesForm.do");
+	     } 
+		//마이페이지-메뉴관리
+		function goMenuForm(){
+	        //alert("메뉴관리로 이동");
+	        location.replace("/posbis/menuForm.do");
+	     }
+		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreSearchForm(){
+   	        //alert("검색관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	        	 location.replace("/posbis/preSearchForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payForm.do");
+	             }
+	         }
+   	        
+   	     }
+   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreChartForm(){
+   	        //alert("차트관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	         	location.replace("/posbis/preChartForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payForm.do");
+	             }
+	         }
+   	     }
+		//내정보관리-내정보 보기
+		function goMyPageForm(){
+	        //alert("내정보 보기으로 이동");
+	        location.replace("/posbis/myPageForm.do");
+	     }
 
- 		//qna 게시판- 질문하기
- 		function goqstnRegForm(){
- 	        //alert("질문하기으로 이동");
- 	        location.replace("/posbis/qstnRegForm.do");
- 	     }
- 	    //qna 게시판- 내글보기
- 		 function goQstnForm(){
- 	        //alert("내글보기으로 이동");
- 	        location.replace("/posbis/myQstn.do");
- 	     }
- 		 
- 		//통합 관리
- 		 function goHomePageForm(){
+		//qna 게시판- 질문하기
+		function goqstnRegForm(){
+	        //alert("질문하기으로 이동");
+	        location.replace("/posbis/qstnRegForm.do");
+	     }
+		//qna 게시판- 내글보기
+		 function goMyQstnForm(){
+	        //alert("내글보기으로 이동");
+	        location.replace("/posbis/myQstn.do");
+	     }
+		//qna 게시판- 전체 질문보기
+		 function goQstnForm(){
+	        //alert("전체 질문보기으로 이동");
+	        location.replace("/posbis/qstnForm.do");
+	     }
+
+		 
+		//통합 관리
+		 function goHomePageForm(){
 		    //alert("통합 관리으로 이동");
 		    location.replace("/posbis/homePageForm.do");
 		 }
- 		//--------------------------------------------------------
+		//--------------------------------------------------------
 
- 		
- 		function goMessageForm(){
- 		    alert("건의사항이 접수 되었습니다. 감사합니다");
- 	 
- 		 }
-   	
-   	
-   	
+		
+		function goMessageForm(){
+		    alert("건의사항이 접수 되었습니다. 감사합니다");
+	 
+		 }
+      
+      
+      
    </script>
    
    
@@ -478,7 +507,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
           </li>
            <li class="drop-down"><a href="">마이페이지</a>
             <ul>
-              <li><a onClick="gohomepageForm();">통합 관리</a></li>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
               <li><a onClick="goSalesForm();">매출 관리</a></li>
               <li><a onClick="goMenuForm();">메뉴 관리</a></li>
               <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
@@ -495,10 +524,19 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+                <li><a onClick="goMyQstnForm();">내글보기</a></li>
+                <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>    
         
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
+           <ul>
+           		
+              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+            </ul>  
+          </li>
  
         </ul>
       </nav><!-- .main-nav -->
@@ -514,7 +552,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Q&A<br> In <br><span>POSBIS</span></h2>
+          <h2>Q&A<br> In <span>POSBIS</span></h2>
         
         </div>
   
@@ -543,12 +581,12 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
           <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	    내가 쓴 글
+                       내가 쓴 글
               </header>
               <div class="panel-body">   
         
           <form name="myQstn" method="post" action="/posbis/myQstnForm.do">
- 			<div  class="form-group">
+          <div  class="form-group">
                <!-------------------------------->
          <!-- 키워드 검색 입력 양식 표현 -->
          <!-------------------------------->
@@ -623,77 +661,77 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
                     <th>조회수</th>
                     <c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
                     <tr style="cursor:pointer" 
-               			onClick="goQstnContentForm(${myQstn.qna_no}, '${myQstn.user_id}');">
-               		
-                  	<td align=center>
-	<!-- ************************************************ -->
-					<!-- 게시판 검색 목록 중에 각 행의 역순 일련번호 출력 -->
-					<!-- ************************************************ -->
-					  ${myQstnAllCnt-(myQstnSearchDTO.selectPageNo*myQstnSearchDTO.rowCntPerPage-myQstnSearchDTO
-					  .rowCntPerPage+1+loopTagStatus.index)+1} <!-- index 대신 count 넣으면 1부터 시작 -->
+                        onClick="goQstnContentForm(${myQstn.qna_no}, '${myQstn.user_id}');">
+                     
+                     <td align=center>
+   <!-- ************************************************ -->
+               <!-- 게시판 검색 목록 중에 각 행의 역순 일련번호 출력 -->
+               <!-- ************************************************ -->
+                 ${myQstnAllCnt-(myQstnSearchDTO.selectPageNo*myQstnSearchDTO.rowCntPerPage-myQstnSearchDTO
+                 .rowCntPerPage+1+loopTagStatus.index)+1} <!-- index 대신 count 넣으면 1부터 시작 -->
 
                <td> 
-							<!------------------------------------------>
-							<!-- 만약 들여쓰기 레벨 번호가 0보다 크면 -->
-							<!-- 레벨번호 만큼의  &nbsp;를 삽입하라 ---->
-							<!------------------------------------------>
-							<c:if test="${myQstn.print_level>0}">
-								<c:forEach begin="0" end="${myQstn.print_level}">
-									  &nbsp;&nbsp;
-								</c:forEach>
-								ㄴ
-							</c:if> 
-							<!--------------------------------------------->
-							<!-- 게시판 검색 목록 중에 각 행의 제목 출력 -->
-							<!--------------------------------------------->
-							${myQstn.subject}
-					<!----------------------------------------------->
-					<!-- 게시판 검색 목록 중에 각 행의 글쓴이 출력 -->
-					<!----------------------------------------------->
-					<td align=center>${myQstn.user_id}
-					<!----------------------------------------------->
-					<!-- 게시판 검색 목록 중에 각 행의 등록일 출력 -->
-					<!----------------------------------------------->
-					<td align=center>${myQstn.qna_date}
-					<!----------------------------------------------->
-					<!-- 게시판 검색 목록 중에 각 행의 조회수 출력 -->
-					<!----------------------------------------------->
-					<td align=center>${myQstn.readcount}
-			
-			</c:forEach> 
-	</table><br>
+                     <!------------------------------------------>
+                     <!-- 만약 들여쓰기 레벨 번호가 0보다 크면 -->
+                     <!-- 레벨번호 만큼의  &nbsp;를 삽입하라 ---->
+                     <!------------------------------------------>
+                     <c:if test="${myQstn.print_level>0}">
+                        <c:forEach begin="0" end="${myQstn.print_level}">
+                             &nbsp;&nbsp;
+                        </c:forEach>
+                        ㄴ
+                     </c:if> 
+                     <!--------------------------------------------->
+                     <!-- 게시판 검색 목록 중에 각 행의 제목 출력 -->
+                     <!--------------------------------------------->
+                     ${myQstn.subject}
+               <!----------------------------------------------->
+               <!-- 게시판 검색 목록 중에 각 행의 글쓴이 출력 -->
+               <!----------------------------------------------->
+               <td align=center>${myQstn.user_id}
+               <!----------------------------------------------->
+               <!-- 게시판 검색 목록 중에 각 행의 등록일 출력 -->
+               <!----------------------------------------------->
+               <td align=center>${myQstn.qna_date}
+               <!----------------------------------------------->
+               <!-- 게시판 검색 목록 중에 각 행의 조회수 출력 -->
+               <!----------------------------------------------->
+               <td align=center>${myQstn.readcount}
+         
+         </c:forEach> 
+   </table><br>
               
      
            
               
                
-			<!-- 만약에 검색된 게시판 총 개수가 0개면 "검색 결과 없습니다" 출력하기 -->
-			   <c:if test="${empty myQstnList}">
-				 	검색 결과가 없습니다
-				</c:if>
+         <!-- 만약에 검색된 게시판 총 개수가 0개면 "검색 결과 없습니다" 출력하기 -->
+            <c:if test="${empty myQstnList}">
+                검색 결과가 없습니다
+            </c:if>
       <br><br>
             <section class="panel">
               <header class="panel-heading">
-                	   FAQ
+                      FAQ
               </header>
               <div class="panel-body">  
                   <div class="col-sm-10" align="center">
       
               <table id="FAQ"class="table table-striped table-advance table-hover">
-			<tr><td><b>Q.인간은 왜 일을 해야 하나요?
-			<tr><td>&nbsp;&nbsp;A.돈 벌어야 되니까요.
-			<tr><td><b>Q.life is egg라던데 사실인가요?
-			<tr><td>&nbsp;&nbsp;A.네 사실입니다
-			<tr><td><b>Q.요즘 입덕한 사람은 누군가요?
-			<tr><td>&nbsp;&nbsp;A.양준일이요. 개착하고 개귀여워 ㅠㅠㅠ
-		</table>
+         <tr><td><b>Q.인간은 왜 일을 해야 하나요?
+         <tr><td>&nbsp;&nbsp;A.돈 벌어야 되니까요.
+         <tr><td><b>Q.life is egg라던데 사실인가요?
+         <tr><td>&nbsp;&nbsp;A.네 사실입니다
+         <tr><td><b>Q.요즘 입덕한 사람은 누군가요?
+         <tr><td>&nbsp;&nbsp;A.양준일이요. 개착하고 개귀여워 ㅠㅠㅠ
+      </table>
 </div>
 </section>
 
-			   </div>
-			   </div>
+            </div>
+            </div>
  
-    		</div>
+          </div>
         </div>
 </section>
 </section>

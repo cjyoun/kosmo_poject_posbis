@@ -105,7 +105,7 @@ public class HomePageController {
 				mav.addObject("myQstnList", myQstnList);
 				mav.addObject("myQstnAllCnt", myQstnAllCnt);
 				mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
-		     
+				mav.addObject("user_id",user_id);
 
 			//========================================================================
 		    // 내 가게 정보 /////////////////////////////////////////////////////////이정숙꺼

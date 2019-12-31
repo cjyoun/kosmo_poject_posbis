@@ -82,7 +82,7 @@ public class PreSearchController {
 	@RequestMapping(value ="/preSearchForm.do")
 	public ModelAndView getSearchList(
 		PreSearchDTO preSearchDTO
-		//, HttpSession session 
+		, HttpSession session 
 	) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName( "preSearchForm.jsp");
@@ -90,10 +90,13 @@ public class PreSearchController {
 		
 		try {
 			
-			
+			String rank_code = (String)session.getAttribute("rank_code");
+			String user_id = (String)session.getAttribute("user_id");
+			mav.addObject("rank_code",rank_code);
+			mav.addObject("user_id",user_id);
 			
 			//===================select / 사업자번호 얻기==================
-	         String user_id = "user10";
+	        // String user_id = "user10";
 	         //System.out.println("user_no 얻기 시작");
 	        // System.out.println(user_id);
 	         

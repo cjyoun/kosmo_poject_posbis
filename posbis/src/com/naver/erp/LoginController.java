@@ -173,6 +173,7 @@ public class LoginController {
 				// JSP 페이지에서 사용하기 위해 addObject를 사용하여 ModelAndView 객체에 저장.
 				mav.addObject("businessNoList", businessNoList);
 				mav.addObject("rank_code", rank_code);
+				mav.addObject("user_id",user_id);
 
 	//==================================================================================================================================
 	  
@@ -377,7 +378,9 @@ public class LoginController {
 											// 줄이 접두사 , 접미사 설정이 되어있음.
 		
 		String rank_code = (String)session.getAttribute("rank_code");
+		String user_id = (String)session.getAttribute("user_id");
 		mav.addObject("rank_code",rank_code);
+		mav.addObject("user_id",user_id);
 		return mav;
 
 	}
@@ -400,7 +403,9 @@ public class LoginController {
 		
 		
 		String rank_code = (String)session.getAttribute("rank_code");
+		String user_id = (String)session.getAttribute("user_id");
 		mav.addObject("rank_code",rank_code);
+		mav.addObject("user_id",user_id);
 		return mav;
 
 	}
@@ -462,7 +467,9 @@ public class LoginController {
 			mav.setViewName("infoUpdateForm.jsp"); 
 			
 			String rank_code = (String)session.getAttribute("rank_code");
+			String user_id = (String)session.getAttribute("user_id");
 			mav.addObject("rank_code",rank_code);
+			mav.addObject("user_id",user_id);
 			
 			try {
 				// business_no에 따른 회원정보 가져오기
@@ -772,7 +779,9 @@ public class LoginController {
 	      mav.setViewName("payForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
 
 	      String rank_code = (String)session.getAttribute("rank_code");
-	      mav.addObject("rank_code",rank_code);
+			String user_id = (String)session.getAttribute("user_id");
+			mav.addObject("rank_code",rank_code);
+			mav.addObject("user_id",user_id);
 	      
 	     // int u_no = (int)session.getAttribute("u_no");
 	      

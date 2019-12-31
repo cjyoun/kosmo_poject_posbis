@@ -149,105 +149,107 @@ function goInfoUpdateForm(){
 			});
       }
 
-      
-      
-      function goMyPageForm(){
-         alert("goMyPageForm.jsp로 이동")
-         location.replace("/posbis/myPageForm.do")
-      }
+
 
       function gowithdrawalForm(){
          alert("withdrawalForm.jsp로 이동")
          location.replace("/posbis/withdrawalForm.do")
       }
-    
-      function goSalesForm(){
-         alert("goSalesForm.jsp로 이동")
-         location.replace("/posbis/salesForm.do")
-      }
+  
 
 
-      
-      // 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수   
-      function goPreChartForm(){
-		 var rank_code = ${rank_code};
-         if(rank_code == 2){
-         	location.replace("/posbis/preChartForm.do");
-         }
-         else{
-        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-					return;
-				}
-        	 else{
-        		 location.replace("/posbis/payForm.do");
-             }
-         }
-      }
+    //--------------------------------------------------------
+	   //로고 클릭시
+	     function goMainForm(){
+	        //alert("메인으로 이동");
+	        location.replace("/posbis/mainForm.do");
+	     }
+		
+		//회사소개-pobis 클릭시
+		
+		function goIntroForm(){
+	        //alert("회사소개로 이동");
+	        location.replace("/posbis/introForm.do");
+	     }
+		
+		//마이페이지-매출관리
+	    function goSalesForm(){
+	        //alert("매출관리로 이동");
+	        location.replace("/posbis/salesForm.do");
+	     } 
+		//마이페이지-메뉴관리
+		function goMenuForm(){
+	        //alert("메뉴관리로 이동");
+	        location.replace("/posbis/menuForm.do");
+	     }
+		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreSearchForm(){
+   	        //alert("검색관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	        	 location.replace("/posbis/preSearchForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payForm.do");
+	             }
+	         }
+   	        
+   	     }
+   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreChartForm(){
+   	        //alert("차트관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	         	location.replace("/posbis/preChartForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payForm.do");
+	             }
+	         }
+   	     }
+		//내정보관리-내정보 보기
+		function goMyPageForm(){
+	        //alert("내정보 보기으로 이동");
+	        location.replace("/posbis/myPageForm.do");
+	     }
 
+		//qna 게시판- 질문하기
+		function goqstnRegForm(){
+	        //alert("질문하기으로 이동");
+	        location.replace("/posbis/qstnRegForm.do");
+	     }
+		//qna 게시판- 내글보기
+		 function goMyQstnForm(){
+	        //alert("내글보기으로 이동");
+	        location.replace("/posbis/myQstn.do");
+	     }
+		//qna 게시판- 전체 질문보기
+		 function goQstnForm(){
+	        //alert("전체 질문보기으로 이동");
+	        location.replace("/posbis/qstnForm.do");
+	     }
 
-  	//--------------------------------------------------------
-  	   //로고 클릭시
-  	     function goMainForm(){
-  	        //alert("메인으로 이동");
-  	        location.replace("/posbis/mainForm.do");
-  	     }
-  		
-  		//회사소개-pobis 클릭시
-  		
-  		function goIntroForm(){
-  	        //alert("회사소개로 이동");
-  	        location.replace("/posbis/introForm.do");
-  	     }
-  		
-  		//마이페이지-매출관리
-  	    function goSalesForm(){
-  	       //alert("매출관리로 이동");
-  	        location.replace("/posbis/salesForm.do");
-  	     } 
-  		//마이페이지-메뉴관리
-  		function goMenuForm(){
-  	        //alert("메뉴관리로 이동");
-  	        location.replace("/posbis/menuForm.do");
-  	     }
-  		//분석현황-검색관리
-  		function goPreSearchForm(){
-  	        //alert("검색관리로 이동");
-  	        location.replace("/posbis/preSearchForm.do");
-  	     }
-  		//분석현황-차트관리
-  		function goPreChartForm(){
-  	        //alert("차트관리로 이동");
-  	        location.replace("/posbis/preChartForm.do");
-  	     }
-  		//내정보관리-내정보 보기
-  		function goMyPageForm(){
-  	        //alert("내정보 보기으로 이동");
-  	        location.replace("/posbis/myPageForm.do");
-  	     }
-
-  		//qna 게시판- 질문하기
-  		function goqstnRegForm(){
-  	        //alert("질문하기으로 이동");
-  	        location.replace("/posbis/qstnRegForm.do");
-  	     }
-  	    //qna 게시판- 내글보기
-  		 function goQstnForm(){
-  	        //alert("내글보기으로 이동");
-  	        location.replace("/posbis/myQstn.do");
-  	     }
-  		 
-  		//통합 관리
-  		 function goHomePageForm(){
+		//통합 관리
+		 function goHomePageForm(){
 		    //alert("통합 관리으로 이동");
 		    location.replace("/posbis/homePageForm.do");
 		 }
-  		//--------------------------------------------------------
+		//--------------------------------------------------------
 
-  		
-  		function goMessageForm(){
-  		    alert("건의사항이 접수 되었습니다. 감사합니다");
-  	 
-  		 }
+		
+		function goMessageForm(){
+		    alert("건의사항이 접수 되었습니다. 감사합니다");
+	 
+		 }
+
 
       </script>
 
@@ -289,7 +291,7 @@ function goInfoUpdateForm(){
               <li><a onClick="goSalesForm();">매출 관리</a></li>
               <li><a onClick="goMenuForm();">메뉴 관리</a></li>
               <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
-              <li><a onClick="goInfoUpdateForm();">회원정보 수정</a></li>
+ 
             </ul>
           </li>
            <li class="drop-down"><a href="">분석현황</a>
@@ -302,18 +304,19 @@ function goInfoUpdateForm(){
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>    
                 
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
            <ul>
            		
               <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
             </ul>  
-          </li>     
+          </li>  
         
  
         </ul>
@@ -437,6 +440,7 @@ function goInfoUpdateForm(){
                   </table> 
                    </section>
                    <br>
+                   <input type="button" value="메인으로" onClick="goMainForm();">&nbsp;
                   <input type="button" value="정보수정" onClick="goInfoUpdateForm();">&nbsp;
                   <input type="button" value="회원탈퇴" onClick="gowithdrawalForm();">
           

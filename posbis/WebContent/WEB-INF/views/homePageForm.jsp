@@ -85,47 +85,10 @@
       
 //=====================================================================================================
 	});
-		 function goMainForm(){
-	           location.replace("/posbis/mainForm.do");
-	        }
 
-	       function goMenuForm(){
-	          location.replace("/posbis/menuForm.do")
-	       }
-	     
-	       function goSalesForm(){
-	          location.replace("/posbis/salesForm.do")
-	       }
-	     
-	       // 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수
-		    function goPreChartForm(){
-				 var rank_code = ${rank_code};
-		         if(rank_code == 2){
-		         	location.replace("/posbis/preChartForm.do");
-		         }
-		         else{
-		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-							return;
-						}
-		        	 else{
-		        		 location.replace("/posbis/payForm.do");
-		             }
-		         }
-		      }
 
- 	       function goMainForm(){
-	          location.replace("/posbis/mainForm.do")
-	       } 
-	       
-	       function goInfoUpdateForm(){
-	          location.replace("/posbis/infoUpdateForm.do")
-	       }
-	       
-	       function gowithdrawalForm(){
-	          location.replace("/posbis/withdrawalForm.do")
-	       }
 
-	   	//--------------------------------------------------------
+	     //--------------------------------------------------------
 	   	   //로고 클릭시
 	   	     function goMainForm(){
 	   	        //alert("메인으로 이동");
@@ -141,7 +104,7 @@
 	   		
 	   		//마이페이지-매출관리
 	   	    function goSalesForm(){
-	   	       //alert("매출관리로 이동");
+	   	        //alert("매출관리로 이동");
 	   	        location.replace("/posbis/salesForm.do");
 	   	     } 
 	   		//마이페이지-메뉴관리
@@ -149,38 +112,68 @@
 	   	        //alert("메뉴관리로 이동");
 	   	        location.replace("/posbis/menuForm.do");
 	   	     }
-	   		//분석현황-검색관리
+	   	     
+	   		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 	   		function goPreSearchForm(){
 	   	        //alert("검색관리로 이동");
-	   	        location.replace("/posbis/preSearchForm.do");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		        	 location.replace("/posbis/preSearchForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payForm.do");
+		             }
+		         }
+	   	        
 	   	     }
-	   		//분석현황-차트관리
+	   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 	   		function goPreChartForm(){
 	   	        //alert("차트관리로 이동");
-	   	        location.replace("/posbis/preChartForm.do");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/preChartForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payForm.do");
+		             }
+		         }
 	   	     }
 	   		//내정보관리-내정보 보기
 	   		function goMyPageForm(){
 	   	        //alert("내정보 보기으로 이동");
 	   	        location.replace("/posbis/myPageForm.do");
 	   	     }
- 
+
 	   		//qna 게시판- 질문하기
 	   		function goqstnRegForm(){
 	   	        //alert("질문하기으로 이동");
 	   	        location.replace("/posbis/qstnRegForm.do");
 	   	     }
-	   	    //qna 게시판- 내글보기
-	   		 function goQstnForm(){
-	   	        //alert("내글보기으로 이동");
-	   	        location.replace("/posbis/myQstn.do");
-	   	     }
+	   		//qna 게시판- 내글보기
+			 function goMyQstnForm(){
+		        //alert("내글보기으로 이동");
+		        location.replace("/posbis/myQstn.do");
+		     }
+			//qna 게시판- 전체 질문보기
+			 function goQstnForm(){
+		        //alert("전체 질문보기으로 이동");
+		        location.replace("/posbis/qstnForm.do");
+		     }
+
 	   		 
 	   		//통합 관리
 	   		 function goHomePageForm(){
-    		    //alert("통합 관리으로 이동");
-    		    location.replace("/posbis/homePageForm.do");
-    		 }
+	   		    //alert("통합 관리으로 이동");
+	   		    location.replace("/posbis/homePageForm.do");
+	   		 }
 	   		//--------------------------------------------------------
 
 	   		
@@ -242,17 +235,18 @@
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>
           
           
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
            <ul>
            		
               <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
             </ul>  
           </li>     
         
@@ -318,12 +312,21 @@
  
  
 	   <table  class="table table-bordered"   id="mystore">
-  		<tr>
-                  <th>이름
-                  <td> 
-               <tr>
-                  <th>제목
-                  <td> 
+            <c:forEach items="${myStoreInfoList}" var="myStoreInfo" varStatus="status">
+               <!-- <script>alert("${status.count}"%3);</script> -->
+               <c:if test="${status.index%3==0}">
+                  <tr cellpadding=15>
+               </c:if>
+               
+            
+               
+               <td> 업종별 이미지
+               <td> 상호명 : ${myStoreInfo.business_name} <br>
+                     사업자 번호 : ${myStoreInfo.business_no} <br>
+                     업종 : ${myStoreInfo.business_type_name1}&nbsp;>&nbsp;${myStoreInfo.business_type_name2}<br>
+                     주소 : ${myStoreInfo.addr_gu}&nbsp;${myStoreInfo.addr_dong}&nbsp;${myStoreInfo.addr_detail}<br>
+                     전화번호 : ${myStoreInfo.store_tel_num}   
+            </c:forEach>
        </table>        
 				
 				
@@ -334,10 +337,10 @@
             // Define the chart to be drawn.
             var data = google.visualization.arrayToDataTable([
                ['판매일자(월)', '매출액(원)'],
-               [${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount}],
-               [${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income}],
-               [${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount}],
-               [${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income}]
+               [ ${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount}],
+               [ ${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income}],
+               [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount}],
+               [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income}]
             ]);
 
             var options = {title: '전월대비 당월 매출현황'}; 
@@ -360,9 +363,40 @@
               </header>
  
 	   <table  class="table table-bordered"  align=center id="mystore">
+	   
+	   <form name="myQstnList" method="post" action="/posbis/homePageForm.do" align="center" ><br>
+<!-- 				<b>내가 쓴 글</b> -->
+				<table border=0 width="500" align="center">
+				<tr><td align = right>
+				[나의글 총개수] : ${myQstnAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+				</table>
+				
+				<div style="border: 0px solid;">&nbsp;<span class="pagingNumber"></span> &nbsp;
+				</div>
+				<table border=1 cellspacing=0 cellpadding=5 width="500" align="center">
+					<tr>
+						<th>번호
+						<th>글제목
+						<th>등록일
+						<th>댓글수
+					<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
+					<tr>
+						<td align=center>
+						${myQstn.selectPageNo*myQstn.rowCntPerPage-
+									 				myQstn.rowCntPerPage+1+loopTagStatus.index}
+						<td align=center>${myQstn.subject}
+						<td align=center>${myQstn.qna_date}
+						<td align=center>${myQstn.reply_cnt}
+					</c:forEach>
+				<!------------------------------------------------>
+				</table>
+					<c:if test="${empty myQstnList}">
+						<br>
+						고객님께서 쓰신글이 존재하지 않습니다.
+					</c:if>
+			</form>
   		<tr>
-                  <th>이름
- 
+                  <th>
        </table>   		 
 				
  

@@ -59,10 +59,6 @@
             location.replace("/posbis/joinForm.do")
          }
 
-         function goWithdrawalForm(){
-            alert("회원탈퇴로 이동")
-            location.replace("/posbis/withdrawalForm.do")
-         }
 //*************************************************************************************   
 //아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기           
          function goLoginForm(){
@@ -145,7 +141,7 @@
         </label><br>
         
          <span class="pull-right"> <a onClick="goIdPwdSearchForm();">아이디 암호 찾기</a></span><br>
-                <span class="pull-right"> <a  onClick="goWithdrawalForm();">회원탈퇴</a></span><br><br> 
+		<br>
    
  
         <button type="button" class="btn btn-primary btn-lg btn-block" onClick="goLoginForm();" >Login</button>

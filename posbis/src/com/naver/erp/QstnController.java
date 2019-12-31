@@ -249,8 +249,9 @@ public class QstnController {
          mav.setViewName("qstnRegForm.jsp");
 
          String rank_code = (String)session.getAttribute("rank_code");
-         mav.addObject("rank_code",rank_code);
-
+ 		String user_id = (String)session.getAttribute("user_id");
+ 		mav.addObject("rank_code",rank_code);
+ 		mav.addObject("user_id",user_id);
          String writer = null;
          try {
             System.out.println("writer 시작");
@@ -353,8 +354,10 @@ public class QstnController {
          ModelAndView mav = new ModelAndView();
          mav.setViewName("qstnContentForm.jsp");
 
-            String rank_code = (String)session.getAttribute("rank_code");
-            mav.addObject("rank_code",rank_code);
+         String rank_code = (String)session.getAttribute("rank_code");
+ 		String user_id = (String)session.getAttribute("user_id");
+ 		mav.addObject("rank_code",rank_code);
+ 		mav.addObject("user_id",user_id);
          try {
             session.setAttribute("uri","qstnContentForm.do");
             //----------------------------------------------------------------
@@ -395,8 +398,10 @@ public class QstnController {
       ModelAndView mav = new ModelAndView();
       mav.setViewName("qstnUpDelForm.jsp");
 
-         String rank_code = (String)session.getAttribute("rank_code");
-         mav.addObject("rank_code",rank_code);
+      String rank_code = (String)session.getAttribute("rank_code");
+		String user_id = (String)session.getAttribute("user_id");
+		mav.addObject("rank_code",rank_code);
+		mav.addObject("user_id",user_id);
       try {
          session.setAttribute("uri","qstnUpDelForm.do");
          //******************************************

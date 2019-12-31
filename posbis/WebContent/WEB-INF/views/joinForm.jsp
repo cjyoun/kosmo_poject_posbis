@@ -427,69 +427,75 @@
      
       }  /* function checkBusinessNo(){ */
  
-  	//--------------------------------------------------------
-  	   //로고 클릭시
-  	     function goMainForm(){
-  	        //alert("메인으로 이동");
-  	        location.replace("/posbis/mainForm.do");
-  	     }
-  		
-  		//회사소개-pobis 클릭시
-  		
-  		function goIntroForm(){
-  	        //alert("회사소개로 이동");
-  	        location.replace("/posbis/introForm.do");
-  	     }
-  		
-  		//마이페이지-매출관리
-  	    function goSalesForm(){
-  	       //alert("매출관리로 이동");
-  	        location.replace("/posbis/salesForm.do");
-  	     } 
-  		//마이페이지-메뉴관리
-  		function goMenuForm(){
-  	        //alert("메뉴관리로 이동");
-  	        location.replace("/posbis/menuForm.do");
-  	     }
-  		//분석현황-검색관리
-  		function goPreSearchForm(){
-  	        //alert("검색관리로 이동");
-  	        location.replace("/posbis/preSearchForm.do");
-  	     }
-  		//분석현황-차트관리
-  		function goPreChartForm(){
-  	        //alert("차트관리로 이동");
-  	        location.replace("/posbis/preChartForm.do");
-  	     }
-  		//내정보관리-내정보 보기
-  		function goMyPageForm(){
-  	        //alert("내정보 보기으로 이동");
-  	        location.replace("/posbis/myPageForm.do");
-  	     }
+//--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------
+	   //로고 클릭시
+	     function goMainForm(){
+	        //alert("메인으로 이동");
+	        location.replace("/posbis/mainForm.do");
+	     }
+		
+		//회사소개-pobis 클릭시
+		
+		function goIntroForm(){
+	        //alert("회사소개로 이동");
+	        location.replace("/posbis/introForm.do");
+	     }
+		
+		//마이페이지-매출관리
+	    function goSalesForm(){
+	        //alert("매출관리로 이동");
+	        location.replace("/posbis/salesForm.do");
+	     } 
+		//마이페이지-메뉴관리
+		function goMenuForm(){
+	        //alert("메뉴관리로 이동");
+	        location.replace("/posbis/menuForm.do");
+	     }
+		//분석현황-검색관리
+		function goPreSearchForm(){
+	        //alert("검색관리로 이동");
+	        location.replace("/posbis/preSearchForm.do");
+	     }
+		//분석현황-차트관리
+		function goPreChartForm(){
+	        //alert("차트관리로 이동");
+	        location.replace("/posbis/preChartForm.do");
+	     }
+		//내정보관리-내정보 보기
+		function goMyPageForm(){
+	        //alert("내정보 보기으로 이동");
+	        location.replace("/posbis/myPageForm.do");
+	     }
 
-  		//qna 게시판- 질문하기
-  		function goqstnRegForm(){
-  	        //alert("질문하기으로 이동");
-  	        location.replace("/posbis/qstnRegForm.do");
-  	     }
-  	    //qna 게시판- 내글보기
-  		 function goQstnForm(){
-  	        //alert("내글보기으로 이동");
-  	        location.replace("/posbis/myQstn.do");
-  	     }
-  		 
-  		//통합 관리
-  		 function goHomePageForm(){
+		//qna 게시판- 질문하기
+		function goqstnRegForm(){
+	        //alert("질문하기으로 이동");
+	        location.replace("/posbis/qstnRegForm.do");
+	     }
+		//qna 게시판- 내글보기
+		 function goMyQstnForm(){
+	        //alert("내글보기으로 이동");
+	        location.replace("/posbis/myQstn.do");
+	     }
+		//qna 게시판- 전체 질문보기
+		 function goQstnForm(){
+	        //alert("전체 질문보기으로 이동");
+	        location.replace("/posbis/qstnForm.do");
+	     }
+
+		//통합 관리
+		 function goHomePageForm(){
 		    //alert("통합 관리으로 이동");
 		    location.replace("/posbis/homePageForm.do");
 		 }
-  		//--------------------------------------------------------
+		//--------------------------------------------------------
 
-  		
-  		function goMessageForm(){
-  		    alert("건의사항이 접수 되었습니다. 감사합니다");
-  	 
-  		 }
+		
+		function goMessageForm(){
+		    alert("건의사항이 접수 되었습니다. 감사합니다");
+	 
+		 }
 </script>
 
 <body>
@@ -546,7 +552,8 @@
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>  
  

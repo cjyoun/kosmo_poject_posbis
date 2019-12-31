@@ -200,8 +200,10 @@ import org.springframework.web.servlet.ModelAndView;
 			 ModelAndView mav = new ModelAndView();
 			 mav.setViewName("menuUpDelForm.jsp");
 
-		      String rank_code = (String)session.getAttribute("rank_code");
-		      mav.addObject("rank_code",rank_code);
+			 String rank_code = (String)session.getAttribute("rank_code");
+				String user_id = (String)session.getAttribute("user_id");
+				mav.addObject("rank_code",rank_code);
+				mav.addObject("user_id",user_id);
 		      
 			 try {
 					session.setAttribute("uri","menuUpDelForm.do");

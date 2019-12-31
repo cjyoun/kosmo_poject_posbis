@@ -64,247 +64,275 @@
  
 <script>
 
-         
-           $(document).ready(function(){
-              //alert("ready!");
-              
-              //월매출 콤마 넣기
-               $(".month_sales").each(function() {
+			
+	  	   $(document).ready(function(){
+		  	   //alert("ready!");
+		  	   
+		  	   //월매출 콤마 넣기
+	  		    $(".month_sales").each(function() {
                 var num = $(this).text();
                 var commaNum = numberWithCommas(num);
                 $(this).text(commaNum+ "원");
-               });
-            
+        		 });
+				
 
-            
-                $('[name=rowCntPerPage]').change(function(){
-                  goPreSearch();
-            }); 
+				
+ 	  		 	$('[name=rowCntPerPage]').change(function(){
+	  		 		goPreSearch();
+				}); 
 
-                
-               //페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입
-               $(".pagingNumber").html(
-                  getPagingNumber(
-                     "${preResultAllCnt}"                //검색 결과 총 행 개수
-                     ,"${preSearchDTO.selectPageNo}"   //선택된 현재 페이지 번호
-                     ,"${preSearchDTO.rowCntPerPage}"   //페이지 당 출력행 개수
-                     ,"15"                        //페이지 당 보여줄 페이지번호 개수
-                     ,"goPreSearch();"                  //페이지 번호 클릭 후 실행할 자스코드
-                  )
-               ); 
-               
+ 	  		 	
+ 	  			//페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입
+					$(".pagingNumber").html(
+						getPagingNumber(
+							"${preResultAllCnt}"                //검색 결과 총 행 개수
+							,"${preSearchDTO.selectPageNo}"	//선택된 현재 페이지 번호
+							,"${preSearchDTO.rowCntPerPage}"	//페이지 당 출력행 개수
+							,"15"								//페이지 당 보여줄 페이지번호 개수
+							,"goPreSearch();"						//페이지 번호 클릭 후 실행할 자스코드
+						)
+					); 
+ 	  			
 
-            
-            
-             $('[name=business_type_name1]').change(function(){
-               getBusinessTypeName2();
-               
-            }); 
+				
+				
+ 				$('[name=business_type_name1]').change(function(){
+					getBusinessTypeName2();
+					
+				}); 
 
-             $('[name=addr_gu1]').change(function(){
-                getAddrGu2();
-            }); 
-            
-                        
+ 				$('[name=addr_gu1]').change(function(){
+ 					getAddrGu2();
+				}); 
+				
+								
 
-            
-            inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
-            inputData("[name=selectPageNo]","${preSearchDTO.selectPageNo}");
-            inputData("[name=business_type_name1]","${preSearchDTO.business_type_name1}");
-             if("${preSearchDTO.business_type_name2}" == null){
-               inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
-               }else{
-                  getBusinessTypeName2();
-             }
-            inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
-             inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-             if("${preSearchDTO.addr_gu2}" != null){
-              inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-             }else{
-                getAddrGu2();
-            } 
-            inputData("[name=month_sales]","${preSearchDTO.month_sales}");
-
-
-
-           });    
+				
+				inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
+				inputData("[name=selectPageNo]","${preSearchDTO.selectPageNo}");
+				inputData("[name=business_type_name1]","${preSearchDTO.business_type_name1}");
+				 if("${preSearchDTO.business_type_name2}" == null){
+					inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
+					}else{
+						getBusinessTypeName2();
+				 }
+				inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
+				 inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
+			    if("${preSearchDTO.addr_gu2}" != null){
+			  	inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
+			    }else{
+			    	getAddrGu2();
+				} 
+				inputData("[name=month_sales]","${preSearchDTO.month_sales}");
 
 
 
-        // addr_gu2 List
-         function getAddrGu2(){
-
-            $.ajax({
-               url : "/posbis/getAddrGu2Proc.do"
-               , type : "post"
-               , data : "addr_gu1="+$('[name=addr_gu1]').val()
-               , success : function(data){
-                     $("[name=addr_gu2]").empty();
-                     $("[name=addr_gu2]").append("<option value=''>----구선택----</option>");
-                     for( var i=0; data.length>i; i++){
-                        //alert();
-                        $('[name=addr_gu2]').append("<option value="+data[i]+">"+data[i])
-
-                     }
-                     if("${preSearchDTO.addr_gu2}"!=null){
-                        inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-                     }
-                     else{
-                        inputData("[name=addr_gu2]","");
-                     }
-                     
-               }
-               , error : function(){
-                  alert("서버 접속 실패");
-               }
-            })
-         }
-
-
-           
-      
-         // 업종 소분류
-         function getBusinessTypeName2(){
-
-            $.ajax({
-               url : "/posbis/getBusinessTypeName2Proc.do"
-               , type : "post"
-               , data : "business_type_name1="+$('[name=business_type_name1]').val()
-               , success : function(data){
-                     $("[name=business_type_name2]").empty();
-                     $("[name=business_type_name2]").append("<option value=''>----중분류----</option>");
-                     //alert("business_type_name2///"+data[0]);
-                     for( var i=0; data.length>i; i++){
-                        //alert();
-                        $('[name=business_type_name2]').append("<option value="+data[i]+">"+data[i])
-
-                     }
-                     if("${preSearchDTO.business_type_name2}"!=null){
-                        inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
-                     }
-                     else{
-                        inputData("[name=business_type_name2]","");
-                     }
-                     
-               }
-               , error : function(){
-                  alert("서버 접속 실패");
-               }
-            })
-         }
+	  	   });	 
 
 
 
-         
+	  	// addr_gu2 List
+			function getAddrGu2(){
 
-         //월매출 콤마 넣기
-            function numberWithCommas(number) {
-                var parts = number.toString().split(".");
-                parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                return parts.join(".");
-            }
+				$.ajax({
+					url : "/posbis/getAddrGu2Proc.do"
+					, type : "post"
+					, data : "addr_gu1="+$('[name=addr_gu1]').val()
+					, success : function(data){
+							$("[name=addr_gu2]").empty();
+							$("[name=addr_gu2]").append("<option value=''>----구선택----</option>");
+							for( var i=0; data.length>i; i++){
+								//alert();
+								$('[name=addr_gu2]').append("<option value="+data[i]+">"+data[i])
 
-         
-
-
-
-
-            
-         function goPreSearch(){            
-          /*
-                $.ajax({
-               url : "/posbis/getPreResultProc.do"
-               , type : "post"
-               , data : $("[name=preSearchForm]").serialize() 
-               , success : function(data){
-                  alert("성공");
-                  alert(data.preResultAllCnt);
-               }
-               , error : function(request,status,error){
-                  alert("서버 접속 실패");
-
-               }
-            }) 
-         
-         */
-            document.preSearchForm.submit();
-         }   
+							}
+							if("${preSearchDTO.addr_gu2}"!=null){
+								inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
+							}
+							else{
+								inputData("[name=addr_gu2]","");
+							}
+							
+					}
+					, error : function(){
+						alert("서버 접속 실패");
+					}
+				})
+			}
 
 
+	  	   
+		
+			// 업종 소분류
+			function getBusinessTypeName2(){
 
-         
+				$.ajax({
+					url : "/posbis/getBusinessTypeName2Proc.do"
+					, type : "post"
+					, data : "business_type_name1="+$('[name=business_type_name1]').val()
+					, success : function(data){
+							$("[name=business_type_name2]").empty();
+							$("[name=business_type_name2]").append("<option value=''>----중분류----</option>");
+							//alert("business_type_name2///"+data[0]);
+							for( var i=0; data.length>i; i++){
+								//alert();
+								$('[name=business_type_name2]').append("<option value="+data[i]+">"+data[i])
 
-         function goPreSearchAll(){
-            document.preSearchForm.reset( );
-            $("[name=preSearchForm] [name=selectPageNo]").val("1");
-            $("[name=preSearchForm] [name=rowCntPerPage]").val("10");
-            goPreSearch();
-        }
-   
-     	//--------------------------------------------------------
-	   	   //로고 클릭시
-	   	     function goMainForm(){
-	   	        //alert("메인으로 이동");
-	   	        location.replace("/posbis/mainForm.do");
-	   	     }
-	   		
-	   		//회사소개-pobis 클릭시
-	   		
-	   		function goIntroForm(){
-	   	        //alert("회사소개로 이동");
-	   	        location.replace("/posbis/introForm.do");
-	   	     }
-	   		
-	   		//마이페이지-매출관리
-	   	    function goSalesForm(){
-	   	       //alert("매출관리로 이동");
-	   	        location.replace("/posbis/salesForm.do");
-	   	     } 
-	   		//마이페이지-메뉴관리
-	   		function goMenuForm(){
-	   	        //alert("메뉴관리로 이동");
-	   	        location.replace("/posbis/menuForm.do");
-	   	     }
-	   		//분석현황-검색관리
+							}
+							if("${preSearchDTO.business_type_name2}"!=null){
+								inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
+							}
+							else{
+								inputData("[name=business_type_name2]","");
+							}
+							
+					}
+					, error : function(){
+						alert("서버 접속 실패");
+					}
+				})
+			}
+
+
+
+			
+
+			//월매출 콤마 넣기
+	         function numberWithCommas(number) {
+	             var parts = number.toString().split(".");
+	             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	             return parts.join(".");
+	         }
+
+		   
+
+
+
+
+				
+	      function goPreSearch(){	         
+ 			/*
+		       	$.ajax({
+					url : "/posbis/getPreResultProc.do"
+					, type : "post"
+					, data : $("[name=preSearchForm]").serialize() 
+					, success : function(data){
+						alert("성공");
+						alert(data.preResultAllCnt);
+					}
+					, error : function(request,status,error){
+						alert("서버 접속 실패");
+
+					}
+				}) 
+			
+			*/
+				document.preSearchForm.submit();
+	      }   
+
+
+
+	      
+
+	      function goPreSearchAll(){
+				document.preSearchForm.reset( );
+				$("[name=preSearchForm] [name=selectPageNo]").val("1");
+				$("[name=preSearchForm] [name=rowCntPerPage]").val("10");
+				goPreSearch();
+		  }
+
+	    //--------------------------------------------------------
+		   //로고 클릭시
+		     function goMainForm(){
+		        //alert("메인으로 이동");
+		        location.replace("/posbis/mainForm.do");
+		     }
+			
+			//회사소개-pobis 클릭시
+			
+			function goIntroForm(){
+		        //alert("회사소개로 이동");
+		        location.replace("/posbis/introForm.do");
+		     }
+			
+			//마이페이지-매출관리
+		    function goSalesForm(){
+		        //alert("매출관리로 이동");
+		        location.replace("/posbis/salesForm.do");
+		     } 
+			//마이페이지-메뉴관리
+			function goMenuForm(){
+		        //alert("메뉴관리로 이동");
+		        location.replace("/posbis/menuForm.do");
+		     }
+			//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 	   		function goPreSearchForm(){
 	   	        //alert("검색관리로 이동");
-	   	        location.replace("/posbis/preSearchForm.do");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		        	 location.replace("/posbis/preSearchForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payForm.do");
+		             }
+		         }
+	   	        
 	   	     }
-	   		//분석현황-차트관리
+	   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 	   		function goPreChartForm(){
 	   	        //alert("차트관리로 이동");
-	   	        location.replace("/posbis/preChartForm.do");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/preChartForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payForm.do");
+		             }
+		         }
 	   	     }
-	   		//내정보관리-내정보 보기
-	   		function goMyPageForm(){
-	   	        //alert("내정보 보기으로 이동");
-	   	        location.replace("/posbis/myPageForm.do");
-	   	     }
+			//내정보관리-내정보 보기
+			function goMyPageForm(){
+		        //alert("내정보 보기으로 이동");
+		        location.replace("/posbis/myPageForm.do");
+		     }
 
-	   		//qna 게시판- 질문하기
-	   		function goqstnRegForm(){
-	   	        //alert("질문하기으로 이동");
-	   	        location.replace("/posbis/qstnRegForm.do");
-	   	     }
-	   	    //qna 게시판- 내글보기
-	   		 function goQstnForm(){
-	   	        //alert("내글보기으로 이동");
-	   	        location.replace("/posbis/myQstn.do");
-	   	     }
-	   		 
-	   		//통합 관리
-	   		 function goHomePageForm(){
-  		    //alert("통합 관리으로 이동");
-  		    location.replace("/posbis/homePageForm.do");
-  		 }
-	   		//--------------------------------------------------------
+			//qna 게시판- 질문하기
+			function goqstnRegForm(){
+		        //alert("질문하기으로 이동");
+		        location.replace("/posbis/qstnRegForm.do");
+		     }
+			//qna 게시판- 내글보기
+			 function goMyQstnForm(){
+		        //alert("내글보기으로 이동");
+		        location.replace("/posbis/myQstn.do");
+		     }
+			//qna 게시판- 전체 질문보기
+			 function goQstnForm(){
+		        //alert("전체 질문보기으로 이동");
+		        location.replace("/posbis/qstnForm.do");
+		     }
+			 
+			//통합 관리
+			 function goHomePageForm(){
+			    //alert("통합 관리으로 이동");
+			    location.replace("/posbis/homePageForm.do");
+			 }
+			//--------------------------------------------------------
 
-	   		
-	   		function goMessageForm(){
-	   		    alert("건의사항이 접수 되었습니다. 감사합니다");
-	   	 
-	   		 }
-          
+			
+			function goMessageForm(){
+			    alert("건의사항이 접수 되었습니다. 감사합니다");
+		 
+			 }
+	    	
      </script>
 </head>
 
@@ -344,7 +372,7 @@
            
            <li class="drop-down"><a href="">마이페이지</a>
             <ul>
-              <li><a onClick="gohomepageForm();">통합 관리</a></li>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
               <li><a onClick="goSalesForm();">매출 관리</a></li>
               <li><a onClick="goMenuForm();">메뉴 관리</a></li>
               <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
@@ -360,16 +388,17 @@
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-                <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>    
                 
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
            <ul>
-                 
+           		
               <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-                 <li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-                <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
             </ul>  
           </li>     
         
@@ -387,7 +416,7 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>SEARCH<br> In <br><span>POBIS</span></h2>
+          <h2>SEARCH<br> In <span>POBIS</span></h2>
  
         </div>
   
@@ -399,264 +428,264 @@
     </div>
   </section><!-- #intro -->
   <!--==========================
-   검색관리
+	검색관리
   ============================-->
   <main id="main">
  
       <section id="main-content">
       <section class="wrapper">
         <!--overview start-->
-         <div class="row">
+ 		  <div class="row">
           <div class="col-lg-10" align="center">
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="index.html">분석현황</a></li>
               <li><i class="icon_documents_alt"></i>검색관리</li>
             </ol>
-     <div class="col-lg-10" align="center">
+	  <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                   프리미엄 검색
+                	프리미엄 검색
               </header>
-         <div class="panel-body"> 
-                   <div  class="form-group">
+			<div class="panel-body"> 
+          			<div  class="form-group">
  
   
-             
+				 
 
 
 
-               <!--======================-->
-               <!------검     색        조      건-------------->
-               <!--======================-->
+					<!--======================-->
+					<!------검     색        조      건-------------->
+					<!--======================-->
 
-               <!-- 검색조건 form -->
-               <form name="preSearchForm" method="post"
-                  action="/posbis/preSearchForm.do">
+					<!-- 검색조건 form -->
+					<form name="preSearchForm" method="post"
+						action="/posbis/preSearchForm.do">
 
-                  <br> 
-                  
-                  <!-- 사업자 등록 번호 -->
-   <%--                
-                  <select name="changeBusinessNo">
-                     <option value="">사업자등록번호</option>
-                     <c:forEach items="${businessNoList}" var="businessNoList">
-                        <option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
-                        </option>
-                     </c:forEach>
-                  </select> 
- --%>                  
-                
+						<br> 
+						
+						<!-- 사업자 등록 번호 -->
+	<%-- 					
+						<select name="changeBusinessNo">
+							<option value="">사업자등록번호</option>
+							<c:forEach items="${businessNoList}" var="businessNoList">
+								<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
+								</option>
+							</c:forEach>
+						</select> 
+ --%>						
+					 
  
-    
-                     
-                     <!--======================-->
-                     <!-----------지역------------>
-                     <!--======================-->
-         
-                  <span class="help-block">지 역
-                        <select name="addr_gu1">
-                              <option value="">==구선택==</option>
-                              <c:forEach items="${addrGu1List}" var="addrGu1">
-                                 <option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
-                              </c:forEach>
-                        </select> &nbsp;
-                        
-                        <select name="addr_gu2">
-                           <option value="">----구선택----</option>
-                        </select>   
-                      
-                     <!--======================-->
-                     <!--------업종-------------->
-                     <!--======================-->
-                     <span class="help-block">업 종
-                         <select name="business_type_name1">
-                              <option value="">==대분류==
-                                 <c:forEach items="${businessTypeName1List}"
-                                    var="businessTypeName1">
-                                    <option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
-                                    </option>
-                                 </c:forEach>
-                        </select> &nbsp; <select name="business_type_name2">
-                              <option value="">==소분류==
-                        </select> &nbsp;
-                     
-                     
+	 
+							
+							<!--======================-->
+							<!-----------지역------------>
+							<!--======================-->
+			
+						<span class="help-block">지 역
+								<select name="addr_gu1">
+										<option value="">==구선택==</option>
+										<c:forEach items="${addrGu1List}" var="addrGu1">
+											<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
+										</c:forEach>
+								</select> &nbsp;
+								
+								<select name="addr_gu2">
+									<option value="">----구선택----</option>
+								</select>	
+							 
+							<!--======================-->
+							<!--------업종-------------->
+							<!--======================-->
+							<span class="help-block">업 종
+								 <select name="business_type_name1">
+										<option value="">==대분류==
+											<c:forEach items="${businessTypeName1List}"
+												var="businessTypeName1">
+												<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
+												</option>
+											</c:forEach>
+								</select> &nbsp; <select name="business_type_name2">
+										<option value="">==소분류==
+								</select> &nbsp;
+							
+							
 
-                     <!--======================-->
-                     <!------------매출----------->
-                     <!--======================-->
-                  <br> <span class="help-block">월매출(지난달 기준)
-                  
-                              <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
-                              <input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20000이상</label>
-                              <input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50000이상 </label>
-                              <input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100000이상</label>
-                
-                  <br> 
-                  <input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
-                  <input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
-                   <br><br>
-                  
-                  
-                    <div class="col-sm-12" align="center">
-                   
-              <table class="table table-striped table-advance table-hover" id="select">
-                     <tr>
-                        <td align=right>
-                           <!-- EL 문법으로 게시판 검색 총 개수 출력 -->
-                           <!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
-                              ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
-                              EL 로 표현하여 삽입 -->   
-                           [총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
-                           <!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
-                           <!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->   
-                           <select name="rowCntPerPage">
-                              <option value="10">10
-                              <option value="15">15
-                              <option value="20">20
-                              <option value="25">25
-                              <option value="30">30
-                           </select> 행보기
-                  </table>
-         
-         
-               
-                  <input type="hidden" name="selectPageNo">      
-                  <input type="hidden" name="sort" value="ranking asc">      
-               </form>
-               <!-- /preSearchForm  -->
-
-
-               
-               
-               <!-- 페이징 번호 삽입할 span 태그 선언 -->
-               <div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-               <table><tr height=10><td></table>
+							<!--======================-->
+							<!------------매출----------->
+							<!--======================-->
+						<br> <span class="help-block">월매출(지난달 기준)
+						
+										<input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
+										<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20000이상</label>
+										<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50000이상 </label>
+										<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100000이상</label>
+					 
+						<br> 
+						<input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
+						<input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
+						 <br><br>
+						
+						
+						  <div class="col-sm-12" align="center">
+						 
+				  <table class="table table-striped table-advance table-hover" id="select">
+							<tr>
+								<td align=right>
+									<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
+									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
+										ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
+										EL 로 표현하여 삽입 -->	
+									[총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+									<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
+									<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
+									<select name="rowCntPerPage">
+										<option value="10">10
+										<option value="15">15
+										<option value="20">20
+										<option value="25">25
+										<option value="30">30
+									</select> 행보기
+						</table>
+			
+			
+					
+						<input type="hidden" name="selectPageNo">		
+						<input type="hidden" name="sort" value="ranking asc">		
+					</form>
+					<!-- /preSearchForm  -->
 
 
-               <!--======================-->
-               <!--======검색결과=======-->
-               <!--======================-->
-               <form name="preResultForm">
-                    <table class="table table-striped table-advance table-hover" id="select">
-                     <tr bgcolor="gray">
-                        <th> 순서 
-                        
-                     <!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
-                        <c:choose>
-                           <c:when test="${param.sort=='ranking desc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위▼
-                           </c:when>
-                           <c:when test="${param.sort=='ranking asc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking desc'); goPreSearch();">매출순위▲
-                           </c:when>
-                           <c:otherwise>
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위
-                           </c:otherwise>
-                        </c:choose>
-                     <!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
-                        <c:choose>
-                           <c:when test="${param.sort=='month_sales desc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
-                           </c:when>
-                           <c:when test="${param.sort=='month_sales asc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
-                           </c:when>
-                           <c:otherwise>
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
-                           </c:otherwise>
-                        </c:choose>
-                        <!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
-                        <c:choose>
-                           <c:when test="${param.sort=='business_type desc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">업&nbsp;&nbsp;종▼
-                           </c:when>
-                           <c:when test="${param.sort=='business_type asc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('business_type desc'); goPreSearch();">업&nbsp;&nbsp;종▲
-                           </c:when>
-                           <c:otherwise>
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('business_type asc'); goPreSearch();">업&nbsp;&nbsp;종
-                           </c:otherwise>
-                        </c:choose>
-                        <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
-                        <c:choose>
-                           <c:when test="${param.sort=='best_menu_type desc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
-                           </c:when>
-                           <c:when test="${param.sort=='best_menu_type asc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
-                           </c:when>
-                           <c:otherwise>
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
-                           </c:otherwise>
-                        </c:choose>
-                        <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
-                        <c:choose>
-                           <c:when test="${param.sort=='addr_dong desc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)▼
-                           </c:when>
-                           <c:when test="${param.sort=='addr_dong asc'}">
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_dong desc'); goPreSearch();">지역(동단위)▲
-                           </c:when>
-                           <c:otherwise>
-                              <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)
-                           </c:otherwise>
-                        </c:choose>
+					
+					
+					<!-- 페이징 번호 삽입할 span 태그 선언 -->
+					<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+					<table><tr height=10><td></table>
 
 
-
-                     <c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
-                     <tr>
-                        <td align=center>${preResult.PAGINGRNUM}
-                        <td align=center>${preResult.RANKING}
-                        <td align=center class=month_sales>${preResult.MONTH_SALES}
-                        <td align=center>${preResult.BUSINESS_TYPE}
-                        <td align=center>${preResult.BEST_MENU_TYPE}
-                        <td align=center>${preResult.ADDR_DONG}
-                     </c:forEach>
-                  </table>
-               </form>
-               <!-- /검색조건 form -->
-
-
-               <c:if test="${empty preResultList}">
-               검색 결과가 없습니다.
-               </c:if>
+					<!--======================-->
+					<!--======검색결과=======-->
+					<!--======================-->
+					<form name="preResultForm">
+						  <table class="table table-striped table-advance table-hover" id="select">
+							<tr bgcolor="gray">
+								<th> 순서 
+								
+							<!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='ranking desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위▼
+									</c:when>
+									<c:when test="${param.sort=='ranking asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('ranking desc'); goPreSearch();">매출순위▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위
+									</c:otherwise>
+								</c:choose>
+							<!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='month_sales desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
+									</c:when>
+									<c:when test="${param.sort=='month_sales asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
+									</c:otherwise>
+								</c:choose>
+								<!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='business_type desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">업&nbsp;&nbsp;종▼
+									</c:when>
+									<c:when test="${param.sort=='business_type asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('business_type desc'); goPreSearch();">업&nbsp;&nbsp;종▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('business_type asc'); goPreSearch();">업&nbsp;&nbsp;종
+									</c:otherwise>
+								</c:choose>
+								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='best_menu_type desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
+									</c:when>
+									<c:when test="${param.sort=='best_menu_type asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
+									</c:otherwise>
+								</c:choose>
+								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+								<c:choose>
+									<c:when test="${param.sort=='addr_dong desc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)▼
+									</c:when>
+									<c:when test="${param.sort=='addr_dong asc'}">
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong desc'); goPreSearch();">지역(동단위)▲
+									</c:when>
+									<c:otherwise>
+										<th style="cursor:pointer"
+												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)
+									</c:otherwise>
+								</c:choose>
 
 
 
-               <br>
-               <br>
-               <br>
-               <br>
+							<c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
+							<tr>
+								<td align=center>${preResult.PAGINGRNUM}
+								<td align=center>${preResult.RANKING}
+								<td align=center class=month_sales>${preResult.MONTH_SALES}
+								<td align=center>${preResult.BUSINESS_TYPE}
+								<td align=center>${preResult.BEST_MENU_TYPE}
+								<td align=center>${preResult.ADDR_DONG}
+							</c:forEach>
+						</table>
+					</form>
+					<!-- /검색조건 form -->
+
+
+					<c:if test="${empty preResultList}">
+					검색 결과가 없습니다.
+					</c:if>
+
+
+
+					<br>
+					<br>
+					<br>
+					<br>
 
 
 
 
 
-               <!--======================-->
-               <!-- 창업/소상공인 뉴스 -->
-               <!--======================-->
-               <form name="preTrendForm">
-                  <b>[창업/소상공인 뉴스]</b>
-               </form>
-      
-          </div>
+					<!--======================-->
+					<!-- 창업/소상공인 뉴스 -->
+					<!--======================-->
+					<form name="preTrendForm">
+						<b>[창업/소상공인 뉴스]</b>
+					</form>
+		
+    		</div>
         </div>
 </section>
 </section>

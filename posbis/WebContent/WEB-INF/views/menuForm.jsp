@@ -171,7 +171,7 @@
 						location.replace( "/posbis/menuRegForm.do?"+str );
 				}
 			
-				// 메인페이지로 이동
+/* 				// 메인페이지로 이동
 				function goMainForm() {
 					location.replace("/posbis/mainForm.do");
 				}
@@ -204,71 +204,101 @@
 							location.replace("/posbis/payForm.do");
 						}
 					}
-				}
+				} */
 
 				//--------------------------------------------------------
-			   	   //로고 클릭시
-			   	     function goMainForm(){
-			   	        //alert("메인으로 이동");
-			   	        location.replace("/posbis/mainForm.do");
-			   	     }
-			   		
-			   		//회사소개-pobis 클릭시
-			   		
-			   		function goIntroForm(){
-			   	        //alert("회사소개로 이동");
-			   	        location.replace("/posbis/introForm.do");
-			   	     }
-			   		
-			   		//마이페이지-매출관리
-			   	    function goSalesForm(){
-			   	       //alert("매출관리로 이동");
-			   	        location.replace("/posbis/salesForm.do");
-			   	     } 
-			   		//마이페이지-메뉴관리
-			   		function goMenuForm(){
-			   	        //alert("메뉴관리로 이동");
-			   	        location.replace("/posbis/menuForm.do");
-			   	     }
-			   		//분석현황-검색관리
+				   //로고 클릭시
+				     function goMainForm(){
+				        //alert("메인으로 이동");
+				        location.replace("/posbis/mainForm.do");
+				     }
+					
+					//회사소개-pobis 클릭시
+					
+					function goIntroForm(){
+				        //alert("회사소개로 이동");
+				        location.replace("/posbis/introForm.do");
+				     }
+					
+					//마이페이지-매출관리
+				    function goSalesForm(){
+				        //alert("매출관리로 이동");
+				        location.replace("/posbis/salesForm.do");
+				     } 
+					//마이페이지-메뉴관리
+					function goMenuForm(){
+				        //alert("메뉴관리로 이동");
+				        location.replace("/posbis/menuForm.do");
+				     }
+					//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 			   		function goPreSearchForm(){
 			   	        //alert("검색관리로 이동");
-			   	        location.replace("/posbis/preSearchForm.do");
+			   			var rank_code = ${rank_code};
+				         if(rank_code == 2){
+				        	 location.replace("/posbis/preSearchForm.do");
+				         }
+				         else{
+				        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+									return;
+								}
+				        	 else{
+				        		 location.replace("/posbis/payForm.do");
+				             }
+				         }
+			   	        
 			   	     }
-			   		//분석현황-차트관리
+			   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 			   		function goPreChartForm(){
 			   	        //alert("차트관리로 이동");
-			   	        location.replace("/posbis/preChartForm.do");
+			   			var rank_code = ${rank_code};
+				         if(rank_code == 2){
+				         	location.replace("/posbis/preChartForm.do");
+				         }
+				         else{
+				        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+									return;
+								}
+				        	 else{
+				        		 location.replace("/posbis/payForm.do");
+				             }
+				         }
 			   	     }
-			   		//내정보관리-내정보 보기
-			   		function goMyPageForm(){
-			   	        //alert("내정보 보기으로 이동");
-			   	        location.replace("/posbis/myPageForm.do");
-			   	     }
-		 
-			   		//qna 게시판- 질문하기
-			   		function goqstnRegForm(){
-			   	        //alert("질문하기으로 이동");
-			   	        location.replace("/posbis/qstnRegForm.do");
-			   	     }
-			   	    //qna 게시판- 내글보기
-			   		 function goQstnForm(){
-			   	        //alert("내글보기으로 이동");
-			   	        location.replace("/posbis/myQstn.do");
-			   	     }
-			   		 
-			   		//통합 관리
-			   		 function goHomePageForm(){
-		    		    //alert("통합 관리으로 이동");
-		    		    location.replace("/posbis/homePageForm.do");
-		    		 }
-			   		//--------------------------------------------------------
+					//내정보관리-내정보 보기
+					function goMyPageForm(){
+				        //alert("내정보 보기으로 이동");
+				        location.replace("/posbis/myPageForm.do");
+				     }
 
-			   		
-			   		function goMessageForm(){
-			   		    alert("건의사항이 접수 되었습니다. 감사합니다");
-			   	 
-			   		 }
+					//qna 게시판- 질문하기
+					function goqstnRegForm(){
+				        //alert("질문하기으로 이동");
+				        location.replace("/posbis/qstnRegForm.do");
+				     }
+					//qna 게시판- 내글보기
+					 function goMyQstnForm(){
+				        //alert("내글보기으로 이동");
+				        location.replace("/posbis/myQstn.do");
+				     }
+					//qna 게시판- 전체 질문보기
+					 function goQstnForm(){
+				        //alert("전체 질문보기으로 이동");
+				        location.replace("/posbis/qstnForm.do");
+				     }
+
+					 
+					//통합 관리
+					 function goHomePageForm(){
+					    //alert("통합 관리으로 이동");
+					    location.replace("/posbis/homePageForm.do");
+					 }
+					//--------------------------------------------------------
+
+					
+					function goMessageForm(){
+					    alert("건의사항이 접수 되었습니다. 감사합니다");
+				 
+					 }
+	
 	
 	
 	
@@ -327,18 +357,19 @@
          <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>     
                 
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
            <ul>
            		
               <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
             </ul>  
-          </li>     
+          </li>  
         
  
         </ul>
@@ -354,7 +385,7 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>MYPAGE<br>In <br><span>POSBIS</span></h2>
+           <h2>MYPAGE<br>In <span>POSBIS</span></h2>
         
         </div>
   
@@ -403,9 +434,9 @@
 						
 				<!-- 메뉴 사용여부 라디오 박스 -->
 				[메뉴사용여부] :
-				<input type ="radio" id= "menu_using_all" name="menu_using" class="menu_using"  value="menu_using"><label for="menu_using_all">ALL</label>
-				<input type ="radio" id= "menu_using_y" name="menu_using" class="menu_using" value="Y" checked><label for="menu_using_y">Y</label>
-				<input type ="radio" id= "menu_using_n" name="menu_using" class="menu_using" value="N"><label for="menu_using_n">N</label><br>
+				<input type ="radio" id= "menu_using_all" name="menu_using" class="menu_using"  value="menu_using"><label for="menu_using_all">모두보기</label>
+				<input type ="radio" id= "menu_using_y" name="menu_using" class="menu_using" value="Y" checked><label for="menu_using_y">사용</label>
+				<input type ="radio" id= "menu_using_n" name="menu_using" class="menu_using" value="N"><label for="menu_using_n">미사용</label><br>
 				
 				<!-- 키워드 검색 -->
 				[키워드] :
@@ -445,7 +476,7 @@
 		   
 		<table class="table table-striped" id="menu">
 			<tr>
-			 <th>번호
+			 <th align=center>번호
 						<!-- 매장이름 -->
 						<c:choose>
 							<c:when test="${param.sort=='business_name desc'}">
@@ -600,7 +631,7 @@
 						${menuSearchDTO.selectPageNo*menuSearchDTO.rowCntPerPage-
 									 				menuSearchDTO.rowCntPerPage+1+loopTagStatus.index}
 						<!-- 매장명출력 -->
-						<td align=center>${menu.business_name}</td>
+						<td align=left>${menu.business_name}</td>
 						<!-- 대분류출력 -->
 						<td align=center>${menu.main_category_name}</td>
 						<!-- 각 행의 메뉴 중분류 출력  -->
@@ -608,13 +639,13 @@
 						<!-- 각 행의 메뉴 소분류 출력  -->
 						<td align=center>${menu.sub_category_name}</td>
 						<!-- 각 행의 메뉴 이름 출력  -->
-						<td align=center>${menu.menu_name}</td>
+						<td align=left>${menu.menu_name}</td>
 						<!-- 각 행의 메뉴 가격 출력  -->
-						<td align=center class=price_amount>${menu.menu_price}원</td>
+						<td align=right class=price_amount>${menu.menu_price}원</td>
 						<!-- 각 행의 메뉴 원가 출력  -->
-						<td align=center class=price_amount>${menu.menu_cost}원</td>
+						<td align=right class=price_amount>${menu.menu_cost}원</td>
 						<!-- 각 행의 메뉴 이익 단가 출력  -->
-						<td align=center class=price_amount>${menu.menu_avail}원</td>
+						<td align=right class=price_amount>${menu.menu_avail}원</td>
 						<!-- 각 행의 메뉴 사용 여부 출력  -->
 						<td align=center>${menu.menu_using}</td>
 					</c:forEach>

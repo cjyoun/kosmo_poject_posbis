@@ -101,6 +101,7 @@
        
          }
 
+        
  			 
 
     	//--------------------------------------------------------
@@ -148,12 +149,17 @@
     	        //alert("질문하기으로 이동");
     	        location.replace("/posbis/qstnRegForm.do");
     	     }
-    	    //qna 게시판- 내글보기
-    		 function goQstnForm(){
-    	        //alert("내글보기으로 이동");
-    	        location.replace("/posbis/myQstn.do");
-    	     }
-    		 
+    		//qna 게시판- 내글보기
+	   		 function goMyQstnForm(){
+	   	        //alert("내글보기으로 이동");
+	   	        location.replace("/posbis/myQstn.do");
+	   	     }
+	   		//qna 게시판- 전체 질문보기
+	   		 function goQstnForm(){
+	   	        //alert("전체 질문보기으로 이동");
+	   	        location.replace("/posbis/qstnForm.do");
+	   	     }
+	    		 
     		//통합 관리
     		 function goHomePageForm(){
     		    //alert("통합 관리으로 이동");
@@ -220,7 +226,8 @@
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>   
                 

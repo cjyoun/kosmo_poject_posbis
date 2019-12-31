@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="common.jsp"%>
-
+    <%@ include file="common.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>소개</title>
+ 
+  <title>메인</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -30,7 +29,32 @@
 
   <!-- Main Stylesheet File -->
   <link href="resources/intro/css/style.css" rel="stylesheet">
-   
+
+   <!-- Bootstrap CSS -->
+  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
+  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
+  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
+  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
+  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
+  
+  <link rel="stylesheet" type="text/css" href="resources/intro/css/util.css">
 
   <!-- =======================================================
     Theme Name: Rapid
@@ -40,77 +64,105 @@
   ======================================================= -->
  <script>
   
-	//--------------------------------------------------------
-	   //로고 클릭시
-	     function goMainForm(){
-	        //alert("메인으로 이동");
-	        location.replace("/posbis/mainForm.do");
-	     }
-		
-		//회사소개-pobis 클릭시
-		
-		function goIntroForm(){
-	        //alert("회사소개로 이동");
-	        location.replace("/posbis/introForm.do");
-	     }
-		
-		//마이페이지-매출관리
-	    function goSalesForm(){
-	       //alert("매출관리로 이동");
-	        location.replace("/posbis/salesForm.do");
-	     } 
-		//마이페이지-메뉴관리
-		function goMenuForm(){
-	        //alert("메뉴관리로 이동");
-	        location.replace("/posbis/menuForm.do");
-	     }
-		//분석현황-검색관리
+//--------------------------------------------------------
+ //로고 클릭시
+   function goMainForm(){
+      //alert("메인으로 이동");
+      location.replace("/posbis/mainForm.do");
+   }
+	
+	//회사소개-pobis 클릭시
+	
+	function goIntroForm(){
+      //alert("회사소개로 이동");
+      location.replace("/posbis/introForm.do");
+   }
+	
+	//마이페이지-매출관리
+  function goSalesForm(){
+      //alert("매출관리로 이동");
+      location.replace("/posbis/salesForm.do");
+   } 
+	//마이페이지-메뉴관리
+	function goMenuForm(){
+      //alert("메뉴관리로 이동");
+      location.replace("/posbis/menuForm.do");
+   }
+	//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 		function goPreSearchForm(){
 	        //alert("검색관리로 이동");
-	        location.replace("/posbis/preSearchForm.do");
+			var rank_code = ${rank_code};
+         if(rank_code == 2){
+        	 location.replace("/posbis/preSearchForm.do");
+         }
+         else{
+        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+					return;
+				}
+        	 else{
+        		 location.replace("/posbis/payForm.do");
+             }
+         }
+	        
 	     }
-		//분석현황-차트관리
+		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
 		function goPreChartForm(){
 	        //alert("차트관리로 이동");
-	        location.replace("/posbis/preChartForm.do");
+			var rank_code = ${rank_code};
+         if(rank_code == 2){
+         	location.replace("/posbis/preChartForm.do");
+         }
+         else{
+        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+					return;
+				}
+        	 else{
+        		 location.replace("/posbis/payForm.do");
+             }
+         }
 	     }
-		//내정보관리-내정보 보기
-		function goMyPageForm(){
-	        //alert("내정보 보기으로 이동");
-	        location.replace("/posbis/myPageForm.do");
-	     }
+	//내정보관리-내정보 보기
+	function goMyPageForm(){
+      //alert("내정보 보기으로 이동");
+      location.replace("/posbis/myPageForm.do");
+   }
 
-		//qna 게시판- 질문하기
-		function goqstnRegForm(){
-	        //alert("질문하기으로 이동");
-	        location.replace("/posbis/qstnRegForm.do");
-	     }
-	    //qna 게시판- 내글보기
-		 function goQstnForm(){
-	        //alert("내글보기으로 이동");
-	        location.replace("/posbis/myQstn.do");
-	     }
-		 
-		//통합 관리
-		 function goHomePageForm(){
+	//qna 게시판- 질문하기
+	function goqstnRegForm(){
+      //alert("질문하기으로 이동");
+      location.replace("/posbis/qstnRegForm.do");
+   }
+	//qna 게시판- 내글보기
+	 function goMyQstnForm(){
+       //alert("내글보기으로 이동");
+       location.replace("/posbis/myQstn.do");
+    }
+	//qna 게시판- 전체 질문보기
+	 function goQstnForm(){
+       //alert("전체 질문보기으로 이동");
+       location.replace("/posbis/qstnForm.do");
+    }
+
+	 
+	//통합 관리
+	 function goHomePageForm(){
 	    //alert("통합 관리으로 이동");
 	    location.replace("/posbis/homePageForm.do");
 	 }
-		//--------------------------------------------------------
+	//--------------------------------------------------------
 
-		
-		function goMessageForm(){
-		    alert("건의사항이 접수 되었습니다. 감사합니다");
-	 
-		 }
+	
+	function goMessageForm(){
+	    alert("건의사항이 접수 되었습니다. 감사합니다");
+
+	 }
+			
 			
   </script>
-  
-   <head>
-       <title> 메뉴 수정/삭제 </title>
-      <meta charset="utf-8">
+ 
       <script>
-		$(document).ready(function(){
+      
+      $(document).ready(function(){
 			
 			var main ='<c:out value="${menuDTO.main_category_name}"/>';
 			var mid = '<c:out value="${menuDTO.mid_category_name}"/>';
@@ -303,21 +355,8 @@
 				} //function checkBoardUpDelForm(upDel){
 
 					
-				 // 프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못하게 하는 함수
-			    function goPreChartForm(){
-					 var rank_code = ${rank_code};
-			         if(rank_code == 2){
-			         	location.replace("/posbis/preChartForm.do");
-			         }
-			         else{
-			        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-								return;
-							}
-			        	 else{
-			        		 location.replace("/posbis/payForm.do");
-			             }
-			         }
-			      }
+				 
+      
       
       </script>
 
@@ -359,7 +398,7 @@
     
            <li class="drop-down"><a href="">마이페이지</a>
             <ul>
-              <li><a onClick="gohomepageForm();">통합 관리</a></li>
+              <li><a onClick="goHomePageForm();">통합 관리</a></li>
               <li><a onClick="goSalesForm();">매출 관리</a></li>
               <li><a onClick="goMenuForm();">메뉴 관리</a></li>
               <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
@@ -377,19 +416,20 @@
            <li class="drop-down"><a href="">Q&A게시판</a>
             <ul>
               <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>    
         
                   
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> 김수정 님</a> 
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
            <ul>
            		
               <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a href="login.html"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a href="login.html"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
             </ul>  
-          </li>     
+          </li>   
         
         </ul>
       </nav><!-- .main-nav -->
@@ -397,18 +437,39 @@
     </div>
   </header><!-- #header -->  
    
-   
-   
-   <center><br>
-		<!-- 메뉴 수정/삭제 form -->
-		<form name = "menuUpDelForm" method="post" action="/posbis/menuUpDelProc.do">
-		<h2>[메뉴 수정/삭제]</h2><br>
-		<!------------------------------------------------------------->
-		<table class = "tbcss1" border=1 bordercolor=grary cellspacing=0 cellpadding=5 align=center>
-			<tr>
-				<th bgcolor="FFEFDC">메뉴사용여부
-				<td><!--메뉴 사용여부 -->
-				<c:choose>
+    <!--==========================
+      	메뉴 수정
+    ============================-->
+ 
+  <main id="main">
+ 
+ 
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-10"><br><br>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">마이페이지</a></li>
+              <li><i class="fa fa-user-md"></i>메뉴관리</li>
+              <li><i class="fa fa-user-md"></i>메뉴수정</li>
+            </ol>
+          </div>
+        </div>
+ 
+      <div class="row">
+      
+          <div class="col-lg-8">
+            <section class="panel">
+              <header class="panel-heading">
+                 [메뉴수정]
+              </header>
+              <div class="panel-body"> 
+                  <form name = "menuUpDelForm" method="post" action="/posbis/menuUpDelProc.do"class="form-validate form-horizontal" id="feedback_form"  >
+                    <div class="form-group"> 
+                    <label for="cname" class="control-label col-lg-2">메뉴사용여부 <span class="required">*</span></label>
+ 
+				 <div class="col-lg-6">
+				<c:choose >
 					<c:when test="${menuDTO.menu_using == 'Y'}">
 						<input type ="radio" id="menu_using_y" name="menu_using" value="Y" checked ><label for="menu_using_y">Y</label>
 						<input type ="radio" id="menu_using_n" name="menu_using" value="N"><label for="menu_using_n">N</label>
@@ -418,12 +479,14 @@
 						<input type ="radio" id="menu_using_n" name="menu_using" value="N" checked><label for="menu_using_n">N</label>
 					</c:otherwise>
 				</c:choose>
-				
-				
-			<tr>
-			<th bgcolor="FFEFDC">분류
- 				<td><!-- 대분류 -->
-				<select name="main_category_name" class="main_category_name">
+			</div>
+</div>
+                  <div class="form-group"> 
+                    <label for="cname" class="control-label col-lg-2">분류 <span class="required">*</span></label>
+                     <div class="col-lg-2">
+                     <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                        
+                        <select name="main_category_name" class="main_category_name form-control">
 					<c:forEach items="${menuCategory1}" var="menucate">
 						<option value="${menucate.main_category_name}"
 						<c:if test="${menuDTO.main_category_name == menucate.main_category_name}">
@@ -432,28 +495,38 @@
 						>${menucate.main_category_name}</option>
 					</c:forEach>
 				</select>
-				<!-- 중분류 -->
-				<select name="mid_category_name" class="mid_category_name">
+                      </div>
+                      <div class="col-lg-2">
+                     <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                      <select name="mid_category_name" class="mid_category_name form-control">
 				</select>
-				<!-- 소분류 -->
-				<select name="sub_category_name" class="sub_category_name">
+                      </div>
+                      <div class="col-lg-2">
+                     <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                    <select name="sub_category_name" class="sub_category_name form-control">
 				</select>
-				<!-- 메뉴이름 -->
-				<tr>
-					<th bgcolor="FFEFDC">메뉴이름
-					<td><input type="text" size="40" maxlength="50" name="menu_name" value="${menuDTO.menu_name}">
-					
-				<!-- 메뉴가격 -->
-				<tr>
-					<th bgcolor="FFEFDC">메뉴가격
-					<td><input type="text" size="40" maxlength="50" name="menu_price" value="${menuDTO.menu_price}">원
-					
-				<!-- 메뉴원가 -->
-				<tr>
-					<th bgcolor="FFEFDC">메뉴원가
-					<td><input type="text" size="40" maxlength="50" name="menu_cost" value="${menuDTO.menu_cost}">원
-		</table><br>
-			<!------------------------------------------------------------->
+                      </div>
+                  </div>
+                   
+                  <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">메뉴이름 <span class="required">*</span></label>
+                    <div class="col-lg-6">
+					<input type="text" size="40" maxlength="50" name="menu_name" value="${menuDTO.menu_name}" class="form-control"> </div> 
+                  </div>
+                  
+                   <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">메뉴가격 <span class="required">*</span></label>
+                    <div class="col-lg-6">
+<input type="text" size="40" maxlength="50" name="menu_price" value="${menuDTO.menu_price}" class="form-control"> </div>원
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">메뉴원가 <span class="required">*</span></label>
+                    <div class="col-lg-6">
+<input type="text" size="40" maxlength="50" name="menu_cost" value="${menuDTO.menu_cost}" class="form-control"> </div>원
+                  </div>
+                  
+       <!------------------------------------------------------------->
 			<table><tr height=4><td></table>
 			<input type ="hidden" name="upDel" value="up">
 			<input type ="hidden" name="menu_no" value="${param.menu_no}">
@@ -469,18 +542,34 @@
 			
 			</div> --%>
 			<!------------------------------------------------------------->
+	<!-- 		<div style="float:right"> 
 			<input type="button" value="메뉴수정" onClick="checkMenuUpDelForm('up')">
 			<input type="button" value="메뉴삭제" onClick="checkMenuUpDelForm('del')">
 			<input type="reset" value="목록보기" onClick="document.menuForm.submit();">
+			</div>
+			 -->
+			<div style="float:right"> 
+                   <button class="btn btn-info" type="button" value="메뉴수정" onClick="checkMenuUpDelForm('up')">메뉴수정 </button>
+                   <button class="btn btn-danger" type="button" value="메뉴삭제" onClick="checkMenuUpDelForm('del')">메뉴삭제 </button>
+                
+                <button class="btn btn-success" type="reset" value="목록보기"   onClick="document.menuForm.submit();">목록보기 </button>
+             
+                </div>
 			<!------------------------------------------------------------->
 		</form>
 		<form name="menuForm" method="post" action="/posbis/menuForm.do" >
 			<input type="hidden" name="selectPageNo" value="${param.selectPageNo}" }>
-		      <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}" }>
-		      <input type="hidden" name="keyword" value="${param.keyword}" }>
+		    <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}" }>
+		    <input type="hidden" name="keyword" value="${param.keyword}" }>
 		</form>
-		 		 
-   		 
+
+              </div>
+            </section>
+          </div>
+    </div>
+ </section>
+</section>
+      
   <!--==========================
     꼬리말
   ============================-->
