@@ -101,35 +101,16 @@ public class LoginServiceImp implements LoginService {
 		//---------------------------------------------------------------------------------
 		//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
 		//DAO 순서대로 호출하기
-		
 		//---------------------------------------------------------------------------------
-		public int deleteUserInfo(Map<String, String> user_id_pwd) {
+				//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
+				// 성유진 ServiceImpl
+				public int deleteUserInfo(Map<String, String> user_id_pwd) {
 			
-		
-			int deleteSalesBusiCnt=this.loginDAO.deleteSalesBusi(user_id_pwd);
-			 if(deleteSalesBusiCnt==0) {return -1;}
-			 
-			/*
-			 * int deleteSalesMenuCnt=this.loginDAO.deleteSalesMenu(user_id_pwd);
-			 * if(deleteSalesMenuCnt==0) {return -2;}
-			 */
-				
-			int deleteMenuCnt=this.loginDAO.deleteMenu(user_id_pwd);
-			if(deleteMenuCnt==0) {return -3;}
-			
-			int deletebusinessInfoCnt=this.loginDAO.deletebusinessInfo(user_id_pwd);
-			if(deletebusinessInfoCnt==0) {return -4;}
-			
-			int deleteCardCnt=this.loginDAO.deleteCard(user_id_pwd);
-			if(deleteCardCnt==0) {return -5;}
-			
-			int deleteQnaCnt=this.loginDAO.deleteQna(user_id_pwd);
-			if(deleteQnaCnt==0) {return -6;}
-	
-			int deleteUserInfoCnt=this.loginDAO.deleteUserInfo(user_id_pwd);
-			return deleteUserInfoCnt;
-			
-		};
+					int deleteUserInfoCnt=this.loginDAO.deleteUserInfo(user_id_pwd);
+					return deleteUserInfoCnt;
+					
+				};
+				// 성유진 ServiceImpl 끝
 		
 		
 		//---------------------------------------------------------------------------------

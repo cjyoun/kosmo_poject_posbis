@@ -28,15 +28,9 @@ public interface LoginDAO {
 	int insertJoinBusinessInfo(joinDTO joinDTO);
 	
 	//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
-	int deleteSalesBusi(Map<String, String> user_id_pwd); 
-
-	/* int deleteSalesMenu(Map<String, String> user_id_pwd); */
-	int deleteMenu(Map<String, String> user_id_pwd);
-	int deletebusinessInfo(Map<String, String> user_id_pwd);
-	int deleteCard(Map<String, String> user_id_pwd);
-	int deleteQna(Map<String, String> user_id_pwd);
+	// 성유진DAO
 	int deleteUserInfo(Map<String, String> user_id_pwd);
-	
+	// 성유진DAO 끝
 	
 	//사업자 번호 개수 ---------------------------------------------------------------------------------
 	int getBusinessnoCnt(Map<String, String> CheckBusiness_no);

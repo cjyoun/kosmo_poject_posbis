@@ -65,6 +65,39 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+  
+  
+  
+  <style>
+  .loginmaintaining {
+
+    display: inline-block;
+	color: #6c757d;
+    width: 21%;
+    
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+    text-align: left;
+
+	border-top:1px solid #eeeeee ;
+
+	border-left:1px solid #eeeeee ;
+
+    border-right:1px solid #eeeeee ;
+
+	border-bottom:1px solid #eeeeee ;
+
+    display: inline-block;
+    
+   background-color: #f5f8fd;
+
+}
+  
+  
+  </style>
     
     
    <script>
@@ -236,90 +269,84 @@
    </script>
    
     
-    
-    
-    
-    
-    
-     
-    
+ 
 </head>
 
 <body> 
  
-  <!--==========================
+     <!--==========================
   Header
   ============================-->
   <header id="header">
 
-    <div id="topbar">
-      <div class="container">
-        <div class="social-links">
-          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
+         <div id="topbar">
+           <div class="container">
+          
+           </div>
+         </div>
 
-    <div class="container">
-      
-      <div class="logo float-left">
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span> POSBIS</span></a></h1>
-        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-      </div>
+         <div class="container">
 
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="drop-down"><a href="">회사소개</a>
-            <ul>
-              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
-            </ul>
-          </li>
-           <li class="drop-down"><a href="">마이페이지</a>
-            <ul>
-              <li><a onClick="goHomePageForm();">통합 관리</a></li>
-              <li><a onClick="goSalesForm();">매출 관리</a></li>
-              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+           <div class="logo float-left">
+             <!-- Uncomment below if you prefer to use an image logo -->
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+           </div>
+  
+          		<br>
+          		<div style="float:right" class= "loginmaintaining">
     
+                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
+                        
+                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
+                          <div style="float:right" >
+                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
+ 
+                   </div>     
+                
+                </div>
+                <br><br><br><br><br><br>
+           
+              
+
+           <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
           </li>
-           <li class="drop-down"><a href="">분석현황</a>
+		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		            <ul>
+		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
+ 
+		            </ul>
+		          </li>
+           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
             <ul>
-              <li><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li><a onClick="goPreChartForm();">차트관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
+            </ul>
+          </li>
+    
+           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>
  
-           <li class="drop-down"><a href="">Q&A게시판</a>
-            <ul>
-              <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li><a onClick="goQstnForm();">내글보기</a></li>
-            </ul>
-          </li>   
-          
-          
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
-           <ul>
-           		
-              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
-            </ul>  
-          </li> 
-        
  
         </ul>
       </nav><!-- .main-nav -->
-      
-    </div>
-  </header><!-- #header -->
+           
+         </div>
+       </header><!-- #header -->
 
-  
   <!--==========================
     Intro Section
   ============================-->
@@ -327,17 +354,19 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Q&A<br>In <span>POSBIS</span></h2>
-        
+          <h2>Q&A</h2>
+ 
         </div>
-  
+  <!-- 
         <div class="col-md-6 intro-img order-md-last order-first">
           <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div>
+        </div> -->
       </div>
 
     </div>
-  </section><!-- #intro -->
+  </section> 
+ 
+
  <!--==========================
 	질문하기
     ============================-->
@@ -356,7 +385,7 @@
       <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	    Q&A 게시판
+                	    <a href="">Q&A 게시판</a>
               </header>
               <div class="panel-body">
  

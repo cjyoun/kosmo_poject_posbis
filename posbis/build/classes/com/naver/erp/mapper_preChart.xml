@@ -63,7 +63,7 @@
 			     left outer join  business_info b on b.business_no=s.business_no
 			     left outer join menu m on s.menu_no=m.menu_no
 			     and b.business_no = #{changeBusinessNo}
-			     and extract(year from s.sales_date) = extract(year from sysdate)
+			     and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 			    group by mon.month
 			    order by mon.month
 
@@ -106,7 +106,7 @@
 			     and b.business_no != #{changeBusinessNo}
 			     and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			     and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
-			     and extract(year from s.sales_date) = extract(year from sysdate)
+			     and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 			    group by mon.month
 			    order by mon.month
 			
@@ -125,7 +125,7 @@
 			        , sum(s.sales_count)||'' "SALES_COUNT"
 			        ,rank() over (order by sum(s.sales_count) desc) "RN"
 			    from sales s
-			      where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
+			      where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 			      group by s.menu_no
 			      )
 			where rn=1
@@ -148,7 +148,7 @@
 			        and b.business_no != #{changeBusinessNo}
 			        and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			        and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
-			        and extract(year from s.sales_date) = extract(year from sysdate)
+			        and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 			      group by s.menu_no
 			      order by 3 desc)
 			where rn=1 
@@ -179,7 +179,7 @@
 				    , sum(s.sales_count)||'' "SALES_COUNT"
 				    ,rank() over (order by sum(s.sales_count) desc) "RN"
 				from sales s
-				  where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
+				  where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 				  group by s.menu_no
 			  )
 			
@@ -197,13 +197,46 @@
 				      , sum(((m.menu_price * s.sales_count)-(m.menu_cost * s.sales_count)))||'' "SALES_INCOME"
 				      ,rank() over (order by sum(s.sales_count) desc) "RN"
 				  from sales s , menu m
-				    where s.menu_no=m.menu_no and s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = extract(year from sysdate)
+				    where s.menu_no=m.menu_no and s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
 				    group by s.menu_no
 			)
 			
 	</select>			
 		
-		
+
+
+<!-- ============== 나의 가게별 월 매출 구하기 =========================================================================== -->
+	
+	<select id='getAllBusinessNoSalesMonthList' parameterType="com.naver.erp.AllBusinessNoDTO" resultType="java.util.HashMap">	
+		     select
+			    b.business_name
+			    , nvl(to_char(sum(s.menu_price * s.sales_count)),'0') as "sales_amount"
+			    , mon.month as "판매월"
+			    from business_info b left outer join sales s on b.business_no=s.business_no right outer join
+			    (
+			        select '01' "MONTH" from dual
+			        union select '02' from dual
+			        union select '03' from dual
+			        union select '04' from dual
+			        union select '05' from dual
+			        union select '06' from dual
+			        union select '07' from dual
+			        union select '08' from dual
+			        union select '09' from dual
+			        union select '10' from dual
+			        union select '11' from dual
+			        union select '12' from dual
+			    ) mon on mon.month=extract(month from s.sales_date)
+			     and b.business_no in
+				<foreach collection="allBusinessNo" item="allBusinessNo" open="(" close=")"  separator=",">
+						#{allBusinessNo}
+				</foreach>
+			     and extract(year from s.sales_date) = extract(year from sysdate)-1
+			    group by mon.month, b.business_name
+			    order by b.business_name , mon.month
+
+			
+	</select>		
 		
 	
 </mapper>

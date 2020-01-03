@@ -217,6 +217,21 @@ public class PreChartDAOImpl implements PreChartDAO{
 		System.out.println("DAO : getSalesBenefit 끝");
 		
 		return salesBenefit;
+	}
+
+	
+	// business_no 여러개를 가지고 내가 가진 가게들의 각각의ㅏ 월매출 구하기
+	@Override
+	public List<Map<String, String>> getAllBusinessNoSalesMonthList(AllBusinessNoDTO allBusinessNoDTO) {
+		System.out.println("DAO : getAllBusinessNoSalesMonthList 시작");
+		System.out.println("changeBusinessNo : " + allBusinessNoDTO);
+		List<Map<String,String>> allBusinessNoSalesMonthList = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getAllBusinessNoSalesMonthList"		// 실행할 SQL 구문의 위치 지정 
+				, allBusinessNoDTO 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getAllBusinessNoSalesMonthList 끝");
+		
+		return allBusinessNoSalesMonthList;
 	}	
 	
 	

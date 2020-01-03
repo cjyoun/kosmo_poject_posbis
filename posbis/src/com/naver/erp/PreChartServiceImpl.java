@@ -151,5 +151,15 @@ public class PreChartServiceImpl implements PreChartService{
 		return salesBenefit;
 	}
 
+//--------------------------------------------------------------------------------------------------   
+	// business_no 여러개를 가지고 내가 가진 가게들의 각각의ㅏ 월매출 구하기
+	@Override
+	public List<Map<String, String>> getAllBusinessNoSalesMonthList(AllBusinessNoDTO allBusinessNoDTO) {
+		System.out.println("service : getAllBusinessNoSalesMonthList 시작");
+		List<Map<String, String>> allBusinessNoSalesMonthList = this.preChartDAO.getAllBusinessNoSalesMonthList(allBusinessNoDTO);
+		System.out.println("service : getAllBusinessNoSalesMonthList 끝"); 
+		return allBusinessNoSalesMonthList;
+	}
+
    
 }

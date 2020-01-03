@@ -48,6 +48,10 @@ public interface PreChartDAO {
 		
 	// business_no 가지고 상품별 순이익 구하기.
 	List<Map<String, String>> getSalesBenefit(String changeBusinessNo);
+
+
+	// business_no 여러개를 가지고 내가 가진 가게들의 각각의ㅏ 월매출 구하기
+	List<Map<String, String>> getAllBusinessNoSalesMonthList(AllBusinessNoDTO allBusinessNoDTO);
 	
 	
 }

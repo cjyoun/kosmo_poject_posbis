@@ -53,13 +53,44 @@
   <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
   
    
+  <style>
+  .loginmaintaining {
+
+    display: inline-block;
+	color: #6c757d;
+    width: 21%;
+    
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+    text-align: left;
+
+	border-top:1px solid #eeeeee ;
+
+	border-left:1px solid #eeeeee ;
+
+    border-right:1px solid #eeeeee ;
+
+	border-bottom:1px solid #eeeeee ;
+
+    display: inline-block;
+    
+   background-color: #f5f8fd;
+
+}
+  
+  
+  </style>
   
   
   <title> PremiumChart </title>
   
+<!-- 	<script src="https://code.jquery.com/jquery.min.js"></script> -->
 
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-      <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+<!--       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 
      <script>
 
@@ -68,13 +99,16 @@
    	    google.setOnLoadCallback(drawChart1);
    		google.setOnLoadCallback(drawChart2);
    		google.setOnLoadCallback(drawChart3);
-
+   		google.setOnLoadCallback(drawChart4);
 	  	
-	     $(document).ready(function(){	
+   		$(document).ready(function(){	
 //	    	 checkBusinessNoForm();
 				// name="changeBusinessNo" 에 change 이벤트가 발생하면 실행할 코드 설정.
-				$('[name=changeBusinessNo]').change(function(){			
+				$('[name=changeBusinessNo]').change(function(){		
+
 					checkBusinessNoForm();
+					changeChart();
+					
 					
 				});	
 
@@ -82,6 +116,20 @@
 							
 				
 	  	});
+
+		  	
+	     function changeChart(){
+	    	 var business = $('[name=changeBusinessNo]').val();
+             if(business == 'all'){        
+                 $('.BusinessNoChart').hide();
+                 $('.allBusinessNoChart').show();
+           }
+             else{
+           	  $('.allBusinessNoChart').hide();
+                 $('.BusinessNoChart').show();
+             }
+	     } 
+ 
      	
 
 		// Controller에서 받아온 나의 가게 월별 매출을 담을 변수 선언.
@@ -105,10 +153,93 @@
 		// Controller에서 받아온 나의 가게 상품별 순이익, 이름 담을 변수 선언.
 		var benefitMenuName = new Array();
 		var salesBenefitMenu = new Array();
+
+		// 가게의 개수를 담을 변수
+		var busiLength = 0;
+		// 다차원 배열로 선언할 변수
+		var allBusinessNoSales;
+		// 가게 이름을 담을 배열 변수
+	    var allBusinessNoName = [];
 	    
 	     
      	function checkBusinessNoForm(){
 				//alert($("[name=preChartForm]").serialize());
+
+			 	// 사업자 번호 선택 란이 '모두검색' 일 때.
+				if($("[name=changeBusinessNo]").val() == 'all' ) {
+					//alert("if ----- "+ $("[name=changeBusinessNo]").val());
+					
+					//alert("hidden ----- "+ $("[name=allBusinessNumber]").serialize());
+
+					$.ajax({
+						// 서버 쪽 호출 URL 주소 지정
+						url : "/posbis/preChartAllProc.do"
+						
+						// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+						, type : "post"
+
+						, async : false
+						// 서버로 보낼 파라미터명과 파라미터 값을 설정
+						// 같은 이름의 다른 값들 여럿을 보내면 DTO에서는 배열로 받을 것. (AllBusinessNoDTO 가 받음.)
+						, data : $("[name=allBusinessNumber]").serialize()				
+							
+							
+						, success : function(allBusinessNoSalesChartListDTO){
+							
+
+							var name = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[0].BUSINESS_NAME;
+							
+							if(allBusinessNoSalesChartListDTO != null){
+								//alert(allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList.length/12);
+
+								var length = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList.length;
+								busiLength = length/12
+								// 다차원 배열로 가게의 갯수만큼 배열 생성
+								allBusinessNoSales = Array.from(Array(busiLength), () => Array());
+
+								// 하나의 select로 다 모았기 때문에 0부터 12까지가 아닌 12*x 개의 행이 저장되므로 i를 저렇게 저장.
+								for(var j=0; j<length/12; j++){
+									for(var i=(12*j); i<(12*(j+1)); i++){
+										if( name == allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].BUSINESS_NAME) {
+											//alert("같은 가게 " +i+" ==== " + name);
+											allBusinessNoSales[j][i] = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].sales_amount;
+											allBusinessNoName[j] = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].BUSINESS_NAME;
+											//alert(allBusinessNoName[j]+ i +" ==== " + allBusinessNoSales[j][i]);
+										}
+										else{
+											name = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].BUSINESS_NAME
+											i--;
+										}
+									
+	
+									}
+									//alert(allBusinessNoName[j]);
+								}
+								//alert("구글차트 시작");
+								drawChart4();
+							}
+							else if (allBusinessNoSalesChartListDTO == null){
+								alert("실패");
+							}
+							else {
+								alert("서버 오류 발생. 관리자에게 문의 바람");
+							} 
+						}
+						
+						// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+						, error : function(request, error){
+							alert("서버 접속 실패");
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							
+							
+						}
+						
+					});
+					
+					return;
+				} 
+
+ 
 
 				$.ajax({
 					// 서버 쪽 호출 URL 주소 지정
@@ -316,7 +447,71 @@
 			}	
 
 
-//----------------------------------------     	
+
+
+
+//------------ 내가 가진 가게들 전부의 월 매출을 보여주는 그래프 ----------------------------     	
+
+ 		function drawChart4() {
+ 		
+			//alert(allBusinessNoName.length);
+			//alert(allBusinessNoSales[0].length);
+
+			for(var i=0; i<allBusinessNoName.length; i++){
+				for(var j=(12*i); j<(12*(i+1)); j++ ){
+					allBusinessNoSales[i][j] *=1;
+					//alert(allBusinessNoName[i] +' = ' + allBusinessNoSales[i][j]);
+				}
+			} 
+
+
+		// 구글 차트 데이터 입력
+
+		   var data4 = new google.visualization.DataTable();
+
+
+			data4.addColumn('string', 'Month');
+		    for(var i=0; i<allBusinessNoName.length; i++){
+				
+				data4.addColumn('number' , allBusinessNoName[i]);
+				//alert(allBusinessNoName[i]);
+			}
+
+		    
+				for(var j=0; j<12; j++ ){
+					data4.addRows(1);
+					var k = 0;
+					//var sales[j] = allBusinessNoSales[i][j];
+					//alert(allBusinessNoSales[i][j]);
+					data4.setCell(j,k,(j+1)+'월');
+					//alert((j+1)+'월')			
+					for(var t=0; t<allBusinessNoName.length; t++){
+						k++;
+						data4.setCell(j,k,allBusinessNoSales[t][j+(12*t)]);
+						
+					}
+					
+					
+				}
+				//alert("나와라 좀!");
+
+				 
+	
+	       var options4 = {
+	         	title: '[월 매출]'
+		        , curveType : 'function'
+		     
+	       };
+	
+	
+	       var chart4 = new google.visualization.LineChart(document.getElementById('allChart_div'));
+	       chart4.draw(data4, options4);
+
+	       
+	     }
+
+
+//------------ 내가게와 동일한 위치, 업종을 가진 가게들의 평균 월매출을 보여주는 그래프 ----------------------------     	
 			
      		function drawChart1() {
      		
@@ -371,7 +566,7 @@
 		
 
 
-//----------------------------------------
+//--------------내가게의 인기 메뉴와 개수를 보여주는 그래프 --------------------------
   	
 		 
 		     function drawChart2() {
@@ -442,7 +637,7 @@
 
 
 		     
-//----------------------------------------
+//------------- 가게의 총매출과 순이익을 보여주는 그래프 ---------------------------
   	    	
 			 
 		     function drawChart3() {
@@ -590,70 +785,79 @@
  </head>
 
  <body>
- <!--==========================
+    <!--==========================
   Header
   ============================-->
   <header id="header">
-  
-  <div id="topbar">
-      <div class="container">
-        <div class="social-links">
-          
-        </div>
-      </div>
-    </div>
-   <div class="container">
-      
-      <div class="logo float-left">
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span> POSBIS</span></a></h1>
-        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-      </div>
 
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="drop-down"><a href="">회사소개</a>
-            <ul>
-              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
-            </ul>
-          </li>
-           <li class="drop-down"><a href="">마이페이지</a>
-            <ul>
-              <li><a onClick="goHomePageForm();">통합 관리</a></li>
-              <li><a onClick="goSalesForm();">매출 관리</a></li>
-              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+         <div id="topbar">
+           <div class="container">
+          
+           </div>
+         </div>
+
+         <div class="container">
+
+           <div class="logo float-left">
+             <!-- Uncomment below if you prefer to use an image logo -->
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+           </div>
+  
+          		<br>
+          		<div style="float:right" class= "loginmaintaining">
+    
+                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
+                        
+                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
+                          <div style="float:right" >
+                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
  
+                   </div>     
+                
+                </div>
+                <br><br><br><br><br><br>
+           
+              
+
+           <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
           </li>
-                <li class="drop-down"><a href="">분석현황</a>
+		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		            <ul>
+		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
+ 
+		            </ul>
+		          </li>
+           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
             <ul>
-              <li><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li><a onClick="goPreChartForm();">차트관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
             </ul>
           </li>
-         <li class="drop-down"><a href="">Q&A게시판</a>
+    
+           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
             <ul>
-              <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li><a onClick="goQstnForm();">목록보기</a></li>
+              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
-          </li>   
-         
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
-           <ul>
-           		
-              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
-            </ul>  
-          </li>   
-        
+          </li>
+ 
+ 
         </ul>
       </nav><!-- .main-nav -->
-      
-    </div>
-  </header><!-- #header -->          
+           
+         </div>
+       </header><!-- #header -->
+
   <!--==========================
     Intro Section
   ============================-->
@@ -661,16 +865,19 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-           <h2>SEARCH<br> In <span>POBIS</span></h2>
-        
+          <h2>PREMIUM</h2>
+ 
         </div>
-  
+  <!-- 
         <div class="col-md-6 intro-img order-md-last order-first">
           <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-     
+        </div> -->
+      </div>
 
     </div>
-  </section><!-- #intro -->  
+  </section> 
+ 
+
   
    <!--==========================
 	 분석 차트
@@ -690,14 +897,19 @@
 		    <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	 차트관리
+                	<a href=""> 차트관리</a>
               </header>
               <div class="panel-body">
  
 
       <div class="container">
       
- 
+ 		<!-- 모든 사업자번호 뽑아서 보낼 form 태그 -->
+          <form name="allBusinessNumber" method="post" action="/posbis/preChartForm.do"> 
+          	<c:forEach items="${businessNoList}" var="businessNoList">					
+					<input type="hidden" name="allBusinessNo"   value="${businessNoList.business_no}"> 
+			</c:forEach>
+          </form>
           
         
             <!------------------ 메인으로 보여줄 div -------------------->
@@ -729,7 +941,7 @@
 											* 어느 부분이 틀리면 그 부분만 나오지 않고 다른 부분은 화면에 나옴.
 										--%> 
 								<!-- ------------------------------------------------------------------------------------------------------------------- -->
-								 		<!-- <option value="all">모두검색 -->
+								 		<option value="all">모두검색
 								 		<c:forEach items="${businessNoList}" var="businessNoList">
 											
 												<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
@@ -749,12 +961,31 @@
 				
 				</div>
 				<br><br>
-
-					 <div class="panel-body">
+				<c:set var="changeBusinessNo" value="${all}" />
+					<%-- <c:if test="${changeBusinessNo eq 'all'}"> --%>
+					<!-- <div class="panel-body"> -->
+			 			<div class="allBusinessNoChart">
 				         <br><br><br>
-				          <script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script> 
+				          <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
+				         <br>
+				         [가게별 월매출]<br>
+				        <%--  ${changeBusinessNo} --%>
+				         <br><br>
+				         <div id="allChart_div" name="allChart_div" style="width: 900px; height: 500px;"></div>
+		
+		
+				 		<br>    
+				         </div>
+					<%-- </c:if> --%>
+					
+					<%-- <c:if test="${changeBusinessNo ne 'all'}"> --%>
+					<!--  <div class="panel-body"> -->
+					<div class="BusinessNoChart">
+				         <br><br><br>
+				          <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
 				         <br>
 				         [월매출]<br>
+				        <%--  ${changeBusinessNo} --%>
 				         <br><br>
 				         <div id="chart_div1" style="width: 900px; height: 500px;"></div>
 		
@@ -785,13 +1016,13 @@
 				    	 <div id="chart_div2" style="width: 300px; height: 200px;"></div> -->
 	   				</div>
 	   				
-	   				 <div class="panel-body">
+	   				 <div class="BusinessNoChart">
 
 
 				         <br><br><br>
-				          <script>var today = new Date(); document.write( today.getFullYear() + "년 분석현황" ) </script> 
+				          <!-- <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
 				         <br>
-				         [월매출]<br>
+				         [월매출]<br> -->
 				         <br><br>
 				         
 				         
@@ -818,7 +1049,7 @@
 	          		<br>
 	          		<br>
 	   				</div>
-	   				
+	   				<%-- </c:if> --%>
 	         	
 	         	
 	         	</div>

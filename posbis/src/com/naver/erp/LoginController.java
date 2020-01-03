@@ -45,6 +45,20 @@ public class LoginController {
 
 	}
 	
+	//로그인 전에 소개글로 가기
+	@RequestMapping(value = "/beforeSignIntroForm.do")
+	public ModelAndView beforeSignIntroForm() { // 메소드 이름은 상관 없음.
+		System.out.println("main");
+		// [ModelAndView 객체] 생성.
+		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+		// [ModelAndView 객체] 리턴하기
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("beforeSignIntroForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49
+											// 줄이 접두사 , 접미사 설정이 되어있음.
+		return mav;
+
+	}
+	
 	
 	// -----------------------------------------------------------------------------
 		// 아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기
@@ -279,8 +293,22 @@ public class LoginController {
 		return mav;
 
 	}
+	// -----------------------------------------------------------------------------
+		// 회원가입 후 결제창 
 	
 	
+	@RequestMapping(value = "/joinPayForm.do")
+	public ModelAndView joinPayForm() { // 메소드 이름은 상관 없음.
+		System.out.println("main");
+		// [ModelAndView 객체] 생성.
+		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+		// [ModelAndView 객체] 리턴하기
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("joinPayForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49
+											// 줄이 접두사 , 접미사 설정이 되어있음.
+		return mav;
+
+	}
 	
 	
 	// -----------------------------------------------------------------------------
@@ -387,69 +415,69 @@ public class LoginController {
 
 	
 	
+	
 //---------------------------------------------------------------------------------------------------	
-	
-	
-
-	@RequestMapping(value = "/withdrawalForm.do")
-	public ModelAndView withdrawalForm(HttpSession session) { // 메소드 이름은 상관 없음.
-
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("withdrawalForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에
-												// 46~49 줄이 접두사 , 접미사 설정이 되어있음.
 		
-		
-		String rank_code = (String)session.getAttribute("rank_code");
-		String user_id = (String)session.getAttribute("user_id");
-		mav.addObject("rank_code",rank_code);
-		mav.addObject("user_id",user_id);
-		return mav;
+		//성유진------------------------------------------------
 
-	}
-	
-	// -----------------------------------------------------------------------------
-	// ajax를 통해 아이디 암호 맞는 사용자 삭제하기
-	@RequestMapping(value = "/withdrawalProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
-	@ResponseBody
-	public int withdrawalProc(
-			@RequestParam(value = "user_id") String user_id,
-			@RequestParam(value = "user_pwd") String user_pwd
-		) 
-	{
+		@RequestMapping(value = "/withdrawalForm.do")
+		public ModelAndView withdrawalForm(HttpSession session) { // 메소드 이름은 상관 없음.
 
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_id", user_id);
-		map.put("user_pwd", user_pwd);
+			// [ModelAndView 객체] 생성.
+			// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+			// [ModelAndView 객체] 리턴하기
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("withdrawalForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에
+													// 46~49 줄이 접두사 , 접미사 설정이 되어있음.
+			
+			
+			String rank_code = (String)session.getAttribute("rank_code");
+			String user_id = (String)session.getAttribute("user_id");
+			mav.addObject("rank_code",rank_code);
+			mav.addObject("user_id",user_id);
+			return mav;
 
-		int deleteUserInfoCnt = 0;
-
-		System.out.println("user_id = " + user_id);
-		System.out.println("user_pwd = " + user_pwd);
-
-		try {
-			System.out.println("실행전");
-			deleteUserInfoCnt = this.loginService.deleteUserInfo(map);
-
-			System.out.println("실행후");
-
-		} catch (Exception e) {
-
-			System.out.println("<withdrawalProc 에러발생>");
-			System.out.println(e.getMessage());
-			deleteUserInfoCnt = -1;
 		}
+		
+		// -----------------------------------------------------------------------------
+		// ajax를 통해 아이디 암호 맞는 사용자 삭제하기
+		@RequestMapping(value = "/withdrawalProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+		@ResponseBody
+		public int withdrawalProc(
+				@RequestParam(value = "user_id") String user_id,
+				@RequestParam(value = "user_pwd") String user_pwd
+			) 
+		{
 
-		return deleteUserInfoCnt;
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("user_id", user_id);
+			map.put("user_pwd", user_pwd);
 
-	}
-	
+			int deleteUserInfoCnt = 0;
 
-	
-//--------------------------------------------------------------------------------------------------------	
+			System.out.println("user_id = " + user_id);
+			System.out.println("user_pwd = " + user_pwd);
 
+			try {
+				System.out.println("실행전");
+				deleteUserInfoCnt = this.loginService.deleteUserInfo(map);
+
+				System.out.println("실행후");
+
+			} catch (Exception e) {
+
+				System.out.println("<withdrawalProc 에러발생>");
+				System.out.println(e.getMessage());
+				deleteUserInfoCnt = -1;
+			}
+
+			return deleteUserInfoCnt;
+
+		}
+		
+		// 성유진 controller 끝
+		
+	//--------------------------------------------------------------------------------------------------------	
 	
 	//------------------------------------------------------------------------------------		
 	

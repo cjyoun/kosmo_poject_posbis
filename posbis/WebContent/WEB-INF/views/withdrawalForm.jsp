@@ -68,20 +68,43 @@
 
 
 <script>
- function goWithdrawalForm(){
-         alert("정말 탈퇴하시겠습니까?");
-         
-         alert($("[name=user_id]").val());
+	function checkWithdrawal(){
+		
+		if(is_empty("[name=user_pwd]")){
+			alert("비밀번호를 입력해주세요.");
+			$("[name=user_pwd]").focus();
+			return;
+		}
+		if(is_empty("[name=withdrawalReason]")){
+			alert("탈퇴사유를 선택해주세요.");
+			$("[name=withdrawalReason]").focus();
+			return;
+		}
+		exitPopup();	
+	}
+
+
+	function exitPopup(){
+	
+		if (confirm("정말 탈퇴하시겠습니까??") == true){
+			goWithdrawalForm();
+		}else{
+		    return;
+		}
+	}
+
+	function goWithdrawalForm(){
+
  //*************************************************************************************   
  //ajax를 통해 아이디 암호 맞는 사용자 삭제하기     
    		 $.ajax({ 
    			url : "/posbis/withdrawalProc.do"
 			, type : "post"
-			, data : $("[name=withdrawalform]").serialize()
+			, data : $("[name=withdrawalForm]").serialize()
 			, success : function(withdrawalCnt){
 				
 				if(withdrawalCnt == 1){
-					alert("탈퇴 완료 되었습니다.");
+					alert("탈퇴 완료 되었습니다. \n그동안 POSBIS 를 이용해주셔서 감사합니다.");
 					location.replace("/posbis/mainForm.do")
 				
 				}else if(withdrawalCnt==-1){
@@ -89,7 +112,7 @@
 						location.replace("/posbis/withdrawalForm.do")
 				
 				}else if(withdrawalCnt==0){
-						alert("아이디 비밀번호 확인 요청");
+						alert("입력하신 비밀번호가 일치하지 않습니다.");
 						location.replace("/posbis/withdrawalForm.do")
 				}else {
 					alert("서버쪽 DB 연동 실패!");
@@ -317,16 +340,16 @@
                  [회원탈퇴]
               </header>
               <div class="panel-body"> 
-                  <form name="withdrawalform" class="form-validate form-horizontal" id="feedback_form"  >
+                  <form name="withdrawalForm" class="form-validate form-horizontal" id="feedback_form"  >
                   
                   <div class="form-group"> 
                     <label for="cname" class="control-label col-lg-2">아이디 <span class="required">*</span></label>
                     <div class="col-lg-6">
-                        <input type="text" name="user_id" class="form-control" id="exampleInputEmail1"  >
+                        ${user_id}
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">암호 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2">비밀번호<span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="password"  name="user_pwd" class="form-control" id="exampleInputEmail1"  >
                       </div> 
@@ -337,19 +360,20 @@
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
                         <select name="withdrawalReason" size=1 class="form-control" id="exampleInputEmail1" > 
-			                  <option value="" selected> --선택요망--</option>
-			                  <option value="1">자신의 보물 1호는?</option>
-			                  <option value="2">졸업한 초등학교 이름은?</option>
-			                  <option value="3">어머니의 이름은?</option>
-			                  <option value="4">존경하는 인물은?</option>
+			                  <option value="" selected> ---- 탈퇴사유를 선택해주세요 ----</option>
+			                  <option value="1">컨텐츠 부족</option>
+			                  <option value="2">이용불편</option>
+			                  <option value="3">사용빈도수 낮음</option>
+			                  <option value="4">폐업</option>
 			             </select>
                       </div> 
                   </div>
                   
  
                   
-        
-                   <button class="btn btn-primary" type="button" value="탈퇴" onClick="goWithdrawalForm()"> 탈퇴 </button>&nbsp;&nbsp;
+        			<input type="text" name="user_id" value="${user_id}">
+        			<input type="text" name="u_no" value="${u_no}">
+                    <button class="btn btn-primary" type="button" value="탈퇴" onClick="checkWithdrawal()"> 탈퇴 </button>&nbsp;&nbsp;
  					<button class="btn btn-danger" type="button" value="최소" onClick="goMyPageForm()"> 취소 </button>
                 </form>
 

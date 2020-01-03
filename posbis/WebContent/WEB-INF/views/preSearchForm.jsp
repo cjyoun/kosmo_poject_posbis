@@ -57,10 +57,39 @@
   <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
   <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
  
+
+  <style>
+  .loginmaintaining {
+
+    display: inline-block;
+	color: #6c757d;
+    width: 21%;
+    
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+    text-align: left;
+
+	border-top:1px solid #eeeeee ;
+
+	border-left:1px solid #eeeeee ;
+
+    border-right:1px solid #eeeeee ;
+
+	border-bottom:1px solid #eeeeee ;
+
+    display: inline-block;
+    
+   background-color: #f5f8fd;
+
+}
+  
+  
+  </style>
  
-<title>PremiumSearch</title>
  
-</head>
  
 <script>
 
@@ -337,96 +366,99 @@
 </head>
 
 <body>
- 
-  <!--==========================
+   <!--==========================
   Header
   ============================-->
   <header id="header">
 
-    <div id="topbar">
-      <div class="container">
-        <div class="social-links">
-          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
+         <div id="topbar">
+           <div class="container">
+          
+           </div>
+         </div>
 
-    <div class="container">
+         <div class="container">
 
-      <div class="logo float-left">
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <h1 class="text-light"><a href="#intro" class="scrollto"><span>POSBIS</span></a></h1>
-        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-      </div>
-
-      <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li class="drop-down"><a href="">회사소개</a>
-            <ul>
-              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
-            </ul>
-          </li>
-           
-           <li class="drop-down"><a href="">마이페이지</a>
-            <ul>
-              <li><a onClick="goHomePageForm();">통합 관리</a></li>
-              <li><a onClick="goSalesForm();">매출 관리</a></li>
-              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
-   
-            </ul>
-          </li>
-           <li class="drop-down"><a href="">분석현황</a>
-            <ul>
-              <li><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li><a onClick="goPreChartForm();">차트관리</a></li>
-            </ul>
-          </li>
-           <li class="drop-down"><a href="">Q&A게시판</a>
-            <ul>
-              <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li><a onClick="goQstnForm();">목록보기</a></li>
-            </ul>
-          </li>    
+           <div class="logo float-left">
+             <!-- Uncomment below if you prefer to use an image logo -->
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+           </div>
+  
+          		<br>
+          		<div style="float:right" class= "loginmaintaining">
+    
+                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
+                        
+                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
+                          <div style="float:right" >
+                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
+ 
+                   </div>     
                 
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
-           <ul>
-           		
-              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
-            </ul>  
-          </li>     
-        
+                </div>
+                <br><br><br><br><br><br>
+           
+              
+
+           <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+            <ul>
+              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+            </ul>
+          </li>
+		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		            <ul>
+		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
+ 
+		            </ul>
+		          </li>
+           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
+            </ul>
+          </li>
+    
+           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
+            </ul>
+          </li>
+ 
  
         </ul>
       </nav><!-- .main-nav -->
-      
-    </div>
-  </header><!-- #header -->
-  
-   <!--==========================
+           
+         </div>
+       </header><!-- #header -->
+
+  <!--==========================
     Intro Section
   ============================-->
   <section id="intro" class="clearfix">
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>SEARCH<br> In <span>POBIS</span></h2>
+          <h2>PREMIUM</h2>
  
         </div>
-  
+  <!-- 
         <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/features-1.svg" alt="" class="img-fluid">
-        </div>
+          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
+        </div> -->
       </div>
 
     </div>
-  </section><!-- #intro -->
+  </section> 
+ 
+
   <!--==========================
 	검색관리
   ============================-->
@@ -441,19 +473,16 @@
               <li><i class="fa fa-home"></i><a href="index.html">분석현황</a></li>
               <li><i class="icon_documents_alt"></i>검색관리</li>
             </ol>
+            
 	  <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	프리미엄 검색
+                	<a href="">프리미엄 검색</a>
               </header>
-			<div class="panel-body"> 
-          			<div  class="form-group">
+     <div class="panel-body">
+         
+      <div class="container">
  
-  
-				 
-
-
-
 					<!--======================-->
 					<!------검     색        조      건-------------->
 					<!--======================-->
@@ -462,75 +491,52 @@
 					<form name="preSearchForm" method="post"
 						action="/posbis/preSearchForm.do">
 
-						<br> 
-						
-						<!-- 사업자 등록 번호 -->
-	<%-- 					
-						<select name="changeBusinessNo">
-							<option value="">사업자등록번호</option>
-							<c:forEach items="${businessNoList}" var="businessNoList">
-								<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
-								</option>
-							</c:forEach>
-						</select> 
- --%>						
-					 
- 
-	 
-							
-							<!--======================-->
-							<!-----------지역------------>
-							<!--======================-->
-			
-						<span class="help-block">지 역
-								<select name="addr_gu1">
-										<option value="">==구선택==</option>
-										<c:forEach items="${addrGu1List}" var="addrGu1">
-											<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
-										</c:forEach>
-								</select> &nbsp;
+			 
+							<table>
+								<tr>
+									<td><span class="help-block"> [지 &nbsp; &nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+									<td><select name="addr_gu1">
+												<option value="">----구선택----</option>
+												<c:forEach items="${addrGu1List}" var="addrGu1">
+													<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
+												</c:forEach>
+										  </select> &nbsp;
 								
-								<select name="addr_gu2">
-									<option value="">----구선택----</option>
-								</select>	
-							 
-							<!--======================-->
-							<!--------업종-------------->
-							<!--======================-->
-							<span class="help-block">업 종
-								 <select name="business_type_name1">
-										<option value="">==대분류==
-											<c:forEach items="${businessTypeName1List}"
-												var="businessTypeName1">
-												<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
-												</option>
-											</c:forEach>
-								</select> &nbsp; <select name="business_type_name2">
-										<option value="">==소분류==
-								</select> &nbsp;
-							
-							
-
-							<!--======================-->
-							<!------------매출----------->
-							<!--======================-->
-						<br> <span class="help-block">월매출(지난달 기준)
-						
-										<input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
-										<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20000이상</label>
-										<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50000이상 </label>
-										<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100000이상</label>
-					 
-						<br> 
-						<input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
-						<input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
+										<select name="addr_gu2">
+											<option value="">----구선택----</option>
+										</select>	
+								<tr>
+									<td><span class="help-block"> [업 &nbsp; &nbsp; 종]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+									<td> <select name="business_type_name1">
+												<option value="">----대분류----
+													<c:forEach items="${businessTypeName1List}"
+														var="businessTypeName1">
+														<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
+														</option>
+													</c:forEach>
+									   	</select> &nbsp; 
+										<select name="business_type_name2">
+												<option value="">----소분류----
+										</select> &nbsp;
+								<tr>
+									<td><span class="help-block">[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</span>
+									<td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
+															<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20,000이상</label>
+															<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50,000이상 </label>
+															<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100,000이상</label>
+								<tr>
+									<td>
+									<td> <input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
+										 <input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
+							</table>
 						 <br><br>
 						
 						
 						  <div class="col-sm-12" align="center">
 						 
-				  <table class="table table-striped table-advance table-hover" id="select">
-							<tr>
+				  <table class="table table-striped table-advance table-hover"  id="select">
+							 <thead>
+                  				<tr>
 								<td align=right>
 									<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
 									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
@@ -547,7 +553,7 @@
 										<option value="30">30
 									</select> 행보기
 						</table>
-			
+						
 			
 					
 						<input type="hidden" name="selectPageNo">		
@@ -559,16 +565,16 @@
 					
 					
 					<!-- 페이징 번호 삽입할 span 태그 선언 -->
-					<div>&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-					<table><tr height=10><td></table>
-
+					<div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+				 
 
 					<!--======================-->
 					<!--======검색결과=======-->
 					<!--======================-->
 					<form name="preResultForm">
-						  <table class="table table-striped table-advance table-hover" id="select">
-							<tr bgcolor="gray">
+						  <table class="table table-striped table-advance table-hover"  id="select">
+							  <thead>
+                				<tr>
 								<th> 순서 
 								
 							<!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
@@ -646,17 +652,19 @@
 												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)
 									</c:otherwise>
 								</c:choose>
-
+							     </tr>
+			                </thead>
+			            <tbody>
 
 
 							<c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
 							<tr>
-								<td align=center>${preResult.PAGINGRNUM}
-								<td align=center>${preResult.RANKING}
-								<td align=center class=month_sales>${preResult.MONTH_SALES}
-								<td align=center>${preResult.BUSINESS_TYPE}
-								<td align=center>${preResult.BEST_MENU_TYPE}
-								<td align=center>${preResult.ADDR_DONG}
+								<td >${preResult.PAGINGRNUM}
+								<td >${preResult.RANKING}
+								<td  align=center class=month_sales>${preResult.MONTH_SALES}
+								<td >${preResult.BUSINESS_TYPE}
+								<td  >${preResult.BEST_MENU_TYPE}
+								<td  >${preResult.ADDR_DONG}
 							</c:forEach>
 						</table>
 					</form>
@@ -679,11 +687,47 @@
 
 
 					<!--======================-->
-					<!-- 창업/소상공인 뉴스 -->
+					<!-- 창업/ 뉴스 -->
 					<!--======================-->
 					<form name="preTrendForm">
-						<b>[창업/소상공인 뉴스]</b>
+						<a href="">[창업/소상공인 뉴스]</a>
 					</form>
+					 <!--==========================
+      Services Section
+    ============================-->
+    <section id="services" class="section-bg">
+      <div class="container">
+
+        
+        <div class="row">
+
+         <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #eafde7;"><i class="ion-ios-speedometer-outline" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a href="https://www.semas.or.kr/web/main/index.kmdc">소상공인시장진흥공단</a></h4>
+              <p class="description">소상공인 육성, 전통시장과 상점가 지원 및 상권활성화를 구축하며 국민경제 활성화에 기여하는 준정부기관입니다.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #e1eeff;"><i class="ion-ios-world-outline" style="color: #2282ff;"></i></div>
+              <h4 class="title"><a href="http://www.sbiz.or.kr/sup/main.do">소상공인 마당</a></h4>
+              <p class="description">소상공인을 위한 맞춤형 서비스와 정보접근성을 향상시켜 창업 및 운영 관련정보를 다양한 방식으로 제공받을 수 있는 포털사이트입니다.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #ecebff;"><i class="ion-ios-clock-outline" style="color: #8660fe;"></i></div>
+              <h4 class="title"><a href="http://www.seoulsbdc.or.kr/main.do">소상공인 종합지원포털</a></h4>
+              <p class="description">창업준비부터 사업의 운영까지 맞춤컨설팅 제공 및 창업자금, 멘토링 등 소상공인의 경쟁력강화를 위한 포털 사이트입니다.</p>
+            </div>
+          </div>
+ 
+        </div>
+
+      </div>
+    </section><!-- #services -->
 		
     		</div>
         </div>

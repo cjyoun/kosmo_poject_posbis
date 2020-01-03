@@ -62,8 +62,12 @@ public class PreChartController {
 			// mav.addObject("boardListAllCnt" , boardListAllCnt);
 			System.out.println(businessNoList);
 			System.out.println("businessNoList.size()=>" + businessNoList.size());
-			System.out.println("businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no"));
+			//System.out.println("businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no"));
 
+			String all = "all";
+			mav.addObject("all",all);
+			
+			
 //==================================================================================================================================
 
 		} catch (Exception e) {
@@ -75,6 +79,67 @@ public class PreChartController {
 		return mav;
 
 	}
+	
+	
+	
+		// -------------------------------------------------------------------------------
+		// /preChartAllProc.do 로 접근하면 호출되는 메소드 선언.	사업자번호 선택 란이 모두 검색 일 때.
+		// -------------------------------------------------------------------------------
+
+		@RequestMapping(value = "/preChartAllProc.do" // 접속하는 클라이언트의 URL주소 설정
+		// , method=RequestMethod.POST // 접속하는 클라이언트의 파라미터값 전송.
+				, produces = "application/json;charset=UTF-8" // 응답할 데이터 종류는 json으로 설정.
+		)
+		@ResponseBody
+		public AllBusinessNoSalesChartListDTO preChartAllProc(
+				AllBusinessNoDTO allBusinessNoDTO
+				, AllBusinessNoSalesChartListDTO allBusinessNoSalesChartListDTO
+
+		) {
+
+			
+			System.out.println("============================preChartAllProc========================");
+			System.out.println(allBusinessNoDTO);
+			for(int i=0; i<allBusinessNoDTO.getAllBusinessNo().length; i++) {
+			System.out.println("business_no ===> " + allBusinessNoDTO.getAllBusinessNo()[i]);
+			}
+			
+			try {
+				System.out.println(allBusinessNoDTO.getAllBusinessNo().length);
+				// 사업자번호 갯수만큼 반복문을 돌려서 각 가게 마다의 매출 현황 뽑기.
+//				for(int i=0; i<allBusinessNoDTO.getAllBusinessNo().length; i++) {
+//					
+//					List<Map<String, String>> salesMonthList = this.preChartService.getSalesMonthList(allBusinessNoDTO.getAllBusinessNo()[i]);
+//					// 2019-12-31 리스트는 뽑아오는데 이 값들을 어디에 저장할 지 생각해야함.
+//					System.out.println("salesMonthList ===> " + salesMonthList);
+//				
+//					allBusinessNoSalesChartListDTO.setAllBusinessNoSalesMonthList(salesMonthList);		
+//					
+//				}
+				
+				List<Map<String, String>> allBusinessNoSalesMonthList = this.preChartService.getAllBusinessNoSalesMonthList(allBusinessNoDTO);
+
+				allBusinessNoSalesChartListDTO.setAllBusinessNoSalesMonthList(allBusinessNoSalesMonthList);
+				
+				for (int i = 0; i < allBusinessNoSalesMonthList.size(); i++) {
+					System.out.println("allBusinessNoSalesMonthList.get(\"allBusinessNoSalesMonthList\")=>" + allBusinessNoSalesMonthList.get(i));
+				}
+			} catch (Exception e) {
+				// try 구문에서 예외가 발생하면 실행할 구문 설정
+				System.out.println("e.getMessage()" + e.getMessage());
+				System.out.println("preChartProc <에러발생>");
+			}
+
+
+			return allBusinessNoSalesChartListDTO;
+
+		}	
+	
+	
+	
+	
+	
+	
 
 //********************************************************************************************************	
 // DTO에 [나의 가게 월별 매출] 과 [같은 동네, 같은 업종의 가게들 평균 월별 매출] 을 담아 리턴하기.

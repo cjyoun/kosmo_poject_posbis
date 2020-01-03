@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="common.jsp"%>
+ 
 <!DOCTYPE html>
  
 <html>
@@ -42,23 +43,42 @@
 </head>
 <script>
 
-         function goIntroForm(){
-            alert("소개글로 이동")
-            location.replace("/posbis/introForm.do")
+         function gobeforeSignIntroForm(){
+            //alert("소개글로 이동")
+            location.replace("/posbis/beforeSignIntroForm.do")
          }
 
 
          function goIdPwdSearchForm(){
-            alert("아이디/비밀번호 찾기 이동")
+            //alert("아이디/비밀번호 찾기 이동")
             location.replace("/posbis/findIdPwdForm.do")
          }
 
 
          function goJoinForm(){
-            alert("회원가입으로 이동")
+            //alert("회원가입으로 이동")
             location.replace("/posbis/joinForm.do")
          }
 
+         
+         $(document).ready(function() {
+        	 
+        	/*  $("[name=mainForm] .login").click(function(){
+        		 goLoginForm();
+        	 });
+        	  */
+        	 
+        	 inputData("[name=user_id]",'${cookie.admin_id.value}');
+        	 inputData("[name=user_pwd]",'${cookie.pwd.value}');
+        	 
+        	 <c:if test="${!empty cookie.user_id.value}">
+          	$('[name=is_login]').prop("checked",true);
+          	</c:if>
+          
+          
+        	 
+        	 
+         });
 //*************************************************************************************   
 //아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기           
          function goLoginForm(){
@@ -89,7 +109,7 @@
                , data : $("[name=mainForm]").serialize()
                , success : function(data){
                   if( data==1 ){
-                     alert("로그인 성공");
+                     //alert("로그인 성공");
                      location.replace("/posbis/homePageForm.do");
                   }
                    else if(data == 0) {
@@ -137,16 +157,16 @@
           <input type="password" class="form-control user_pwd" name="user_pwd" placeholder="Password">
         </div>
         <label class="checkbox checkbox-inline">
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me" name="is_login" value="y"> Remember me
         </label><br>
         
          <span class="pull-right"> <a onClick="goIdPwdSearchForm();">아이디 암호 찾기</a></span><br>
 		<br>
    
  
-        <button type="button" class="btn btn-primary btn-lg btn-block" onClick="goLoginForm();" >Login</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block login" onClick="goLoginForm();" >Login</button>
           <button type="button" class="btn btn-info btn-lg btn-block" onClick="goJoinForm();">Sign up</button>
-           <button type="button" class="btn btn-success btn-lg btn-block"  onClick="goIntroForm();">회사소개 바로가기</button>
+           <button type="button" class="btn btn-success btn-lg btn-block"  onClick="gobeforeSignIntroForm();">회사소개 바로가기</button>
  
  
       </div>

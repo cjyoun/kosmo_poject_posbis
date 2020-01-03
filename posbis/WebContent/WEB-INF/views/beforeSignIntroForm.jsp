@@ -38,93 +38,28 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
-  <style>
-  .loginmaintaining {
-
-    display: inline-block;
-	color: #6c757d;
-    width: 21%;
-    
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	
-    text-align: left;
-
-	border-top:1px solid #eeeeee ;
-
-	border-left:1px solid #eeeeee ;
-
-    border-right:1px solid #eeeeee ;
-
-	border-bottom:1px solid #eeeeee ;
-
-    display: inline-block;
-    
-   background-color: #f5f8fd;
-
-}
   
-  
-  </style> 
   <script>
-	//--------------------------------------------------------
+  
+//--------------------------------------------------------
   //로고 클릭시
     function goMainForm(){
        //alert("메인으로 이동");
        location.replace("/posbis/mainForm.do");
     }
 	
-	//회사소개-pobis 클릭시
-	
-	function goIntroForm(){
-       //alert("회사소개로 이동");
-       location.replace("/posbis/introForm.do");
-    }
-	
-	//마이페이지-매출관리
-   function goSalesForm(){
-       //alert("매출관리로 이동");
-       location.replace("/posbis/salesForm.do");
-    } 
-	//마이페이지-메뉴관리
-	function goMenuForm(){
-       //alert("메뉴관리로 이동");
-       location.replace("/posbis/menuForm.do");
-    }
-	//내정보관리-내정보 보기
-	function goMyPageForm(){
-        //alert("내정보 보기으로 이동");
-        location.replace("/posbis/myPageForm.do");
-     }
+ 
+    function goJoinForm(){
+	    alert("회원가입 페이지로 이동합니다. 감사합니다");
+	    location.replace("/posbis/joinForm.do");
 
-	//qna 게시판- 질문하기
-	function goqstnRegForm(){
-        //alert("질문하기으로 이동");
-        location.replace("/posbis/qstnRegForm.do");
-     }
-	//qna 게시판- 내글보기
-	 function goMyQstnForm(){
-        //alert("내글보기으로 이동");
-        location.replace("/posbis/myQstn.do");
-     }
-	//qna 게시판- 전체 질문보기
-	 function goQstnForm(){
-        //alert("전체 질문보기으로 이동");
-        location.replace("/posbis/qstnForm.do");
-     }
-	//통합 관리
-	 function goHomePageForm(){
-	    //alert("통합 관리으로 이동");
-	    location.replace("/posbis/homePageForm.do");
 	 }
-	//--------------------------------------------------------
+		
 
 	
 	function goMessageForm(){
 	    alert("건의사항이 접수 되었습니다. 감사합니다");
- 
+
 	 }
 			
 			
@@ -135,7 +70,7 @@
 </head>
 
 <body>
-   <!--==========================
+    <!--==========================
   Header
   ============================-->
   <header id="header">
@@ -153,26 +88,10 @@
              <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
-  
-          		<br>
-          		<div style="float:right" class= "loginmaintaining">
-    
-                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
-                        
-                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
-                          <div style="float:right" >
-                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
- 
-                   </div>     
-                
-                </div>
-                <br><br><br><br><br><br>
-           
-              
 
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+     <!--      <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
             <ul>
               <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
@@ -191,7 +110,7 @@
               <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
               <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
             </ul>
-          </li>
+          </li> 
     
            <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
             <ul>
@@ -200,33 +119,58 @@
            	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>
- 
+          
+          
+          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
+           <ul>
+           		
+              <li style="cursor:pointer" ><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
+           		<li style="cursor:pointer" ><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
+            </ul>  
+          </li>   -->  
+         <a onClick="goJoinForm();" style="cursor:pointer"><i class="icon_profile"></i>회원가입 하러 가기</a> 
+       
+           
+          
+        
  
         </ul>
       </nav><!-- .main-nav -->
            
          </div>
        </header><!-- #header -->
+  <main id="main">
 
+    <!--==========================
+      회사 소개
+    ============================-->
+    <br><br><br><section id="about">
 
-     <!--==========================
-    Intro Section
-  ============================-->
-  <section id="intro" class="clearfix">
-    <div class="container d-flex h-100">
-      <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>INTRODUCE</h2>
- 
+      <div class="container">
+        <div class="row">
+        
+
+        <!--   <div class="col-lg-5 col-md-6">
+            <div class="about-img">
+              <img src="resources/intro/img/why-us.jpg" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-7 col-md-6">
+            <div class="about-content">
+              <ul>
+                <li><b>홍보효과가 높은 곳에 홍보를 하고 싶은데 좋은 방법이 없을까?</b><br><i class="ion-android-checkmark-circle"></i> 내 점포 마케팅 분석</li>
+                <li><b>다른 업종으로 변경하고 싶은데 어떻게 알아보지?</b><br><i class="ion-android-checkmark-circle"></i> 업종 변경 분석</li>
+                <li><b>소상공인 지원 정보와 전문가에게 상답을 쉽게 받을 수 없을까?</b><br><i class="ion-android-checkmark-circle"></i> 소상공인지원 서비스</li>
+              </ul>
+            </div>
+          </div> -->
         </div>
-  <!-- 
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div> -->
       </div>
 
-    </div>
-  </section> 
+    </section><!-- #about -->
+
 
 <!--     ==========================
       Why Us Section

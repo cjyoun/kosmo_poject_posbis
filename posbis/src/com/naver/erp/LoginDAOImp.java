@@ -126,95 +126,21 @@ public class LoginDAOImp implements LoginDAO{
 	};
 	
 	//---------------------------------------------------------------------------------
-	//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
-	//---------------------------------------------------------------------------------
-	 
-	   public int deleteSalesBusi(Map<String, String> user_id_pwd) {
-	 
-	  System.out.println("1실행전"); 
-	  int deleteSalesBusiCnt=this.sqlSession.delete(
-			  "com.naver.erp.LoginDAO.deleteSalesBusi" 
-			  , user_id_pwd 
-		);
-	 System.out.println(deleteSalesBusiCnt); 
-	 System.out.println("1실행후"); 
-	 return deleteSalesBusiCnt; 
-	 };
-
-
-	public int deleteSalesMenu(Map<String, String> user_id_pwd) {
-		
-		System.out.println("2실행전");
-		int deleteSalesMenuCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deleteSalesMenu"
-				, user_id_pwd
-			);
-		System.out.println(deleteSalesMenuCnt);
-		System.out.println("2실행후");
-		return deleteSalesMenuCnt;
-	};
-	
-	public int deleteMenu(Map<String, String> user_id_pwd) {
-		
-		System.out.println("3실행전");
-		int deleteMenuCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deleteMenu"
-				, user_id_pwd
-			);
-		System.out.println(deleteMenuCnt);
-		System.out.println("3실행후");
-		return deleteMenuCnt;
-	};
-
-	public int deletebusinessInfo(Map<String, String> user_id_pwd) {
-		
-		System.out.println("4실행전");
-		int deletebusinessInfoCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deletebusinessInfo"
-				, user_id_pwd
-			);
-		System.out.println(deletebusinessInfoCnt);
-		System.out.println("4실행후");
-		return deletebusinessInfoCnt;
-	};
-
-	public int deleteCard(Map<String, String> user_id_pwd) {
-		
-		System.out.println("5실행전");
-		int deleteCardCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deleteCard"
-				, user_id_pwd
-			);
-		System.out.println(deleteCardCnt);
-		System.out.println("5실행후");
-		return deleteCardCnt;
-	};
-
-	public int deleteQna(Map<String, String> user_id_pwd) {
-		
-		System.out.println("6실행전");
-		int deleteQnaCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deleteQna"
-				, user_id_pwd
-			);
-		System.out.println(deleteQnaCnt);
-		System.out.println("6실행후");
-		return deleteQnaCnt;
-	};
-
- 
-	//------------------------------------------------
-	public int deleteUserInfo(Map<String, String> user_id_pwd) {
-		
-		System.out.println("7실행전");
-		int deleteUserInfoCnt=this.sqlSession.delete(
-				"com.naver.erp.LoginDAO.deleteUserInfo"
-				, user_id_pwd
-			);
-		System.out.println(deleteUserInfoCnt);
-		System.out.println("7실행후");
-		return deleteUserInfoCnt;
-	};
+		//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
+		//---------------------------------------------------------------------------------
+		// 성유진DAOImpl 
+		public int deleteUserInfo(Map<String, String> user_id_pwd) {
+			
+			System.out.println("7실행전");
+			int deleteUserInfoCnt=this.sqlSession.delete(
+					"com.naver.erp.LoginDAO.deleteUserInfo"
+					, user_id_pwd
+				);
+			System.out.println(deleteUserInfoCnt);
+			System.out.println("7실행후");
+			return deleteUserInfoCnt;
+		};
+		// 성유진DAOImpl 끝
 	
 	
 	//---------------------------------------------------------------------------------

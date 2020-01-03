@@ -337,7 +337,7 @@
                            
                         }else{
                               alert("회원가입 완료 결제창으로 이동합니다!");
-                              location.replace('/posbis/payForm.do');
+                              location.replace('/posbis/joinPayForm.do');
                               
                            }
                      }
@@ -428,7 +428,7 @@
       }  /* function checkBusinessNo(){ */
  
 //--------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------
+ 
 	   //로고 클릭시
 	     function goMainForm(){
 	        //alert("메인으로 이동");
@@ -437,60 +437,12 @@
 		
 		//회사소개-pobis 클릭시
 		
-		function goIntroForm(){
+		function gobeforeSignIntroForm(){
 	        //alert("회사소개로 이동");
-	        location.replace("/posbis/introForm.do");
+	        location.replace("/posbis/beforeSignintroForm.do");
 	     }
 		
-		//마이페이지-매출관리
-	    function goSalesForm(){
-	        //alert("매출관리로 이동");
-	        location.replace("/posbis/salesForm.do");
-	     } 
-		//마이페이지-메뉴관리
-		function goMenuForm(){
-	        //alert("메뉴관리로 이동");
-	        location.replace("/posbis/menuForm.do");
-	     }
-		//분석현황-검색관리
-		function goPreSearchForm(){
-	        //alert("검색관리로 이동");
-	        location.replace("/posbis/preSearchForm.do");
-	     }
-		//분석현황-차트관리
-		function goPreChartForm(){
-	        //alert("차트관리로 이동");
-	        location.replace("/posbis/preChartForm.do");
-	     }
-		//내정보관리-내정보 보기
-		function goMyPageForm(){
-	        //alert("내정보 보기으로 이동");
-	        location.replace("/posbis/myPageForm.do");
-	     }
-
-		//qna 게시판- 질문하기
-		function goqstnRegForm(){
-	        //alert("질문하기으로 이동");
-	        location.replace("/posbis/qstnRegForm.do");
-	     }
-		//qna 게시판- 내글보기
-		 function goMyQstnForm(){
-	        //alert("내글보기으로 이동");
-	        location.replace("/posbis/myQstn.do");
-	     }
-		//qna 게시판- 전체 질문보기
-		 function goQstnForm(){
-	        //alert("전체 질문보기으로 이동");
-	        location.replace("/posbis/qstnForm.do");
-	     }
-
-		//통합 관리
-		 function goHomePageForm(){
-		    //alert("통합 관리으로 이동");
-		    location.replace("/posbis/homePageForm.do");
-		 }
-		//--------------------------------------------------------
-
+		 
 		
 		function goMessageForm(){
 		    alert("건의사항이 접수 되었습니다. 감사합니다");
@@ -499,69 +451,38 @@
 </script>
 
 <body>
-  <!--==========================
+    <!--==========================
   Header
   ============================-->
   <header id="header">
 
-    <div id="topbar">
-      <div class="container">
-        <div class="social-links">
-          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-        </div>
-      </div>
-    </div>
+         <div id="topbar">
+           <div class="container">
+          
+           </div>
+         </div>
 
-    <div class="container">
+         <div class="container">
 
-      <div class="logo float-left">
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
-        <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-      </div>
+           <div class="logo float-left">
+             <!-- Uncomment below if you prefer to use an image logo -->
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
+           </div>
 
-      <nav class="main-nav float-right d-none d-lg-block">
+           <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li class="drop-down"><a href="">회사소개</a>
+          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
             <ul>
-              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+              <li style="cursor:pointer" onClick="gobeforeSignIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
           </li>
-           
-         <li class="drop-down"><a href="">마이페이지</a>
-            <ul>
-              <li><a onClick="goHomePageForm();">통합 관리</a></li>
-              <li><a onClick="goSalesForm();">매출 관리</a></li>
-              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
-   
-            </ul>
-          </li>
- 
-           <li class="drop-down"><a href="">분석현황</a>
-            <ul>
-              <li><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li><a onClick="goPreChartForm();">차트관리</a></li>
-            </ul>
-          </li>
- 
- 
-           <li class="drop-down"><a href="">Q&A게시판</a>
-            <ul>
-              <li><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li><a onClick="goQstnForm();">목록보기</a></li>
-            </ul>
-          </li>  
- 
+
         </ul>
       </nav><!-- .main-nav -->
-      
-    </div>
-  </header><!-- #header -->
+           
+         </div>
+       </header><!-- #header -->
 
   <!--==========================
     Intro Section
@@ -570,13 +491,11 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Business<br>Bank In <span>Sign up</span></h2>
+          <h2>SIGN&nbsp;&nbsp;UP</h2>
  
         </div>
   
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div>
+      
       </div>
 
     </div>
@@ -604,7 +523,7 @@
           <div class="col-lg-8">
             <section class="panel">
               <header class="panel-heading">
-                 [회원가입]
+                 <a href="">[회원가입]</a>
               </header>
               
               <div class="panel-body">

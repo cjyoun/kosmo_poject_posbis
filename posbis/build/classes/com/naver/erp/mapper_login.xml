@@ -109,35 +109,11 @@
    </insert>
 <!--********************************************************************-->
 <!--탈퇴시 아이디 암호 조회 및 삭제  -->
-<!-- 1 -->  
-	 <delete id="deleteSalesBusi" parameterType="hashmap" >
-	delete from sales where business_no in (select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd}))
-	
-	</delete>  
-	
-	<!-- <delete id="deleteSalesMenu" parameterType="hashmap" >
-	delete from sales where menu_no=(select menu_no from menu where business_no=(select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd})))
-	</delete>   -->
-	
-	<delete id="deleteMenu" parameterType="hashmap" >
-	delete from menu where business_no in (select business_no from business_info where u_no=(select u_no from user_info where user_id=#{user_id} and user_pwd=#{user_pwd}) )
-	</delete>  
-	
-	<delete id="deletebusinessInfo" parameterType="hashmap" >
-	delete from business_info where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
-	</delete>  
-	
-	<delete id="deleteCard" parameterType="hashmap" >
-	delete from card where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
-	</delete>  
-	
-	<delete id="deleteQna" parameterType="hashmap" >
-	delete from qna where u_no in (select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
-	</delete>  
-	
+<!-- 성유진 mapper -->
 	<delete id="deleteUserInfo" parameterType="hashmap" >
 	delete from user_info where u_no=(select u_no from  user_info where user_id=#{user_id} and user_pwd=#{user_pwd})
-	</delete>  
+	</delete> 
+<!-- 성유진 mapper 끝 --> 
 
 
 <!--********************************************************************-->

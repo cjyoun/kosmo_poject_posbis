@@ -471,12 +471,12 @@
 				 <div class="col-lg-6">
 				<c:choose >
 					<c:when test="${menuDTO.menu_using == 'Y'}">
-						<input type ="radio" id="menu_using_y" name="menu_using" value="Y" checked ><label for="menu_using_y">Y</label>
-						<input type ="radio" id="menu_using_n" name="menu_using" value="N"><label for="menu_using_n">N</label>
+						<input type ="radio" id="menu_using_y" name="menu_using" value="Y" checked ><label for="menu_using_y">사용</label>
+						<input type ="radio" id="menu_using_n" name="menu_using" value="N"><label for="menu_using_n">미사용</label>
 					</c:when>
 					<c:otherwise>
-						<input type ="radio" id="menu_using_y" name="menu_using" value="Y"><label for="menu_using_y">Y</label>
-						<input type ="radio" id="menu_using_n" name="menu_using" value="N" checked><label for="menu_using_n">N</label>
+						<input type ="radio" id="menu_using_y" name="menu_using" value="Y"><label for="menu_using_y">사용</label>
+						<input type ="radio" id="menu_using_n" name="menu_using" value="N" checked><label for="menu_using_n">미사용</label>
 					</c:otherwise>
 				</c:choose>
 			</div>

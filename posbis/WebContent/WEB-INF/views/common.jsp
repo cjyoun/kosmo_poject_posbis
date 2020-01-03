@@ -36,7 +36,7 @@
 
 /* $("body").prepend("<div style='position:relative; left:85%; top:15%;'><table border=1 cellspacing=0 cellpadding=5><tr><td rowspan='2'>${rank_code}<td colspan='2'>${user_name}<tr><td><input type=button value='내 정보' onClick=\"location.replace('/posbis/myPageForm.do')\"><td><input type=button value='로그아웃' onClick=\"location.replace('/posbis/mainForm.do')\"></table></div>") */
 	
-	
+ 
 	
 	$("body").prepend("<div><table border=1 cellspacing=0 cellpadding=5><tr><td rowspan='2'>${rank_code}<td colspan='2'>${user_name}<tr><td><input type=button value='내 정보' onClick=\"location.replace('/posbis/myPageForm.do')\"><td><input type=button value='로그아웃' onClick=\"location.replace('/posbis/mainForm.do')\"></table></div>")
 

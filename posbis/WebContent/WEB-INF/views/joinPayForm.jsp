@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="common.jsp"%>
+    <%@ include file="common.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Rapid Bootstrap Template</title>
+ 
+  <title>메인</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -29,10 +29,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="resources/intro/css/style.css" rel="stylesheet">
-  
-  
-  
-  
+
    <!-- Bootstrap CSS -->
   <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
@@ -57,97 +54,50 @@
   <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
   <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
   
-  
+  <link rel="stylesheet" type="text/css" href="resources/intro/css/util.css">
  
-  <style>
-  .loginmaintaining {
-
-    display: inline-block;
-	color: #6c757d;
-    width: 21%;
-    
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
-	
-    text-align: left;
-
-	border-top:1px solid #eeeeee ;
-
-	border-left:1px solid #eeeeee ;
-
-    border-right:1px solid #eeeeee ;
-
-	border-bottom:1px solid #eeeeee ;
-
-    display: inline-block;
-    
-   background-color: #f5f8fd;
-
-}
-  
-  
-  </style>
-
- 
-<!-- ------------------------------------------------------------------ -->
-<!-- 만약에 상세보기할 게시판 글이 없으면 경고 후 이전 화면으로 이동하기-->
-<!-- ------------------------------------------------------------------ -->
-  <c:if test="${empty qstnDTO}">
-	<script>
-		alert("게시판 글이 삭제되었습니다.");
-		location.replace("/posbis/qstnForm.do")
- 
-	</script>
-</c:if>
- 
- 
-   <title> 게시판 상세 보기 </title>
-     <script>
    
-      // 게시판 수정 화면으로 이동하는 함수 선언
-      function goQstnUpDelForm(){
-         // name=qstnUpDelForm 을 가진 form 태그의 action 값을 URL로 서버에 접속하라
-         document.qstnUpDelForm.submit();
+  <!-- =======================================================
+    Theme Name: Rapid
+    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+  
+  
+  
+ 
+   <script> 
+ 
+   function goMyPageForm(){
+       alert($("[name=payForm]").serialize());
+
+       $.ajax({ 
+           url : "/posbis/payProc.do"
+           ,type : "post"   
+           ,data : $("[name=payForm]").serialize()
+          , success : function(insertCard) {
+             
+
+				if(insertCard == 1){
+					alert("카드가 정상적으로 등록되었습니다.\n 프리미엄회원으로 정상처리 되었습니다 \n 로그인을 다시 해주세요.");
+					location.replace("/posbis/mainForm.do");
+				}
+				
+				else {
+					alert("서버 오류 발생. 관리자에게 문의 바람");
+				} 
+              
+          }, error : function(){
+             alert("서버 접속 실패");
+            }
+     });
+   }      
+   
+      function goMainForm(){
+         alert("결제가 취소 되었습니다.");
+       	 location.replace("/posbis/mainForm.do");
       }
-      
-      // 게시판 답글 화면으로 이동하는 함수 선언
-      function goQstnRegForm(){
-               
-
-
-
-         $.ajax({
-              // 접속할 서버 쪽 URL 주소 설정
-              url : "/posbis/qstnMasterRegProc.do"
-              // 전송 방법 설정
-              , type : "post"
-              // 서버로 보낼 파라미터명과 파라미터값을 설정
-              , data : $("[name=qstnContentForm]").serialize()
-              // 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
-              // 매개변수 masterCnt 에는 입력 행의 개수가 들어온다.
-              , success : function(masterCnt){
-                 // 관리자 계정의 개수가 1개면(=insert가 한번 성공했다는 뜻)
-                 if(masterCnt == 1){
-                    document.qstnRegForm.submit();
-                 }
-                 // 관리자 계정의 개수 1개가 아니면 경고하기
-                 else{
-                    alert("관리자의 권한이 필요합니다.");
-                    return;
-                 }
-              }
-              // 서버의 응답을 못받았을 경우 실행할 익명함수 설정.
-              , error : function(){
-                 alert("서버 접속 실패");
-              }
-           });
-      }
-      
-      function goQstnForm(){
-        location.replace("/posbis/qstnForm.do");
-     }
       
       
     //--------------------------------------------------------
@@ -164,16 +114,13 @@
 	        location.replace("/posbis/introForm.do");
 	     }
 		
-		//마이페이지-매출관리
-	    function goSalesForm(){
-	        //alert("매출관리로 이동");
-	        location.replace("/posbis/salesForm.do");
-	     } 
-		//마이페이지-메뉴관리
-		function goMenuForm(){
-	        //alert("메뉴관리로 이동");
-	        location.replace("/posbis/menuForm.do");
-	     }
+		//회사소개-pobis 클릭시
+   		
+   		function goIntroForm(){
+   	        //alert("회사소개로 이동");
+   	        location.replace("/posbis/introForm.do");
+   	     }
+	 
 		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
    		function goPreSearchForm(){
    	        //alert("검색관리로 이동");
@@ -207,53 +154,18 @@
 	             }
 	         }
    	     }
-		//내정보관리-내정보 보기
-		function goMyPageForm(){
-	        //alert("내정보 보기으로 이동");
-	        location.replace("/posbis/myPageForm.do");
-	     }
-
-		//qna 게시판- 질문하기
-		function goqstnRegForm(){
-	        //alert("질문하기으로 이동");
-	        location.replace("/posbis/qstnRegForm.do");
-	     }
-		//qna 게시판- 내글보기
-		 function goMyQstnForm(){
-	        //alert("내글보기으로 이동");
-	        location.replace("/posbis/myQstn.do");
-	     }
-		//qna 게시판- 전체 질문보기
-		 function goQstnForm(){
-	        //alert("전체 질문보기으로 이동");
-	        location.replace("/posbis/qstnForm.do");
-	     }
 		 
-		//통합 관리
-		 function goHomePageForm(){
-		    //alert("통합 관리으로 이동");
-		    location.replace("/posbis/homePageForm.do");
-		 }
-		//--------------------------------------------------------
-
-		
 		function goMessageForm(){
 		    alert("건의사항이 접수 되었습니다. 감사합니다");
 	 
 		 }
- 	
-      
    </script>
-    
-    
-    
-     
-    
-    
-</head>
 
+   </head>
+
+ 
 <body>
-   <!--==========================
+     <!--==========================
   Header
   ============================-->
   <header id="header">
@@ -271,22 +183,6 @@
              <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
-  
-          		<br>
-          		<div style="float:right" class= "loginmaintaining">
-    
-                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
-                        
-                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
-                          <div style="float:right" >
-                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
- 
-                   </div>     
-                
-                </div>
-                <br><br><br><br><br><br>
-           
-              
 
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
@@ -295,31 +191,7 @@
               <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
           </li>
-		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
-		            <ul>
-		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
- 
-		            </ul>
-		          </li>
-           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
-            </ul>
-          </li>
-    
-           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
-            </ul>
-          </li>
- 
- 
+
         </ul>
       </nav><!-- .main-nav -->
            
@@ -333,146 +205,136 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Q&A</h2>
+          <h2>SIGN&nbsp;&nbsp;UP</h2>
+ 
  
         </div>
-  <!-- 
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div> -->
+   
       </div>
 
     </div>
   </section> 
+
+   
+
+    <!--==========================
+      	결제창
+    ============================-->   
+  <main id="main">
  
-
-  
  
-<!--==========================
-   글 상세보기
-    ============================-->
-  
-  
-  <br><br><br><br><br><br><br>
-<!--     <section id="intro" class="clearfix">
-    <div class="container d-flex h-100">
-      <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Business<br>Bank In <span>Seoul!</span></h2>
-          <div>
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
-          </div>
-        </div>
-  
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div>
-      </div>
-
-    </div>
-  </section> -->
-
- 
-
-<main id="main">
-   <section id="main-content">
-   <section class="wrapper">
-     <div class="row">
-           <div class="col-lg-10" align="center">
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-10"><br><br>
             <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">Q&A게시판</a></li>
-              <li><i class="fa fa-user-md"></i>내글보기</li>
-              <li><i class="fa fa-user-md"></i>글상세보기</li>
-            </ol>
+              <li><i class="fa fa-home"></i><a href="index.html">회원가입</a></li>
+              <li><i class="fa fa-user-md"></i>프리미엄 회원 결제</li>
+             </ol>
           </div>
         </div>
-     <div class="col-lg-10" align="center">
+ 
+      <div class="row">
+      
+          <div class="col-lg-8">
             <section class="panel">
               <header class="panel-heading">
-                	    <a href="">Q&A 게시판</a>
+                 <a href="">[결제창]</a>
               </header>
-              <div class="panel-body">
+              <div class="panel-body"> 
+                  <form name = "payForm" class="form-validate form-horizontal payForm" id="feedback_form"  >
  
+                  <div class="form-group"> 
+                    <label for="cname" class="control-label col-lg-2">카드종류 <span class="required">*</span></label>
+                     <div class="col-lg-2">
+                     <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                        
+                        <select name="credit"  size=1 class="form-control credit"  > 
+                          <option value="" selected> --선택요망--</option>
+		                  <option value="BC">BC카드</option>
+		                  <option value="SHINHAN">신한카드</option>
+		                  <option value="KB">국민카드</option>
+		                  <option value="SAMSUNG">삼성카드</option>
+		                  <option value="HYUNDAI">현대카드</option>
+		                  <option value="LOTTE">롯데카드</option>
+		                  <option value="HANA_SK">하나카드</option>
+		                  <option value="NH">농협카드</option>
+		                  <option value="CITY">씨티카드</option>
+		                  <option value="KakaoBank">카카오뱅크카드</option>
+		                  <option value="K bank">케이뱅크카드</option>
+		                  <option value="JEONBUK">전북은행카드</option>
+		                  <option value="COMMUNITY_CREDIT_COOPERATIVES">새마을금고카드</option>
+		                  <option value="ETC">기타(은행/증권)카드</option>
+ 
+ 
+                      </select>
+                      
+                      
+                      </div>
+              
+                  </div>
+                   
+                  <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">카드번호 <span class="required">*</span></label>
+                    <div class="col-lg-2">
+                        <input type="text"  name="creditNum1" size=4 maxlength=4 class="form-control" placeholder="4자리"   >
+ 
+                      </div>
+                       <div class="col-lg-2">
+                        <input type="text"  name="creditNum2" size=4 maxlength=4 class="form-control creditNum2" placeholder="4자리"     >
+ 
+                      </div> 
+                       <div class="col-lg-2">
+                        <input type="text"  name="creditNum3" size=4 maxlength=4 class="form-control creditNum3"  placeholder="4자리"    >
+ 
+                      </div> 
+                      <div class="col-lg-2">
+                        <input type="password"  name="creditNum4" size=4 maxlength=4 class="form-control creditNum4" placeholder="4자리"    >
+ 
+                      </div> 
+                  </div>
+                  
+                   <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">유효기간 <span class="required">*</span></label>
+                    <div class="col-lg-2">
+                        <input type="text" name="ex_month" size=2 maxlength=2  placeholder="mm" class="form-control exdate1"  >
+                      </div> 
+                      <div class="col-lg-2">
+                        <input type="text" name="ex_year" size=2 maxlength=2  placeholder="yy" class="form-control exdate2"  >
+                      </div> 
+ 
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">주민번호 <span class="required">*</span></label>
+          		
+          		 <div class="col-lg-2">
+          		<input type="text" name="jumin_no" size=5 maxlength=6  class="form-control creditpwd" >
+          		</div>&nbsp;-&nbsp;*******
+          			</div>
+          			<br>
+                      <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">비밀번호 <span class="required">*</span></label>
+                    <div class="col-lg-2">
+                        <input type="password" name="credit_pwd"   placeholder="앞 2자리" class="form-control creditpwd"  size=3 maxlength=2 >
+                      </div>** 
+ 
+ 
+                  </div>
+   
+        		<div style="float:right">
+                <button class="btn btn-success" type="button" value="등록" onClick="goMyPageForm();">등록 </button>
+                <button class="btn btn-danger" type="button" value="취소" onClick="goMainForm()">취소 </button>
+                </div>
+                </form>
 
-      <div class="container">
 
-
-<form class=qstnContentForm  name="qstnContentForm"  method="post" action="/posbis/qstnRegForm.do">
-      <input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
-   <div class="row">
-          <div class="col-sm-6">
-            <section class="panel">
-              <header class="panel-heading no-border">
-               글 상세보기
-              </header>
-              <table class="table table-bordered" align=>
-                  <tr align=center>
-                    <th width=60>글번호</th>
-                    <td width=150>${qstnDTO.qna_no}
-                    <th width=60>조회수</th>
-                    <td width=150>${qstnDTO.readcount}
-                  </tr>
-                  <tr align=center>
-                    <th width=60>작성자
-                    <td width=150>${qstnDTO.user_id}
-                    <th width=60>작성일
-                    <td width=150>${qstnDTO.qna_date}
-                  </tr>
-                  <tr>
-                    <th>글제목
-                    <td width=150 colspan=3>${qstnDTO.subject}
-                  </tr>
-                  <tr>
-                    <th>글내용
-                    <td width=150 colspan=3>
-                     <textarea name="content" rows="13" cols="45" style="border:0" readonly>${qstnDTO.content}</textarea>
-              </table>
+              </div>
             </section>
           </div>
-          
-   </div>  
-             
-    <div style="float:center">   
-      <button class="btn btn-info" type="button" value="답글쓰기" onClick="goQstnRegForm();">답글쓰기</button>
-      <button class="btn btn-danger" type="button" value="수정/삭제" onClick="goQstnUpDelForm();">수정/삭제</button>
-      <button class="btn btn-primary" type="button" value="목록보기" onClick="document.qstnForm.submit();">목록보기</button>
     </div>
-       <input type="hidden" name="user_id" value="${user_id}">
-   </form> 
-          
-<!--       <input type="button" value="답글쓰기" onClick="goQstnRegForm();">&nbsp;
-      <input type="button" value="수정/삭제" onClick="goQstnUpDelForm();">&nbsp;
-      <input type="button" value="목록보기" onClick="document.qstnForm.submit();">
-    
-       <input type="text" name="user_id" value="master40">
-   </form>  -->
-   
-   
-     <form name="qstnForm" method="post" action="/posbis/qstnForm.do">
-   
-   </form>
-   
-   <!--**************************************************-->
-   <!--  수정/삭제 화면으로 이동하기 위한 form 태그 선언 -->
-   <!--**************************************************-->
-   <form name="qstnUpDelForm" method="post" action="/posbis/qstnUpDelForm.do">
-          <!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
-          <!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야 하기 떄문 -->
-          <input type="hidden" name="qna_no" value="${param.qna_no}">
-          <input type="hidden" name="selectPageNo" value="${param.selectPageNo}">
-          <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}">
-   </form>
-   <!--**************************************************************************-->
-   <!-- 이전 페이지에서 온 게시판 선택 페이지 번호를 지정한 hidden 태그 출력하고 -->
-   <!-- [게시판 목록] 화면으로 이동하는 form 태그 선언 ---------------------------->
-   <!--**************************************************************************-->
-   <form name="qstnRegForm" method="post" action="/posbis/qstnRegForm.do">
-      <!-- 게시판 상세보기 화면을 구성하는 글의 [고유번호]를 hidden 태그에 저장 -->
-      <!-- 댓글을 달려면 주인 글의 고유번호를 알아야 하기 때문 -->
-      <input type="hidden" name="qna_no" value="${param.qna_no}">
-   </form>
-   
-  </main>
+ </section>
+</section>
 <!--==========================
     꼬리말
   ============================-->
