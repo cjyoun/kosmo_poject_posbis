@@ -312,5 +312,42 @@
 
 	</select>
 		
+		
+<!-- ==================================================김수민========================================================= -->
+		
+<insert id='insertBusi' parameterType="com.naver.erp.BusiInfoDTO">
+  insert into business_info(
+          business_no
+          ,u_no         
+          ,business_name 
+          ,addr_no
+          ,addr_detail
+          ,business_type_code
+          ,store_tel_num 
+ 
+	)values (
+          #{business_no}
+          ,(select u_no from user_info where u_no=#{u_no}) 
+          ,#{business_name}
+          ,(select addr_no from addr where addr_no = (select addr_no from addr where addr_gu=#{addr_gu} and addr_dong=#{addr_dong}))
+          ,#{addr_detail} 
+          ,(select distinct business_type_code from code_business_type where business_type_code = (select business_type_code from code_business_type where business_type_name1=#{business_type_name1} and business_type_name2=#{business_type_name2}))
+          ,#{store_tel_num}
+		)
+</insert>	
+
+<select id="getPwdCnt" parameterType="com.naver.erp.BusiInfoDTO" resultType="int">
+	select count(*) from user_info where u_no=#{u_no} and user_pwd=#{user_pwd}
+</select>
+
+<select id="getPwdCnt2" parameterType="java.util.HashMap" resultType="int">
+	select count(*) from user_info where user_id=#{user_id} and user_pwd=#{user_pwd}
+</select>
+
+<delete id='deleteBusi' parameterType="java.util.HashMap">
+	delete from business_info where business_no = #{business_no}
+</delete>	
+<!-- ============================================================================================================================ -->
+		
 	
 </mapper>

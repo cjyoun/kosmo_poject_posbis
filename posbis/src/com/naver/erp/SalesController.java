@@ -96,6 +96,9 @@
 	 		mav.addObject("salesList",salesList);
 	 		mav.addObject("salesListAllCnt",salesListAllCnt);
 	 		
+	 		Map<String,String> salesSum = this.salesService.getSalesSum(salesSearchDTO);
+	 		mav.addObject("salesSum",salesSum);
+	 		
 //==============================================================================================================	 		
 
  		mav.addObject("salesSearchDTO",salesSearchDTO); //자동 기능...안써도 감...? => 안 쓰면 안찍힘...
@@ -104,6 +107,7 @@
      //System.out.println(businessNoList);
      //System.out.println( "businessNoList.size()=>" + businessNoList.size());
      //System.out.println( "businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no") );
+
      }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
 	 	System.out.println("<에러발생>");
 		System.out.println(e.getMessage()); }
@@ -222,6 +226,11 @@
 		 		 		//달러{저장키값명}
 		 		 		mav.addObject("menuSalesList",menuSalesList);
 		 		 		mav.addObject("menuSalesListAllCnt",menuSalesListAllCnt);
+		 		 		
+
+		 		 		
+		 		 		Map<String,String> menuSalesSum = this.salesService.getMenuSalesSum(menuSalesSearchDTO);
+		 		 		mav.addObject("menuSalesSum",menuSalesSum);
 	
 	//==============================================================================================================	 		
 

@@ -32,7 +32,11 @@ public class SalesServiceImpl implements SalesService{
 		return salesList;
 	}
 	
-	
+
+	public Map<String,String> getSalesSum(SalesSearchDTO salesSearchDTO){
+		Map<String,String> salesSum = this.salesDAO.getSalesSum(salesSearchDTO);
+		return salesSum;
+	}
 	
 	
 	//[검색한 게시판 목록 총 개수] 리턴하는 메소드 선언
@@ -55,7 +59,11 @@ public class SalesServiceImpl implements SalesService{
 		return menuSalesList;
 	}
 	
-	
+
+	public Map<String,String> getMenuSalesSum(MenuSalesSearchDTO menuSalesSearchDTO){
+		Map<String,String> menuSalesSum = this.salesDAO.getMenuSalesSum(menuSalesSearchDTO);
+		return menuSalesSum;
+	}
 	
 	
 	

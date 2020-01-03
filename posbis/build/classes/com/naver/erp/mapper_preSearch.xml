@@ -8,14 +8,15 @@
 <mapper namespace="com.naver.erp.PreSearchDAO">
 
 	<sql id="preSearchWhere">
-	select business_no, month_sales, business_type, addr_dong,
-					  SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type 
+				select business_no, month_sales, business_type, addr_dong, addr_gu
+					  , SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type 
 					  , RANK() OVER (ORDER BY month_sales desc)   RANKING from
 					(select
 					 sm.business_no
 					  ,sm.month_sales
 					  ,sm.business_type
 					  ,sm.addr_dong
+                      ,sm.addr_gu
 					  ,best.sub_category_name
 				from
 				 (select distinct best_no.business_no, cmc.sub_category_name
@@ -24,7 +25,7 @@
 					               , SUM(sales_count) AS SALES_SUM
 					               , MAX( SUM(sales_count) ) OVER(partition by business_no) AS MAX_SALES_SUM
 					        FROM sales s
-					        where extract(month from s.sales_date)=extract(month from sysdate) -1
+					        where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
 					        GROUP BY business_no, menu_no
 					        ) best_no
 					        , menu m
@@ -43,13 +44,18 @@
 				        from addr a, business_info bi
 				        where bi.addr_no=a.addr_no
 				            and bi.business_no=s.business_no) as "ADDR_DONG"
+                    , (select a.addr_gu
+                        from addr a, business_info bi
+                        where bi.addr_no=a.addr_no
+                            and bi.business_no=s.business_no) as "ADDR_GU" 
 				from sales s , menu m
 				where s.menu_no=m.menu_no
-				    and  extract(month from s.sales_date)=extract(month from sysdate) -1
+				    and  to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
 				group by s.business_no
 				order by sum(s.sales_count*m.menu_price) desc ) sm
 				where best.business_no = sm.business_no )  result
 				where  1=1
+					and month_sales &gt;= ${month_sales}
 		    	<if test="addr_gu1!=null and addr_gu1.length()>0">
 				    and (select a.addr_gu
 				            from addr a, business_info bi
@@ -68,7 +74,8 @@
 				            where cbt.business_type_code=bi.business_type_code
 				                and bi.business_no=result.business_no) = #{business_type_name2}
        	       	</if>
-				group by business_no , month_sales, business_type, addr_dong
+       	       	
+				group by business_no , month_sales, business_type, addr_dong, addr_gu
 				 order by month_sales desc
 	
 	</sql>
@@ -79,10 +86,11 @@
 
 	<!-- ===== [프리미엄 검색 리스트] =================================================================-->	
 	<select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
-			select * from(
-			select b.* , rownum PAGINGRNUM from(
-				<include refid="preSearchWhere"/>
-				) b order by ${sort})
+			      select  pagingrnum||'' PAGINGRNUM, business_no, month_sales||'' MONTH_SALES, business_type, addr_dong, addr_gu, best_menu_type, RANKING||'' RANKING from(     
+				select bb.* , rownum PAGINGRNUM from(       
+                	select b.* from(   
+					<include refid="preSearchWhere"/>
+					 ) b order by ${sort})  bb)
 			
 					where pagingrnum &gt; =${selectPageNo*rowCntPerPage-rowCntPerPage+1}
 							 and pagingrnum &lt; =${selectPageNo*rowCntPerPage}

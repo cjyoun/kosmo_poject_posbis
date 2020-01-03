@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <%@ include file="common.jsp"%>
-<!DOCTYPE html>
+
 <html>
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <title>Rapid Bootstrap Template</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -56,8 +56,18 @@
   <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
   <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
   <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
- 
- 
+  <!-- =======================================================
+  
+  
+
+  <!-- =======================================================
+    Theme Name: Rapid
+    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+  
+  
   <style>
   .loginmaintaining {
 
@@ -88,117 +98,254 @@
   
   
   </style>
- 
- 
+</head>
+
+
 <script>
-
-function goInfoUpdateForm(){
-    alert("goInfoUpdateForm.jsp로 이동");
-    var str = "business_no=" + business_no;
-    location.replace("/posbis/infoUpdateForm.do?"+str);
+      $(document).ready(function() {
     
     
- }
+         $("[name=business_no]").val("123-45-12345");
+         $("[name=business_name]").val("회원가입테스트 가게");
+         
+         $("[name=addr_detail]").val("회원가입테스드 상세주소");
+         $("[name=store_tel_num]").val("123456");
+        
+        
+        //  구 검색시 동 구하기 -------------------------------------------------------
+        $("[name=addr_gu]").change(function(){
+    
+            //alert($(this).val());
+            $("[name=addr_dong]").empty();
+           
 
+             $.ajax({ 
+                   url : "/posbis/addrDongProc.do"
+                   //,datatype:"json"
+                   ,type : "post"   
+                   ,data : "addr_gu=" + $(this).val() 
+                  , success : function(addrDongList) {   
+                         //$("[name=addr_dong]").append('<option value=''>--동 선택--</option>');   
+                         
+                         var str="--동 선택--";
+                         
+                      for(var i=0; i<addrDongList.length; i++){
+                      
+                        $("[name=addr_dong]").append('<option value='+addrDongList[i]+'>'+addrDongList[i]+'</option>');
+                            
+                         
+                      }
+                     if(addrDongList[0]!=str){
+                        $("[name=addr_dong]").prepend("<option value='' selected>"+str+"</option>");   
+                     }
+           
+                }   
+                    , error : function(){
+                     alert("서버 접속 실패");
+                  }
+             }); /*  $.ajax({  */     
+           
+        });/* $("[name=addr_gu]").change(function(){ */
+           
+           
+       //  업종1 검색시 업종2 구하기 -------------------------------------------------------   
+         $("[name=business_type_name1]").change(function(){
+           
+           /*alert($(this).val())*/
+          //alert($(this).val());
+            $("[name=business_type_name2]").empty();
+              
+            $.ajax({ 
+                   url : "/posbis/businessTypeName2Proc.do"
+                   ,type : "post"   
+                   ,data : "business_type_name1=" + $(this).val() 
+                  , success : function(businessTypeList2) {
+                     
+                     var str="--업종2 선택--";
+                   
+                   
+                      
+                      for(var i=0; i<businessTypeList2.length; i++){
+                        $("[name=business_type_name2]").append('<option value='+businessTypeList2[i]+'>'+businessTypeList2[i]+'</option>');
+                            
+                         
+                      }
+                     if(businessTypeList2[0]!=str){
+                       $("[name=business_type_name2]").prepend("<option value='' selected>"+str+"</option>");   
+                    }
+                      
+                  }, error : function(){
+                     alert("서버 접속 실패");
+                    }
+             }); /*  $.ajax({  */
+           
+           
+           
+        }); /* $("[name=business_type_name1]").change(function(){ */
+           
+         
+      });/*  $(document).ready(function() { */ 
+      
+      
+   //*************************************************************************************   
+      //사업자번호 중복확인 여부를 저장할 변수 선언
+      var busiCheck = false;
+      
+ 		function checkBusinessNo(){
 
-      $(document).ready(function(){	
-//	    	 checkBusinessNoForm();
-				// name="changeBusinessNo" 에 change 이벤트가 발생하면 실행할 코드 설정.
-				$('[name=changeBusinessNo]').change(function(){			
-					checkBusinessNoForm();
-					
-				});	
+	         if( is_empty(".business_no") ){
+	              alert(" 사업자번호 입력 요망");
+	              $(".business_no").val("");
+	              return;
+	         }
+   
+          $.ajax({
+              url : "/posbis/chekckBusinessNoProc.do"
+             , type : "post"
+             , data : $("[name=newBusiForm]").serialize()
+             , success : function(businessnoCnt) {
+                if( businessnoCnt==1 ){
+                	busiCheck = false;
+                   alert("이미 등록된 사업자번호 입니다.재 입력 바랍니다.");
+                   location.replace('/posbis/newBusiForm.do');
+                }else if(businessnoCnt == 0) {
+                	busiCheck = true;
+                    alert("등록가능한 사업자번호 입니다.");
+ 
+                }else {
+                      alert("서버 오류 발생!! 관리자에게 문의 바랍니다.");
+                }
+             }, error : function(){
+                  alert("서버 접속 실패");
+             	}
+             
+           });
+     
+      }  /* function checkBusinessNo(){ */
 
-				$('[name=changeBusinessNo]').change();
-							
-				
-	  	});
-	  	var b_no;
+      
+      function checkNewBusiForm(){
+     
+         //회원가입 양식 빈칸체크
+        if( is_empty(".user_pwd") ){
+             alert("암호 입력 요망");
+             $(".user_pwd").val("");
+             return;
+          }
+ /*       if(is_valid_pattern("[name=user_pwd]", /^[0-9]{10}$/) == false){
+            alert("암호는 숫자 10개를 입력해주세요");
+            return;
+      	  }*/
+        if( is_empty(".business_no") ){
+             alert("사업자번호 입력 요망");
+             $(".business_no").val("");
+             return;
+          }
+        if( is_empty(".business_name") ){
+             alert("상호명 입력 요망");
+             $(".business_name").val("");
+             return;
+          }
+ 
+        
+        if( is_empty(".addr_gu") ){
+             alert("주소 체크 요망");
+             $(".addr_gu").val("");
+             return;
+          }
+        if( is_empty(".addr_dong") ){
+             alert("주소 체크  요망");
+             $(".addr_dong").val("");
+             return;
+          }
+        if( is_empty(".addr_detail") ){
+             alert("상세주소 입력  요망");
+             $(".addr_detail").val("");
+             return;
+          }
+        if( is_empty(".business_type_name1") ){
+             alert("업종1 체크  요망");
+             $(".business_type_name1").val("");
+             return;
+          }
+        if( is_empty(".business_type_name2") ){
+             alert("업종2 체크  요망");
+             $(".business_type_name2").val("");
+             return;
+          }
+        if( is_empty(".store_tel_num") ){
+             alert("매장번호 입력  요망");
+             $(".store_tel_num").val("");
+             return;
+          }
 
-      function checkBusinessNoForm(){
-			//alert($("[name=preChartForm]").serialize());
+        if( busiCheck == false ){
+            alert("사업자등록번호 중복확인을 해주세요");
+            return;
+         }
+		        $.ajax({
+		            url : "/posbis/chekckBusinessNoProc.do"
+		           , type : "post"
+		           , data : $("[name=newBusiForm]").serialize()
+		           , success : function(businessnoCnt) {
+		              if( businessnoCnt==1 ){
+		              	busiCheck = false;
+		                 alert("사업자등록번호 중복확인을 해주세요");
+		                 location.replace('/posbis/newBusiForm.do');
+		              }else if(businessnoCnt == 0) {
 
-			$.ajax({
-				// 서버 쪽 호출 URL 주소 지정
-				url : "/posbis/myPageProc.do"
-				
-				// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
-				, type : "post"
+		                  //가게 추가 ajax
+		                  $.ajax({
+		                        url : "/posbis/newBusiProc.do"
+		                        , type : "post"
+		                        , data : $("[name=newBusiForm]").serialize()
+		                        , success : function(newBusiCnt){
+		      						if(newBusiCnt==1){
+		      							alert("추가 성공");
+		      							location.replace("/posbis/myPageForm.do");
+		      						}else if(newBusiCnt==-1){
+		      							alert("비밀번호가 잘못 입력 되었습니다");
+		      						}else{
+		      							alert("서버쪽 DB 연동 실패");
+		      						}
+		      					
+		      				}, error : function(){
+		                              alert("서버 접속 실패");
+		                        }
+		                     });  
+			              	
+		
+		              }else {
+		                    alert("서버 오류 발생!! 관리자에게 문의 바랍니다.");
+		              }
+		           }, error : function(){
+		                alert("서버 접속 실패");
+		           	}
+		           
+		         });
+      //*************************************************************************************   
 
-				, async : false
-				// 서버로 보낼 파라미터명과 파라미터 값을 설정
-				, data : $("[name=myPageForm]").serialize()				
-					
-				, success : function(myPageDTO){
-					//alert("salesMonthList : "+ preChartListDTO.salesMonthList[0].sales_amount);
-					//alert("allSalesMonthList : "+ preChartListDTO.allSalesMonthList[0].sales_amount);
-					//alert("성공----------");
-						$(".uid").empty();
-						$(".uName").empty();
-						$(".email").empty();
-						$(".businessNo").empty();
-						$(".businessName").empty();
-						$(".addr").empty();
-						$(".businessType").empty();
-						$(".storeNum").empty();
-						business_no = myPageDTO.myInfo[0].business_no;
-
-					if(myPageDTO != null){
-						
-
-						var info = myPageDTO.myInfo[0];
-						$('.uid').append(info.user_id);
-						$('.uName').append(info.user_name);						
-						$('.email').append(info.email);
-						$('.businessNo').append(info.business_no);
-						$('.businessName').append(info.business_name);
-						$('.addr').append(info.store_addr);						
-						$('.businessType').append(info.business_type);
-						$('.storeNum').append(info.store_tel_num);
-						
-						
-					}
-					else if (myPageDTO == null){
-						alert("실패");
-					}
-					else {
-						alert("서버 오류 발생. 관리자에게 문의 바람");
-					} 
-				}
-				
-				// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-				, error : function(request, error){
-					alert("서버 접속 실패");
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					
-					
-				}
-				
-			});
       }
-
-
-
-      function gowithdrawalForm(){
-         alert("withdrawalForm.jsp로 이동")
-         location.replace("/posbis/withdrawalForm.do")
+//*************************************************************************************   
+//취소 클릭     
+    function goMainForm(){
+         location.replace("/posbis/homePageForm.do");
       }
-  
-
-
-    //--------------------------------------------------------
-	   //로고 클릭시
-	     function goMainForm(){
-	        //alert("메인으로 이동");
-	        location.replace("/posbis/mainForm.do");
-	     }
+    
+  //--------------------------------------------------------------------------------------------------
+    
+		   //로고 클릭시
+	    function goMainForm(){
+	       //alert("메인으로 이동");
+	       location.replace("/posbis/mainForm.do");
+	    }
 		
 		//회사소개-pobis 클릭시
 		
 		function goIntroForm(){
-	        //alert("회사소개로 이동");
-	        location.replace("/posbis/introForm.do");
-	     }
+	       //alert("회사소개로 이동");
+	       location.replace("/posbis/introForm.do");
+	    }
 		
 		//마이페이지-매출관리
 	    function goSalesForm(){
@@ -254,6 +401,7 @@ function goInfoUpdateForm(){
 	        //alert("질문하기으로 이동");
 	        location.replace("/posbis/qstnRegForm.do");
 	     }
+	     
 		//qna 게시판- 내글보기
 		 function goMyQstnForm(){
 	        //alert("내글보기으로 이동");
@@ -271,60 +419,25 @@ function goInfoUpdateForm(){
 		    location.replace("/posbis/homePageForm.do");
 		 }
 		//--------------------------------------------------------
-
+		
+		 
 		
 		function goMessageForm(){
 		    alert("건의사항이 접수 되었습니다. 감사합니다");
 	 
 		 }
 
+//************************************************************************
+//--------------------------------------------------------------------------------------------------
+   </script>
 
-//=============================================김수민============================================================
-
-		function delBusi(){
-			var userPwd = prompt('해당 가게를 삭제하기 위해 본인 확인이 필요합니다.','사용자 암호를 입력해주세요');
-			$("[name=myPageForm] [name=user_pwd]").val(userPwd+'');
-							//alert($("[name=myPageForm]").serialize() );
-			if(userPwd==null){ alert("삭제 취소"); }
-			else{
-		         $.ajax({
-	                url : "/posbis/delBusiProc.do"
-	                , type : "post"
-	                , data : $("[name=myPageForm]").serialize()
-	                , success : function(deleteBusiCnt){
-							if(deleteBusiCnt==1){
-								alert("삭제 성공");
-								location.replace("/posbis/myPageForm.do");
-							}else if(deleteBusiCnt==-1){
-								alert("비밀번호가 잘못 입력 되었습니다");
-							}else{
-								alert("서버쪽 DB 연동 실패");
-								alert(deleteBusiCnt);
-							}
-						
-					}, error : function(){
-	                      alert("서버 접속 실패");
-	                }
-	             });
-			}	
-		}
-//=================================================================================================================
-
-      </script>
-
-   </head>
-
-   <body>
+<body>
     <!--==========================
   Header
   ============================-->
   <header id="header">
 
          <div id="topbar">
-           <div class="container">
-          
-           </div>
-         </div>
 
          <div class="container">
 
@@ -347,8 +460,6 @@ function goInfoUpdateForm(){
                 
                 </div>
                 <br><br><br><br><br><br>
-           
-              
 
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
@@ -395,154 +506,119 @@ function goInfoUpdateForm(){
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>MYPAGE</h2>
+          <h2>ADD BUSINESS NUMBER</h2>
  
         </div>
-  <!-- 
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div> -->
+  
+      
       </div>
 
     </div>
   </section> 
+
+
+<body>
+   <center>
  
+        <br>
+      <h3>사업자번호 추가</h3>
+      <FORM class="newBusiForm" method="post" name="newBusiForm"
+         action="/posbis/newBusiForm.do">
 
-       
-       
-     <!--==========================
-     내 정보 보기
-    ============================-->
- 
-  <main id="main">
-   <section id="main-content">
-   <section class="wrapper">
-     <div class="row">
-           <div class="col-lg-10" align="center">
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">내정보관리</a></li>
-              <li><i class="fa fa-user-md"></i>내정보보기</li>
-            </ol>
-               </div>
-        </div>
-    	  <div class="col-lg-10" align="center">
-            <section class="panel">
-              <header class="panel-heading">
-                	 <a href="">내정보보기</a>
-              </header>
-			<div class="panel-body"> 
-			
-      <div class="container">
-          			<div  class="form-group">
-  
-  
+		<input type="hidden" name="user_id" value="${user_id}">  
+         <table>
+            <tbody>
+               <tr>
+                  <td>사업자 번호</td>
+                  <td><input type="text" name="business_no" class="business_no" placeholder="(10자리, 000-00-0000)" maxlength="12" required/>
+                  <input type="button" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo" value="사업자 번호 중복확인"
+                     onclick="checkBusinessNo();" /></td>
+                  </td>
+               </tr>
 
-            <!------------------ 메인으로 보여줄 div -------------------->
-               <form name="myPageForm" method="post" action="/posbis/myPageForm.do"> 
-               
-               			<!-- 수민수민 -->
-					 <input type="hidden" name="user_pwd" class="user_pwd">
-					 <input type="hidden" name="user_id" class="user_id" value=${user_id}>
-					 	<!-- ======== -->
-	
-					 
-					          <div class="form-group" style="float:right">
-								   <label class="col-sm-2 control-label">사업자번호:</label> 
-									<div class="col-lg-4">
-									<select class="form-control m-bot15 addr_gu" name="changeBusinessNo">
-								 		<c:forEach items="${businessNoList}" var="businessNoList">											
-											<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
-												</option>
-										</c:forEach>
-									</select> 
-									
-									 	<input type="button" value="가게정보 삭제" onClick="delBusi();">&nbsp;&nbsp;
-										<a href="javascript:;" onclick="location.replace('/posbis/newBusiForm.do');">가게 추가</a>
-									
-									</div>
-									</div>
-					 
-				</form><br><br><br>
+               <tr>
+                  <td>상호명</td>
+                  <td><input type="text" name="business_name"
+                     class="business_name" placeholder="상호명"/></td>
+               </tr>
 
-               <!-- 회원정보 form 태그 -->
-               <form class="cusForm" name = "cusForm" method="post" action=""><center>
-
-                  <!-- 내정보 보기 -->
-         
-  <!-- page start-->
-   
-          <div class="col-sm-6">
-            <section class="panel">
-              <header class="panel-heading">
-                	개인정보
-              </header>
-              
-              <table class="table table-hover">
-              
-                     
-                     <tr >
-                        <th> ID
-                        <td  name=uid class=uid>
-
-                      <tr >
-                         <th>  회원명
-                        <td  name=uName class=uName>
-                     
-                      <tr >
-                         <th>  이메일
-                        <td   name=email class=email>
-
-
-                  	 <tr >
-                         <th>  사업자번호
-                        <td   name=businessNo class=businessNo>
-
-                        <tr >
-                         <th>  상호명
-                        <td   name=businessName class=businessName>
-
-                        <tr >
-                        <th>  가게주소
-                        <td   name=addr class=addr>
-                        
-                       <tr >
-                         <th> 업종
-                        <td name=businessType class=businessType>
- 
-                       <tr >
-                         <th>  매장번호
-                        <td  name=storeNum class=storeNum>
-                  </table> 
-                   </section>
-                   <br>
-                   <button  class="btn btn-default" type="button" value="메인으로" onClick="goMainForm();" >메인으로</button>
-                   <button  class="btn btn-default" type="button" value="정보수정" onClick="goInfoUpdateForm();" >정보수정</button>
-                   <button  class="btn btn-default" type="button" value="회원탈퇴" onClick="gowithdrawalForm();" >회원탈퇴</button>
+               <tr>
+                  <td>주소</td>
+                  <td>
+                     <!--********************************************************************** -->
                 
-          </div>
-          &nbsp;&nbsp;
-          
- <div class=" col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <img src="resources/intro/img/features-1.svg" class="img-fluid" alt="">
-              <div class="portfolio-info">
+                  <select name="addr_gu" class="addr_gu">
+                     <!--  onchange="getAddrDong()" -->
+                        <option value="" selected>--구 선택--</option>
+                        <c:forEach items="${addrListGu}" var="addrGu">
+                           <option value="${addrGu.addr_gu}">${addrGu.addr_gu}</option>
+                        </c:forEach>
 
-              </div>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
+
+                  </select> 
+                  <select name="addr_dong" class="addr_dong"">
+                        <option value="" selected>--동 선택--</option>
+                   
+                      
+                  </select> <!--********************************************************************** -->
+                
+
+                  </td>
+               </tr>
+               <tr>
+                  <td>상세주소</td>
+                  <td><input type="text" size=50 name="addr_detail"
+                     class="addr_detail" /></td>
+               </tr>
+
+               <tr>
+                  <td>업종</td>
+                  <!--********************************************************************** -->
+
+                  <td><select name="business_type_name1"
+                     class="business_type_name1">
+                        <option value="">--선택--</option>
+                        <c:forEach items="${businessTypeList1}" var="busiType1">
+                           <option value="${busiType1.business_type_name1}">${busiType1.business_type_name1}
+                           </option>
+                        </c:forEach>
+                  </select> <select name="business_type_name2" class="business_type_name2"
+                     onchange="getbusiListname2();">
+                        <option value="">--선택--</option>
+
+                  </select></td>
+                  <!--********************************************************************** -->
+
+               </tr>
+
+               <tr>
+                  <td>매장 번호</td>
+                  <td><input type="text" size="12" name="store_tel_num"
+                     class="store_tel_num" />&nbsp;&nbsp;*숫자만 입력하세요</td>
+               </tr>
+               <tr>
+                  <td>비밀번호</td>
+                  <td><input type="password" name="user_pwd" class="user_pwd"
+                     placeholder="PASSWORD"  maxlength="10" required />&nbsp;&nbsp;*사용자 확인을 위해 비밀번호를 입력하세요</td>
+               </tr>
+            </tbody>
+
+         </table>
+
+         <div style="height: 20;"></div>
+
+         <input type="button" value="저장" onclick="checkNewBusiForm();">
+         <input type="reset" value="다시 작성"> <input type="button"
+            value="취소" onclick="goMyPageForm();">
             
-          </div>
-         
-               
-                   </section>
-  
- </main>        
- 
- 
-  
+         <!--  <input type="hidden" name=u_no value=""> -->
+
+      </form>
+</center>
+
+	</div>
+</div>
+    
   <!--==========================
     꼬리말
   ============================-->
@@ -687,7 +763,6 @@ function goInfoUpdateForm(){
   <!-- Template Main Javascript File -->
   <script src="resources/intro/js/main.js"></script>
   
-  
 
 </body>
-</html> 
+</html>

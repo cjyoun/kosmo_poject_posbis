@@ -11,12 +11,18 @@ public interface SalesDAO {
 	//[검색한 판매목록 개수] 리턴하는 메소드 선언
 	int getSalesListAllCnt(SalesSearchDTO salesSearchDTO);
 	
+	
+	Map<String,String> getSalesSum(SalesSearchDTO salesSearchDTO);
+	
+	
+	
 				//[검색한 판매목록] 리턴하는 메소드 선언
 				List<Map<String,String>> getMenuSalesList(MenuSalesSearchDTO menuSalesSearchDTO);
 				
 				//[검색한 판매목록 개수] 리턴하는 메소드 선언
 				int getMenuSalesListAllCnt(MenuSalesSearchDTO menuSalesSearchDTO);
-	
+
+				Map<String,String> getMenuSalesSum(MenuSalesSearchDTO menuSalesSearchDTO);
 	 
 	// user_id 를 가지고 u_no 얻기
 	int getUserNo(String user_id);

@@ -9,13 +9,16 @@ public interface SalesService {
 	
 	//[검색한 판매내역 목록 개수] 리턴하는 메소드 선언
 	int getSalesListAllCnt(SalesSearchDTO salesSearchDTO);
-	
+
+	Map<String,String> getSalesSum(SalesSearchDTO salesSearchDTO);
 
 			//[검색한 판매내역 목록] 리턴하는 메소드 선언
 			List<Map<String,String>> getMenuSalesList(MenuSalesSearchDTO menuSalesSearchDTO);
 			
 			//[검색한 판매내역 목록 개수] 리턴하는 메소드 선언
 			int getMenuSalesListAllCnt(MenuSalesSearchDTO menuSalesSearchDTO);
+
+			Map<String,String> getMenuSalesSum(MenuSalesSearchDTO menuSalesSearchDTO);
 	
 	
 	// user_id 를 가지고 u_no 얻기

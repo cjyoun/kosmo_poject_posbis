@@ -333,6 +333,42 @@ public class LoginDAOImp implements LoginDAO{
 		return myStoreInfoList;
 	};
 	
-
+	
+	//===============================김수민==================================================		
+		
+		public int insertBusi(BusiInfoDTO busiInfoDTO) {
+			int insertBusiCnt = this.sqlSession.insert(
+					 "com.naver.erp.LoginDAO.insertBusi"		// 실행할 SQL 구문의 위치 지정
+					, busiInfoDTO
+				);
+				return insertBusiCnt;
+		};
+		
+		public int getPwdCnt(BusiInfoDTO busiInfoDTO) {
+			int pwdCnt=this.sqlSession.selectOne(
+					"com.naver.erp.LoginDAO.getPwdCnt"	
+					,busiInfoDTO	
+			);
+			return pwdCnt;
+		}
+		
+		
+		public int getPwdCnt2(Map<String, String> DeleteBusi) {
+			int pwdCnt2=this.sqlSession.selectOne(
+					"com.naver.erp.LoginDAO.getPwdCnt2"	
+					,DeleteBusi	
+			);
+			return pwdCnt2;
+		}
+		
+		public int deleteBusi(Map<String, String> DeleteBusi) {
+			int deleteBusiCnt = this.sqlSession.delete(
+					 "com.naver.erp.LoginDAO.deleteBusi"		// 실행할 SQL 구문의 위치 지정
+					, DeleteBusi
+				);
+				return deleteBusiCnt;
+		};
+		
+	//================================================================================================
 
 }

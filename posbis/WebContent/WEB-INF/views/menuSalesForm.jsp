@@ -64,7 +64,39 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
-</head>
+  
+  
+ 
+  <style>
+  .loginmaintaining {
+
+    display: inline-block;
+	color: #6c757d;
+    width: 21%;
+    
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+    text-align: left;
+
+	border-top:1px solid #eeeeee ;
+
+	border-left:1px solid #eeeeee ;
+
+    border-right:1px solid #eeeeee ;
+
+	border-bottom:1px solid #eeeeee ;
+
+    display: inline-block;
+    
+   background-color: #f5f8fd;
+
+}
+  
+  
+  </style>
 
       <script>         
       
@@ -132,38 +164,7 @@
                    allbusi.prop("checked",true);
                 }
              });
-		    $('#menuSales').show();
-		    $('.pagingDiv2').show();
-		    $('#select').show();
              
-//=====================================================================================================
-	       var sumMC = 0;
-	       $('tr').find('.menu_sales_count').each(function () {
-	           var menu_sales_count = $(this).text();
-	           if (!isNaN(menu_sales_count) && menu_sales_count.length !== 0) {
-	        	   sumMC += parseFloat(menu_sales_count);
-	           }
-	       });
-	       $('.total-menu_sales_count').html(sumMC);
-
-	       var sumMA = 0;
-	       $('tr').find('.menu_sales_amount').each(function () {
-	           var menu_sales_amount = $(this).text();
-	           if (!isNaN(menu_sales_amount) && menu_sales_amount.length !== 0) {
-	        	   sumMA += parseFloat(menu_sales_amount);
-	           }
-	       });
-	       $('.total-menu_sales_amount').html(sumMA);
-
-	       var sumMI = 0;
-	       $('tr').find('.menu_sales_income').each(function () {
-	           var menu_sales_income = $(this).text();
-	           if (!isNaN(menu_sales_income) && menu_sales_income.length !== 0) {
-	        	   sumMI += parseFloat(menu_sales_income);
-	           }
-	       });
-	       $('.total-menu_sales_income').html(sumMI);
-	       
 //=====================================================================================================
 
     	  $(".menu_price").each(function() {
@@ -177,17 +178,8 @@
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum + "원");
 	      });
-  	  	  $(".total-menu_sales_amount").each(function() {
-	      	    var num = $(this).text();
-	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum+ "원");
-	      });
+	      
 	  	  $(".menu_sales_count").each(function() {
-	      	    var num = $(this).text();
-	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum);
-	      });
-	  	  $(".total-menu_sales_count").each(function() {
 	      	    var num = $(this).text();
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum);
@@ -197,11 +189,13 @@
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum+ "원");
 	      });
-	  	  $(".total-menu_sales_income").each(function() {
+	      
+  	  	$(".sumSales").each(function() {
 	      	    var num = $(this).text();
 	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum+ "원");
+	      	    $(this).text(commaNum);
 	      });
+	      
 //=====================================================================================================
 
 	});
@@ -292,7 +286,16 @@
 		}
 
 	 
-		
+		 
+		 function dateChange(){
+			 var minDate = new Date($('.sales_date_t1').val());
+			 var selectDate = new Date($('.sales_date_t2').val());
+			  if(minDate>selectDate){
+					alert("올바른 기간으로 선택해주세요");
+					$('.sales_date_t1').val("");
+					$('.sales_date_t2').val("");
+			}
+		 }
 
 		//--------------------------------------------------------
 		   //로고 클릭시
@@ -395,19 +398,14 @@
 
 
    <body>
-   <!--==========================
+    <!--==========================
   Header
   ============================-->
- <header id="header">
+  <header id="header">
 
          <div id="topbar">
            <div class="container">
-             <div class="social-links">
-               <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-               <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-               <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-               <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-             </div>
+          
            </div>
          </div>
 
@@ -415,51 +413,58 @@
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
+  
+          		<br>
+          		<div style="float:right" class= "loginmaintaining">
+    
+                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
+                        
+                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
+                          <div style="float:right" >
+                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
+ 
+                   </div>     
+                
+                </div>
+                <br><br><br><br><br><br>
+           
+              
 
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li class="drop-down"><a href="">회사소개</a>
+          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
             <ul>
-              <li onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
             </ul>
           </li>
-           
-           <li class="drop-down"><a href="">마이페이지</a>
-            <ul>
-              <li><a onClick="goHomePageForm();">통합 관리</a></li>
-              <li><a onClick="goSalesForm();">매출 관리</a></li>
-              <li><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li><a onClick="goMyPageForm();">내 정보 보기</a></li>
+		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		            <ul>
+		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
  
+		            </ul>
+		          </li>
+           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
             </ul>
           </li>
-           <li class="drop-down"><a href="">분석현황</a>
+    
+           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
             <ul>
-              <li><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li><a onClick="goPreChartForm();">차트관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
             </ul>
           </li>
-           <li class="drop-down"><a href="">Q&A게시판</a>
-            <ul>
-              <li><a onClick="goqstnRegForm();">질문하기</a></li>
-              <li><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li><a onClick="goQstnForm();">목록보기</a></li>
-            </ul>
-          </li>    
-        
-         
-          <li  class="drop-down"> <a href=""><i class="icon_profile"></i> ${user_id} 님</a> 
-           <ul>
-           		
-              <li><a onClick="goMyPageForm();"><i class="icon_profile"></i>&nbsp;&nbsp;내정보 보기</a></li>
-           		<li><a onClick="goHomePageForm();"><i class="icon_documents_alt"></i>&nbsp;&nbsp;통합관리</a></li>
-           	  <li><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;Log Out</a></li>
-            </ul>  
-          </li>   
-        
+ 
+ 
         </ul>
       </nav><!-- .main-nav -->
            
@@ -473,20 +478,20 @@
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
         <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>MYPAGE<br>In <br><span>POSBIS</span></h2>
-        
+          <h2>MYPAGE</h2>
+ 
         </div>
-  
+  <!-- 
         <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/features-2.svg" alt="" class="img-fluid">
-        </div>
+          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
+        </div> -->
       </div>
 
     </div>
-  </section><!-- #intro -->
-  
+  </section> 
  
-    <!--==========================
+
+   <!--==========================
       매출관리
     ============================-->
   <main id="main">
@@ -506,7 +511,7 @@
  <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	메뉴별 매출관리
+                	<a href="">메뉴별 매출관리</a>
               </header>
 			<div class="panel-body"> 
 				   	<form name="salesForm" method="post" action="/posbis/salesForm.do">
@@ -514,35 +519,58 @@
    <form name = "menuSalesForm" method="post" action="/posbis/menuSalesForm.do">
 					<div  class="form-group">
 						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
-						<br> 
-							<span class="help-block">사업자번호:
+ 
+ 
+             <div style="float:right"><a href="javascript:;" onclick="goSalesForm();" >[매출관리]로 이동</a>&nbsp;&nbsp;&nbsp;</div><br><br> 
+		<table>
+			<tr>
+				<td>
+							<a href="">[ 사업자 번호 ] :</a>
 				       	<input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
 		      <c:forEach items="${businessNoList}" var="businessNoList">
 		        <input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
 		      </c:forEach>
-						      </span>
-						      
-				                <span class="help-block">[키워드] : <input type = "text" name="keyword" class="keyword"></span>&nbsp;
-				
-				               <span class="help-block">[기간선택]
+		      <br><br>		      
+			<tr>
+				<td>
+				   
+				<a href="">[ 기간&nbsp;&nbsp;&nbsp;설정 ] : </a><input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
+				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();"></span>
+				<br><br>
+			<tr>
+				<td>	
+								<a href="">[ 기간&nbsp;&nbsp;&nbsp;선택 ] : </a>
 				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br></span>
- 
-				   
-				[기간설정]: <input type="date" name="sales_date_t1" class="sales_date_t1"> ~ <input type="date" name="sales_date_t2" class="sales_date_t2">
-
-				               
+ 				<br> 
+			<tr>
+				<td>			      
+				             <a href="">[ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ] : </a>
+				             <input type = "text" name="keyword" class="keyword">&nbsp;
 				             <input type="button" value="검   색" onClick="goSearch();">&nbsp;
-              				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span>&nbsp;&nbsp;
-                <a href="javascript:;" onclick="goSalesForm();" >[매출관리]로 이동</a>&nbsp;&nbsp;
+              				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp;
+              				 
+       </table>
+ <!-- =========================================================================================================================================================================== -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 						
 						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
 						<!-- 선택한 페이지번호는 DB 연동시 아주 중요한 역할을 한다 -->
 						<!-- 개발중에는 테스트를 위해 type을 text로 바꿔놓으면 눈에 보여서 편하다 -->
 						<input type="hidden" name="selectPageNo"> 
-						<input type="hidden" name="sort" value=“s.menu_name_asc”> 
+						<input type="hidden" name="sort" value=“s.menu_name asc”> 
 						<input type="hidden" name="user_id" value="${user_id}">  
 						
 					</div>	
@@ -552,16 +580,15 @@
      <div class="col-sm-12" align="center">
 		      <table class="table table-striped table-advance table-hover" id="select">
                 <thead>
-		
-		<tr>
-                  <td align=right>
-                  <!-- EL 문법으로 게시판 검색 총 개수 출력하기 -->
-            <!-- 달러{salesAllCnt} 은  컨트롤러 클래스 내부에 -->       <!-- EL문법은 주석문 안에 들어가더라도 소스보기 했을 때 실행결과가 삽입된다. 문법에 맞지 않는 내용을 삽입할 시에는 에러발생 -->
-            <!-- ModelAndView 객체에 salesAllCnt 라는 키값으로 저장된 -->
-            <!-- 데이터를 EL로 표현하여 삽입하라는 뜻이다. -->
+			<tr>
+             	<td align=left class="sumSales">
             			[메뉴 수]: ${menuSalesListAllCnt}&nbsp;&nbsp;
+			            [판매수량 합계] : ${menuSalesSum.sum_sales_count} &nbsp;&nbsp;
+			            [총 매출  합계] : ${menuSalesSum.sum_sales_amount}원&nbsp;&nbsp;
+			            [순 매출  합계] : ${menuSalesSum.sum_sales_income}원
             <!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기 -->
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
+                  <td align=right>
 			            <select name="menuRowCntPerPage">
 			               <option value="10">10
 			               <option value="15">15
@@ -597,134 +624,106 @@
                 <c:choose>
 				<c:when test="${param.sort=='2 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('2 asc'); goSearch();">카테고리 ▼
+							onClick="$('[name=sort]').val('2 asc'); goSearch();">메뉴 ▼
 				</c:when>
 				<c:when test="${param.sort=='2 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('2 desc'); goSearch();">카테고리 ▲
+							onClick="$('[name=sort]').val('2 desc'); goSearch();">메뉴 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('2 asc'); goSearch();">카테고리
+							onClick="$('[name=sort]').val('2 asc'); goSearch();">메뉴
 				</c:otherwise>
 				</c:choose>
 				
                 <c:choose>
 				<c:when test="${param.sort=='3 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('3 asc'); goSearch();">메뉴 ▼
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">가격 ▼
 				</c:when>
 				<c:when test="${param.sort=='3 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('3 desc'); goSearch();">메뉴 ▲
+							onClick="$('[name=sort]').val('3 desc'); goSearch();">가격 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('3 asc'); goSearch();">메뉴
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">가격
 				</c:otherwise>
 				</c:choose>
 				
                 <c:choose>
 				<c:when test="${param.sort=='4 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격 ▼
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">수량 ▼
 				</c:when>
 				<c:when test="${param.sort=='4 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 desc'); goSearch();">가격 ▲
+							onClick="$('[name=sort]').val('4 desc'); goSearch();">수량 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">수량
 				</c:otherwise>
 				</c:choose>
 				
                 <c:choose>
 				<c:when test="${param.sort=='5 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량 ▼
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">총매출 ▼
 				</c:when>
 				<c:when test="${param.sort=='5 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 desc'); goSearch();">수량 ▲
+							onClick="$('[name=sort]').val('5 desc'); goSearch();">총매출 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">총매출
 				</c:otherwise>
 				</c:choose>
 				
                 <c:choose>
 				<c:when test="${param.sort=='6 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출 ▼
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">순매출 ▼
 				</c:when>
 				<c:when test="${param.sort=='6 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 desc'); goSearch();">총매출 ▲
+							onClick="$('[name=sort]').val('6 desc'); goSearch();">순매출 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">순매출
 				</c:otherwise>
 				</c:choose>
-				
-                <c:choose>
-				<c:when test="${param.sort=='7 desc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출 ▼
-				</c:when>
-				<c:when test="${param.sort=='7 asc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 desc'); goSearch();">순매출 ▲
-				</c:when>
-				<c:otherwise>
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출
-				</c:otherwise>
-				</c:choose>
- 
                   </tr>
                 </thead>
             <tbody>
                 <c:forEach items="${menuSalesList}" var="menuSales" varStatus="loopTagStatus">  <!-- requestScope.은 생략 가능 -->
                   <tr>
-                    <td align=center>
+                    <td>
 					<%-- 게시판 목록 중에 각 행의 정순 일련번호 출력--%>
 		${menuSalesSearchDTO.selectPageNo*menuSalesSearchDTO.menuRowCntPerPage-menuSalesSearchDTO.menuRowCntPerPage+1
 																					+loopTagStatus.index}  
 					<!-- 각 행의 상호명 출력 -->
-					<td align=center>${menuSales.business_name2}
-					<!-- 각 행의 메뉴카테고리 출력 -->
-					<td align=center>${menuSales.menu_category_code2}
+					<td>${menuSales.business_name2}
 					<!-- 각 행의 메뉴 이름 출력 -->
-					<td align=center>${menuSales.menu_name2}
+					<td>${menuSales.menu_name2}
 					<!-- 각 행의 메뉴 가격 출력 -->
-					<td align=center class="menu_price">${menuSales.menu_price2}
+					<td  align=right   class="menu_price">${menuSales.menu_price2}
 					<!-- 각 행의 판매 수량 출력 -->
-					<td align=center class="menu_sales_count">${menuSales.sales_count2}
+					<td   align=right class="menu_sales_count">${menuSales.sales_count2}
 					<!-- 각 행의 총매출 출력 -->
-					<td align=center class="menu_sales_amount">${menuSales.sales_amount2}
+					<td   align=right class="menu_sales_amount">${menuSales.sales_amount2}
 					<!-- 각 행의 순매출 출력 -->
-					<td align=center class="menu_sales_income">${menuSales.sales_income2}
+					<td   align=right class="menu_sales_income">${menuSales.sales_income2}
 					
 					
                   </tr>
                  </c:forEach>
                  </tbody>
-                 <tfoot>
-                  <tr>
- 				<td align=center>total
-				<td align=center>
-				<td align=center>
-				<td align=center>
-				<td align=center>
-				<td align=center class="total-menu_sales_count">
-				<td align=center class="total-menu_sales_amount">
-				<td align=center class="total-menu_sales_income">
-			</tfoot>
+   
             </table>
-         <c:if test="${empty salesList}">
+         <c:if test="${empty menuSalesList}">
 		검색결과 없음
 		</c:if> 
     		</div>

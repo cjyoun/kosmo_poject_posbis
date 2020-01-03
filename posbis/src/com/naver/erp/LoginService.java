@@ -79,5 +79,11 @@ public interface LoginService {
 	List<Map<String, String>> getMyStoreInfoList(int u_no);
 		
 	
+	//=================================김수민==================================================	
+		int insertBusi(BusiInfoDTO busiInfoDTO);
+		
+
+		int deleteBusi(Map<String, String> DeleteBusi);
+	//=========================================================================================		
 	 
 }

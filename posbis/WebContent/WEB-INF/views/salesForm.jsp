@@ -162,47 +162,11 @@
              });
  			//==============================================================================================
 
- 
-			
-	       var sumC = 0;
-	       $('tr').find('.sales_count').each(function () {
-	           var sales_count = $(this).text();
-	           if (!isNaN(sales_count) && sales_count.length !== 0) {
-	        	   sumC += parseFloat(sales_count);
-	           }
-	       });
-	       $('.total-sales_count').html(sumC);
 
-	       var sumA = 0;
-	       $('tr').find('.sales_amount').each(function () {
-	           var sales_amount = $(this).text();
-	           if (!isNaN(sales_amount) && sales_amount.length !== 0) {
-	        	   sumA += parseFloat(sales_amount);
-	           }
-	       });
-	       $('.total-sales_amount').html(sumA);
-
-	       var sumI = 0;
-	       $('tr').find('.sales_income').each(function () {
-	           var sales_income = $(this).text();
-	           if (!isNaN(sales_income) && sales_income.length !== 0) {
-	        	   sumI += parseFloat(sales_income);
-	           }
-	       });
-	       $('.total-sales_income').html(sumI);
-
-
-
-//=====================================================================================================
     	  $(".sales_amount").each(function() {
 	      	    var num = $(this).text();
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum + "원");
-	      });
-    	  $(".total-sales_amount").each(function() {
-	      	    var num = $(this).text();
-	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum+ "원");
 	      });
     	  $(".menu_price").each(function() {
 	      	    var num = $(this).text();
@@ -214,20 +178,16 @@
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum);
 	      });
-  	  	  $(".total-sales_count").each(function() {
-	      	    var num = $(this).text();
-	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum);
-	      });
   	  	  $(".sales_income").each(function() {
 	      	    var num = $(this).text();
 	      	    var commaNum = numberWithCommas(num);
 	      	    $(this).text(commaNum+ "원");
 	      });
-	  	  $(".total-sales_income").each(function() {
+	      
+    	  $(".sumSales").each(function() {
 	      	    var num = $(this).text();
 	      	    var commaNum = numberWithCommas(num);
-	      	    $(this).text(commaNum+ "원");
+	      	    $(this).text(commaNum);
 	      });
 
 //=====================================================================================================
@@ -323,7 +283,16 @@
 			
 			document.menuSalesForm.submit();
 		}
-   
+		
+		 function dateChange(){
+			 var minDate = new Date($('.sales_date_t1').val());
+			 var selectDate = new Date($('.sales_date_t2').val());
+			  if(minDate>selectDate){
+					alert("올바른 기간으로 선택해주세요");
+					$('.sales_date_t1').val("");
+					$('.sales_date_t2').val("");
+			}
+		 }
    
       
 		//--------------------------------------------------------
@@ -556,7 +525,8 @@
  	<tr>
 		<td>
 				   
-				<a href="">[ 기간&nbsp;&nbsp;&nbsp;설정 ] : </a><input type="date" name="sales_date_t1" class="sales_date_t1"> ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();"></span>
+				<a href="">[ 기간&nbsp;&nbsp;&nbsp;설정 ] : </a><input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
+				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();""></span>
 						      
 		<br><br>
 	<tr>
@@ -578,21 +548,12 @@
  
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
 						
 						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
 						<!-- 선택한 페이지번호는 DB 연동시 아주 중요한 역할을 한다 -->
 						<!-- 개발중에는 테스트를 위해 type을 text로 바꿔놓으면 눈에 보여서 편하다 -->
 						<input type="hidden" name="selectPageNo"> 
-						<input type="hidden" name="sort" value=“s.sales_date_desc”> 
+						<input type="hidden" name="sort" value=“s.sales_date desc”> 
 						<input type="hidden" name="user_id" value="${user_id}">  
 						
 					</div>	
@@ -603,15 +564,15 @@
               <table class="table table-striped table-advance table-hover" id="select">
                 <thead>
                   <tr>
-                  <td align=right>
-                  <!-- EL 문법으로 게시판 검색 총 개수 출력하기 -->
-            <!-- 달러{salesAllCnt} 은  컨트롤러 클래스 내부에 -->       <!-- EL문법은 주석문 안에 들어가더라도 소스보기 했을 때 실행결과가 삽입된다. 문법에 맞지 않는 내용을 삽입할 시에는 에러발생 -->
-            <!-- ModelAndView 객체에 salesAllCnt 라는 키값으로 저장된 -->
-            <!-- 데이터를 EL로 표현하여 삽입하라는 뜻이다. -->
+                  <td align=left class="sumSales">
             		[거래 건수]: ${salesListAllCnt}&nbsp;&nbsp;
+                    [판매수량 합계] : ${salesSum.sum_sales_count} &nbsp;&nbsp;
+		            [총 매출  합계] : ${salesSum.sum_sales_amount}원&nbsp;&nbsp;
+		            [순 매출  합계] : ${salesSum.sum_sales_income}원
 
             <!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기 -->
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
+                  <td align=right>
 			            <select name="rowCntPerPage">
 			               <option value="10">10
 			               <option value="15">15
@@ -645,21 +606,6 @@
 				</c:choose>
 				
 				<c:choose>
-				<c:when test="${param.sort=='s.menu_category_code desc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('s.menu_category_code asc'); goSearch();">카테고리 ▼
-				</c:when>
-				<c:when test="${param.sort=='s.menu_category_code asc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('s.menu_category_code desc'); goSearch();">카테고리 ▲
-				</c:when>
-				<c:otherwise>
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('s.menu_category_code asc'); goSearch();">카테고리
-				</c:otherwise>
-				</c:choose>
-				
-				<c:choose>
 				<c:when test="${param.sort=='s.menu_name desc'}">
 					<th style="cursor:pointer"
 							onClick="$('[name=sort]').val('s.menu_name asc'); goSearch();">메뉴 ▼
@@ -675,77 +621,77 @@
 				</c:choose>
 				
 				<c:choose>
-				<c:when test="${param.sort=='4 desc'}">
+				<c:when test="${param.sort=='3 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격 ▼
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">가격 ▼
 				</c:when>
-				<c:when test="${param.sort=='4 asc'}">
+				<c:when test="${param.sort=='3 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 desc'); goSearch();">가격 ▲
+							onClick="$('[name=sort]').val('3 desc'); goSearch();">가격 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('4 asc'); goSearch();">가격
+							onClick="$('[name=sort]').val('3 asc'); goSearch();">가격
+				</c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+				<c:when test="${param.sort=='4 desc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">수량 ▼
+				</c:when>
+				<c:when test="${param.sort=='4 asc'}">
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 desc'); goSearch();">수량 ▲
+				</c:when>
+				<c:otherwise>
+					<th style="cursor:pointer"
+							onClick="$('[name=sort]').val('4 asc'); goSearch();">수량
 				</c:otherwise>
 				</c:choose>
 				
 				<c:choose>
 				<c:when test="${param.sort=='5 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량 ▼
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">총매출 ▼
 				</c:when>
 				<c:when test="${param.sort=='5 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 desc'); goSearch();">수량 ▲
+							onClick="$('[name=sort]').val('5 desc'); goSearch();">총매출 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('5 asc'); goSearch();">수량
+							onClick="$('[name=sort]').val('5 asc'); goSearch();">총매출
 				</c:otherwise>
 				</c:choose>
 				
 				<c:choose>
 				<c:when test="${param.sort=='6 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출 ▼
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">순매출 ▼
 				</c:when>
 				<c:when test="${param.sort=='6 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 desc'); goSearch();">총매출 ▲
+							onClick="$('[name=sort]').val('6 desc'); goSearch();">순매출 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('6 asc'); goSearch();">총매출
+							onClick="$('[name=sort]').val('6 asc'); goSearch();">순매출
 				</c:otherwise>
 				</c:choose>
 				
 				<c:choose>
 				<c:when test="${param.sort=='7 desc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출 ▼
+							onClick="$('[name=sort]').val('7 asc'); goSearch();">판매일 ▼
 				</c:when>
 				<c:when test="${param.sort=='7 asc'}">
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 desc'); goSearch();">순매출 ▲
+							onClick="$('[name=sort]').val('7 desc'); goSearch();">판매일 ▲
 				</c:when>
 				<c:otherwise>
 					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('7 asc'); goSearch();">순매출
-				</c:otherwise>
-				</c:choose>
-				
-				<c:choose>
-				<c:when test="${param.sort=='8 desc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('8 asc'); goSearch();">판매일 ▼
-				</c:when>
-				<c:when test="${param.sort=='8 asc'}">
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('8 desc'); goSearch();">판매일 ▲
-				</c:when>
-				<c:otherwise>
-					<th style="cursor:pointer"
-							onClick="$('[name=sort]').val('8 asc'); goSearch();">판매일
+							onClick="$('[name=sort]').val('7 asc'); goSearch();">판매일
 				</c:otherwise>
 				</c:choose>
                  
@@ -761,8 +707,6 @@
 																					+loopTagStatus.index}  
 					<!-- 각 행의 상호명 출력 -->
 					<td  >${sales.business_name}
-					<!-- 각 행의 메뉴카테고리 출력 -->
-					<td  >${sales.menu_category_code}
 					<!-- 각 행의 메뉴 이름 출력 -->
 					<td  >${sales.menu_name}
 					<!-- 각 행의 메뉴 가격 출력 -->
@@ -780,19 +724,7 @@
                   </tr>
                  </c:forEach>
                  </tbody>
-                 <tfoot>
-                  <tr>
- 				<td  >total
-				<td >
-				<td >
-				<td >
-				<td >
-				<td align=right   class="total-sales_count">
-				<td align=right   class="total-sales_amount">
-				<td align=right   class="total-sales_income">
-				<td>
-                  </tr>
-                 </tfoot>
+
               </table><br>
          <c:if test="${empty salesList}">
 		검색결과 없음

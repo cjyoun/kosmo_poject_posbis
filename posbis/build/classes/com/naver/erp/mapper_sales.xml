@@ -12,8 +12,7 @@
 
 	 <sql id="salesWhere">
  		<if test="(keyword!=null and keyword.length()>0)">
-			and(	upper(s.menu_category_code) like upper('%${keyword}%')
-			    or upper(s.menu_name) like upper('%${keyword}%')
+			and(	upper(s.menu_name) like upper('%${keyword}%')
 				or upper(s.menu_price||'') like upper('%${keyword}%')
 				or upper((s.menu_price * s.sales_count)||'') like upper('%${keyword}%')
 				or upper(to_char(s.sales_date,'yyyy-mm-dd')) like upper('%${keyword}%')
@@ -74,13 +73,12 @@
 		select * from(select zzz.*, rownum RNUM from(
 			select
                 b.business_name                         as  "business_name"
-			    ,s.menu_category_code    				as  "menu_category_code"
 			    ,s.menu_name            				as  "menu_name"
-			    ,s.menu_price||''           			as  "menu_price"
-			    ,s.sales_count||''          			as  "sales_count"
-			    ,(s.menu_price * s.sales_count)||'' 	as  "sales_amount"
-			    ,((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count))||'' 	as  "sales_income"
-			    ,to_char(s.sales_date,'yyyy-mm-dd day')     as  "sales_date"
+			    ,s.menu_price           			as  "menu_price"
+			    ,s.sales_count          			as  "sales_count"
+			    ,(s.menu_price * s.sales_count) 	as  "sales_amount"
+			    ,((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) 	as  "sales_income"
+			    ,to_char(s.sales_date,'yyyy-mm-dd (dy)')     as  "sales_date"
 			from sales s, business_info b, user_info u
 			where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
 			<!-- and s.business_no like '%${changeBusinessNo}%' -->
@@ -108,6 +106,21 @@
 	</select>
 	
 	
+		
+	<!--*************************************************************-->
+	<!-- 총 합계 리턴하는 select 태그 선언-->
+	<!--*************************************************************-->
+	<select id="getSalesSum" parameterType="com.naver.erp.SalesSearchDTO" resultType="java.util.HashMap">
+		select 
+		    sum(s.sales_count) as "sum_sales_count"
+		    ,sum(s.menu_price * s.sales_count) as "sum_sales_amount"   
+		    ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) as "sum_sales_income"
+		from sales s, business_info b, user_info u
+		where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
+			<!-- and s.business_no like '%${changeBusinessNo}%' -->
+			<!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
+ 		 <include refid="salesWhere"/>	
+	</select>
 	
 	
 	
@@ -119,17 +132,16 @@
 		select * from(select zzz.*, rownum RNUM from(
 			select
                   b.business_name                       as  "business_name2"
-				 ,s.menu_category_code    				as  "menu_category_code2"
 				 ,s.menu_name            				as  "menu_name2"
-				 ,s.menu_price||''           			as  "menu_price2"
-				 ,sum(s.sales_count)||''          			as  "sales_count2"
-				 ,sum(s.menu_price * s.sales_count)||'' 	as  "sales_amount2"
-			     ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count))||'' 	as  "sales_income2"
+				 ,s.menu_price           			as  "menu_price2"
+				 ,sum(s.sales_count)          			as  "sales_count2"
+				 ,sum(s.menu_price * s.sales_count) 	as  "sales_amount2"
+			     ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) 	as  "sales_income2"
 			from sales s, business_info b, user_info u
 			where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
 				<!-- and s.business_no like '%${changeBusinessNo}%' -->
 	 		 <include refid="salesWhere"/>
-	 		 	group by b.business_name, s.menu_category_code, s.menu_name, s.menu_price||''
+	 		 	group by b.business_name, s.menu_name, s.menu_price
 				order by ${sort}
 			)zzz )where <!-- xml에서 <>는 부등호가 아닌 태그의 시작과 끝이다. <![CDATA[ ]]>로 구문을 감싸면 <>를 태그가 아닌 부등호로 인식 -->
 			<![CDATA[
@@ -148,19 +160,33 @@
 			(
 			select
                   b.business_name                       as  "business_name2"
-				 ,s.menu_category_code    				as  "menu_category_code2"
 				 ,s.menu_name            				as  "menu_name2"
-				 ,s.menu_price||''           			as  "menu_price2"
-				 ,sum(s.sales_count)||''          			as  "sales_count2"
-				 ,sum(s.menu_price * s.sales_count)||'' 	as  "sales_amount2"
-			    , sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count))||'' 	as  "sales_income"
+				 ,s.menu_price	          				as  "menu_price2"
+				 ,sum(s.sales_count)          			as  "sales_count2"
+				 ,sum(s.menu_price * s.sales_count) 	as  "sales_amount2"
+			    , sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) 	as  "sales_income"
 			from sales s, business_info b, user_info u
 			where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
 				<!-- and s.business_no like '%${changeBusinessNo}%' -->
 	 		 <include refid="salesWhere"/>
-	 		 	group by b.business_name, s.menu_category_code, s.menu_name, s.menu_price||''
+	 		 	group by b.business_name, s.menu_name, s.menu_price
 	 		)
 	</select>
+	
+	
+	<select id="getMenuSalesSum" parameterType="com.naver.erp.MenuSalesSearchDTO" resultType="java.util.HashMap">
+		select 
+		    sum(s.sales_count) as "sum_sales_count"
+		    ,sum(s.menu_price * s.sales_count) as "sum_sales_amount"   
+		    ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) as "sum_sales_income"
+		from sales s, business_info b, user_info u
+		where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
+			<!-- and s.business_no like '%${changeBusinessNo}%' -->
+			<!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
+ 		 <include refid="salesWhere"/>	
+	</select>
+	
+	
 	
 	
 <!-- ========================================================================================= -->
@@ -192,11 +218,12 @@
 	from sales
 	where business_no in (select business_no from business_info where u_no = #{u_no})
 	group by to_char(sales_date,'yyyy.mm')
-		having (to_char(sales_date,'yyyy.mm') = to_char(sysdate,'yyyy.mm') )  or (to_char(sales_date,'yyyy.mm') = to_char(add_months(sysdate,-1),'yyyy.mm') )
+		having (to_char(sales_date,'yyyy.mm') = to_char(add_months(sysdate,-12),'yyyy.mm') )  or (to_char(sales_date,'yyyy.mm') = to_char(add_months(sysdate,-1),'yyyy.mm') )
 	order by to_char(sales_date,'yyyy.mm')
 	
    </select>
 	
 	
 </mapper>	
+
 	

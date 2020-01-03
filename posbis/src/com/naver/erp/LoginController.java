@@ -855,6 +855,104 @@ public class LoginController {
 	}
 	
 	
+	//=============================================수민수민================================================
+	//사업자 번호 추가
+	
+		@RequestMapping(value = "/newBusiForm.do")
+		public ModelAndView newBusiForm(
+				HttpSession session
+				//,@RequestParam(value = "business_no") String business_no
+				//,@RequestParam(value = "user_pwd") String user_pwd
+			) {
+			//System.out.println("business_no =====> " + business_no);
+			// [ModelAndView 객체] 생성.
+			// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+			// [ModelAndView 객체] 리턴하기
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("newBusiForm.jsp"); 
+			
+			String rank_code = (String)session.getAttribute("rank_code");
+			mav.addObject("rank_code",rank_code);
+			
+			try {
+				// 주소 구 데이터
+				// 가져오기-------------------------------------------------------------------
+				List<Map<String, String>> addrListGu = this.loginService.getAddrListGu();
+				mav.addObject("addrListGu", addrListGu);
+				System.out.println("addrListGu : " + addrListGu.size());
+
+				// 업종 타입 1 데이터
+				// 가져오기-------------------------------------------------------------------
+				List<Map<String, String>> businessTypeList1 = this.loginService.getbusinessTypeList1();
+				mav.addObject("businessTypeList1", businessTypeList1);
+				System.out.println("businessTypeList1.size() : " + businessTypeList1.size());
+				
+
+			} catch (Exception e) {
+				System.out.println("<addrList 에러발생>");
+				System.out.println(e.getMessage());
+			}
+			return mav;
+		}
+		
+		
+		
+	//=====================================================================================================
+		//사업자번호 삭제	
+
+		@RequestMapping(value = "/newBusiProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+		@ResponseBody
+		public int newBusiProc(
+				BusiInfoDTO busiInfoDTO
+				, HttpSession session 
+			) 
+		{
+			int insertBusiCnt = 0;
+
+			int u_no = (int)session.getAttribute("u_no");
+			busiInfoDTO.setU_no(u_no);
+			
+			try {
+				insertBusiCnt = this.loginService.insertBusi(busiInfoDTO);
+
+			} catch (Exception e) {
+				System.out.println("<newBusi 에러발생>");
+				System.out.println(e.getMessage());
+			}
+			return insertBusiCnt;
+		}
+	
+		// -----------------------------------------------------------------------------
+		@RequestMapping(value = "/delBusiProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+		@ResponseBody
+		public int delBusiProc(
+				@RequestParam(value = "changeBusinessNo") String business_no
+				,@RequestParam(value = "user_pwd") String user_pwd
+				,@RequestParam(value = "user_id") String user_id
+				, HttpSession session 
+			) 
+		{
+			int deleteBusiCnt = 0;
+			try {
+				
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("business_no", business_no);
+				map.put("user_pwd", user_pwd);
+				map.put("user_id", user_id);
+				
+				deleteBusiCnt = this.loginService.deleteBusi(map);
+				
+			} catch (Exception e) {
+				System.out.println("<newBusi 에러발생>");
+				System.out.println(e.getMessage());
+			}
+			System.out.println(business_no);
+			System.out.println(user_pwd);
+			System.out.println(user_id);
+			return deleteBusiCnt;
+		}
+	
+	//====================================================================================================================	
 	
 	
 	

@@ -14,6 +14,13 @@ public class PreSearchDTO {
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
 	private String sort="ranking asc";
+	
+	//검색결과
+	private List<Map<String,String>> preResultList;
+	private int preResultAllCnt=0;
+	
+	
+
 
 	
 	
@@ -62,8 +69,21 @@ public class PreSearchDTO {
 	public String getSort() {
 		return sort;
 	}
+	
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public List<Map<String, String>> getPreResultList() {
+		return preResultList;
+	}
+	public void setPreResultList(List<Map<String, String>> preResultList) {
+		this.preResultList = preResultList;
+	}
+	public int getPreResultAllCnt() {
+		return preResultAllCnt;
+	}
+	public void setPreResultAllCnt(int preResultAllCnt) {
+		this.preResultAllCnt = preResultAllCnt;
 	}
 	
 	

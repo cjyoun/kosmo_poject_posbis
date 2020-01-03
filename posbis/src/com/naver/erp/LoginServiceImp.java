@@ -242,4 +242,24 @@ public class LoginServiceImp implements LoginService {
 		};
 		
 		
+//========================================김수민============================================		
+
+		public int insertBusi(BusiInfoDTO busiInfoDTO) {
+			int pwdCnt=this.loginDAO.getPwdCnt(busiInfoDTO);
+			if(pwdCnt==0) {return -1;}
+
+			int insertBusiCnt = this.loginDAO.insertBusi(busiInfoDTO);
+			return insertBusiCnt;
+		};
+		
+		public int deleteBusi(Map<String, String> DeleteBusi) {
+			int pwdCnt2=this.loginDAO.getPwdCnt2(DeleteBusi);
+			if(pwdCnt2==0) {return -1;}
+
+			int deleteBusiCnt = this.loginDAO.deleteBusi(DeleteBusi);
+			return deleteBusiCnt;
+		};
+
+//=============================================================================================	
+		
 }

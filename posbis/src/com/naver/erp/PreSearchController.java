@@ -21,60 +21,57 @@ public class PreSearchController {
 		
 
 	 @RequestMapping( value="/getPreResultProc.do" //접속하는 클래스의 URL 주소 설정
+			 						,method=RequestMethod.POST //접속하는 클래스의 파라미터값 전송 방법
 			 						,produces="application/json;charset=UTF-8" )	 
 	 @ResponseBody
-	 public  PreResultDTO getPreResultProc( 
+	 public  PreSearchDTO getPreResultProc( 
 			 PreSearchDTO preSearchDTO 
 	) {
 		 System.out.println("proc시작");
+		 System.out.println("controller/preSearchDTO.getSort();===>"+preSearchDTO.getSort());
+
 		 
-
-		 PreResultDTO preResultDTO= new PreResultDTO();
+		 
 			try {
-
-		       //================[프리미엄 검색 총 개수] 얻기=====================
-					int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
-					//System.out.println("Controller/preResultAllCnt===>"+preResultAllCnt);
-					//================끝  [프리미엄 검색 총 개수] 얻기=====================
-					
-					
-					// 총 개수와 선택한 페이지 번호간의 이상관계 시 보정
-					
-					if(preResultAllCnt>0) {
-						int selectPageNo =  preSearchDTO.getSelectPageNo();
-						int rowCntPerPage = preSearchDTO.getRowCntPerPage();
-						int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
-						
-						if(  preResultAllCnt < beginRowNo ) {
+				
+				 int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
+				 preSearchDTO.setPreResultAllCnt(preResultAllCnt);
+				 
+				 //[선택된 페이지 번호] 보정하기
+				 //보정을 하지 않으면 검색 총 개수 < 선택페이지의 시작행 번호일 때 검색 결과를 보여줄 수 없다.
+				 //효율성을 위해 총 개수가 0개 이상일 때만 코딩 실행하도록 설정
+			 		if(preResultAllCnt>0) {
+			 		//선택한 페이지 번호 구하기
+			 			int selectPageNo=preSearchDTO.getSelectPageNo();
+			 			//한 화면에 보여지는 행의 개수 구하기
+			 			int rowCntPerPage=preSearchDTO.getRowCntPerPage();
+			 			//검색할 시작 행 번호 구하기
+			 			int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
+			 			//만약 검색결과 총 행의 개수가 선택한 페이지 시작행 번호보다 작으면
+			 			//선택한 페이지 번호를 1로 세팅하기
+						if(preResultAllCnt<beginRowNo) {
 							preSearchDTO.setSelectPageNo(1);
-						}
-					}
+			 			}
+			 		}
 					
-					
-					
-					//=====================[검색 목록] 얻기===========================
+					//검색목록 얻기
 					List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
-					//System.out.println("preResultList.size() => " + preResultList.size() );
-					//System.out.println("Controller/preResultList===>"+preResultList);
-					//===================끝  [검색 목록] 얻기===========================
-					System.out.println("controller/preResultAllCnt==>"+preResultAllCnt);
-					System.out.println("controller/preResultList==>"+preResultList);
-
-					//preResultDTO.setPreResultAllCnt(preResultAllCnt);
-					//preResultDTO.setPreResultList(preResultList);
+					preSearchDTO.setPreResultList(preResultList);
 					
 
 			}
 			catch(Exception e) {
-				System.out.println("getPreResultProc <에러발생>");
+				System.out.println("salesProc <에러발생>");
 				System.out.println(e.getMessage());
 			}
-			
-			
-			 return preResultDTO;
+			System.out.println(preSearchDTO.getPreResultAllCnt() );
+			 return preSearchDTO;
 	 } 
 	 
+ 
+	 
 	
+
 	
 	
 	
@@ -101,17 +98,17 @@ public class PreSearchController {
 	        // System.out.println(user_id);
 	         
 	         // user_id 를 가지고 u_no 값 얻기
-	         int user_no = this.preSearchService.getUserNo(user_id);
+	        // int user_no = this.preSearchService.getUserNo(user_id);
 	         //System.out.println("user_no : " + user_no);
 	         
 	         // u_no 값 가지고 business_no, business_name 값 얻기 (N행 N열이라 List<Map<String,String>> .  N행 1열이면 List<String> )
-	         List<Map<String,String>> businessNoList = this.preSearchService.getBusinessNoList(user_no);
+	         //List<Map<String,String>> businessNoList = this.preSearchService.getBusinessNoList(user_no);
 	         //List<String> businessNoList = this.preChartService.getBusinessNoList(user_no);
 
 	         //System.out.println("Controller/businessNoList 끝");
 	         
 	         
-	         mav.addObject("businessNoList" , businessNoList);
+	         //mav.addObject("businessNoList" , businessNoList);
 	         
 	         
 	   //      mav.addObject("boardListAllCnt" , boardListAllCnt);

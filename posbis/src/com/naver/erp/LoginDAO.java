@@ -78,6 +78,15 @@ public interface LoginDAO {
 	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
 	List<Map<String, String>> getMyStoreInfoList(int u_no);
 		
-	
+
+	//================김수민==================================================================		
+		
+		int insertBusi(BusiInfoDTO busiInfoDTO);
+		int getPwdCnt(BusiInfoDTO busiInfoDTO);
+
+		int getPwdCnt2(Map<String, String> DeleteBusi);
+		int deleteBusi(Map<String, String> DeleteBusi);
+		
+	//========================================================================================	
 		
 }

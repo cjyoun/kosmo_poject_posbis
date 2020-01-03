@@ -147,7 +147,7 @@
 				 }
 				inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
 				 inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-			    if("${preSearchDTO.addr_gu2}" != null){
+			    if("${preSearchDTO.addr_gu2}" == null){
 			  	inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
 			    }else{
 			    	getAddrGu2();
@@ -226,7 +226,7 @@
 
 			
 
-			//월매출 콤마 넣기
+			//월매출 콤마 넣기 함수
 	         function numberWithCommas(number) {
 	             var parts = number.toString().split(".");
 	             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -239,25 +239,40 @@
 
 
 				
-	      function goPreSearch(){	         
- 			/*
-		       	$.ajax({
-					url : "/posbis/getPreResultProc.do"
-					, type : "post"
-					, data : $("[name=preSearchForm]").serialize() 
-					, success : function(data){
-						alert("성공");
-						alert(data.preResultAllCnt);
-					}
-					, error : function(request,status,error){
-						alert("서버 접속 실패");
+	         function goPreSearch(){	 		
+/*
+			       	$.ajax({
+						url : "/posbis/getPreResultProc.do"
+						, type : "post"
+						, data : $("[name=preSearchForm]").serialize() 
+						, success : function(data){
+							alert("성공");
 
-					}
-				}) 
-			
-			*/
-				document.preSearchForm.submit();
-	      }   
+							$("[name=preResultTable] tbody").empty();
+					
+							for ( var i=0; i<data.rowCntPerPage; i++){
+								
+								$("[name=preResultTable] tbody").append("<tr><td  align=center>"+data.preResultList[i].PAGINGRNUM
+																												+"<td  align=center>"+data.preResultList[i].RANKING
+																												+"<td  align=right class=month_sales>"+data.preResultList[i].MONTH_SALES
+																												+"<td  align=center>"+data.preResultList[i].BUSINESS_TYPE
+																												+"<td  align=center>"+data.preResultList[i].BEST_MENU_TYPE
+																												+"<td  align=center>"+data.preResultList[i].ADDR_GU+" "+data.preResultList[i].ADDR_DONG+"</tr");
+							
+							}
+							alert(data.selectPageNo)
+							
+						}
+						, error : function(request,status,error){
+							alert("서버 접속 실패");
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						
+						}
+					}) 
+				*/
+					
+					document.preSearchForm.submit(); 
+		      }   
 
 
 
@@ -542,15 +557,15 @@
 									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
 										ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
 										EL 로 표현하여 삽입 -->	
-									[총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+									[검색 총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
 									<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
 									<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
 									<select name="rowCntPerPage">
-										<option value="10">10
-										<option value="15">15
-										<option value="20">20
-										<option value="25">25
-										<option value="30">30
+										<option value="10">10&nbsp;
+										<option value="15">15&nbsp;
+										<option value="20">20&nbsp;
+										<option value="25">25&nbsp;
+										<option value="30">30&nbsp;
 									</select> 행보기
 						</table>
 						
@@ -659,12 +674,12 @@
 
 							<c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
 							<tr>
-								<td >${preResult.PAGINGRNUM}
-								<td >${preResult.RANKING}
-								<td  align=center class=month_sales>${preResult.MONTH_SALES}
-								<td >${preResult.BUSINESS_TYPE}
-								<td  >${preResult.BEST_MENU_TYPE}
-								<td  >${preResult.ADDR_DONG}
+								<td  align=center>${preResult.PAGINGRNUM}
+								<td  align=center>${preResult.RANKING}
+								<td  align=right class=month_sales>${preResult.MONTH_SALES}
+								<td  align=center>${preResult.BUSINESS_TYPE}
+								<td   align=center>${preResult.BEST_MENU_TYPE}
+								<td   align=center>${preResult.ADDR_GU} ${preResult.ADDR_DONG} 
 							</c:forEach>
 						</table>
 					</form>

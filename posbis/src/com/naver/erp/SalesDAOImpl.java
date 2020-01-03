@@ -34,6 +34,22 @@ public class SalesDAOImpl implements SalesDAO{
 	    //System.out.println("DAO: salesListAllCnt => " + salesListAllCnt);
 		return salesListAllCnt;
 	}
+	
+	
+	
+	
+	public Map<String,String> getSalesSum(SalesSearchDTO salesSearchDTO){
+		Map<String,String> salesSum = this.sqlSession.selectOne(
+				"com.naver.erp.SalesDAO.getSalesSum"	//실행할 SQL 구문의 위치 지정
+				,salesSearchDTO							//실행할 SQL 구문에서 사용할 데이터 지정
+			);
+	    //System.out.println("DAO : getSalesList 메소드 끝");
+				return salesSum;
+	}
+	
+	
+	
+	
 						
 						//[검색한 게시판 목록] 리턴하는 메소드 선언
 						public List<Map<String,String>> getMenuSalesList(MenuSalesSearchDTO menuSalesSearchDTO){
@@ -57,7 +73,16 @@ public class SalesDAOImpl implements SalesDAO{
 							return menuSalesListAllCnt;
 						}
 						
-	
+						
+						public Map<String,String> getMenuSalesSum(MenuSalesSearchDTO menuSalesSearchDTO){
+							Map<String,String> menuSalesSum = this.sqlSession.selectOne(
+									"com.naver.erp.SalesDAO.getMenuSalesSum"	//실행할 SQL 구문의 위치 지정
+									,menuSalesSearchDTO							//실행할 SQL 구문에서 사용할 데이터 지정
+								);
+						    //System.out.println("DAO : getSalesList 메소드 끝");
+									return menuSalesSum;
+						}
+						
 	 
 	   // user_id 를 가지고 u_no 얻기
 	   @Override
