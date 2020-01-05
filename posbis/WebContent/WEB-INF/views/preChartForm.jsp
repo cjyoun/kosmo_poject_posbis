@@ -105,9 +105,9 @@
 //	    	 checkBusinessNoForm();
 				// name="changeBusinessNo" 에 change 이벤트가 발생하면 실행할 코드 설정.
 				$('[name=changeBusinessNo]').change(function(){		
-
-					checkBusinessNoForm();
 					changeChart();
+					checkBusinessNoForm();
+					
 					
 					
 				});	
@@ -120,12 +120,13 @@
 		  	
 	     function changeChart(){
 	    	 var business = $('[name=changeBusinessNo]').val();
+	    	 //alert(business);
              if(business == 'all'){        
                  $('.BusinessNoChart').hide();
                  $('.allBusinessNoChart').show();
            }
              else{
-           	  $('.allBusinessNoChart').hide();
+           	  	 $('.allBusinessNoChart').hide();
                  $('.BusinessNoChart').show();
              }
 	     } 
@@ -340,16 +341,21 @@
 								$('.myPopularityMenu').append('<tr class="menu2"><td align=center >'+ myMenuName[i] +'</td>');
 							}
 						
-							
-							// 다른가게 인기메뉴 가져와서 보여주기
-							for(var i=0; i<myPopularityListDTO.othersPopularityMenu.length; i++){
-								othersMenuName[i] = myPopularityListDTO.othersPopularityMenu[i].MENU_NAME ;
-								//alert("othersMenuName => " + othersMenuName[i]);
-								othersCount[i] = myPopularityListDTO.othersPopularityMenu[i].SALES_COUNT ;
-								//alert("othersCount => " + othersCount[i]);
-								$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >'+ othersMenuName[i] +'</td>');
+							if(myPopularityListDTO.othersPopularityMenu.length == 0){
+								$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >없음</td>');
 							}
-
+							else{
+								// 다른가게 인기메뉴 가져와서 보여주기
+								for(var i=0; i<myPopularityListDTO.othersPopularityMenu.length; i++){
+									othersMenuName[i] = myPopularityListDTO.othersPopularityMenu[i].MENU_NAME ;
+									//alert("othersMenuName => " + othersMenuName[i]);
+									othersCount[i] = myPopularityListDTO.othersPopularityMenu[i].SALES_COUNT ;
+									//alert("othersCount => " + othersCount[i]);
+									$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >'+ othersMenuName[i] +'</td>');
+									
+										
+								}
+							}
 							var storeCount = myPopularityListDTO.storeCount;
 							//alert("storeCount => " + storeCount)
 							$('.store_count').append('<td align=center class="menu3" >'+ storeCount +'</td>');
@@ -961,7 +967,7 @@
 				
 				</div>
 				<br><br>
-				<c:set var="changeBusinessNo" value="${all}" />
+				<%-- <c:set var="changeBusinessNo" value="${all}" /> --%>
 					<%-- <c:if test="${changeBusinessNo eq 'all'}"> --%>
 					<!-- <div class="panel-body"> -->
 			 			<div class="allBusinessNoChart">

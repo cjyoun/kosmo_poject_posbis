@@ -305,10 +305,12 @@ public class LoginDAOImp implements LoginDAO{
 	// 카드 생성하기
 	@Override
 	public int insertCard(CardDTO cardDTO) {
+		
 		int insertCard = this.sqlSession.insert(
 				 "com.naver.erp.LoginDAO.insertCard"		// 실행할 SQL 구문의 위치 지정
 				, cardDTO 	
 		);
+		System.out.println("insertCard 매핑 끝");
 		return insertCard;
 	};
 	

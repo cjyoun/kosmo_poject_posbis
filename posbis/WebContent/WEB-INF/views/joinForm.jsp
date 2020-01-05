@@ -67,7 +67,36 @@
     License: https://bootstrapmade.com/license/
   ======================================================= -->
 </head>
+<style>
+  .loginmaintaining {
 
+    display: inline-block;
+	color: #6c757d;
+    width: 21%;
+    
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	
+    text-align: left;
+
+	border-top:1px solid #eeeeee ;
+
+	border-left:1px solid #eeeeee ;
+
+    border-right:1px solid #eeeeee ;
+
+	border-bottom:1px solid #eeeeee ;
+
+    display: inline-block;
+    
+   background-color: #f5f8fd;
+
+}
+  
+  
+  </style>
 
 <script>
   $(document).ready(function() {
@@ -97,7 +126,7 @@
              $('font[name=check]').text('');
           });
            $(".checkPwd2").keyup(function(){
-              if($(".user_pwd").val()!=$(".checkPwd2").val()){
+              if($(".form-control user_pwd").val()!=$(".checkPwd2").val()){
                  $('font[name=check]').text('');   
                  $('font[name=check]').html('&nbsp;암호틀림');   
               }else{
@@ -106,10 +135,7 @@
               }
            });
       
- 
-        
-      
-         
+
         
          //$(".helpA").hide();
          //a태그에 마우스오버 또는 마우스아웃 할 경우 실행할 자스 코딩 설정
@@ -412,7 +438,7 @@
                   , success : function(businessnoCnt) {
                      if( businessnoCnt==1 ){
                         alert("이미 등록된 사업자번호 입니다.재 입력 바랍니다.");
-                        location.replace('/posbis/joinForm.do');
+                        
                      }else if(businessnoCnt == 0) {
                         alert("등록가능한 사업자번호 입니다3.");
       
@@ -439,7 +465,7 @@
 		
 		function gobeforeSignIntroForm(){
 	        //alert("회사소개로 이동");
-	        location.replace("/posbis/beforeSignintroForm.do");
+	        location.replace("/posbis/beforeSignIntroForm.do");
 	     }
 		
 		 
@@ -543,7 +569,9 @@
                       <input type="password"  name="checkPwd2" class="form-control checkPwd2" maxlength="10">
                       <span class="help-block">*숫자 10자리 입력하세요.</span>
                     </div>
+                    <font name="check" size="2" color="red"></font>
           		  </div>
+          		  
                   <div class="form-group">
                     <label class="col-sm-2 control-label">성명</label>
                     <div class="col-sm-6">

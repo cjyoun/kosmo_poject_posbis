@@ -825,6 +825,7 @@ public class LoginController {
 			, HttpSession session 
 		) 
 	{
+		System.out.println("===============LoginController payProc.do===================");
 		int insertCard = 0;
 		
 		int u_no = (int)session.getAttribute("u_no");
@@ -836,7 +837,9 @@ public class LoginController {
 
 		try {
 			String credit_no = cardDTO.getCreditNum1() + cardDTO.getCreditNum2() + cardDTO.getCreditNum3() + cardDTO.getCreditNum4() ;
+			
 			cardDTO.setCredit_no(credit_no);
+			System.out.println("insertCard 메소드 시작");
 			insertCard = this.loginService.insertCard(cardDTO);		
 			
 			int updateRank = this.loginService.updateRank(cardDTO.getU_no());

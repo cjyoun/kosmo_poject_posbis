@@ -291,7 +291,6 @@
 		              if( businessnoCnt==1 ){
 		              	busiCheck = false;
 		                 alert("사업자등록번호 중복확인을 해주세요");
-		                 location.replace('/posbis/newBusiForm.do');
 		              }else if(businessnoCnt == 0) {
 
 		                  //가게 추가 ajax

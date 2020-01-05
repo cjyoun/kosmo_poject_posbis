@@ -415,6 +415,15 @@
  
                   </div>
                   
+                  
+                  <div class="form-group">
+                    <label for="cname" class="control-label col-lg-2">CVC <span class="required">*</span></label>
+                    <div class="col-lg-2">
+                        <input type="text" name="cvc_no" size=2 maxlength=3  class="form-control cvc_no"  >
+                      </div> 
+ 
+                  </div>
+                  
                   <div class="form-group">
                     <label for="cname" class="control-label col-lg-2">주민번호 <span class="required">*</span></label>
           		 <div class="col-lg-2">

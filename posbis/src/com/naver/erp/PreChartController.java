@@ -63,9 +63,9 @@ public class PreChartController {
 			System.out.println(businessNoList);
 			System.out.println("businessNoList.size()=>" + businessNoList.size());
 			//System.out.println("businessNoList.get(\"business_no\")=>" + businessNoList.get(0).get("business_no"));
-
-			String all = "all";
-			mav.addObject("all",all);
+//
+//			String all = "all";
+//			mav.addObject("all",all);
 			
 			
 //==================================================================================================================================
