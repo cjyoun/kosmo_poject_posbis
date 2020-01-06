@@ -44,7 +44,7 @@
 //--------------------------------------------------------
   //로고 클릭시
     function goMainForm(){
-       //alert("메인으로 이동");
+       //alert("로그인 화면으로 이동");
        location.replace("/posbis/mainForm.do");
     }
 	

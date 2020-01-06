@@ -1,5 +1,8 @@
 package com.naver.erp;
 
+import java.util.List;
+import java.util.Map;
+
 public class MenuDTO {
 	
 	private int menu_no;
@@ -13,8 +16,32 @@ public class MenuDTO {
 	private String sub_category_name;
 	private String business_name;
 	private String menu_using;
+	private int menuListAllCnt;
+	private List<Map<String,String>> menuList;
+	private String[] chooseBusinessNo;
 	
 	
+	
+	
+	
+	public int getMenuListAllCnt() {
+		return menuListAllCnt;
+	}
+	public void setMenuListAllCnt(int menuListAllCnt) {
+		this.menuListAllCnt = menuListAllCnt;
+	}
+	public List<Map<String, String>> getMenuList() {
+		return menuList;
+	}
+	public void setMenuList(List<Map<String, String>> menuList) {
+		this.menuList = menuList;
+	}
+	public String[] getChooseBusinessNo() {
+		return chooseBusinessNo;
+	}
+	public void setChooseBusinessNo(String[] chooseBusinessNo) {
+		this.chooseBusinessNo = chooseBusinessNo;
+	}
 	public String getMenu_using() {
 		return menu_using;
 	}

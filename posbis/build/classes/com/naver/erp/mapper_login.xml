@@ -283,9 +283,15 @@
    </insert>	
 
 
-<!-- 카드 등록 시 유저 등급 업데이트 -->
+<!-- 카드 등록 시 유저 등급 업데이트 (프리미엄)-->
  	<update id="updateRank" parameterType="int">
 		update user_info set rank_code = '2' where u_no=#{u_no}
+	
+	</update>
+	
+	<!-- 카드 등록 취소 시 유저 등급 업데이트 (일반_ -->
+ 	<update id="updateRank2" parameterType="int">
+		update user_info set rank_code = '1' where u_no=#{u_no}
 	
 	</update>
 

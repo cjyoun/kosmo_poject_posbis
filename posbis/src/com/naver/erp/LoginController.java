@@ -314,7 +314,7 @@ public class LoginController {
 	// -----------------------------------------------------------------------------
 	// 아이디 중복 확인
 
-	@RequestMapping(value = "/joinProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@RequestMapping(value = "/joinCheckUserId.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
 	@ResponseBody
 	public int joinProc(@RequestParam(value = "user_id") String user_id) {
 
@@ -348,8 +348,10 @@ public class LoginController {
 		int insertJoinCnt = 0;
 
 		try {
+			System.out.println("joinRegProc : " + insertJoinCnt);
 			insertJoinCnt = this.loginService.insertJoinUser(joinDTO);
 			
+			System.out.println("joinRegProc 회원가입 성공 : " + insertJoinCnt);
 			int u_no = this.preChartService.getUserNo(joinDTO.getUser_id());
 			System.out.println("user_no : " + u_no);
 			session.setAttribute("u_no", u_no);
@@ -856,6 +858,42 @@ public class LoginController {
 
 		return insertCard;
 	}
+	
+//======= 카드 취소 (등급 일반으로 변경)	
+	
+	@RequestMapping(value = "/payProc2.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@ResponseBody
+	public int payProc2(
+
+			HttpSession session 
+		) 
+	{
+		System.out.println("===============LoginController payProc.do===================");
+		int cardCancel = 0;
+		
+		int u_no = (int)session.getAttribute("u_no");
+		
+
+
+		try {
+			
+			int updateRank2 = this.loginService.updateRank2(u_no);
+			
+			if(updateRank2 == 1) {
+				cardCancel = 1;
+			}
+			
+
+		} catch (Exception e) {
+
+			System.out.println("<infoUpdateProc 에러발생>");
+			System.out.println(e.getMessage());
+
+		}
+
+		return cardCancel;
+	}
+	
 	
 	
 	//=============================================수민수민================================================

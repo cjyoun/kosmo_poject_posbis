@@ -1144,24 +1144,28 @@ pre code {
   }
   .col-lg-4 {
     width: 33.33333333333333%;
+   margin: -36px 40px 55px 111px;
   }
   .col-lg-5 {
     width: 41.66666666666667%;
   }
   .col-lg-6 {
     width: 50%;
+ 
   }
   .col-lg-7 {
     width: 58.333333333333336%;
   }
   .col-lg-8 {
     width: 66.66666666666666%;
+    margin: -36px 40px 55px 111px;
   }
   .col-lg-9 {
     width: 75%;
   }
   .col-lg-10 {
     width: 83.33333333333334%;
+    margin: -36px 40px 55px 111px;
   }
   .col-lg-11 {
     width: 91.66666666666666%;
@@ -1310,7 +1314,7 @@ th {
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child td,
 .table thead:first-child tr:first-child td {
-  border-top: 0;
+  border-top: 1px solid #dddddd;
 }
 .table tbody + tbody {
   border-top: 2px solid #dddddd;

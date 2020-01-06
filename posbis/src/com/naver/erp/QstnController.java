@@ -15,100 +15,131 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class QstnController {
-   
-      //-- ----------------------------------------------------변경및추가분-------------------------------------------------------------------------------- -->
+	 //-- 내가 쓴글 및 내가쓴글에 달린 답글 보기 
+		// 성유진 
+
+	   @Autowired
+	   private SalesService salesService;
+	   
+	   
+	   @RequestMapping( value="/myQstn.do" )
+	   public ModelAndView myQstn(
+	         //---------------------------------------------------------------------------------------------------
+	         // 파라미터값이 저장되는 [QstnSearchDTO 객체]를 매개변수로 선언
+	         //---------------------------------------------------------------------------------------------------
+	            // [파라미터명]과 [QstnSearchDTO 객체]의 [속성변수명]이 같으면 ,
+	            // setter 메소드가 작동되어 [파라미터값]이 [속성변수]에 저장된다.
+	            // [속성변수명]에 대응하는[ 파라미터명]이 없으면 setter 메소드가 작동되지 않는다.
+	            // [속성변수명]에 대응하는 [파라미터명]이 있는데 [파라미터값]이 없으면,
+	            // [속성변수]의 자료형에 관계없이 무조건 null 값이 저장된다.
+	            //      이때 [속성변수]의 자료형이 기본형일 경우 null 값이 저장될 수 없어 에러가 발생한다
+	            //      이런 에러를 피하려면 파라미터값이 기본형이거나 속성변수의 자료형을 String으로 해야 한다
+	            //      이런 에러가 발생하면 메소드 안의 실행구문은 하나도 실행되지 않음에 주의한다
+	         MyQstnSearchDTO myQstnSearchDTO
+	            //-----------------------------------------------
+	            // HttpSession 객체가 저장되는 매개변수 선언하기
+	            //-----------------------------------------------
+	            ,HttpSession session
+	      ){
+	         //------------------------------------------------------
+	         // [ModelAndView 객체] 생성하기
+	         // [ModelAndView 객체]에 [호출 JSP 페이지명]을 저장하기
+	         //------------------------------------------------------
+	         ModelAndView mav = new ModelAndView();
+	         mav.setViewName("myQstn.jsp");
+	         String user_id = (String) session.getAttribute("user_id");
 
 
-   @Autowired
-   private SalesService salesService;
-   
-   
-   @RequestMapping( value="/myQstn.do" )
-   public ModelAndView myQstn(
-         //---------------------------------------------------------------------------------------------------
-         // 파라미터값이 저장되는 [QstnSearchDTO 객체]를 매개변수로 선언
-         //---------------------------------------------------------------------------------------------------
-            // [파라미터명]과 [QstnSearchDTO 객체]의 [속성변수명]이 같으면 ,
-            // setter 메소드가 작동되어 [파라미터값]이 [속성변수]에 저장된다.
-            // [속성변수명]에 대응하는[ 파라미터명]이 없으면 setter 메소드가 작동되지 않는다.
-            // [속성변수명]에 대응하는 [파라미터명]이 있는데 [파라미터값]이 없으면,
-            // [속성변수]의 자료형에 관계없이 무조건 null 값이 저장된다.
-            //      이때 [속성변수]의 자료형이 기본형일 경우 null 값이 저장될 수 없어 에러가 발생한다
-            //      이런 에러를 피하려면 파라미터값이 기본형이거나 속성변수의 자료형을 String으로 해야 한다
-            //      이런 에러가 발생하면 메소드 안의 실행구문은 하나도 실행되지 않음에 주의한다
-         MyQstnSearchDTO myQstnSearchDTO
-            //-----------------------------------------------
-            // HttpSession 객체가 저장되는 매개변수 선언하기
-            //-----------------------------------------------
-            ,HttpSession session
-            //, int u_no
-      ){
-         //------------------------------------------------------
-         // [ModelAndView 객체] 생성하기
-         // [ModelAndView 객체]에 [호출 JSP 페이지명]을 저장하기
-         //------------------------------------------------------
-         ModelAndView mav = new ModelAndView();
-         mav.setViewName("myQstn.jsp");
-         String user_id = (String) session.getAttribute("user_id");
+	           int u_no = this.salesService.getUserNo(user_id);
+	           System.out.println("user_no : " + u_no);
+	         
 
-
-           int u_no = this.salesService.getUserNo(user_id);
-           System.out.println("user_no : " + u_no);
-         
-
-            String rank_code = (String)session.getAttribute("rank_code");
-            mav.addObject("rank_code",rank_code);
-         try {
-            //최수현
+	            String rank_code = (String)session.getAttribute("rank_code");
+	            mav.addObject("rank_code",rank_code);
+	         try {
+	        	 
+	        	 
+	        	 //최수현
                  
-            myQstnSearchDTO.setU_no(u_no);
-                  int myQstnAllCnt = this.qstnService.getMyQstnAllCnt(myQstnSearchDTO);
-                  System.out.println("myQstnAllCnt==>"+myQstnAllCnt);
-                  if(myQstnAllCnt>0) {
-                     // 선택한 페이지 번호 구하기
-                     int selectPageNo = myQstnSearchDTO.getSelectPageNo();
-                     // 한 화면에 보여지는 행의 개수 구하기
-                     int rowCntPerPage = myQstnSearchDTO.getRowCntPerPage();
-                     // 검색할 시작행 번호 구하기
-                     int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
-                     // 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
-                     // 선택한 페이지 번호를 1로 세팅하기
-                     if(myQstnAllCnt < beginRowNo) {
-                        myQstnSearchDTO.setSelectPageNo(1);
-                     }
-                  }
-                  
-                  List<Map<String,String>> myQstnList = this.qstnService.getMyQstnList(myQstnSearchDTO);
-                  System.out.println("myQstnList.size()=>" +myQstnList.size());
-                  
-                  
-                  System.out.println("getU_no ====> "+ myQstnSearchDTO.getU_no());
-                  System.out.println("getSelectPageNo ====> "+ myQstnSearchDTO.getSelectPageNo());
+	             myQstnSearchDTO.setU_no(u_no);
+	                   int myQstnAllCnt = this.qstnService.getMyQstnAllCnt(myQstnSearchDTO);
+	                   System.out.println("myQstnAllCnt==>"+myQstnAllCnt);
+	                   if(myQstnAllCnt>0) {
+	                      // 선택한 페이지 번호 구하기
+	                      int selectPageNo = myQstnSearchDTO.getSelectPageNo();
+	                      // 한 화면에 보여지는 행의 개수 구하기
+	                      int rowCntPerPage = myQstnSearchDTO.getRowCntPerPage();
+	                      // 검색할 시작행 번호 구하기
+	                      int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
+	                      // 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
+	                      // 선택한 페이지 번호를 1로 세팅하기
+	                      if(myQstnAllCnt < beginRowNo) {
+	                         myQstnSearchDTO.setSelectPageNo(1);
+	                      }
+	                   }
+	                   
+	                   List<Map<String,String>> myQstnList = this.qstnService.getMyQstnList(myQstnSearchDTO);
+	                   System.out.println("myQstnList.size()=>" +myQstnList.size());
+	                   
+	                   
+	                   System.out.println("getU_no ====> "+ myQstnSearchDTO.getU_no());
+	                   System.out.println("getSelectPageNo ====> "+ myQstnSearchDTO.getSelectPageNo());
 
-                  
-                  mav.addObject("myQstnList", myQstnList);
-                  mav.addObject("myQstnAllCnt", myQstnAllCnt);
-                  mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
-               // 성유진
-         }catch(Exception e) {
-            //-------------------------------------------------
-            // try 구문에서 예외가 발생하면 실행할 구문 설정
-            //-------------------------------------------------
-            System.out.println("11111<에러발생>");
-            System.out.println("!!! : " + e.getMessage());
-         }
-         //--------------------------------
-         // [ModelAndView 객체] 리턴하기
-         //--------------------------------
-         
-         return mav;
-      }
-   
-   
-   
-   
-      //-- ----------------------------------------------------변경및추가분 끝-------------------------------------------------------------------------------- -->
+	                   
+	                   mav.addObject("myQstnList", myQstnList);
+	                   mav.addObject("myQstnAllCnt", myQstnAllCnt);
+	                   mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
+	                   
+	                   
+	                   // 최수현 끝
+	                 
+	                   myQstnSearchDTO.setU_no(u_no);
+	                   int myQstnAllCnt2 = this.qstnService.getMyQstnAllCnt2(myQstnSearchDTO);
+	                   System.out.println("myQstnAllCnt2==>"+myQstnAllCnt2);
+	                   if(myQstnAllCnt2>0) {
+	                     // 선택한 페이지 번호 구하기
+	                     int selectPageNo = myQstnSearchDTO.getSelectPageNo();
+	                     // 한 화면에 보여지는 행의 개수 구하기
+	                     int rowCntPerPage = myQstnSearchDTO.getRowCntPerPage();
+	                     // 검색할 시작행 번호 구하기
+	                     int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
+	                     // 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
+	                     // 선택한 페이지 번호를 1로 세팅하기
+	                     if(myQstnAllCnt2 < beginRowNo) {
+	                        myQstnSearchDTO.setSelectPageNo(1);
+	                     }
+	                  }
+	                  
+	                  List<Map<String,String>> myQstnList2 = this.qstnService.getMyQstnList2(myQstnSearchDTO);
+	                  System.out.println("myQstnList2.size()=>" +myQstnList2.size());
+	                  
+	                  
+	                  System.out.println("getU_no ====> "+ myQstnSearchDTO.getU_no());
+	                  System.out.println("getSelectPageNo ====> "+ myQstnSearchDTO.getSelectPageNo());
 
+	                  
+	                  mav.addObject("myQstnList2", myQstnList2);
+	                  mav.addObject("myQstnAllCnt2", myQstnAllCnt2);
+	                  mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
+
+	         }catch(Exception e) {
+	            //-------------------------------------------------
+	            // try 구문에서 예외가 발생하면 실행할 구문 설정
+	            //-------------------------------------------------
+	            System.out.println("11111<에러발생>");
+	            System.out.println("!!! : " + e.getMessage());
+	         }
+	         //--------------------------------
+	         // [ModelAndView 객체] 리턴하기
+	         //--------------------------------
+	         
+	         return mav;
+	      }
+	   
+	   
+	   
+	   
+	      //-- 성유진 끝
    
    
    //NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
@@ -174,6 +205,16 @@ public class QstnController {
             // QstnServiceImpl 객체 소유의 getQstnAllCnt 메소드 호출로
             // 게시판 검색 개수를 얻기
             int qstnAllCnt = this.qstnService.getQstnAllCnt(qstnSearchDTO);
+            
+            
+            
+            ///-----------------------------------------------최수현/////////////////////////////////
+            // 내가 로그인한 정보의 group_no 가져오기
+            //-----------------------------------------
+            
+            List<Map<String,String>> group_no = this.qstnService.getQstnGroupNo(user_id);
+            mav.addObject("group_no", group_no);
+        	///-----------------------------------------------최수현/////////////////////////////////
             
 
             //-------------------------------------------------------------------------------------------
@@ -472,6 +513,45 @@ public class QstnController {
          return qstnUpDelCnt;
          
       }
+      
+      
+      
+//================================김수민=============================================
+      
+      @RequestMapping( value="/FAQForm.do" )
+      public ModelAndView FAQForm(
+
+               HttpSession session
+
+         ){
+            //------------------------------------------------------
+            // [ModelAndView 객체] 생성하기
+            // [ModelAndView 객체]에 [호출 JSP 페이지명]을 저장하기
+            //------------------------------------------------------
+            ModelAndView mav = new ModelAndView();
+            mav.setViewName("FAQForm.jsp");
+            String user_id = (String) session.getAttribute("user_id");
+
+
+              int u_no = this.salesService.getUserNo(user_id);
+              System.out.println("user_no : " + u_no);
+            
+
+               String rank_code = (String)session.getAttribute("rank_code");
+               mav.addObject("rank_code",rank_code);
+            try {
+
+            }catch(Exception e) {
+
+            }
+            //--------------------------------
+            // [ModelAndView 객체] 리턴하기
+            //--------------------------------
+            
+            return mav;
+         }
+      
+//====================================================================================
       
       
 }

@@ -160,7 +160,7 @@
                 <input type="checkbox" value="remember-me" name="is_login" value="y"> Remember me
         </label><br>
         
-         <span class="pull-right"> <a onClick="goIdPwdSearchForm();">아이디 암호 찾기</a></span><br>
+         <span class="pull-right"> <a onClick="goIdPwdSearchForm();" style="cursor:pointer">아이디 암호 찾기</a></span><br>
 		<br>
    
  
@@ -174,15 +174,6 @@
       
     </form>
     <div class="text-right">
-    <!--   <div class="credits">
-          
-            All the links in the footer should remain intact.
-            You can delete the links only if you purchased the pro version.
-            Licensing information: https://bootstrapmade.com/license/
-            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
-         
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div> -->
     </div>
   </div>
 

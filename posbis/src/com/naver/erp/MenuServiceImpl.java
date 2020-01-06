@@ -107,14 +107,6 @@ public class MenuServiceImpl implements MenuService{
 		int menuCnt = this.menuDAO.getMenuCnt(menuDTO);
 		if(menuCnt==0) {return -1;}
 
-		// [MenuDAOImpl]객체의 menuPrintNo 메소드를 호출하여
-		// 삭제될 게시판 이후 글의 출력 순서번호를 1씩 감소 시킨 후
-		// 수정 적용행의 개수를 얻는다.
-
-		int downPrintNoCnt = this.menuDAO.downPrintNo(menuDTO);
-
-		// [MenuDAOImpl]객체의 deleteMenu 메소드를 호출하여
-		// 게시판 삭제 명령한 후 삭제 적용행의 개수를 얻는다.
 
 		int deleteCnt = this.menuDAO.deleteMenu(menuDTO);
 		return deleteCnt;

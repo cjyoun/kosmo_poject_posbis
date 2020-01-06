@@ -83,16 +83,6 @@ public class MenuDAOImpl implements MenuDAO{
 		return menuCnt;
 	}
 	
-
-	// 삭제될 메뉴 이후 글의 출력 순서번호를 1씩 감소
-
-	public int downPrintNo(MenuDTO menuDTO) {
-		int menuPrintNoCnt = this.sqlSession.update(
-				"com.naver.erp.MenuDAO.downPrintNo"    // 실행할 SQL 구문의 위치 지정
-				,menuDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
-		);
-		return menuPrintNoCnt;
-	}
 	
 	// 삭제할 메뉴의 존재 개수를 리턴하는 메소드 선언
 

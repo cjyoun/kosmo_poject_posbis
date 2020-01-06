@@ -29,9 +29,6 @@ public interface MenuDAO {
 	
 	// 삭제할 메뉴의 존재 개수를 리턴하는 메소드 
 	int getMenuCnt(MenuDTO menuDTO);
-
-	// 출력 순서 번호 감소 시킬 적용행의 개수를 리턴하는 메소드 
-	int downPrintNo(MenuDTO menuDTO);
 	
 	// 메뉴 삭제 명령한 후 삭제 적용행의 개수를 리턴하는 메소드 선언
 	int deleteMenu(MenuDTO menuDTO);

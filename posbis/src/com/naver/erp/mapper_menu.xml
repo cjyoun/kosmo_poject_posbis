@@ -68,7 +68,7 @@
        where 
        	1=1
        	and m.menu_category_code = c.menu_category_code 
-       		and m.business_no=b.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
+       		and m.business_no=b.business_no and u.user_id=#{user_id}
 	    	<include refid="menuWhere"/>
 	    	order by ${sort}
 		) zzz ) where 
@@ -83,9 +83,11 @@
 
 	select 
 	  count(*)
-	 from menu m, business_info b, code_menu_category c
-       where m.menu_category_code = c.menu_category_code 
-                and m.business_no=b.business_no
+	from menu m, business_info b, code_menu_category c, user_info u
+       where 
+       	1=1
+       	and m.menu_category_code = c.menu_category_code 
+       		and m.business_no=b.business_no and u.user_id=#{user_id}
 		<include refid="menuWhere"/>
 	</select>
    
@@ -175,9 +177,6 @@
 	<delete id="deleteMenu" parameterType="com.naver.erp.MenuDTO">
 		delete from menu where menu_no=#{menu_no}
 	</delete>
-
-
-
 
    <!-- 대분류 데이터 가져오기 -->
    <select id='getMenuCategory1' resultType="java.util.HashMap">

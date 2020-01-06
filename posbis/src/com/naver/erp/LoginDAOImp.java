@@ -101,6 +101,7 @@ public class LoginDAOImp implements LoginDAO{
 	//---------------------------------------------------------------------------------
 
 	public int insertJoinUser(joinDTO joinDTO){
+		System.out.println("DAO / insertJoinCnt 시작 " + joinDTO);
 		int insertJoinCnt = this.sqlSession.insert(
 			"com.naver.erp.LoginDAO.insertJoinUser" // 실행할 SQL 구문의 위치 지정
 			,joinDTO	
@@ -314,7 +315,7 @@ public class LoginDAOImp implements LoginDAO{
 		return insertCard;
 	};
 	
-	// 카드 등록 시 유저 등급 업데이트
+	// 카드 등록 시 유저 등급 업데이트 (프리미엄)
 	@Override
 	public int updateRank(int u_no) {
 		int updateRank = this.sqlSession.update(
@@ -323,6 +324,17 @@ public class LoginDAOImp implements LoginDAO{
 		);
 		return updateRank;
 	};
+	
+	// 카드 등록 취소시 유저 등급 업데이트 (일반)
+		@Override
+		public int updateRank2(int u_no) {
+			int updateRank2 = this.sqlSession.update(
+					 "com.naver.erp.LoginDAO.updateRank2"		// 실행할 SQL 구문의 위치 지정
+					, u_no 	
+			);
+			return updateRank2;
+		};
+		
 	
 	
 	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼

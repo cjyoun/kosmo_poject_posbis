@@ -4,14 +4,21 @@ public class MyQstnSearchDTO {
 	
 	private String[] date;
 	private int selectPageNo=1;
-	private int rowCntPerPage=10;
+	private int rowCntPerPage=15;
 	private String[] readCnt;
 	private int u_no;
 	private String keyword1;
-	private String keyword2;
-	private String orAnd = "or";
+	private String user_id;
+
 	
 	
+	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String[] getDate() {
 		return date;
 	}
@@ -48,19 +55,6 @@ public class MyQstnSearchDTO {
 	public void setKeyword1(String keyword1) {
 		this.keyword1 = keyword1;
 	}
-	public String getKeyword2() {
-		return keyword2;
-	}
-	public void setKeyword2(String keyword2) {
-		this.keyword2 = keyword2;
-	}
-	public String getOrAnd() {
-		return orAnd;
-	}
-	public void setOrAnd(String orAnd) {
-		this.orAnd = orAnd;
-	}
-	
 	
 
 }

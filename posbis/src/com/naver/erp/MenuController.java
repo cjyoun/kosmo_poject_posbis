@@ -94,6 +94,46 @@ import org.springframework.web.servlet.ModelAndView;
 			
 		}		
 		
+		
+		 @RequestMapping( value="/menuProc.do" //접속하는 클래스의 URL 주소 설정
+					,produces="application/json;charset=UTF-8" )	 
+			@ResponseBody
+			public  MenuDTO menuProc( 
+					MenuSearchDTO menuSearchDTO 
+			) {
+			System.out.println("proc시작");
+			
+			
+			MenuDTO menuDTO= new MenuDTO();
+			try {
+			
+				int menuListAllCnt = this.menuService.getMenuListAllCnt(menuSearchDTO);
+				System.out.println("menuListAllCnt==>"+menuListAllCnt);
+				if(menuListAllCnt>0) {
+					// 선택한 페이지 번호 구하기
+					int selectPageNo = menuSearchDTO.getSelectPageNo();
+					// 한 화면에 보여지는 행의 개수 구하기
+					int rowCntPerPage = menuSearchDTO.getRowCntPerPage();
+					// 검색할 시작행 번호 구하기
+					int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
+					// 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
+					// 선택한 페이지 번호를 1로 세팅하기
+					if(menuListAllCnt < beginRowNo) {
+						menuSearchDTO.setSelectPageNo(1);
+					}
+				}
+				
+				//검색목록 얻기
+				List<Map<String,String>> menuList = this.menuService.getMenuList(menuSearchDTO);
+			
+			}
+				catch(Exception e) {
+				System.out.println("menuProc <에러발생>");
+				System.out.println(e.getMessage());
+			}
+			
+			return menuDTO;
+			} 
 	
 		@RequestMapping( value="/menuRegForm.do" )	
 		public ModelAndView menuRegForm(HttpSession session) {		// 메소드 이름은 상관 없음.

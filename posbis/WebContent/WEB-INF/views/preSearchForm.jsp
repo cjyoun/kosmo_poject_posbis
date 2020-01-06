@@ -57,20 +57,19 @@
   <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
   <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
  
-
-  <style>
-  .loginmaintaining {
-
-    display: inline-block;
+ <style>
+ .loginmaintaining {
+ 
 	color: #6c757d;
-    width: 21%;
+    width: 11%;
     
+    float: right;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	
-    text-align: left;
+    text-align: right;
 
 	border-top:1px solid #eeeeee ;
 
@@ -80,7 +79,7 @@
 
 	border-bottom:1px solid #eeeeee ;
 
-    display: inline-block;
+ 
     
    background-color: #f5f8fd;
 
@@ -88,7 +87,6 @@
   
   
   </style>
- 
  
  
 <script>
@@ -363,6 +361,11 @@
 		        //alert("전체 질문보기으로 이동");
 		        location.replace("/posbis/qstnForm.do");
 		     }
+			//qna 게시판- 자주 묻는 질문
+			 function goFAQForm(){
+			        //alert("전체 질문보기으로 이동");
+			        location.replace("/posbis/FAQForm.do");
+			     }
 			 
 			//통합 관리
 			 function goHomePageForm(){
@@ -381,7 +384,7 @@
 </head>
 
 <body>
-   <!--==========================
+<!--==========================
   Header
   ============================-->
   <header id="header">
@@ -392,58 +395,60 @@
            </div>
          </div>
 
-         <div class="container">
+       <div class="header">
+ 
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
-  
-          		<br>
-          		<div style="float:right" class= "loginmaintaining">
-    
-                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
-                        
-                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
-                          <div style="float:right" >
-                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
- 
-                   </div>     
-                
+   
+          	   <div   class= "loginmaintaining">
+                      <a><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br>                     
+                  <div style="float:right">   
+                     <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
+                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+				 </div>  
                 </div>
-                <br><br><br><br><br><br>
-           
-              
-
+   
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+          <li style="cursor:pointer"  class="drop-down" ><a href="">회사소개</a>
             <ul>
               <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+             <br>
             </ul>
           </li>
-		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		     <li style="cursor:pointer"  class="drop-down"><a href="#">업체동향</a>
 		            <ul>
-		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
- 
+		              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">시장분석</a></li>
+		              <li style="cursor:pointer" ><a onClick="goPreChartForm();">비교차트</a></li>
+ 						<br>
 		            </ul>
 		          </li>
-           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
+           <li style="cursor:pointer"  class="drop-down"><a href="#">매장관리</a>
             <ul>
-              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+               <br>
             </ul>
           </li>
     
-           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
+           <li style="cursor:pointer"  class="drop-down"><a href="#">마이페이지</a>
             <ul>
-              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
+              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내정보보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">문의내역확인</a></li>
+           	  <br>
+            </ul>
+          </li>
+          
+           <li style="cursor:pointer"  class="drop-down"><a href="#">고객센터</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goQstnForm();">Q&A 목록보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goFAQForm();">자주 묻는 질문</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goqstnRegForm();">문의하기</a></li>
+           	   <br> 
             </ul>
           </li>
  
@@ -454,260 +459,156 @@
          </div>
        </header><!-- #header -->
 
+
   <!--==========================
     Intro Section
   ============================-->
   <section id="intro" class="clearfix">
     <div class="container d-flex h-100">
       <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>PREMIUM</h2>
- 
+        <div class="col-md-6 intro-info order-md-first order-last">  
         </div>
-  <!-- 
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div> -->
       </div>
-
     </div>
   </section> 
+ 
  
 
   <!--==========================
 	검색관리
   ============================-->
   <main id="main">
- 
-      <section id="main-content">
-      <section class="wrapper">
-        <!--overview start-->
- 		  <div class="row">
-          <div class="col-lg-10" align="center">
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">분석현황</a></li>
-              <li><i class="icon_documents_alt"></i>검색관리</li>
-            </ol>
-            
-	  <div class="col-lg-10" align="center">
+   <section id="main-content">
+   <section class="wrapper">
+       <div class="col-lg-8" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	<a href="">프리미엄 검색</a>
+                	   <a href="">프리미엄 검색</a>
               </header>
-     <div class="panel-body">
+              
+              <div class="panel-body">
          
       <div class="container">
  
 					<!--======================-->
-					<!------검     색        조      건-------------->
-					<!--======================-->
-
-					<!-- 검색조건 form -->
-					<form name="preSearchForm" method="post"
-						action="/posbis/preSearchForm.do">
-
-			 
-							<table>
-								<tr>
-									<td><span class="help-block"> [지 &nbsp; &nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
-									<td><select name="addr_gu1">
-												<option value="">----구선택----</option>
-												<c:forEach items="${addrGu1List}" var="addrGu1">
-													<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
-												</c:forEach>
-										  </select> &nbsp;
-								
-										<select name="addr_gu2">
-											<option value="">----구선택----</option>
-										</select>	
-								<tr>
-									<td><span class="help-block"> [업 &nbsp; &nbsp; 종]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
-									<td> <select name="business_type_name1">
-												<option value="">----대분류----
-													<c:forEach items="${businessTypeName1List}"
-														var="businessTypeName1">
-														<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
-														</option>
-													</c:forEach>
-									   	</select> &nbsp; 
-										<select name="business_type_name2">
-												<option value="">----소분류----
-										</select> &nbsp;
-								<tr>
-									<td><span class="help-block">[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</span>
-									<td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
-															<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20,000이상</label>
-															<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50,000이상 </label>
-															<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100,000이상</label>
-								<tr>
-									<td>
-									<td> <input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
-										 <input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
-							</table>
-						 <br><br>
-						
-						
-						  <div class="col-sm-12" align="center">
-						 
-				  <table class="table table-striped table-advance table-hover"  id="select">
-							 <thead>
-                  				<tr>
-								<td align=right>
-									<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
-									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
-										ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
-										EL 로 표현하여 삽입 -->	
-									[검색 총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
-									<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
-									<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
-									<select name="rowCntPerPage">
-										<option value="10">10&nbsp;
-										<option value="15">15&nbsp;
-										<option value="20">20&nbsp;
-										<option value="25">25&nbsp;
-										<option value="30">30&nbsp;
-									</select> 행보기
-						</table>
-						
-			
-					
-						<input type="hidden" name="selectPageNo">		
-						<input type="hidden" name="sort" value="ranking asc">		
-					</form>
-					<!-- /preSearchForm  -->
-
-
-					
-					
-					<!-- 페이징 번호 삽입할 span 태그 선언 -->
-					<div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
-				 
-
-					<!--======================-->
-					<!--======검색결과=======-->
-					<!--======================-->
-					<form name="preResultForm">
-						  <table class="table table-striped table-advance table-hover"  id="select">
-							  <thead>
-                				<tr>
-								<th> 순서 
-								
-							<!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
-								<c:choose>
-									<c:when test="${param.sort=='ranking desc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위▼
-									</c:when>
-									<c:when test="${param.sort=='ranking asc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('ranking desc'); goPreSearch();">매출순위▲
-									</c:when>
-									<c:otherwise>
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위
-									</c:otherwise>
-								</c:choose>
-							<!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
-								<c:choose>
-									<c:when test="${param.sort=='month_sales desc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
-									</c:when>
-									<c:when test="${param.sort=='month_sales asc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
-									</c:when>
-									<c:otherwise>
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
-									</c:otherwise>
-								</c:choose>
-								<!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
-								<c:choose>
-									<c:when test="${param.sort=='business_type desc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">업&nbsp;&nbsp;종▼
-									</c:when>
-									<c:when test="${param.sort=='business_type asc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('business_type desc'); goPreSearch();">업&nbsp;&nbsp;종▲
-									</c:when>
-									<c:otherwise>
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('business_type asc'); goPreSearch();">업&nbsp;&nbsp;종
-									</c:otherwise>
-								</c:choose>
-								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
-								<c:choose>
-									<c:when test="${param.sort=='best_menu_type desc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
-									</c:when>
-									<c:when test="${param.sort=='best_menu_type asc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
-									</c:when>
-									<c:otherwise>
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
-									</c:otherwise>
-								</c:choose>
-								<!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
-								<c:choose>
-									<c:when test="${param.sort=='addr_dong desc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)▼
-									</c:when>
-									<c:when test="${param.sort=='addr_dong asc'}">
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('addr_dong desc'); goPreSearch();">지역(동단위)▲
-									</c:when>
-									<c:otherwise>
-										<th style="cursor:pointer"
-												onClick="$('[name=sort]').val('addr_dong asc'); goPreSearch();">지역(동단위)
-									</c:otherwise>
-								</c:choose>
-							     </tr>
-			                </thead>
-			            <tbody>
+               <!--======검색결과=======-->
+               <!--======================-->
+               <form name="preResultForm">
+                    <table class="table table-striped table-advance table-hover"  id="select">
+                       <thead>
+                            <tr>
+                        <th> 순서 
+                        
+                     <!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
+                        <c:choose>
+                           <c:when test="${param.sort=='ranking desc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위▼
+                           </c:when>
+                           <c:when test="${param.sort=='ranking asc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('ranking desc'); goPreSearch();">매출순위▲
+                           </c:when>
+                           <c:otherwise>
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위
+                           </c:otherwise>
+                        </c:choose>
+                     <!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
+                        <c:choose>
+                           <c:when test="${param.sort=='month_sales desc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
+                           </c:when>
+                           <c:when test="${param.sort=='month_sales asc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
+                           </c:when>
+                           <c:otherwise>
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
+                           </c:otherwise>
+                        </c:choose>
+                        <!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
+                        <c:choose>
+                           <c:when test="${param.sort=='business_type1 desc, business_type2 desc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();">업&nbsp;&nbsp;종▼
+                           </c:when>
+                           <c:when test="${param.sort=='business_type1 asc, business_type2 asc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('business_type1 desc, business_type2 desc'); goPreSearch();">업&nbsp;&nbsp;종▲
+                           </c:when>
+                           <c:otherwise>
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();">업&nbsp;&nbsp;종
+                           </c:otherwise>
+                        </c:choose>
+                        <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+                        <c:choose>
+                           <c:when test="${param.sort=='best_menu_type desc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
+                           </c:when>
+                           <c:when test="${param.sort=='best_menu_type asc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
+                           </c:when>
+                           <c:otherwise>
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
+                           </c:otherwise>
+                        </c:choose>
+                        <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
+                        <c:choose>
+                           <c:when test="${param.sort=='addr_gu desc, addr_dong desc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();">지역(동단위)▼
+                           </c:when>
+                           <c:when test="${param.sort=='addr_gu asc, addr_dong asc'}">
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('addr_gu desc, addr_dong desc'); goPreSearch();">지역(동단위)▲
+                           </c:when>
+                           <c:otherwise>
+                              <th style="cursor:pointer"
+                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();">지역(동단위)
+                           </c:otherwise>
+                        </c:choose>
+                          </tr>
+                         </thead>
+                     <tbody>
 
 
-							<c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
-							<tr>
-								<td  align=center>${preResult.PAGINGRNUM}
-								<td  align=center>${preResult.RANKING}
-								<td  align=right class=month_sales>${preResult.MONTH_SALES}
-								<td  align=center>${preResult.BUSINESS_TYPE}
-								<td   align=center>${preResult.BEST_MENU_TYPE}
-								<td   align=center>${preResult.ADDR_GU} ${preResult.ADDR_DONG} 
-							</c:forEach>
-						</table>
-					</form>
-					<!-- /검색조건 form -->
+                     <c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
+                     <tr>
+                        <td  align=center>${preResult.PAGINGRNUM}
+                        <td  align=center>${preResult.RANKING}
+                        <td  align=right class=month_sales>${preResult.MONTH_SALES}
+                        <td  align=left>${preResult.BUSINESS_TYPE1} > ${preResult.BUSINESS_TYPE2}
+                        <td   align=center>${preResult.BEST_MENU_TYPE}
+                        <td   align=center>${preResult.ADDR_GU} ${preResult.ADDR_DONG} 
+                     </c:forEach>
+                  </table>
+               </form>
+               <!-- /검색결과 form -->
 
 
-					<c:if test="${empty preResultList}">
-					검색 결과가 없습니다.
-					</c:if>
-
-
+               <c:if test="${empty preResultList}">
+               검색 결과가 없습니다.
+               </c:if>
 
 					<br>
 					<br>
 					<br>
 					<br>
 
-
-
-
-
-					<!--======================-->
-					<!-- 창업/ 뉴스 -->
-					<!--======================-->
-					<form name="preTrendForm">
-						<a href="">[창업/소상공인 뉴스]</a>
-					</form>
-					 <!--==========================
+<!--======================-->
+<!-- 창업/ 뉴스 -->
+<!--======================-->
+<form name="preTrendForm">
+	<a href="">[창업/소상공인 뉴스]</a>
+</form>
+	<!--==========================
       Services Section
     ============================-->
     <section id="services" class="section-bg">
@@ -750,7 +651,6 @@
 </section>
  
 </main>
-
  <!--==========================
     꼬리말
   ============================-->
@@ -760,116 +660,39 @@
 
         <div class="row">
 
-          <div class="col-lg-6">
+          <div class="col-lg-12">
 
             <div class="row">
 
-                <div class="col-sm-6">
+                <div class="col-sm-8">
 
                   <div class="footer-info">
                     <h3>POSBIS</h3>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
                   </div>
-
-                  <!-- <div class="footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem.</p>
-                    <form action="" method="post">
-                      <input type="email" name="email"><input type="submit"  value="Subscribe">
-                    </form>
-                  </div> -->
-
                 </div>
-
-                <div class="col-sm-6">
-                  <div class="footer-links">
-                    <h4>빠른 이동</h4>
-                    <ul>
-                      <li><a onClick="goIntroForm();">회사소개 </a></li>
-                      <li><a onClick="goMainForm();">로그인</a></li>
-                      <li><a onClick="goqstnRegForm();">질문하기</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="footer-links">
+				  <div class="col-sm-4">
+            <div class="footer-links"  style="float:right">
                     <h4>연락망</h4>
                     <p>
-                      월드메르디앙벤쳐 2차 <br>
+                      월드메르디앙벤쳐 2차 
                       Korea, Seoul 가산디지털단지역<br>
-                      용기의 방, 409호 <br>
                       <strong>Phone:</strong> +1 5589 55488 55<br>
                       <strong>Email:</strong> info@example.com<br>
                     </p>
+                    
+                 
                   </div>
-
-                  <div class="social-links">
-                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                  </div>
-
-                </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="form">
-              
-              <h4>건의 사항</h4>
-              <p>POSBIS는 고객의 말에 늘 귀기울이고 있습니다. <br>불편한 점 또는 좋은 제안이 있으시다면 언제든지 건의해 주세요. </p>
-              <form action="" method="post" role="form" class="contactForm">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="name" id="name" placeholder="성함" data-rule="minlen:2" data-msg="2자 이상 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="이메일" data-rule="email" data-msg="이메일을 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="제목" data-rule="minlen:4" data-msg="제목을 4자 이상 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="내용" data-msg="내용을 입력해 주십시오"></textarea>
-                  <div class="validation"></div>
-                </div>
-
-               <!--  <div id="sendmessage">건의사항이 무사히 전달됐습니다. 감사합니다!</div>
-                <div id="errormessage"></div> -->
-
-                <div class="text-center"><button type="submit" title="Send Message" onClick="goMessageForm();">전송</button></div>
-              </form>
-            </div>
-
-          </div>
-
-          
-
-        </div>
-
       </div>
     </div>
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved
+        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved <br> BootstrapMade
       </div>
-      <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Rapid
-        -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-
+     </div>
+    
+ 
  
   </footer><!-- #footer -->
 
@@ -898,4 +721,5 @@
   
 
 </body>
-</html> 
+</html>
+ 

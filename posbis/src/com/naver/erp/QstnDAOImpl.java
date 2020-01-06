@@ -242,7 +242,6 @@ public class QstnDAOImpl implements QstnDAO{
 	      
 	   }
 
-   
  //-------------------------------성유진-------------------------------------------------------------------   
    // 검색한 게시판 목록 리턴하는 메소드 선언
    public List<Map<String,String>> getMyQstnList(MyQstnSearchDTO myQstnSearchDTO){
@@ -274,5 +273,55 @@ public class QstnDAOImpl implements QstnDAO{
 
       return myQstnAllCnt;
    }
+   
+   
+   
+   
+   //-----------성유진----------------
+   
+   // 내가쓴글 목록 및 댓글 리턴하는 메소드 선언
+   public List<Map<String,String>> getMyQstnList2(MyQstnSearchDTO myQstnSearchDTO){
+      
+       List<Map<String,String>> myQstnList2 = this.sqlSession.selectList(
+             "com.naver.erp.QstnDAO.getMyQstnList2"      // 실행할 SQL 구문의 위치 지정 
+            , myQstnSearchDTO                      // 실행할 SQL 구문에서 사용할 데이터 지정
+      );
+       
+      return myQstnList2;      
+   }
+   
+   
+   //---------------------------------------------------------
+   // 검색한 게시판 목록 개수 리턴하는 메소드 선언
+   //---------------------------------------------------------
+   @Override
+   public int getMyQstnAllCnt2(MyQstnSearchDTO myQstnSearchDTO) {
+
+      //System.out.println(qstnSearchDTO.getU_no());
+      // QstnDAO 인터페이스를 구현한 객체의  getQstnAllCnt 메소드를 호출하여 검색한 게시판 목록 총 개수를 얻는다.
+	  // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
+      int myQstnAllCnt2 = this.sqlSession.selectOne(
+             "com.naver.erp.QstnDAO.getMyQstnAllCnt2"      // 실행할 SQL 구문의 위치 지정
+            , myQstnSearchDTO                            // SQL 구문의 parameterType 지정.
+            
+         );
+      System.out.println("myQstnAllCnt2"+myQstnAllCnt2);
+
+      return myQstnAllCnt2;
+   }
+   
+	 //-----------성유진끝----------------
+   
+   
+   
+	///-----------------------------------------------최수현/////////////////////////////////
+	// 내가 로그인한 정보의 group_no 가져오기
+	//-----------------------------------------
+	public List<Map<String,String>> getQstnGroupNo(String user_id) {
+		List<Map<String,String>> group_no =this.sqlSession.selectList("com.naver.erp.QstnDAO.getQstnGroupNo",user_id);
+	return group_no;
+	}
+  
+	
 
 }

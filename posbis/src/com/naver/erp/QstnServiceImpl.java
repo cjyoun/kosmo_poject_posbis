@@ -31,6 +31,8 @@ public class QstnServiceImpl implements QstnService {
 		return qstn;
 	}
 	
+	
+	
 	//*************************************************
 	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
 	//*************************************************
@@ -40,6 +42,33 @@ public class QstnServiceImpl implements QstnService {
 		
 		return qstnAllCnt;
 	}
+	
+	
+	
+	// 성유진	
+	//*************************************************
+	// 내가쓴글 및 내글에 달린 목록 불러오기 
+	//*************************************************
+	@Override
+	public List<Map<String,String>> getMyQstnList2(MyQstnSearchDTO myQstnSearchDTO){
+		
+		List<Map<String,String>> myQstnList2 = this.qstnDAO.getMyQstnList2(myQstnSearchDTO);
+
+		return myQstnList2;
+	}
+	
+	//*************************************************
+	// 내가쓴글 및 내글에 달린 목록 개수 불러오기
+	//*************************************************
+	@Override
+	public int getMyQstnAllCnt2 (MyQstnSearchDTO myQstnSearchDTO){
+		int myQstnAllCnt2 = this.qstnDAO.getMyQstnAllCnt2(myQstnSearchDTO);
+		
+		return myQstnAllCnt2;
+		}
+	// 성유진 끝
+	
+	
 	
 	//***************************************************************
 	// [게시판 글 입력 후 입력 적용 행의 개수] 리턴하는 메소드 선언 
@@ -209,6 +238,16 @@ public class QstnServiceImpl implements QstnService {
 		
 		return myQstnAllCnt;
 	}
+	
+	
+	///-----------------------------------------------최수현/////////////////////////////////
+	// 내가 로그인한 정보의 group_no 가져오기
+	//-----------------------------------------
+	public List<Map<String,String>> getQstnGroupNo(String user_id) {
+		List<Map<String,String>> group_no = this.qstnDAO.getQstnGroupNo(user_id);
+		return group_no;
+	}
+	
 }
 
 

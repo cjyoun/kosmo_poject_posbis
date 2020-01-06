@@ -80,8 +80,10 @@ public class LoginServiceImp implements LoginService {
 
 			int insertJoinCnt = this.loginDAO.insertJoinUser(joinDTO);
 			
-			
+			System.out.println("Service insertJoinBusinessInfoCnt");
 			int insertJoinBusinessInfoCnt=this.loginDAO.insertJoinBusinessInfo(joinDTO);
+
+			System.out.println("Service insertJoinBusinessInfoCnt========" + insertJoinBusinessInfoCnt);
 			if(insertJoinBusinessInfoCnt==0) return -1;
 			
 			return insertJoinCnt;
@@ -227,11 +229,18 @@ public class LoginServiceImp implements LoginService {
 			return insertCard;
 		};
 		
-		// 카드 등록 시 유저 등급 업데이트
+		// 카드 등록 시 유저 등급 업데이트 (프리미엄)
 		@Override
 		public int updateRank(int u_no) {
 			int updateRank = this.loginDAO.updateRank(u_no);
 			return updateRank;
+		};
+		
+		// 카드 등록 시 유저 등급 업데이트 (일반)
+		@Override
+		public int updateRank2(int u_no) {
+			int updateRank2 = this.loginDAO.updateRank2(u_no);
+			return updateRank2;
 		};
 		
 		

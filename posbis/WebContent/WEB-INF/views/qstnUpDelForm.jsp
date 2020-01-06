@@ -74,18 +74,18 @@
 
  
   <style>
-  .loginmaintaining {
-
-    display: inline-block;
+ .loginmaintaining {
+ 
 	color: #6c757d;
-    width: 21%;
+    width: 11%;
     
+    float: right;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	
-    text-align: left;
+    text-align: right;
 
 	border-top:1px solid #eeeeee ;
 
@@ -95,7 +95,7 @@
 
 	border-bottom:1px solid #eeeeee ;
 
-    display: inline-block;
+ 
     
    background-color: #f5f8fd;
 
@@ -301,6 +301,14 @@
         //alert("질문하기으로 이동");
         location.replace("/posbis/qstnRegForm.do");
      }
+	
+	//qna 게시판- 자주묻는 질문 보기
+	 function goFAQForm(){
+       //alert("전체 질문보기으로 이동");
+       location.replace("/posbis/FAQForm.do");
+    }
+	 
+	
 	//qna 게시판- 내글보기
 	 function goMyQstnForm(){
        //alert("내글보기으로 이동");
@@ -329,7 +337,7 @@
 </head>
 
 <body>
-    <!--==========================
+ <!--==========================
   Header
   ============================-->
   <header id="header">
@@ -340,58 +348,60 @@
            </div>
          </div>
 
-         <div class="container">
+       <div class="header">
+ 
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
-  
-          		<br>
-          		<div style="float:right" class= "loginmaintaining">
-    
-                      <a style="float:right"><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br> 
-                        
-                       <label class="btn btn-default"><a onClick="goMyPageForm();"><i  ></i>&nbsp;&nbsp; 내정보 보기 </a></label>
-                          <div style="float:right" >
-                      <label class="btn btn-default"><a onClick="goMainForm();"><i class="icon_key_alt"></i>&nbsp;&nbsp;로그아웃</a></label>
- 
-                   </div>     
-                
+   
+          	   <div   class= "loginmaintaining">
+                      <a><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br>                     
+                  <div style="float:right">   
+                     <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
+                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+				 </div>  
                 </div>
-                <br><br><br><br><br><br>
-           
-              
-
+   
            <nav class="main-nav float-right d-none d-lg-block">
         <ul>
-          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
+          <li style="cursor:pointer"  class="drop-down" ><a href="">회사소개</a>
             <ul>
               <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
+             <br>
             </ul>
           </li>
-		     <li style="cursor:pointer"  class="drop-down"><a href="">마이페이지</a>
+		     <li style="cursor:pointer"  class="drop-down"><a href="#">업체동향</a>
 		            <ul>
-		              <li style="cursor:pointer" ><a onClick="goHomePageForm();">통합 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
-		              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내 정보 보기</a></li>
- 
+		              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">시장분석</a></li>
+		              <li style="cursor:pointer" ><a onClick="goPreChartForm();">비교차트</a></li>
+ 						<br>
 		            </ul>
 		          </li>
-           <li style="cursor:pointer"  class="drop-down"><a href="">분석현황</a>
+           <li style="cursor:pointer"  class="drop-down"><a href="#">매장관리</a>
             <ul>
-              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">검색관리</a></li>
-              <li style="cursor:pointer" ><a onClick="goPreChartForm();">차트관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
+              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
+               <br>
             </ul>
           </li>
     
-           <li style="cursor:pointer"  class="drop-down"><a href="">Q&A게시판</a>
+           <li style="cursor:pointer"  class="drop-down"><a href="#">마이페이지</a>
             <ul>
-              <li style="cursor:pointer" ><a onClick="goqstnRegForm();">질문하기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">내글보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goQstnForm();">목록보기</a></li>
+              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내정보보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">문의내역확인</a></li>
+           	  <br>
+            </ul>
+          </li>
+          
+           <li style="cursor:pointer"  class="drop-down"><a href="#">고객센터</a>
+            <ul>
+              <li style="cursor:pointer" ><a onClick="goQstnForm();">Q&A 목록보기</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goFAQForm();">자주 묻는 질문</a></li>
+           	  <li style="cursor:pointer" ><a onClick="goqstnRegForm();">문의하기</a></li>
+           	   <br> 
             </ul>
           </li>
  

@@ -71,8 +71,11 @@ public interface LoginService {
 	// 카드 생성하기
 	int insertCard(CardDTO cardDTO);
 
-	// 카드 등록 시 유저 등급 업데이트
+	// 카드 등록 시 유저 등급 업데이트 (프리미엄)
 	int updateRank(int u_no);
+	
+	// 카드 등록 취소 시 유저 등급 업데이트 (일반)
+	int updateRank2(int u_no);
 	
 	
 	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
@@ -85,5 +88,7 @@ public interface LoginService {
 
 		int deleteBusi(Map<String, String> DeleteBusi);
 	//=========================================================================================		
+
+		
 	 
 }

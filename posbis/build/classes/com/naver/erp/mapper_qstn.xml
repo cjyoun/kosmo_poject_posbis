@@ -322,4 +322,57 @@
 				and u.u_no=q.u_no and u.u_no=#{u_no}
 		</select>
 		
+		
+
+		
+<!--**********************내가쓴글 및 내가쓴글에 달린 댓글 리스트 가져오기**********************-->		
+<!-- 성유진 -->
+		<!-- 로그인후 홈페이지에서 내가 쓴글만 QSTN 리스트 가져오기 -->
+	   	<select id="getMyQstnList2" parameterType="com.naver.erp.MyQstnSearchDTO" resultType="java.util.HashMap">
+		select * from(select zzz.*, rownum RNUM from(
+		select 
+			  q.qna_no||''                                "qna_no"                        
+			  ,q.subject                                  "subject"
+			  ,u.user_id                                  "user_id"
+			  ,to_char(q.qna_date, 'yyyy-mm-dd')          "qna_date" 
+			  ,readcount||''                              "readcount"
+			  ,q.group_no||'' 	 						"group_no"
+			  ,q.print_no||'' 	 						"print_no"
+			  ,q.print_level||''  						"print_level"
+		from qna q, user_info u
+		where 1=1 
+		      and group_no = any (select group_no from qna where u_no = ${u_no}) 
+		      and q.u_no=u.u_no 
+			order by group_no desc, print_no asc
+		) zzz ) where
+			<![CDATA[
+				RNUM>= ${selectPageNo*rowCntPerPage-rowCntPerPage+1}
+				and RNUM<= ${selectPageNo*rowCntPerPage}
+			]]>
+			
+		</select>
+		
+		
+
+		<!-- 내가 쓴글 목록 총 개수 구하기-->
+		<select id="getMyQstnAllCnt2" parameterType="com.naver.erp.MyQstnSearchDTO" resultType="int">
+			select 
+				count(*) 
+			from qna q, user_info u	
+			where 1=1 
+				and group_no = any (select group_no from qna where u_no = ${u_no}) 
+		        and q.u_no=u.u_no 
+		</select>
+<!-- 성유진 끝 -->		
+
+
+
+		<!-- 내가 로그인한 정보의 group_no 가져오기  -->
+		<select id="getQstnGroupNo" parameterType="String" resultType="HashMap">
+			select q.group_no
+			from qna q
+			where q.u_no = (select u_no from user_info where user_id=#{user_id}) 
+		</select>
+
+		
 </mapper>	
