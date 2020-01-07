@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -107,12 +107,23 @@ public class HomePageController {
 				mav.addObject("myQstnSearchDTO", myQstnSearchDTO);
 				mav.addObject("user_id",user_id);
 
-			//========================================================================
-		    // 내 가게 정보 /////////////////////////////////////////////////////////이정숙꺼
-			//========================================================================
-		     List<Map<String,String>> myStoreInfoList = this.loginService.getMyStoreInfoList(u_no);
-		     mav.addObject("myStoreInfoList" , myStoreInfoList);
-		     
+				//========================================================================
+			    // 내 가게 정보 /////////////////////////////////////////////////////////이정숙꺼
+				//========================================================================
+				MyStoreInfoDTO myStoreInfoDTO = new MyStoreInfoDTO();
+				myStoreInfoDTO.setU_no(u_no);
+			     List<Map<String,String>> myStoreInfoList = this.loginService.getMyStoreInfoList(myStoreInfoDTO);
+			     mav.addObject("myStoreInfoList" , myStoreInfoList);
+			     int myStoreInfoAllCnt = this.loginService.getMyStoreInfoAllCnt(myStoreInfoDTO);
+			     mav.addObject("myStoreInfoAllCnt" , myStoreInfoAllCnt);
+			     System.out.println("Controller/myStoreInfoAllCnt===>"+myStoreInfoAllCnt);
+			     mav.addObject("myStoreInfoDTO" , myStoreInfoDTO);
+				System.out.println("controller/getSelectPageNo2===>"+myStoreInfoDTO.getSelectPageNo2());
+				//========================================================================
+			    // /내 가게 정보 끝/////////////////////////////////////////////////////////이정숙꺼끝
+				//========================================================================
+			     
+
 
 			 		
 			 }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
@@ -123,7 +134,36 @@ public class HomePageController {
 		
 	}
 	
+	//========================================================================
+    // 내 가게 정보 /////////////////////////////////////////////////////////이정숙꺼
+	//========================================================================	
+		@RequestMapping( value="/homeMyStoreInfoProc.do" //접속하는 클래스의 URL 주소 설정
+						,produces="application/json;charset=UTF-8" )	 
+		@ResponseBody
+		public  MyStoreInfoDTO homeMyStoreInfoProc( 
+				MyStoreInfoDTO myStoreInfoDTO
+		) {
+		System.out.println("proc시작");
+		
+		try {
 
+		     int myStoreInfoAllCnt = this.loginService.getMyStoreInfoAllCnt(myStoreInfoDTO);
+		     List<Map<String,String>> myStoreInfoList = this.loginService.getMyStoreInfoList(myStoreInfoDTO);
+		     myStoreInfoDTO.setMyStoreInfoAllCnt(myStoreInfoAllCnt);
+		     myStoreInfoDTO.setMyStoreInfoList(myStoreInfoList);
+		
+		}
+		catch(Exception e) {
+			System.out.println("salesProc <에러발생>");
+			System.out.println(e.getMessage());
+		}
+		
+			return myStoreInfoDTO;
+		} 
+		//========================================================================
+	    // /내 가게 정보 끝/////////////////////////////////////////////////////////이정숙꺼끝
+		//========================================================================
+	
 
 }
 

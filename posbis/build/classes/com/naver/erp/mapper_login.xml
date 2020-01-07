@@ -296,27 +296,36 @@
 	</update>
 
 
-<!-- 내 가게 정보 (홈페이지)      이정숙꺼 -->
-	<select id='getMyStoreInfoList' parameterType="int" resultType="java.util.HashMap">
-		select
-		    u.user_id "user_id"
-		    , u.user_name "user_name"
-		    , u.email "email"
-		    , u.birth "birth"
-		    , u.rank_code "rank_code"
-		    , b.business_no "business_no"
-		    , b.business_name "business_name"
-		    , (select a.addr_gu from addr a where a.addr_no = b.addr_no) "addr_gu"  
-		    , (select a.addr_dong from addr a where a.addr_no = b.addr_no) "addr_dong"
-		    , b.addr_detail "addr_detail"  
-		    , (select c.business_type_name1 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name1"  
-		    , (select c.business_type_name2 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name2"
-		    , b.store_tel_num "store_tel_num"
-		from user_info u , business_info b
-		where u.u_no = b.u_no 
-				and u.u_no = #{u_no}
+<!-- 내 가게 정보 (홈페이지)      이정숙꺼 =================================================================================]-->
+	<select id='getMyStoreInfoList' parameterType="com.naver.erp.MyStoreInfoDTO" resultType="java.util.HashMap">
+		
+		select * from(
+				select b.*, rownum RNUM from(   
+						select
+						    u.user_id "user_id"
+						    , b.business_no "business_no"
+						    , b.business_name "business_name"
+						    , (select a.addr_gu from addr a where a.addr_no = b.addr_no) "addr_gu"  
+						    , (select a.addr_dong from addr a where a.addr_no = b.addr_no) "addr_dong"
+						    , b.addr_detail "addr_detail"  
+						    , (select c.business_type_name1 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name1"  
+						    , (select c.business_type_name2 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name2"
+						    , b.store_tel_num "store_tel_num"
+						    , b.business_type_code||'' "business_type_code"
+						from user_info u , business_info b
+						where u.u_no = b.u_no 
+								and u.u_no = #{u_no}) b)
+		<!-- where RNUM &gt; =${selectPageNo2-2}
+							 and RNUM &lt; =${selectPageNo2} -->
+						
+						
+	</select>
+	<select id='getMyStoreInfoAllCnt' parameterType="com.naver.erp.MyStoreInfoDTO" resultType="int">
+		select  count(*) from user_info u , business_info b
+		where u.u_no = b.u_no and u.u_no = #{u_no}
 
 	</select>
+<!-- / 내 가게 정보 (홈페이지) 이정숙끝=========================================================================== -->
 		
 		
 <!-- ==================================================김수민========================================================= -->

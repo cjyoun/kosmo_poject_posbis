@@ -358,7 +358,7 @@
        <div class="col-lg-8" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	   <a href="">글 쓰기</a>
+                      <a href="">글 쓰기</a>
               </header>   
               <div class="panel-body">
  
@@ -425,9 +425,9 @@
                   <tr align="center" valign="middle">
                      <th>address
                      <td>월드메르디앙벤쳐 2차<br>
-						 Korea, Seoul<br>
-						 가산디지털단지역<br>
-						 용기의 방, 409호
+                   Korea, Seoul<br>
+                   가산디지털단지역<br>
+                   용기의 방, 409호
                   <tr align="center" valign="middle">
                      <th>business<br>hours
                     <td>9:30 ~ 18:30
@@ -467,7 +467,7 @@
                     <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
                   </div>
                 </div>
-				  <div class="col-sm-4">
+              <div class="col-sm-4">
             <div class="footer-links"  style="float:right">
                     <h4>연락망</h4>
                     <p>

@@ -846,7 +846,7 @@
      <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center">
+       <div class="col-lg-6-1" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">회원가입</a>
@@ -854,7 +854,7 @@
              <div class="panel-body"> 
 			
       <div class="container">
-                <form class="form-horizontal joinForm" method="post" name="joinForm"  action="/posbis/joinPayForm.do">
+                <form class="form-horizontal joinForm" method="post" name="joinForm"  action="/posbis/payForm.do">
                   <div class="form-group">
                     <label class="col-sm-2 control-label">아이디</label>
                     <div class="col-sm-6">

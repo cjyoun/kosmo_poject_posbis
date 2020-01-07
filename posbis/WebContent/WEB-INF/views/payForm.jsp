@@ -85,48 +85,65 @@
  
    function checkCardInsert(){
 	   
-  		alert("시작")
-	   
 	   if( is_empty(".credit") ){
            alert("카드 체크 요망");
            $(".credit").val("");
            return;
         }
-	   
-  		
-  	for(var i=1; i<=4; i++){	
-  	  if(is_valid_pattern("[name=creditNum"+i+"]",/^[0-9]{4}$/) == false){
-          alert(" 숫자 4자리를 입력해주세요");
-          return;
-    	}
-  	}
+      
+        for(var i=1; i<=4; i++){   
+            if(is_valid_pattern("[name=creditNum"+i+"]",/^[0-9]{4}$/) == false){
+               alert(" 카드번호 4자리를 입력해주세요");
+               return;
+            }
+          }
 
-  	  if(is_valid_pattern("[name=cvc_no]",/^[0-9]{3}$/) == false){
-          alert(" 숫자 3자리를 입력해주세요");
-          return;
-    	}
+            if(is_valid_pattern("[name=cvc_no]",/^[0-9]{3}$/) == false){
+               alert(" CVC 카드 번호 3자리를 입력해주세요");
+               return;
+            }
 
 
-  	 
-  	 if(is_valid_pattern("[name=ex_month]",/^[0-9]{2}$/) == false){
-         alert("숫자 2자리를 입력해주세요");
-         return;
-   	}
-  	 
-  	 if(is_valid_pattern("[name=ex_year]",/^[0-9]{2}$/) == false){
-         alert("숫자 2자리를 입력해주세요");
-         return;
-   	}
-  	
-  	 if(is_valid_pattern("[name=jumin_no]",/^[0-9]{6}$/) == false){
-         alert("  숫자 6자리를 입력해주세요");
-         return;
-   	}
-  	
-  	 if(is_valid_pattern("[name=credit_pwd]",/^[0-9]{2}$/) == false){
-         alert(" 비밀번호 숫자 2자리를 입력해주세요");
-         return;
-   	}
+           
+           if(is_valid_pattern("[name=ex_month]",/^[0-9]{2}$/) == false){
+              alert("숫자 2자리를 입력해주세요");
+              return;
+           }
+          
+          if($("[name=ex_month]").val()>12 || $("[name=ex_month]").val()<1 ){
+             
+             alert("해당하는 월이 존재하지 않습니다");
+             return;
+           }
+          
+       if(is_valid_pattern("[name=ex_year]",/^[0-9]{2}$/) == true){
+            
+            var today = new Date();  
+         var thisyear=today.getFullYear().toString();
+         var thisyear2=thisyear.substring(2.2);   
+      
+      
+             if($("[name=ex_year]").val()<thisyear2){
+                
+                alert("해당카드는 기간이 만료된 카드입니다.");
+                 return;
+               }
+            }else{
+              alert("숫자 2자리를 입력해주세요");
+        return;
+         }
+         
+ 
+           if(is_valid_pattern("[name=jumin_no]",/^[0-9]{6}$/) == false){
+              alert(" 주민번호 숫자 6자리를 입력해주세요");
+              return;
+           }
+          
+           if(is_valid_pattern("[name=credit_pwd]",/^[0-9]{2}$/) == false){
+              alert(" 비밀번호 숫자 2자리를 입력해주세요");
+              return;
+           }
+
   	
 	   
 	   
@@ -314,7 +331,7 @@
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><img src="../resources/sidetopbar/img/POSBIS_logo.jpg"></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
    
@@ -394,7 +411,7 @@
    <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center">
+       <div class="col-lg-6-2" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">프리미엄 회원 결제</a>
@@ -410,7 +427,7 @@
                      <div class="col-lg-2">
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
-                        <select name="credit"  size=1 class="form-control credit"  > 
+                        <select name="credit"  size=1 class="form-control credit"> 
                           <option value="" selected> --선택요망--</option>
 		                  <option value="BC">BC카드</option>
 		                  <option value="SHINHAN">신한카드</option>

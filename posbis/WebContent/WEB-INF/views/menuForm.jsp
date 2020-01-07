@@ -440,12 +440,20 @@
          <div style="float:right"><a href = "javascript:goMenuRegForm();">[메뉴 등록]으로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br>
          <table>
             <tr>
-               <td> <a href="">[사업자&nbsp;&nbsp;번호]&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-               <td><input type="checkbox" name="chooseAllBusinessNo" id="business_no_all"><label for="business_no_all">모두선택</label>
-                     <c:forEach items="${businessNoList}" var="businessNoList">
-                  <input type="checkbox" name="chooseBusinessNo" id="${businessNoList.business_no}"
-                     value="${businessNoList.business_no}"><label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
-               </c:forEach>
+               <td> 
+               <table><tr><td>
+	               <a href="">[ 사업자 번호 ] :</a>
+	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
+	               <tr>
+	            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+	              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
+	                    <c:if test="${(status.index+1)%3==0}">
+	                     <c:if test="${!status.last }">
+	                        <tr>
+	                     </c:if>
+	                  </c:if>   
+	            </c:forEach>
+            </table>
                <br> 
             <tr>
                <td> <a href="">[메뉴사용여부]&nbsp;&nbsp;:&nbsp;&nbsp;</a>
@@ -469,7 +477,7 @@
                   [메뉴 총 개수] : ${menuListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
                   
                   <!-- 행보기 선택 select -->
-                  <select name="rowCntPerPage">
+                  <select name="rowCntPerPage" style="width:50px;">
                      <option value="10">10
                      <option value="15">15
                      <option value="20">20

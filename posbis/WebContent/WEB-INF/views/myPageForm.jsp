@@ -452,7 +452,7 @@ function goInfoUpdateForm(){
          
   <!-- page start-->
    
-          <div class="col-sm-6">
+          <div class="col-sm-6-1">
             <section class="panel">
               <header class="panel-heading">
                 	개인정보
@@ -499,17 +499,18 @@ function goInfoUpdateForm(){
                    <button  class="btn btn-default" type="button" value="메인으로" onClick="goMainForm();" >메인으로</button>
                    <button  class="btn btn-default" type="button" value="정보수정" onClick="goInfoUpdateForm();" >정보수정</button>
                    <button  class="btn btn-default" type="button" value="회원탈퇴" onClick="gowithdrawalForm();" >회원탈퇴</button>
-                
-          </div>
+             </div>   
+          
           &nbsp;&nbsp;
           
- <div class=" col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-            <div class="portfolio-wrap">
-              <img src="resources/intro/img/features-1.svg" class="img-fluid" alt="">
-              <div class="portfolio-info">
+ 			<div class=" col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
+	            <div class="portfolio-wrap">
+	              <img src="resources/intro/img/features-1.svg" class="img-fluid" alt="">
+	              <div class="portfolio-info">
 
-              </div>
+              	</div>
             </div>
+            
             <br>
             <br>
             <br>

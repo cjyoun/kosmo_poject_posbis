@@ -100,7 +100,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
 //---------------------------------------------------------------------------------------------
 
-
+/* 
          var tableObj = $("#FAQ");
          if (tableObj.length==0)
          {
@@ -144,7 +144,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
          );
 
 
-
+ */
 
 
 
@@ -654,7 +654,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
    
    <table><tr height=10><td></table>
    
-   <div class="col-sm-10" align="center">
+   <div class="col-sm-10-1" align="center">
       
               <table class="table table-striped table-advance table-hover">
                 
@@ -666,7 +666,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
                     <th>조회수</th>
                     <c:forEach items="${qstn}" var="qstn" varStatus="loopTagStatus">
                     <tr style="cursor:pointer" 
-               onClick="goQstnContentForm(${qstn.qna_no}, '${qstn.user_id}');">
+               onClick="goQstnContentForm(${qstn.qna_no}, '${qstn.user_id}',${qstn.print_level},${qstn.group_no});">
                   <td align=center>
    <!-- ************************************************ -->
                <!-- 게시판 검색 목록 중에 각 행의 역순 일련번호 출력 -->
@@ -721,7 +721,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
        검색 결과가 없습니다
    </c:if>
       <br><br>
-            <section class="panel">
+            <!-- <section class="panel">
               <header class="panel-heading">
                       FAQ
               </header>
@@ -737,7 +737,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
          <tr><td>&nbsp;&nbsp;A.양준일이요. 개착하고 개귀여워 ㅠㅠㅠ
       </table>
 </div>
-</section>
+</section> -->
 
             </div>
             </div>

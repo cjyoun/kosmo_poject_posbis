@@ -90,6 +90,41 @@
         location.replace("/posbis/myPageForm.do");
      }
 
+	//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+		function goPreSearchForm(){
+	        //alert("검색관리로 이동");
+			var rank_code = ${rank_code};
+         if(rank_code == 2){
+        	 location.replace("/posbis/preSearchForm.do");
+         }
+         else{
+        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+					return;
+				}
+        	 else{
+        		 location.replace("/posbis/payForm.do");
+             }
+         }
+	        
+	     }
+		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+		function goPreChartForm(){
+	        //alert("차트관리로 이동");
+			var rank_code = ${rank_code};
+         if(rank_code == 2){
+         	location.replace("/posbis/preChartForm.do");
+         }
+         else{
+        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+					return;
+				}
+        	 else{
+        		 location.replace("/posbis/payForm.do");
+             }
+         }
+	     }
+
+	
 	//qna 게시판- 질문하기
 	function goqstnRegForm(){
         //alert("질문하기으로 이동");

@@ -68,8 +68,8 @@
         	 });
         	  */
         	 
-        	 inputData("[name=user_id]",'${cookie.admin_id.value}');
-        	 inputData("[name=user_pwd]",'${cookie.pwd.value}');
+        	  inputData("[name=user_id]",'${cookie.user_id.value}');
+        	  inputData("[name=user_pwd]",'${cookie.user_pwd.value}'); 
         	 
         	 <c:if test="${!empty cookie.user_id.value}">
           	$('[name=is_login]').prop("checked",true);

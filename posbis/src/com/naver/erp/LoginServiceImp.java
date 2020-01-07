@@ -244,11 +244,17 @@ public class LoginServiceImp implements LoginService {
 		};
 		
 		
-		// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
-		public List<Map<String, String>> getMyStoreInfoList(int u_no){
-			List<Map<String, String>> myStoreInfoList = this.loginDAO.getMyStoreInfoList(u_no);
+
+		// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼///////////////////////////////////////////////////////////////////////////
+		public List<Map<String, String>> getMyStoreInfoList(MyStoreInfoDTO myStoreInfoDTO){
+			List<Map<String, String>> myStoreInfoList = this.loginDAO.getMyStoreInfoList(myStoreInfoDTO);
 			return myStoreInfoList;
 		};
+		public int getMyStoreInfoAllCnt(MyStoreInfoDTO myStoreInfoDTO){
+			int myStoreInfoAllCnt = this.loginDAO.getMyStoreInfoAllCnt(myStoreInfoDTO);
+			return myStoreInfoAllCnt;
+		};
+		// 내가게 정보 가져오기///////////////////////////끝//////////////////////////////이정숙꺼///////////////////////////////////////////////////////////////////////////
 		
 		
 //========================================김수민============================================		

@@ -268,8 +268,26 @@
 						}
 					}) 
 				*/
+				$.ajax({
+					url : "/posbis/getPreResultProc.do"
+						, type : "post"
+						, data : $("[name=preSearchForm]").serialize() 
+						, success : function(data){
+							alert("성공");
+
+								
+								$("body").load("/posbis/preSearchForm.do",$("[name=preSearchForm]").serialize());
+							
+							
+						}
+						, error : function(request,status,error){
+							alert("서버 접속 실패");
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						
+						}
+					}) 
 					
-					document.preSearchForm.submit(); 
+					//document.preSearchForm.submit(); 
 		      }   
 
 
@@ -480,7 +498,7 @@
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-8" align="center">
+       <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">프리미엄 검색</a>
@@ -489,7 +507,90 @@
               <div class="panel-body">
          
       <div class="container">
- 
+ 	<!--======================-->
+					<!------검     색        조      건-------------->
+					<!--======================-->
+
+					<!-- 검색조건 form -->
+					<form name="preSearchForm" method="post"
+						action="/posbis/preSearchForm.do">
+
+			 
+							<table>
+								<tr>
+									<td><span class="help-block"> [지 &nbsp; &nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+									<td><select name="addr_gu1">
+												<option value="">----구선택----</option>
+												<c:forEach items="${addrGu1List}" var="addrGu1">
+													<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
+												</c:forEach>
+										  </select> &nbsp;
+								
+										<select name="addr_gu2">
+											<option value="">----구선택----</option>
+										</select>	
+								<tr>
+									<td><span class="help-block"> [업 &nbsp; &nbsp; 종]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
+									<td> <select name="business_type_name1">
+												<option value="">----대분류----
+													<c:forEach items="${businessTypeName1List}"
+														var="businessTypeName1">
+														<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
+														</option>
+													</c:forEach>
+									   	</select> &nbsp; 
+										<select name="business_type_name2">
+												<option value="">----소분류----
+										</select> &nbsp;
+								<tr>
+									<td><span class="help-block">[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</span>
+									<td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
+															<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20,000이상</label>
+															<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50,000이상 </label>
+															<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100,000이상</label>
+								<tr>
+									<td>
+									<td> <input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
+										 <input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
+							</table>
+						 <br><br>
+						
+						
+						  <div class="col-sm-12" align="center">
+						 
+				  <table class="table table-striped table-advance table-hover"  id="select">
+							 <thead>
+                  				<tr>
+								<td align=right>
+									<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
+									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
+										ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
+										EL 로 표현하여 삽입 -->	
+									[검색 총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+									<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
+									<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
+									<select name="rowCntPerPage">
+										<option value="10">10&nbsp;
+										<option value="15">15&nbsp;
+										<option value="20">20&nbsp;
+										<option value="25">25&nbsp;
+										<option value="30">30&nbsp;
+									</select> 행보기
+						</table>
+						
+			
+					
+						<input type="hidden" name="selectPageNo">		
+						<input type="hidden" name="sort" value="ranking asc">		
+					</form>
+					<!-- /preSearchForm  -->
+
+
+					
+					
+					<!-- 페이징 번호 삽입할 span 태그 선언 -->
+					<div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+					
 					<!--======================-->
                <!--======검색결과=======-->
                <!--======================-->

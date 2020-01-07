@@ -494,11 +494,19 @@
 		<table>
 			<tr>
 				<td>
-							<a href="">[ 사업자 번호 ] :</a>
-				       	<input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
-		      <c:forEach items="${businessNoList}" var="businessNoList">
-		        <input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
-		      </c:forEach>
+					<table><tr><td>
+		               <a href="">[ 사업자 번호 ] :</a>
+		                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
+		               <tr>
+		            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+		              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
+		                    <c:if test="${(status.index+1)%3==0}">
+		                     <c:if test="${!status.last }">
+		                        <tr>
+		                     </c:if>
+		                  </c:if>   
+		            </c:forEach>
+		            </table>
 		      <br><br>		      
 			<tr>
 				<td>
@@ -549,7 +557,7 @@
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
              <tr><br>     
                   <td align=right>
-			            <br> <select name="menuRowCntPerPage">
+			            <br> <select name="menuRowCntPerPage" style="width:50px;">
 			               <option value="10">10
 			               <option value="15">15
 			               <option value="20">20

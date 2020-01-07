@@ -8,13 +8,14 @@
 <mapper namespace="com.naver.erp.PreSearchDAO">
 
 	<sql id="preSearchWhere">
-				select business_no, month_sales, business_type, addr_dong, addr_gu
+				select business_no, month_sales, business_type1,business_type2, addr_dong, addr_gu
 					  , SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type 
 					  , RANK() OVER (ORDER BY month_sales desc)   RANKING from
 					(select
 					 sm.business_no
 					  ,sm.month_sales
-					  ,sm.business_type
+					  ,sm.business_type1
+					  ,sm.business_type2
 					  ,sm.addr_dong
                       ,sm.addr_gu
 					  ,best.sub_category_name
@@ -39,7 +40,11 @@
 				    , (select cbt.business_type_name2
 				        from code_business_type cbt, business_info bi
 				        where cbt.business_type_code=bi.business_type_code
-				            and s.business_no=bi.business_no)    as "BUSINESS_TYPE"
+				            and s.business_no=bi.business_no)    as "BUSINESS_TYPE2"
+				    , (select cbt.business_type_name1
+				        from code_business_type cbt, business_info bi
+				        where cbt.business_type_code=bi.business_type_code
+				            and s.business_no=bi.business_no)    as "BUSINESS_TYPE1"
 				    , (select a.addr_dong
 				        from addr a, business_info bi
 				        where bi.addr_no=a.addr_no
@@ -75,7 +80,7 @@
 				                and bi.business_no=result.business_no) = #{business_type_name2}
        	       	</if>
        	       	
-				group by business_no , month_sales, business_type, addr_dong, addr_gu
+				group by business_no , month_sales, business_type1, business_type2, addr_dong, addr_gu
 				 order by month_sales desc
 	
 	</sql>
@@ -86,7 +91,7 @@
 
 	<!-- ===== [프리미엄 검색 리스트] =================================================================-->	
 	<select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
-			      select  pagingrnum||'' PAGINGRNUM, business_no, month_sales||'' MONTH_SALES, business_type, addr_dong, addr_gu, best_menu_type, RANKING||'' RANKING from(     
+			      select  pagingrnum||'' PAGINGRNUM, business_no, month_sales||'' MONTH_SALES, business_type1, business_type2, addr_dong, addr_gu, best_menu_type, RANKING||'' RANKING from(     
 				select bb.* , rownum PAGINGRNUM from(       
                 	select b.* from(   
 					<include refid="preSearchWhere"/>

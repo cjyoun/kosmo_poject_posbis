@@ -505,20 +505,10 @@
 				 
 	
 	       var options4 = {
-                  title: '[월 매출]'
-                   , curveType : 'function'
-                 , series: {
-                         0: { lineWidth: 2, color: '#7966E3'   },
-                         1: { lineWidth: 2, color: '#74A2F2'   }
-                      }
-                   , pointSize: 6
-                   , dataOpacity: 0.3
-                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-                       startup: true,
-                       duration: 1500,
-                       easing: 'linear' }
-              
-                   };
+	         	title: '[월 매출]'
+		        , curveType : 'function'
+		     
+	       };
 	
 	
 	       var chart4 = new google.visualization.LineChart(document.getElementById('allChart_div'));
@@ -619,30 +609,30 @@
 	                    , legend: { position: "top" }
 	                };
 
-			       var options2_2 = {
-	                        title: '[상품별 매출(개수)]'
-	                       , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-	                       , legend: { position: "none" }
-	                      , bar: {groupWidth: "38%"}
-	                       , isStacked: false
-	                       , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-	                             startup: true,
-	                             duration: 2500,
-	                             easing: 'linear' }
-	                       , annotations: {
-	                                    textStyle: {
-	                                                fontSize : 13
-	                                                , bold: true
-	                                                , italic: true
-	                                                , color: '#white'
-	                                                ,  auraColor: '#black'
-	                                                ,  opacity: 0.8
-	                     
-	                                             }
-	                                    }    
-	                       
+	                var options2_2 = {
+	                     title: '[상품별 매출(개수)]'
+	                    , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+	                    , legend: { position: "none" }
+	                	, bar: {groupWidth: "50%"}
+	                    , isStacked: false
+	                    , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                          startup: true,
+	                          duration: 2500,
+	                          easing: 'linear' }
+	                    , annotations: {
+					                     textStyle: {
+								                        fontSize : 13
+								                        , bold: true
+								                        , italic: true
+								                        , color: '#white'
+								                        ,  auraColor: '#black'
+								                        ,  opacity: 0.8
+							
+								                     }
+					                     }    
 	                    
-	                   };
+	                 
+	                };
 			       
 			       var chart2_1 = new google.visualization.PieChart(document.getElementById('chart_div2_1'));
 			       chart2_1.draw(data2, options2_1);
@@ -825,7 +815,7 @@
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><img src="../resources/sidetopbar/img/POSBIS_logo.jpg"></a></h1>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
    
@@ -967,7 +957,9 @@
 						
 	             	  <br>
 	               
-
+				    <!--   <input type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">&nbsp;
+				      <input type="button" value="마이페이지로가기" style="width=130" onClick="location.replace('/posbis/myPageForm.do')">&nbsp;
+				      <input type="button" value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">&nbsp; -->
 				
 				</div>
 				<br><br>
@@ -980,7 +972,7 @@
 				         <br>
 				         [가게별 월매출]<br>
 				        <%--  ${changeBusinessNo} --%>
-
+				         <br><br>
 				         <div id="allChart_div" name="allChart_div" style="width: 900px; height: 500px;"></div>
 		
 		
@@ -996,9 +988,9 @@
 				         <br>
 				         [월매출]<br>
 				        <%--  ${changeBusinessNo} --%>
-
+				         <br><br>
 				        <!--  <div id="chart_div1" style="width: 900px; height: 500px;"></div> -->
-						<div id="chart_div1" style="width: 800px; height: 300px;  left: 0px; top: 235px;"></div>	
+						<div id="chart_div1" style="width: 800px; height: 300px;  left: 0px; top: 235px;">	
 		
 				 		<br>    
 				         
@@ -1008,13 +1000,13 @@
 				         </table>
 				         
 				         
-				         <br>
+				         <br><br>
 				         다른 가게 인기메뉴<br>
 				         <table border=1 width=200 class="othersPopularityMenu" >
 				         		
 				         </table>
 				         
-				         <br>
+				         <br><br>
 				         같은 동네, 같은 업종 의 점포수
 				         <table border=1 width=200 >
 				         	<tr class="store_count">		
@@ -1033,8 +1025,8 @@
 				          <!-- <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
 				         <br>
 				         [월매출]<br> -->
-				         [이번 달 상품 매출]<br><br>
-
+				         [이번 달 상품 매출]<br>
+				         <br><br>
 				         
 				         
 				         <!-- <table class="columns">

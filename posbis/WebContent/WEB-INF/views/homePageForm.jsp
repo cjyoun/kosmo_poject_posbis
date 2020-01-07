@@ -104,12 +104,25 @@
       
 		$(document).ready(function(){
 			
-			
-			  //alert("xdxx");
-//=====================================================================================================
-      
-//=====================================================================================================
+			//=============이정숙꺼=============================================
+		 	  //alert("xdxx");
+			//페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입하기
+		/* 	$(".pagingNumber2").html(
+				getPagingNumber2(
+					"${myStoreInfoAllCnt}"				//검색 결과 총 행 개수
+					,"${myStoreInfoDTO.selectPageNo2}"	//선택된 현재 페이지번호
+					,"1"	//페이지 당 출력행의 개수
+					,"15"								//페이지 당 보여줄 페이지번호 개수
+					,"homeMyStoreInfoProc();"						//페이지번호 클릭 후 실행할 자스코드
+				)
+			);
+			inputData("[name=selectPageNo2]","${myStoreInfoDTO.selectPageNo2}");  */
+
+			//=============/이정숙꺼끝=============================================
 	});
+
+		
+		//=============이정숙꺼=============================================
 		function homeMyStoreInfoProc(){
 			$.ajax({
 				// 서버 쪽 호출 URL 주소 지정
@@ -149,8 +162,11 @@
 				
 			});
 		}
+		//=============/이정숙꺼끝=============================================
 
 
+			
+			
 	     //--------------------------------------------------------
 	   	   //로고 클릭시
 	   	     function goMainForm(){
@@ -264,7 +280,9 @@
 
            <div class="logo float-left">
              <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
+             <!-- <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1> -->
+             <a  onClick="goHomePageForm();" style="cursor:pointer"   class="scrollto">
+             <img src="resources/sidetopbar/img/POSBIS_logo.jpg" class="img-fluid" alt="" ></a>
              <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
            </div>
    
@@ -350,13 +368,15 @@
      <div class="panel-body">
       <div class="container">
 		 <div class="row" align="center">
-          <div class="col-sm-10">
+          <div class="col-sm-10-2">
             <section class="panel">
               <header class="panel-heading no-border">
               		 <a href="">통합 개인정보</a>
               </header>
  
- 
+  <!-- =========================================== -->
+ <!-- =========                     이정숙꺼                   =========== -->
+ <!-- =========================================== -->
 	<div class="myStoreInfo">
 		 	  <form name="myStoreInfoForm" method="post" action="/posbis/homeMyStoreInfoProc.do">	
 		 	  			
@@ -367,9 +387,9 @@
 		 			   <table  class="table table-bordered"   id="mystore">
 			            <c:forEach items="${myStoreInfoList}" var="myStoreInfo" varStatus="status">
 			               <!-- <script>alert("${status.count}"%3);</script> -->
-			            <%--    <c:if test="${status.index%2==0}">
+			            <c:if test="${status.index%3==0}">
 			                  <tr>
-			               </c:if> --%>
+			               </c:if>
 			               <td align=center>  
 			         			      <img src="resources/intro/img/business_type_img/${myStoreInfo.business_type_code}.jpg" class="img-fluid" alt="">		
 			               <td>상호명 : ${myStoreInfo.business_name} <br>
@@ -383,7 +403,11 @@
 	     			 <input type="hidden" name="selectPageNo2"> 
 	     	</form>
        </div>      
-				
+ <!-- =========================================== -->
+ <!-- ==========                    /이정숙꺼끝                =========== -->     
+ <!-- =========================================== --> 	
+ 
+ 
 				
       <div id = "container" style = "width: 550px; height: 270px; margin: 0 auto">
       </div>
@@ -398,28 +422,29 @@
                [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
             ]);
 
-            var options = {
-            		title: '[전월대비 당월 매출현황(원)]'
-            		, tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-            		, legend: { position: "none" }
-                    , isStacked: false
-                    , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-                          startup: true,
-                          duration: 1000,
-                          easing: 'linear' }
-                    , annotations: {
-                     textStyle: {
-                        fontSize : 13
-                        , bold: true
-                        , italic: true
-                        , color: '#white'
-                        ,  auraColor: '#black'
-                        ,  opacity: 0.8
+           var options = {
+                   title: '[전월대비 당월 매출현황(원)]'
+                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+                   , legend: { position: "none" }
+                    , bar: {groupWidth: "42%"}
+                     , isStacked: false
+                     , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+                           startup: true,
+                           duration: 1000,
+                           easing: 'linear' }
+                     , annotations: {
+                      textStyle: {
+                         fontSize : 13
+                         , bold: true
+                         , italic: true
+                         , color: '#white'
+                         ,  auraColor: '#black'
+                         ,  opacity: 0.8
 
-                     }
-                     }    
-                    
-            }; 
+                      }
+                      }    
+                     
+             }; 
 
             // Instantiate and draw the chart.
             var chart = new google.visualization.BarChart(document.getElementById('container'));
@@ -429,7 +454,7 @@
       </script>
   
  
- 
+ <br><br>
  
   <header class="panel-heading no-border">
              <a href="">내가 쓴글 보기</a>
@@ -456,7 +481,7 @@
 						<th align=right>댓글수
 					<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
 					 
-					<tr>
+					<tr style="cursor: pointer" onClick="goMyQstnForm();">
 						<td >
 						${myQstn.selectPageNo*myQstn.rowCntPerPage-
 									 				myQstn.rowCntPerPage+1+loopTagStatus.index}

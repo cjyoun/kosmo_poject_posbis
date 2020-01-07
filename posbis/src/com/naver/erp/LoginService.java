@@ -79,7 +79,8 @@ public interface LoginService {
 	
 	
 	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
-	List<Map<String, String>> getMyStoreInfoList(int u_no);
+	List<Map<String, String>> getMyStoreInfoList(MyStoreInfoDTO myStoreInfoDTO);
+	int getMyStoreInfoAllCnt(MyStoreInfoDTO myStoreInfoDTO);
 		
 	
 	//=================================김수민==================================================	

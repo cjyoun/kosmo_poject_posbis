@@ -337,15 +337,23 @@ public class LoginDAOImp implements LoginDAO{
 		
 	
 	
-	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
-	public List<Map<String, String>> getMyStoreInfoList(int u_no){
-		List<Map<String, String>> myStoreInfoList = this.sqlSession.selectList( 
-				"com.naver.erp.LoginDAO.getMyStoreInfoList"
-				, u_no
-		);
-		//System.out.println("DAO/myStoreInfoList===>"+myStoreInfoList);
-		return myStoreInfoList;
-	};
+		// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
+		public List<Map<String, String>> getMyStoreInfoList(MyStoreInfoDTO myStoreInfoDTO){
+			List<Map<String, String>> myStoreInfoList = this.sqlSession.selectList( 
+					"com.naver.erp.LoginDAO.getMyStoreInfoList"
+					, myStoreInfoDTO
+			);
+			//System.out.println("DAO/myStoreInfoList===>"+myStoreInfoList);
+			return myStoreInfoList;
+		};
+		public int getMyStoreInfoAllCnt(MyStoreInfoDTO myStoreInfoDTO){
+			int myStoreInfoAllCnt = this.sqlSession.selectOne(
+					"com.naver.erp.LoginDAO.getMyStoreInfoAllCnt"
+					,myStoreInfoDTO
+			);
+			//System.out.println("DAO/myStoreInfoAllCnt===>"+myStoreInfoAllCnt);
+			return myStoreInfoAllCnt;
+		};
 	
 	
 	//===============================김수민==================================================		

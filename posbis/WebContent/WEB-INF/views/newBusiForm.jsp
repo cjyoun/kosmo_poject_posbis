@@ -184,7 +184,14 @@
 	              $(".business_no").val("");
 	              return;
 	         }
-   
+	    ////////////////////////////////////////////////////////////추가
+	 		if (is_valid_pattern("[name=business_no]",
+			/^[0-9]{3}-[0-9]{2}-[0-9]{5}$/) == false) {
+				alert('사업자번호는 숫자3-숫자2-숫자5 형식으로 입력해주세요.');
+				busiCheck = false;
+				return;
+			}
+		////////////////////////////////////////////////////////////	
           $.ajax({
               url : "/posbis/chekckBusinessNoProc.do"
              , type : "post"
@@ -277,8 +284,13 @@
 		              if( businessnoCnt==1 ){
 		              	busiCheck = false;
 		                 alert("사업자등록번호 중복확인을 해주세요");
-		                 location.replace('/posbis/newBusiForm.do');
-		              }else if(businessnoCnt == 0) {
+		              }
+					  if (is_valid_pattern("[name=business_no]",
+						/^[0-9]{3}-[0-9]{2}-[0-9]{5}$/) == false) {
+							alert('사업자번호는 숫자3-숫자2-숫자5 형식으로 입력해주세요.');
+							busiCheck = false;
+							return;
+						}else if(businessnoCnt == 0) {
 
 		                  //가게 추가 ajax
 		                  $.ajax({

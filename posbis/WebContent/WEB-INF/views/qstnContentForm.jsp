@@ -1,66 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="common.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Rapid Bootstrap Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+<meta charset="utf-8">
+<title>Rapid Bootstrap Template</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
 
-  <!-- Favicons -->
-  <link href="resources/intro/img/favicon.png" rel="icon">
-  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicons -->
+<link href="resources/intro/img/favicon.png" rel="icon">
+<link href="resources/intro/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700"
+	rel="stylesheet">
 
-  <!-- Bootstrap CSS File -->
-  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap CSS File -->
+<link href="resources/intro/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
-  <!-- Libraries CSS Files -->
-  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<!-- Libraries CSS Files -->
+<link href="resources/intro/lib/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="resources/intro/lib/animate/animate.min.css"
+	rel="stylesheet">
+<link href="resources/intro/lib/ionicons/css/ionicons.min.css"
+	rel="stylesheet">
+<link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+<link href="resources/intro/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
 
-  <!-- Main Stylesheet File -->
-  <link href="resources/intro/css/style.css" rel="stylesheet">
-  
-  
-  
-  
-   <!-- Bootstrap CSS -->
-  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- full calendar css-->
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-  <!-- easy pie chart-->
-  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
-  <!-- owl carousel -->
-  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="css/fullcalendar.css">
-  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
-  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
-  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
-  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
-  
-  
- 
-  <style>
- .loginmaintaining {
+<!-- Main Stylesheet File -->
+<link href="resources/intro/css/style.css" rel="stylesheet">
+
+
+
+
+<!-- Bootstrap CSS -->
+<link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap theme -->
+<link href="resources/sidetopbar/css/bootstrap-theme.css"
+	rel="stylesheet">
+<!--external css-->
+<!-- font icon -->
+<link href="resources/sidetopbar/css/elegant-icons-style.css"
+	rel="stylesheet" />
+<link href="resources/sidetopbar/css/font-awesome.min.css"
+	rel="stylesheet" />
+<!-- full calendar css-->
+<link
+	href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css"
+	rel="stylesheet" />
+<link
+	href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css"
+	rel="stylesheet" />
+<!-- easy pie chart-->
+<link
+	href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css"
+	rel="stylesheet" type="text/css" media="screen" />
+<!-- owl carousel -->
+<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+<link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+<!-- Custom styles -->
+<link rel="stylesheet" href="css/fullcalendar.css">
+<link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
+<link href="resources/sidetopbar/css/style.css" rel="stylesheet">
+<link href="resources/sidetopbar/css/style-responsive.css"
+	rel="stylesheet" />
+<link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
+<link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css"
+	rel="stylesheet">
+
+
+
+<style>
+  .loginmaintaining {
  
 	color: #6c757d;
     width: 11%;
@@ -86,24 +106,51 @@
    background-color: #f5f8fd;
 
 }
-  </style>
+</style>
 
- 
+
 <!-- ------------------------------------------------------------------ -->
 <!-- 만약에 상세보기할 게시판 글이 없으면 경고 후 이전 화면으로 이동하기-->
 <!-- ------------------------------------------------------------------ -->
-  <c:if test="${empty qstnDTO}">
+<c:if test="${empty qstnDTO}">
 	<script>
 		alert("게시판 글이 삭제되었습니다.");
 		location.replace("/posbis/qstnForm.do")
  
 	</script>
 </c:if>
- 
- 
-   <title> 게시판 상세 보기 </title>
-     <script>
-   
+
+
+<title>게시판 상세 보기</title>
+<script>
+
+
+	// 성유진 
+	// 들어온 경로에 따라 목록보기 클릭시 내글보기 또는 모든글보기로 이동하는 함수 선언
+	var my = getParameters("my");
+	function getParameters(paramName) {
+	    // 리턴값을 위한 변수 선언
+	    var returnValue;
+	
+	    // 현재 URL 가져오기
+	    var url = location.href;
+	
+	    // get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔
+	    var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+	
+	    // 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return
+	    for (var i = 0; i < parameters.length; i++) {
+	        var varName = parameters[i].split('=')[0];
+	        if (varName.toUpperCase() == paramName.toUpperCase()) {
+	            returnValue = parameters[i].split('=')[1];
+	            return decodeURIComponent(returnValue);
+	        }
+		}
+	}// 성유진 끝
+	
+	  
+
+	  
       // 게시판 수정 화면으로 이동하는 함수 선언
       function goQstnUpDelForm(){
          // name=qstnUpDelForm 을 가진 form 태그의 action 값을 URL로 서버에 접속하라
@@ -113,9 +160,6 @@
       // 게시판 답글 화면으로 이동하는 함수 선언
       function goQstnRegForm(){
                
-
-
-
          $.ajax({
               // 접속할 서버 쪽 URL 주소 설정
               url : "/posbis/qstnMasterRegProc.do"
@@ -140,8 +184,8 @@
               , error : function(){
                  alert("서버 접속 실패");
               }
-           });
-      }
+		});
+     }
       
       function goQstnForm(){
         location.replace("/posbis/qstnForm.do");
@@ -226,39 +270,40 @@
 	        //alert("전체 질문보기으로 이동");
 	        location.replace("/posbis/qstnForm.do");
 	     }
-		//qna 게시판- 자주 묻는 질문
-		 function goFAQForm(){
-		        //alert("전체 질문보기으로 이동");
-		        location.replace("/posbis/FAQForm.do");
-		     }
 		 
 		//통합 관리
 		 function goHomePageForm(){
 		    //alert("통합 관리으로 이동");
 		    location.replace("/posbis/homePageForm.do");
 		 }
-		
-		// 조건에 따른 목록 보기 함수 
-		 
-		function goListForm(){
-		if (my == "true") {
-			location.replace("/posbis/myQstn.do");		
-			}else {
-			location.replace("/posbis/qstnForm.do");	
-			}
-		}
-		
-		function goMessageForm(){
-		    alert("건의사항이 접수 되었습니다. 감사합니다");
-	 
-		 }
 
+		// 조건에 따른 목록 보기 함수 
+ 
+		function goListForm(){
+			if (my == "true") {
+				location.replace("/posbis/myQstn.do");		
+				}else {
+				location.replace("/posbis/qstnForm.do");	
+				}
+		}
+
+		//qna 게시판- 자주 묻는 질문
+		 function goFAQForm(){
+		        //alert("전체 질문보기으로 이동");
+		        location.replace("/posbis/FAQForm.do");
+		     }
+      
    </script>
-    
+
+
+
+
+
+
 </head>
 
 <body>
- <!--==========================
+<!--==========================
   Header
   ============================-->
   <header id="header">
@@ -333,7 +378,6 @@
          </div>
        </header><!-- #header -->
 
-
   <!--==========================
     Intro Section
   ============================-->
@@ -345,133 +389,120 @@
       </div>
     </div>
   </section> 
-
-<!--==========================
+ 
+	<!--==========================
    글 상세보기
     ============================-->
-  
-  
-  <br><br><br><br><br><br><br>
-<!--     <section id="intro" class="clearfix">
-    <div class="container d-flex h-100">
-      <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">
-          <h2>Business<br>Bank In <span>Seoul!</span></h2>
-          <div>
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
-          </div>
-        </div>
-  
-        <div class="col-md-6 intro-img order-md-last order-first">
-          <img src="resources/intro/img/intro-img.svg" alt="" class="img-fluid">
-        </div>
-      </div>
 
-    </div>
-  </section> -->
 
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
  
-
-<main id="main">
+  <main id="main">
    <section id="main-content">
    <section class="wrapper">
-     <div class="row">
-           <div class="col-lg-10" align="center">
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">Q&A게시판</a></li>
-              <li><i class="fa fa-user-md"></i>내글보기</li>
-              <li><i class="fa fa-user-md"></i>글상세보기</li>
-            </ol>
-          </div>
-        </div>
-     <div class="col-lg-10" align="center">
+       <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	    <a href="">Q&A 게시판</a>
+                	   <a href="">Q&A게시판</a>
               </header>
-              <div class="panel-body">
- 
-
-      <div class="container">
+              
+					<div class="panel-body">
 
 
-<form class=qstnContentForm  name="qstnContentForm"  method="post" action="/posbis/qstnRegForm.do">
-      <input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
-   <div class="row">
-          <div class="col-sm-6">
-            <section class="panel">
-              <header class="panel-heading no-border">
-               글 상세보기
-              </header>
-              <table class="table table-bordered" align=>
-                  <tr align=center>
-                    <th width=60>글번호</th>
-                    <td width=150>${qstnDTO.qna_no}
-                    <th width=60>조회수</th>
-                    <td width=150>${qstnDTO.readcount}
-                  </tr>
-                  <tr align=center>
-                    <th width=60>작성자
-                    <td width=150>${qstnDTO.user_id}
-                    <th width=60>작성일
-                    <td width=150>${qstnDTO.qna_date}
-                  </tr>
-                  <tr>
-                    <th>글제목
-                    <td width=150 colspan=3>${qstnDTO.subject}
-                  </tr>
-                  <tr>
-                    <th>글내용
-                    <td width=150 colspan=3>
-                     <textarea name="content" rows="13" cols="45" style="border:0" readonly>${qstnDTO.content}</textarea>
-              </table>
-            </section>
-          </div>
-          
-   </div>  
-             
-    <div style="float:center">   
-      <button class="btn btn-info" type="button" value="답글쓰기" onClick="goQstnRegForm();">답글쓰기</button>
-      <button class="btn btn-danger" type="button" value="수정/삭제" onClick="goQstnUpDelForm();">수정/삭제</button>
-      <button class="btn btn-primary" type="button" value="목록보기" onClick="goListForm();">목록보기</button>
-    </div>
-       <input type="hidden" name="user_id" value="${user_id}">
-   </form> 
-          
-<!--       <input type="button" value="답글쓰기" onClick="goQstnRegForm();">&nbsp;
+						<div class="container">
+
+
+							<form class=qstnContentForm name="qstnContentForm" method="post"
+								action="/posbis/qstnRegForm.do">
+								<input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
+								<div class="row">
+									<div class="col-sm-6">
+										<section class="panel">
+											<header class="panel-heading no-border"> 글 상세보기 </header>
+											<table class="table table-bordered" align=>
+												<tr align=center>
+													<th width=60>글번호</th>
+													<td width=150>${qstnDTO.qna_no}
+													<th width=60>조회수</th>
+													<td width=150>${qstnDTO.readcount}
+												</tr>
+												<tr align=center>
+													<th width=60>작성자
+													<td width=150>${qstnDTO.user_id}
+													<th width=60>작성일
+													<td width=150>${qstnDTO.qna_date}
+												</tr>
+												<tr>
+													<th>글제목
+													<td width=150 colspan=3>${qstnDTO.subject}
+												</tr>
+												<tr>
+													<th>글내용
+													<td width=150 colspan=3><textarea name="content"
+															rows="13" cols="45" style="border: 0" readonly>${qstnDTO.content}</textarea>
+											</table>
+										</section>
+									</div>
+
+								</div>
+
+								<div style="float: center">
+									<button class="btn btn-info" type="button" value="답글쓰기"
+										onClick="goQstnRegForm();">답글쓰기</button>
+									<button class="btn btn-danger" type="button" value="수정/삭제"
+										onClick="goQstnUpDelForm();">수정/삭제</button>
+									<!-- onClick 시 함수 변경 성유진-->
+									<button class="btn btn-primary" type="button" value="목록보기"
+										onClick="goListForm();">목록보기</button>
+										<!-- onClick 시 함수 변경 성유진 끝-->
+								</div>
+								<input type="hidden" name="user_id" value="${user_id}">
+							</form>
+
+							<!--       <input type="button" value="답글쓰기" onClick="goQstnRegForm();">&nbsp;
       <input type="button" value="수정/삭제" onClick="goQstnUpDelForm();">&nbsp;
       <input type="button" value="목록보기" onClick="document.qstnForm.submit();">
     
        <input type="text" name="user_id" value="master40">
    </form>  -->
-   
-   
-     <form name="qstnForm" method="post" action="/posbis/qstnForm.do">
-   
-   </form>
-   
-   <!--**************************************************-->
-   <!--  수정/삭제 화면으로 이동하기 위한 form 태그 선언 -->
-   <!--**************************************************-->
-   <form name="qstnUpDelForm" method="post" action="/posbis/qstnUpDelForm.do">
-          <!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
-          <!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야 하기 떄문 -->
-          <input type="hidden" name="qna_no" value="${param.qna_no}">
-          <input type="hidden" name="selectPageNo" value="${param.selectPageNo}">
-          <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}">
-   </form>
-   <!--**************************************************************************-->
-   <!-- 이전 페이지에서 온 게시판 선택 페이지 번호를 지정한 hidden 태그 출력하고 -->
-   <!-- [게시판 목록] 화면으로 이동하는 form 태그 선언 ---------------------------->
-   <!--**************************************************************************-->
-   <form name="qstnRegForm" method="post" action="/posbis/qstnRegForm.do">
-      <!-- 게시판 상세보기 화면을 구성하는 글의 [고유번호]를 hidden 태그에 저장 -->
-      <!-- 댓글을 달려면 주인 글의 고유번호를 알아야 하기 때문 -->
-      <input type="hidden" name="qna_no" value="${param.qna_no}">
-   </form>
-   
-  </main>
-<!--==========================
+
+
+							<form name="qstnForm" method="post" action="/posbis/qstnForm.do">
+
+							</form>
+
+							<!--**************************************************-->
+							<!--  수정/삭제 화면으로 이동하기 위한 form 태그 선언 -->
+							<!--**************************************************-->
+							<form name="qstnUpDelForm" method="post"
+								action="/posbis/qstnUpDelForm.do">
+								<!-- 게시판 상세보기 화면을 구성하는 글의 고유번호를 hidden 태그에 저장 -->
+								<!-- 수정/삭제를 하려면 현재 글의 고유번호를 알아야 하기 떄문 -->
+								<input type="hidden" name="qna_no" value="${param.qna_no}">
+								<input type="hidden" name="selectPageNo"
+									value="${param.selectPageNo}"> <input type="hidden"
+									name="rowCntPerPage" value="${param.rowCntPerPage}">
+							</form>
+							<!--**************************************************************************-->
+							<!-- 이전 페이지에서 온 게시판 선택 페이지 번호를 지정한 hidden 태그 출력하고 -->
+							<!-- [게시판 목록] 화면으로 이동하는 form 태그 선언 ---------------------------->
+							<!--**************************************************************************-->
+							<form name="qstnRegForm" method="post"
+								action="/posbis/qstnRegForm.do">
+								<!-- 게시판 상세보기 화면을 구성하는 글의 [고유번호]를 hidden 태그에 저장 -->
+								<!-- 댓글을 달려면 주인 글의 고유번호를 알아야 하기 때문 -->
+								<input type="hidden" name="qna_no" value="${param.qna_no}">
+							</form>
+	</main>
+
+
+  <!--==========================
     꼬리말
   ============================-->
   <footer id="footer" class="section-bg">
