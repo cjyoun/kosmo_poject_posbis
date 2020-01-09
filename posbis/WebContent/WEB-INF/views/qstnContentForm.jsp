@@ -298,9 +298,10 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">회사소개</a>
+				<li><a class="active">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
-						<li><a onClick="goIntroForm();">POSBIS</a></li>
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
 				<li><a href="#">마이페이지</a>

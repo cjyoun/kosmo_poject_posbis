@@ -103,7 +103,7 @@
 <script>
 
 function goInfoUpdateForm(){
-    alert("goInfoUpdateForm.jsp로 이동");
+    //alert("goInfoUpdateForm.jsp로 이동");
     var str = "business_no=" + business_no;
     location.replace("/posbis/infoUpdateForm.do?"+str);
     
@@ -190,7 +190,7 @@ function goInfoUpdateForm(){
 
 
       function gowithdrawalForm(){
-         alert("withdrawalForm.jsp로 이동")
+         //alert("withdrawalForm.jsp로 이동")
          location.replace("/posbis/withdrawalForm.do")
       }
   
@@ -287,11 +287,7 @@ function goInfoUpdateForm(){
 		 }
 		//--------------------------------------------------------
 
-		
-		function goMessageForm(){
-		    alert("건의사항이 접수 되었습니다. 감사합니다");
-	 
-		 }
+
 
 
 //=============================================김수민============================================================
@@ -336,9 +332,10 @@ function goInfoUpdateForm(){
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">회사소개</a>
+				<li><a class="active">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
-						<li><a onClick="goIntroForm();">POSBIS</a></li>
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
 				<li><a href="#">마이페이지</a>

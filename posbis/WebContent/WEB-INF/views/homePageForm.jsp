@@ -90,9 +90,66 @@
 
 	border-bottom:1px solid #eeeeee ;    
    background-color: #f5f8fd;
+   
+   
+
 
 }
   
+/*---------------------------------------- 슬라이드 쇼 하는 부분 */  
+.myStoreSlides {display: none}  
+  
+.homePage-slideshow{
+	max-width: 800px;
+	position: relative;
+	margin: auto;
+}  
+  
+  
+ /* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+
+.fadeSlide {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fadeSlide {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fadeSlide {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+/*------------------------------------------------------------------------*/
   
   </style>
   
@@ -105,9 +162,10 @@
       </script>
       
        
-   <script>         
-      
-		$(document).ready(function(){
+   <script>  
+
+	   $(document).ready(function(){
+		   showSlides(slideIndex);
 			
 			//=============이정숙꺼=============================================
 		 	  //alert("xdxx");
@@ -122,9 +180,44 @@
 				)
 			);
 			inputData("[name=selectPageNo2]","${myStoreInfoDTO.selectPageNo2}");  */
-
+	
 			//=============/이정숙꺼끝=============================================
 	});
+
+	   var slideIndex = 1;
+		
+	
+	   function plusSlides(n) {
+	     showSlides(slideIndex += n);
+	   }
+	
+	   function currentSlide(n) {
+	     showSlides(slideIndex = n);
+	   }
+	
+	   function showSlides(n) {
+	     var i;
+	     var slides = document.getElementsByClassName("myStoreSlides");
+	     //var dots = document.getElementsByClassName("dot");
+	     
+	     if (n > slides.length) {slideIndex = 1}    
+	     
+	     if (n < 1) {slideIndex = slides.length}
+	     
+	     for (i = 0; i < slides.length; i++) {
+	         slides[i].style.display = "none";  
+	     }
+	     /* for (i = 0; i < dots.length; i++) {
+	         dots[i].className = dots[i].className.replace(" active", "");
+	     } */
+	     slides[slideIndex-1].style.display = "block";  
+	     //dots[slideIndex-1].className += " active";
+	     
+	   }
+
+	   
+
+		
 
 		
 		//=============이정숙꺼=============================================
@@ -276,9 +369,10 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">회사소개</a>
+				<li><a class="active">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
-						<li><a onClick="goIntroForm();">POSBIS</a></li>
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
 				<li><a href="#">마이페이지</a>
@@ -346,7 +440,171 @@
     <!--==========================
       통합관리
     ============================-->
+    <!-- Why Section end -->
+	<section class="why-section spad" style="background-color:#fff">
+		<div class="container" >
+			<div class="text-center mb-5 pb-4">
+				<h2>내가 가진 가게 정보</h2>
+			</div>
+			
+	
+				<table border=0 width="850" align="center">
+				<tr><td align = right style="font-size:20px">
+				[내 점포 수] : ${myStoreInfoAllCnt} 개
+				</table>
+				<br>
+				<br>
+				
+				<div class="homePage-slideshow">
+					<c:forEach items="${myStoreInfoList}" var="myStoreInfo" varStatus="status">
+				 		<div class="myStoreSlides fadeSlide" onClick="goMyPageForm();" style="cursor:pointer;">	
+				 			<table  class="table table-bordered"   id="mystore">
+		
+				               <!-- <script>alert("${status.count}"%3);</script> -->
+				            <%-- <c:if test="${status.index%3==0}">
+				                  <tr>
+				               </c:if> --%>
+				               <td align=center style="vertical-align:middle; " width=200>  
+				         		<img src="resources/business_type_img/${myStoreInfo.business_type_code}.jpg" class="img-fluid" alt=""  >   	
+				         		</td>	
+				         		
+				               <td style="padding:20 40 20 20; line-height:30px; font-size:16px;">상호명 : ${myStoreInfo.business_name} <br>
+				                     사업자 번호 : ${myStoreInfo.business_no} <br>
+				                     업종 : ${myStoreInfo.business_type_name1}&nbsp;>&nbsp;${myStoreInfo.business_type_name2}<br>
+				                     주소 : ${myStoreInfo.addr_gu}&nbsp;${myStoreInfo.addr_dong}&nbsp;${myStoreInfo.addr_detail}<br>
+				                     전화번호 : ${myStoreInfo.store_tel_num}   
+				            	</td>
+					    	</table>    
+					    </div>	
+				    </c:forEach>
+				    	
+				    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+					<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				</div>
 
+
+
+			
+		</div>
+	</section>
+	<!-- Why Section end -->
+
+  
+  
+  
+  <!-- Why Section2 end -->
+	<section class="why-section spad" style="background-color:#f8f9fa">
+		<div class="container" >
+			<div class="text-center mb-5 pb-4">
+				<h2>내가 가진 가게 총매출 현황</h2>
+			</div>
+			
+			<div id = "container" style = "width: 550px; height: 270px; margin: 0 auto;">
+		      </div>
+		      <script language = "JavaScript">
+		         function drawChart() {
+		            // Define the chart to be drawn.
+		           var data = google.visualization.arrayToDataTable([
+		               [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
+		               [ ${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount},  'color: #7966e3;',  ${salesNow[0].now_sales_amount} ], 
+		               [ ${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income},  'color: #b2a9e7;',  ${salesNow[0].now_sales_income} ],
+		               [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount},  'color: #74a2f2;',  ${salesNow[1].now_sales_amount} ],
+		               [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
+		            ]);
+		
+		           var options = {
+		                   title: '[전월대비 당월 매출현황(원)]'
+
+		                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+		                   , legend: { position: "none" }
+		                    , bar: {groupWidth: "42%"}
+		                     , isStacked: false
+		                     , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+		                           startup: true,
+		                           duration: 1000,
+		                           easing: 'linear' }
+		                     , annotations: {
+		                      textStyle: {
+		                         fontSize : 13
+		                         , bold: true
+		                         , italic: true
+		                         , color: '#white'
+		                         ,  auraColor: '#black'
+		                         ,  opacity: 0.8
+		
+		                      }
+		                      } 
+		                        
+		                     
+		             }; 
+		
+		            // Instantiate and draw the chart.
+		            var chart = new google.visualization.BarChart(document.getElementById('container'));
+		            chart.draw(data, options);
+		         }
+		         google.charts.setOnLoadCallback(drawChart);
+		      </script>
+
+
+
+			
+		</div>
+	</section>
+	<!-- Why Section2 end -->  
+
+<!-- Why Section3 end -->
+	<section class="why-section spad" style="background-color:#fff">
+		<div class="container" >
+			<div class="text-center mb-5 pb-4">
+				<h2>나의 문의 글 보기</h2>
+			</div>
+
+				<div class="panel-body"> 
+			 		 <div class="col-sm-12" align="center">
+					   <table  class="table table-bordered"  align=center id="mystore">
+					  	 <form name="myQstnList" method="post" action="/posbis/homePageForm.do" align="center" >
+
+							
+							<div style="border: 0px solid;">&nbsp;<span class="pagingNumber"></span> &nbsp;
+							</div>
+							<table class="table table-striped table-advance table-hover"> 
+								<thead>
+								<tr>
+									<th align=right>번호
+									<th align=right>글제목
+									<th align=right>등록일
+									<th align=right>댓글수
+									
+								<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
+								 
+								<tr style="cursor: pointer" onClick="goMyQstnForm();">
+									<td >
+									${myQstn.selectPageNo*myQstn.rowCntPerPage-
+												 				myQstn.rowCntPerPage+1+loopTagStatus.index}
+									<td  >${myQstn.subject}
+									<td  >${myQstn.qna_date}
+									<td >${myQstn.reply_cnt}
+								</c:forEach>
+							<!------------------------------------------------>
+							</table>
+								<c:if test="${empty myQstnList}">
+									<br>
+									고객님께서 쓰신글이 존재하지 않습니다.
+								</c:if>
+						</form>
+
+			       </table>   		 
+
+				</div>
+			</div>
+
+
+			
+		</div>
+	</section>
+	<!-- Why Section3 end -->
+
+<%-- 
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
@@ -392,7 +650,9 @@
 					<div class="pagingDiv2">&nbsp;<span class="pagingNumber2"></span>&nbsp;</div>
 	     			 <input type="hidden" name="selectPageNo2"> 
 	     	</form>
-       </div>      
+       </div>
+
+       
  <!-- =========================================== -->
  <!-- ==========                    /이정숙꺼끝                =========== -->     
  <!-- =========================================== --> 	
@@ -469,6 +729,7 @@
 						<th align=right>글제목
 						<th align=right>등록일
 						<th align=right>댓글수
+						
 					<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
 					 
 					<tr style="cursor: pointer" onClick="goMyQstnForm();">
@@ -497,7 +758,7 @@
 </section>
 </section>
 </main>
-
+ --%>
 <!--==========================
     꼬리말
   ============================-->

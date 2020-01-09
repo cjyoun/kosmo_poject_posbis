@@ -276,9 +276,10 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">회사소개</a>
+				<li><a class="active">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
-						<li><a onClick="goIntroForm();">POSBIS</a></li>
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
 				<li><a href="#">마이페이지</a>
@@ -387,8 +388,8 @@
                   
  
                   
-        			<input type="text" name="user_id" value="${user_id}">
-        			<input type="text" name="u_no" value="${u_no}">
+        			<input type="hidden" name="user_id" value="${user_id}">
+        			<input type="hidden" name="u_no" value="${u_no}">
         			
         		  <div style="float:right">	
                     <button class="btn btn-primary" type="button" value="탈퇴" onClick="checkWithdrawal()"> 탈퇴 </button>&nbsp;&nbsp;

@@ -836,9 +836,10 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">회사소개</a>
+				<li><a class="active">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
-						<li><a onClick="goIntroForm();">POSBIS</a></li>
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
 				<li><a href="#">마이페이지</a>
@@ -1038,7 +1039,7 @@
 				          <!-- <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
 				         <br>
 				         [월매출]<br> -->
-				         [이번 달 상품 매출]<br><br>
+				         <!-- [이번 달 상품 매출] -->
 
 				         
 				         
