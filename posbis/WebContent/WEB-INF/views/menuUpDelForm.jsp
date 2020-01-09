@@ -4,64 +4,69 @@
 <!DOCTYPE html>
 <html>
 <head>
- 
-  <title>메인</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+   <meta charset="UTF-8">
+<meta name="description" content="loans HTML Template">
+<meta name="keywords" content="loans, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicons -->
-  <link href="resources/intro/img/favicon.png" rel="icon">
-  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicon -->
+<link href="resources/bootstrap/img/favicon.ico" rel="shortcut icon" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+<!-- Google font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+	rel="stylesheet">
 
-  <!-- Bootstrap CSS File -->
-  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/flaticon.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/slicknav.min.css" />
 
-  <!-- Libraries CSS Files -->
-  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<!-- Main Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/style.css" />
 
-  <!-- Main Stylesheet File -->
-  <link href="resources/intro/css/style.css" rel="stylesheet">
+<!-- ------------------------------------------------------------------------------- -->
 
-   <!-- Bootstrap CSS -->
-  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- full calendar css-->
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-  <!-- easy pie chart-->
-  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
-  <!-- owl carousel -->
-  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="css/fullcalendar.css">
-  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
-  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
-  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
-  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
-  
-  <link rel="stylesheet" type="text/css" href="resources/intro/css/util.css">
 
-  <!-- =======================================================
-    Theme Name: Rapid
-    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+<!-- 	<link rel="shortcut icon" href="img/favicon.png">
+ -->
+<!-- Bootstrap CSS -->
+<link href="resources/tableBoot/css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap theme -->
+<link href="resources/tableBoot/css/bootstrap-theme.css"
+	rel="stylesheet">
+<!--external css-->
+<!-- font icon -->
+<link href="resources/tableBoot/css/elegant-icons-style.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/daterangepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-datepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-colorpicker.css"
+	rel="stylesheet" />
+<!-- date picker -->
+
+<!-- color picker -->
+
+<!-- Custom styles -->
+<link href="resources/tableBoot/css/style.css" rel="stylesheet">
+<link href="resources/tableBoot/css/style-responsive.css"
+	rel="stylesheet" />
+
+<!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
  <script>
   
 //--------------------------------------------------------
@@ -100,7 +105,7 @@
 					return;
 				}
         	 else{
-        		 location.replace("/posbis/payForm.do");
+        		 location.replace("/posbis/payFormLogin.do");
              }
          }
 	        
@@ -117,7 +122,7 @@
 					return;
 				}
         	 else{
-        		 location.replace("/posbis/payForm.do");
+        		 location.replace("/posbis/payFormLogin.do");
              }
          }
 	     }
@@ -361,80 +366,77 @@
    </head>
 
    <body>
- <!--==========================
-  Header
-  ============================-->
-  <header id="header">
+ <!-- Header Section -->
+	<header class="header-section">
+		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+		</a>
+		<nav class="header-nav">
+			<ul class="main-menu">
+				<li><a class="active">회사소개</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goIntroForm();">POSBIS</a></li>
+					</ul>
+				</li>
+				<li><a href="#">마이페이지</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMyPageForm();">내정보보기</a></li>
+						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="#">매장관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
+						<li><a onClick="goSalesForm();">매출 관리</a></li>
+					</ul>
+				</li>
+				<li><a href="#">업체동향</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goPreSearchForm();">시장분석</a></li>
+						<li><a onClick="goPreChartForm();">비교차트</a></li>
+					</ul>
+				</li>
+				<li><a href="#">고객센터</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
+						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
+						<li><a onClick="goqstnRegForm();">문의하기</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="header-right">
 
-         <div id="topbar">
-           <div class="container">
-          
-           </div>
-         </div>
-
-       <div class="header">
- 
-
-           <div class="logo float-left">
-             <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
-             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-           </div>
-   
-          	   <div   class= "loginmaintaining">
-                      <a><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br>                     
-                  <div style="float:right">   
+				<div class="hr-text">
+				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
+                    &nbsp;
                      <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
-				 </div>  
-                </div>
-   
-           <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li style="cursor:pointer"  class="drop-down" ><a href="">회사소개</a>
-            <ul>
-              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
-             <br>
-            </ul>
-          </li>
-		     <li style="cursor:pointer"  class="drop-down"><a href="#">업체동향</a>
-		            <ul>
-		              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">시장분석</a></li>
-		              <li style="cursor:pointer" ><a onClick="goPreChartForm();">비교차트</a></li>
- 						<br>
-		            </ul>
-		          </li>
-           <li style="cursor:pointer"  class="drop-down"><a href="#">매장관리</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
-               <br>
-            </ul>
-          </li>
-    
-           <li style="cursor:pointer"  class="drop-down"><a href="#">마이페이지</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내정보보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">문의내역확인</a></li>
-           	  <br>
-            </ul>
-          </li>
-          
-           <li style="cursor:pointer"  class="drop-down"><a href="#">고객센터</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goQstnForm();">Q&A 목록보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goFAQForm();">자주 묻는 질문</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goqstnRegForm();">문의하기</a></li>
-           	   <br> 
-            </ul>
-          </li>
- 
- 
-        </ul>
-      </nav><!-- .main-nav -->
-           
-         </div>
-       </header><!-- #header -->
+				</div>
+				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
+				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
+
+			</div>
+		</nav>
+	</header>
+	<!-- Header Section end -->
+<!-- Page top Section end -->
+	<section class="page-top-section set-bg"
+		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container">
+			<h2>메뉴수정</h2>
+			<div style=" color:#fff; width:30%">
+			<nav class="site-breadcrumb">
+				<span class="sb-item active">매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">메뉴관리</span>
+				&nbsp; > &nbsp; <span class="sb-item active">메뉴수정</span>
+			</nav>
+			</div>
+		</div>
+	</section>
+	<!-- Page top Section end -->
+
+
     <!--==========================
       	메뉴 수정
     ============================-->
@@ -567,148 +569,93 @@
     </div>
  </section>
 </section>
-      
-  <!--==========================
+ <!--==========================
     꼬리말
   ============================-->
-  <footer id="footer" class="section-bg">
-    <div class="footer-top">
-      <div class="container">
+	<footer class="footer-section">
+		<div class="container">
+			<a href="index.html" class="footer-logo"> 
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+			</a>
+			<div class="row">
 
-        <div class="row">
+				<div class="footer-widget">
 
-          <div class="col-lg-6">
+					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
+						eget nada terra videa magna derita valies darta donna mare
+						fermentum iaculis eu non diam phasellus. Scelerisque felis
+						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
+						congue.</p>
+					<p>
+						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
+						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>
+					</p>
+				</div>
 
-            <div class="row">
 
-                <div class="col-sm-6">
-
-                  <div class="footer-info">
-                    <h3>POSBIS</h3>
-                    <p>난 너를 믿었던 만큼 난 내 친구도 믿었기에 난 아무런 부담없이 널 내 친구에게 소개 시켜줬고 그런 만남이 있은 후로부터 우리는 자주 함께 만나며 즐거운 시간을 보내며 함께 어울렸던 것뿐인데</p>
-                  </div>
-
-                  <!-- <div class="footer-newsletter">
-                    <h4>Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna veniam enim veniam illum dolore legam minim quorum culpa amet magna export quem.</p>
-                    <form action="" method="post">
-                      <input type="email" name="email"><input type="submit"  value="Subscribe">
-                    </form>
-                  </div> -->
-
-                </div>
-
-                <div class="col-sm-6">
-                  <div class="footer-links">
-                    <h4>빠른 이동</h4>
-                    <ul>
-                      <li><a href="#">홈</a></li>
-                      <li><a href="#login">로그인</a></li>
-                      <li><a href="#FAQ">자주 묻는 질문</a></li>
-                    </ul>
-                  </div>
-
-                  <div class="footer-links">
-                    <h4>연락망</h4>
-                    <p>
-                      월드메르디앙벤쳐 2차 <br>
-                      Korea, Seoul 가산디지털단지역<br>
-                      용기의 방, 409호 <br>
-                      <strong>Phone:</strong> +1 5589 55488 55<br>
-                      <strong>Email:</strong> info@example.com<br>
-                    </p>
-                  </div>
-
-                  <div class="social-links">
-                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
-                    <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                  </div>
-
-                </div>
-
-            </div>
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="form">
-              
-              <h4>건의 사항</h4>
-              <p>POSBIS는 고객의 말에 늘 귀기울이고 있습니다. <br>불편한 점 또는 좋은 제안이 있으시다면 언제든지 건의해 주세요. </p>
-              <form action="" method="post" role="form" class="contactForm">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="name" id="name" placeholder="성함" data-rule="minlen:2" data-msg="2자 이상 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="이메일" data-rule="email" data-msg="이메일을 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="제목" data-rule="minlen:4" data-msg="제목을 4자 이상 입력해 주십시오" />
-                  <div class="validation"></div>
-                </div>
-                <div class="form-group">
-                  <textarea class="form-control" name="message" rows="5" data-rule="required"  placeholder="내용" data-msg="내용을 입력해 주십시오"></textarea>
-                  <div class="validation"></div>
-                </div>
-
-               <!--  <div id="sendmessage">건의사항이 무사히 전달됐습니다. 감사합니다!</div>
-                <div id="errormessage"></div> -->
-
-                <div class="text-center"><button type="submit" title="Send Message" onClick="goMessageForm();">전송</button></div>
-              </form>
-            </div>
-
-          </div>
-
-          
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Rapid
-        -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- #footer -->
+			</div>
+			<div class="copyright">
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+				Copyright &copy;
+				2020
+				All rights reserved | This template is made with <i
+					class="fa fa-heart-o" aria-hidden="true"></i> by <a
+					href="https://colorlib.com" target="_blank">Colorlib</a>
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+			</div>
+		</div>
+	</footer>
+	<!-- #footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <!-- Uncomment below i you want to use a preloader -->
   <!-- <div id="preloader"></div> -->
 
-  <!-- JavaScript Libraries -->
-  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
-  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="resources/intro/lib/easing/easing.min.js"></script>
-  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
-  <script src="resources/intro/lib/wow/wow.min.js"></script>
-  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
-  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
-  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="resources/intro/contactform/contactform.js"></script>
+  <!--====== Javascripts & Jquery ======-->
+	<script src="resources/bootstrap/js/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.slicknav.min.js"></script>
+	<script src="resources/bootstrap/js/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery-ui.min.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	<!-- ---------------------------------------------------------------------- -->
 
-  <!-- Template Main Javascript File -->
-  <script src="resources/intro/js/main.js"></script>
+	<!-- javascripts -->
+	<script src="resources/tableBoot/js/jquery.js"></script>
+	<!-- nice scroll -->
+	<script src="resources/tableBoot/js/jquery.scrollTo.min.js"></script>
+	<script src="resources/tableBoot/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
+
+	<!-- jquery ui -->
+	<script src="resources/tableBoot/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<!--custom checkbox & radio-->
+	<script type="text/javascript" src="resources/tableBoot/js/ga.js"></script>
+	<!--custom switch-->
+	<script src="resources/tableBoot/js/bootstrap-switch.js"></script>
+	<!--custom tagsinput-->
+	<script src="resources/tableBoot/js/jquery.tagsinput.js"></script>
+
+	<!-- colorpicker -->
+
+	<!-- bootstrap-wysiwyg -->
+	<script src="resources/tableBoot/js/jquery.hotkeys.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg-custom.js"></script>
+	<script src="resources/tableBoot/js/moment.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-colorpicker.js"></script>
+	<script src="resources/tableBoot/js/daterangepicker.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-datepicker.js"></script>
+	<!-- ck editor -->
+	<script type="text/javascript"
+		src="resources/tableBoot/assets/ckeditor/ckeditor.js"></script>
+	<!-- custom form component script for this page-->
+	<script src="resources/tableBoot/js/form-component.js"></script>
+	<!-- custome script for all page -->
+	<script src="resources/tableBoot/js/scripts.js"></script>
+  
+  
 
 </body>
 </html>

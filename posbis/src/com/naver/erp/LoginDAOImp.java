@@ -100,7 +100,7 @@ public class LoginDAOImp implements LoginDAO{
 	//회원가입 등록 대표자 정보----------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------
 
-	public int insertJoinUser(joinDTO joinDTO){
+	public int insertJoinUser(JoinDTO joinDTO){
 		System.out.println("DAO / insertJoinCnt 시작 " + joinDTO);
 		int insertJoinCnt = this.sqlSession.insert(
 			"com.naver.erp.LoginDAO.insertJoinUser" // 실행할 SQL 구문의 위치 지정
@@ -115,7 +115,7 @@ public class LoginDAOImp implements LoginDAO{
 	//회원가입 등록 사업장 정보----------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------
 
-	public int insertJoinBusinessInfo(joinDTO joinDTO){
+	public int insertJoinBusinessInfo(JoinDTO joinDTO){
 		
 		System.out.println("회원가입 실행전"); 
 		int insertJoinBusinessInfoCnt = this.sqlSession.insert(
@@ -192,10 +192,10 @@ public class LoginDAOImp implements LoginDAO{
 	};
 	
 	
-	public searchIDPwdDTO getfindIDPwd(Map<String, String>  FindIdPwd ) {
+	public SearchIDPwdDTO getfindIDPwd(Map<String, String>  FindIdPwd ) {
 		System.out.println("DAO Imp"+FindIdPwd);
 		
-		searchIDPwdDTO findIDPassword = this.sqlSession.selectOne(
+		SearchIDPwdDTO findIDPassword = this.sqlSession.selectOne(
 				"com.naver.erp.LoginDAO.getfindIDPwd"
 				,FindIdPwd
 				);

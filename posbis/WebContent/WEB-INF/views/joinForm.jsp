@@ -1,73 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="common.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Rapid Bootstrap Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+<meta charset="UTF-8">
+<meta name="description" content="loans HTML Template">
+<meta name="keywords" content="loans, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Favicons -->
-  <link href="resources/intro/img/favicon.png" rel="icon">
-  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicon -->
+<link href="resources/bootstrap/img/favicon.ico" rel="shortcut icon" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+<!-- Google font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+	rel="stylesheet">
 
-  <!-- Bootstrap CSS File -->
-  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/flaticon.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/slicknav.min.css" />
 
-  <!-- Libraries CSS Files -->
-  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<!-- Main Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/style.css" />
 
-  <!-- Main Stylesheet File -->
-  <link href="resources/intro/css/style.css" rel="stylesheet">
-  
-  
-  
-  
-   <!-- Bootstrap CSS -->
-  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- full calendar css-->
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-  <!-- easy pie chart-->
-  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
-  <!-- owl carousel -->
-  <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="css/fullcalendar.css">
-  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
-  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
-  <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
-  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> 
-  <!-- =======================================================
-  
-  
+<!-- ------------------------------------------------------------------------------- -->
 
-  <!-- =======================================================
-    Theme Name: Rapid
-    Theme URL: https://bootstrapmade.com/rapid-multipurpose-bootstrap-business-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+
+<!-- 	<link rel="shortcut icon" href="img/favicon.png">
+ -->
+<!-- Bootstrap CSS -->
+<link href="resources/tableBoot/css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap theme -->
+<link href="resources/tableBoot/css/bootstrap-theme.css"
+	rel="stylesheet">
+<!--external css-->
+<!-- font icon -->
+<link href="resources/tableBoot/css/elegant-icons-style.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/daterangepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-datepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-colorpicker.css"
+	rel="stylesheet" />
+<!-- date picker -->
+
+<!-- color picker -->
+
+<!-- Custom styles -->
+<link href="resources/tableBoot/css/style.css" rel="stylesheet">
+<link href="resources/tableBoot/css/style-responsive.css"
+	rel="stylesheet" />
+
+<!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+
 </head>
-
 
 <script>
 //====기능 코드=======================================================================================
@@ -786,366 +786,369 @@
 		location.replace("/posbis/beforeSignIntroForm.do");
 	}
 
-	function goMessageForm() {
-		alert("건의사항이 접수 되었습니다. 감사합니다");
-
-	}
 </script>
 
 <body>
-    <!--==========================
+	<!--==========================
   Header
   ============================-->
-  <header id="header">
+	<header class="header-section">
+		<a onClick="goMainForm();" class="site-logo" style="cursor:pointer;"> 
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt=""> 
+		</a> 
+			
+		<a onClick="gobeforeSignIntroForm();" style="cursor: pointer; float: right; color: #fff; padding: 30px 100px 30px 30px">회사소개 바로 가기</a>
 
-         <div id="topbar">
-           <div class="container">
-          
-           </div>
-         </div>
-
-         <div class="container">
-
-           <div class="logo float-left">
-             <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goMainForm();" class="scrollto"><span>POSBIS</span></a></h1>
-             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-           </div>
-
-           <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li style="cursor:pointer"  class="drop-down"><a href="">회사소개</a>
-            <ul>
-              <li style="cursor:pointer" onClick="gobeforeSignIntroForm();"><a href="#">POSBIS</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </nav><!-- .main-nav -->
-           
-         </div>
-       </header><!-- #header -->
-  <!--==========================
-    Intro Section
-  ============================-->
-  <section id="intro" class="clearfix">
-    <div class="container d-flex h-100">
-      <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">  
-        </div>
-      </div>
-    </div>
-  </section> 
+	</header>
+	<!-- #header -->
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg"
+		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container">
+			<h2>회원가입</h2>
+			<nav class="site-breadcrumb">
+				<a class="sb-item" href="#">회원가입</a> <span class="sb-item active">About us</span>
+			</nav>
+		</div>
+	</section>
+	<!-- Page top Section end -->
 
 
-    <!--==========================
+
+	<!--==========================
    회원가입 폼
   ============================-->
-  
-  <body> 
-     <main id="main">
-   <section id="main-content">
-   <section class="wrapper">
-       <div class="col-lg-6-1" align="center">
-            <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">회원가입</a>
-              </header>
-             <div class="panel-body"> 
-			
-      <div class="container">
-                <form class="form-horizontal joinForm" method="post" name="joinForm"  action="/posbis/payForm.do">
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">아이디</label>
-                    <div class="col-sm-6">
-                    	
-                     		 <input type="text" name="user_id" class="form-control user_id" placeholder="ID" >
-                      
-                      <font name="checkId" size="2"></font> 
-                    </div>
- 
-							<!-- <a class="btn btn-default"onclick="checkOverlap();" title="Bootstrap 3 themes generator" >중복확인</a>  -->
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">비밀번호</label>
-                    <div class="col-sm-6">
-                      <input type="password" name="user_pwd" class="form-control user_pwd" maxlength="10"   placeholder="숫자 4자리" >  
-                      <font name="checkPwd" size="2" color="red"></font> <br>
-                      <input type="password"  name="user_pwd2" class="form-control user_pwd2" maxlength="10">
-                      <!-- <span class="help-block">*숫자 10자리 입력하세요.</span> -->
-                      <font name="checkPwd2" size="2" color="red"></font> 
-                    </div>
-          		  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">성명</label>
-                    <div class="col-sm-6">
-                      <input class="form-control user_name" id="focusedInput" type="text" maxlength="10"  name="user_name" >
-                      <font name="checkName" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">생년월일</label>
-                    <div class="col-sm-6">
-                      <input class="form-control birth" id="disabledInput" type="text" maxlength=8 name="birth"   placeholder="숫자 8자리" >
-                      <font name="checkBirth" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">이메일</label>
-                    <div class="col-sm-6">
-                      <input type="text" name="email" class="form-control email" placeholder="">
-                      <font name="checkEmail" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-2 control-label">질문</label>
-                    <div class="col-lg-6">
-                       <select class="form-control m-bot15 question_code" name="question_code" >
-                                              <option value=''>---질문을 선택해주세요---</option>
-                                              <option value="1">내가 졸업한 초등학교 이름은?</option>
-                                              <option value="2">나의 보물 1호는?</option>
-                                              <option value="3">가장 기억에 남는 선생님의 이름은?</option>
-                                              <option value="4">가장 감명깊게 본 영화는?</option>
-                       </select>
-                      <font name="checkQuestion" size="2" color="red"></font> 
+<body>
+	<br>
+	<main id="main">
+	<section id="main-content">
+		<section class="wrapper" >
+			<div class="col-lg-6" align="center">
+				<section class="panel">
+					<header class="panel-heading">
+						<a href="">회원가입</a>
+					</header>
+					<div class="panel-body">
 
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">답변</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control answer" name="answer" >
-                      <font name="checkAnswer" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  
-                  
-                  
-                  <!-- 사업장 정보 -->
-                  
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label">사업자 번호</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control business_no" name="business_no" maxlength="12"  placeholder="000-00-00000">
-                      <font name="checkBusinessNo" size="2" color="red"></font> 
-                     
-                    </div>
-					<!-- <a class="btn btn-default"onclick="checkBusinessNo();" title="Bootstrap 3 themes generator" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo">사업자 번호 중복확인</a> -->
-                  </div>
-                  
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label">상호명</label>
-                    <div class="col-sm-6">
-                      <input type="text" class="form-control business_name" name="business_name">
-                      <font name="checkBusinessName" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label">주소</label>
-                    <div class="col-lg-6">
-                       <select class="form-control m-bot15 addr_gu" name="addr_gu">
-                                              <option value=''>--구 선택--</option>
-                                              <c:forEach items="${addrListGu}" var="addrGu">
-													<option value="${addrGu.addr_gu}">${addrGu.addr_gu}</option>
-											  </c:forEach>
-                       </select>
-                      <font name="checkAddrGu" size="2" color="red"></font> 
-                       
-                       <select class="form-control m-bot15 addr_dong" name="addr_dong" >
-                                              <option value=''>--동 선택--</option>
- 
-                       </select>
-                      <font name="checkAddrDong" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label class="col-sm-2 control-label">상세주소</label>
-                    <div class="col-sm-6">
-                      <input type="text" name="addr_detail" class="form-control addr_detail">
-                      <font name="checkAddrDetail" size="2" color="red"></font> 
-                    </div>
-                  </div>
-                  
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label">업종</label>
-                    <div class="col-lg-6">
-                       <select class="form-control m-bot15 business_type_name1" name="business_type_name1">
-                                              <option value=''>--선택--</option>
-                                              <c:forEach items="${businessTypeList1}" var="busiType1">
-													<option value="${busiType1.business_type_name1}">${busiType1.business_type_name1}
-													</option>
-											 </c:forEach>
-                       </select>
-                      <font name="checkBusinessType1" size="2" color="red"></font> 
-                       
-                       <select class="form-control m-bot15 business_type_name2" name="business_type_name2" onchange="getbusiListname2();" >
-                                              <option value=''>--선택--</option>
-  
-                       </select>
-                      <font name="checkBusinessType2" size="2" color="red"></font> 
-                  
-                    </div>
-                  </div>
-              	<div class="form-group">
-                    <label class="col-sm-2 control-label">매장전화번호</label>
-                    <div class="col-sm-6">
-                      <input type="text" name="store_tel_num" class="form-control store_tel_num">
-                      <font name="checkStoreTelNum" size="2" color="red"></font> 
-                    </div>
-                  </div>
+						<div class="container">
+							<form class="form-horizontal joinForm" method="post"
+								name="joinForm" action="/posbis/payForm.do">
+								<div class="form-group">
+									<br> <label class="col-sm-2 control-label">아이디</label>
+									<div class="col-sm-6">
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">회원등급</label>&nbsp;
-                     <div class="btn-group" data-toggle="buttons"> 
- 					    <label class="btn btn-default active">
-                                        <input type="radio" class="rank_code" name="rank_code" id="option1" value="1"> 일반
-                                      </label>
-                    <label class="btn btn-default">
-                                          <input type="radio"class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
-                                          
-                                      </label>
-                      <font name="checkRankCode" size="2" color="red"></font> 
-                                      <br><br><span class="help-block">
-                                       <br><a class="help">(월10,000원)&nbsp;&nbsp; [회원등급별혜택]</a></span>
- 					</div>
-                  </div>
-               <div class="form-group">
-					<label class="col-sm-2 control-label">서비스이용약관</label>
-					<div class="col-sm-6">
-                         <textarea class="form-control ckeditor" name="editor1" rows="6" readonly></textarea>
-                          <br><div class="btn-group" data-toggle="buttons">
-                          
-                      <font name="checkAgree" size="2" color="red"></font> 
-                    <label class="btn btn-info">
-                                          <input type="checkbox" class="agree_checkbox" name="agree_checkbox" value=""> 약관동의
-                                      </label>
-                      
-                      
-                     <input type="hidden" class="idAvailability">
-                     <input type="hidden" class="pwdAvailability">
-                     <input type="hidden" class="pwd2Availability">
-                     <input type="hidden" class="nameAvailability">
-                     <input type="hidden" class="bitrhAvailability">
-                     <input type="hidden" class="emailAvailability">
-                     <input type="hidden" class="questionAvailability">
-                     <input type="hidden" class="answerAvailability">
-                     <input type="hidden" class="businessNoAvailability">
-                     <input type="hidden" class="businessNameAvailability">
-                     <input type="hidden" class="addrGuAvailability">
-                     <input type="hidden" class="addrDongAvailability">
-                     <input type="hidden" class="addrDetailAvailability">
-                     <input type="hidden" class="businessType1Availability">
-                     <input type="hidden" class="businessType2Availability">
-                     <input type="hidden" class="storeTelNumAvailability">
-                     <input type="hidden" class="rankCodeAvailability">
-                     <input type="hidden" class="agreeAvailability">
- 				
-                  </div>
-       
-                    </div>
-				
-				
-		 
-                 
-				
-				
-					
- 
-                </div>	
-                <div style="float:right">
-  					<button class="btn btn-info" type="button" value="등록" onClick="checkUserRegForm();" >가입 </button> 
-	 				
-	 				<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
-	 				<button class="btn btn-danger" type="button" value="취소" onClick="goMainForm();" >가입취소 </button>
-                </div>
-                </form>
+										<input type="text" name="user_id" class="form-control user_id" placeholder="ID"> 
+										<font name="checkId" size="2"></font>
+									</div>
 
-             
-              
-              
-              
-            </section>
-          </div>
- 
-      </section>
- 
-    </section>
-           
- </main>
+									<!-- <a class="btn btn-default"onclick="checkOverlap();" title="Bootstrap 3 themes generator" >중복확인</a>  -->
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">비밀번호</label>
+									<div class="col-sm-6">
+										<input type="password" name="user_pwd"
+											class="form-control user_pwd" maxlength="10"
+											placeholder="숫자 4자리"> <font name="checkPwd" size="2"
+											color="red"></font> <br> <input type="password"
+											name="user_pwd2" class="form-control user_pwd2"
+											maxlength="10">
+										<!-- <span class="help-block">*숫자 10자리 입력하세요.</span> -->
+										<font name="checkPwd2" size="2" color="red"></font>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">성명</label>
+									<div class="col-sm-6">
+										<input class="form-control user_name" id="focusedInput" type="text" maxlength="10" name="user_name"> 
+										<font name="checkName" size="2" color="red"></font>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">생년월일</label>
+									<div class="col-sm-6">
+										<input class="form-control birth" id="disabledInput" type="text" maxlength=8 name="birth" placeholder="숫자 8자리">
+										<font name="checkBirth" size="2" color="red"></font>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">이메일</label>
+									<div class="col-sm-6">
+										<input type="text" name="email" class="form-control email" placeholder=""> 
+										<font name="checkEmail" size="2" color="red"></font>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">질문</label>
+									<div class="col-lg-6">
+										<select class="form-control m-bot15 question_code"
+											name="question_code">
+											<option value=''>---질문을 선택해주세요---</option>
+											<option value="1">내가 졸업한 초등학교 이름은?</option>
+											<option value="2">나의 보물 1호는?</option>
+											<option value="3">가장 기억에 남는 선생님의 이름은?</option>
+											<option value="4">가장 감명깊게 본 영화는?</option>
+										</select> 
+										<font name="checkQuestion" size="2" color="red"></font>
+
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">답변</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control answer" name="answer">
+										<font name="checkAnswer" size="2" color="red"></font>
+									</div>
+								</div>
 
 
-  <!--==========================
+
+								<!-- 사업장 정보 -->
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">사업자 번호</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control business_no"
+											name="business_no" maxlength="12" placeholder="000-00-00000">
+										<font name="checkBusinessNo" size="2" color="red"></font>
+
+									</div>
+									<!-- <a class="btn btn-default"onclick="checkBusinessNo();" title="Bootstrap 3 themes generator" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo">사업자 번호 중복확인</a> -->
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">상호명</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control business_name" name="business_name"> 
+										<font name="checkBusinessName" size="2" color="red"></font>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">주소</label>
+									<div class="col-lg-6">
+										<select class="form-control m-bot15 addr_gu" name="addr_gu">
+											<option value=''>--구 선택--</option>
+											<c:forEach items="${addrListGu}" var="addrGu">
+												<option value="${addrGu.addr_gu}">${addrGu.addr_gu}</option>
+											</c:forEach>
+										</select> 
+										<font name="checkAddrGu" size="2" color="red"></font> 
+										
+										<select	class="form-control m-bot15 addr_dong" name="addr_dong">
+											<option value=''>--동 선택--</option>
+
+										</select> 
+										<font name="checkAddrDong" size="2" color="red"></font>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">상세주소</label>
+									<div class="col-sm-6">
+										<input type="text" name="addr_detail" class="form-control addr_detail"> 
+										<font name="checkAddrDetail" size="2" color="red"></font>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">업종</label>
+									<div class="col-lg-6">
+										<select class="form-control m-bot15 business_type_name1" name="business_type_name1">
+											<option value=''>--선택--</option>
+											<c:forEach items="${businessTypeList1}" var="busiType1">
+												<option value="${busiType1.business_type_name1}">${busiType1.business_type_name1}
+												</option>
+											</c:forEach>
+										</select> 
+										<font name="checkBusinessType1" size="2" color="red"></font>
+
+										<select class="form-control m-bot15 business_type_name2" name="business_type_name2" onchange="getbusiListname2();">
+											<option value=''>--선택--</option>
+
+										</select> 
+										<font name="checkBusinessType2" size="2" color="red"></font>
+
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">매장전화번호</label>
+									<div class="col-sm-6">
+										<input type="text" name="store_tel_num"	class="form-control store_tel_num"> 
+										<font name="checkStoreTelNum" size="2" color="red"></font>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-2 control-label">회원등급</label>&nbsp;
+									<div class="btn-group" data-toggle="buttons">
+										<label class="btn btn-default active"> 
+											<input type="radio" class="rank_code" name="rank_code" id="option1"	value="1"> 일반
+										</label> 
+										<label class="btn btn-default"> 
+											<input type="radio"	class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
+										</label> 
+										<font name="checkRankCode" size="2" color="red"></font> 
+										<br>
+										<br>
+										<span class="help-block"> <br>
+										<a class="help">(월10,000원)&nbsp;&nbsp; [회원등급별혜택]</a></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">서비스이용약관</label>
+									<div class="col-sm-6">
+										<textarea class="form-control" name="editor1"
+											rows="6" readonly></textarea>
+										<br>
+										<div class="btn-group" data-toggle="buttons">
+
+											<font name="checkAgree" size="2" color="red"></font> <label
+												class="btn btn-info"> <input type="checkbox"
+												class="agree_checkbox" name="agree_checkbox" value="">
+												약관동의
+											</label> 
+											
+											<input type="hidden" class="idAvailability"> 
+											<input type="hidden" class="pwdAvailability"> 
+											<input type="hidden" class="pwd2Availability"> 
+											<input type="hidden" class="nameAvailability"> 
+											<input type="hidden" class="bitrhAvailability"> 
+											<input type="hidden" class="emailAvailability"> 
+											<input type="hidden" class="questionAvailability"> 
+											<input type="hidden" class="answerAvailability"> 
+											<input type="hidden" class="businessNoAvailability"> 
+											<input type="hidden" class="businessNameAvailability"> 
+											<input type="hidden" class="addrGuAvailability"> 
+											<input type="hidden" class="addrDongAvailability"> 
+											<input type="hidden" class="addrDetailAvailability"> 
+											<input type="hidden" class="businessType1Availability"> 
+											<input type="hidden" class="businessType2Availability"> 
+											<input type="hidden" class="storeTelNumAvailability"> 
+											<input type="hidden" class="rankCodeAvailability"> 
+											<input type="hidden" class="agreeAvailability">
+
+										</div>
+
+									</div>
+
+
+
+
+
+
+
+
+								</div>
+								<div style="float: right">
+									<button class="btn btn-info" type="button" value="등록"
+										onClick="checkUserRegForm();">가입</button>
+
+									<button class="btn btn-primary" type="reset" value="다시작성">다시작성
+									</button>
+									<button class="btn btn-danger" type="button" value="취소"
+										onClick="goMainForm();">가입취소</button>
+								</div>
+							</form>
+				</section>
+			</div>
+
+		</section>
+
+	</section>
+
+	</main>
+
+
+<!--==========================
     꼬리말
   ============================-->
-  <footer id="footer" class="section-bg">
-    <div class="footer-top">
-      <div class="container">
+	<footer class="footer-section">
+		<div class="container">
+			<a href="index.html" class="footer-logo"> 
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+			</a>
+			<div class="row">
 
-        <div class="row">
+				<div class="footer-widget">
 
-          <div class="col-lg-12">
+					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
+						eget nada terra videa magna derita valies darta donna mare
+						fermentum iaculis eu non diam phasellus. Scelerisque felis
+						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
+						congue.</p>
+					<p>
+						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
+						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>
+					</p>
+				</div>
 
-            <div class="row">
 
-                <div class="col-sm-8">
+			</div>
+			<div class="copyright">
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+				Copyright &copy;
+				2020
+				All rights reserved | This template is made with <i
+					class="fa fa-heart-o" aria-hidden="true"></i> by <a
+					href="https://colorlib.com" target="_blank">Colorlib</a>
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+			</div>
+		</div>
+	</footer>
+	<!-- #footer -->
+	
+	
+	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+	<!-- Uncomment below i you want to use a preloader -->
+	<!-- <div id="preloader"></div> -->
 
-                  <div class="footer-info">
-                    <h3>POSBIS</h3>
-                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
-                  </div>
-                </div>
-				  <div class="col-sm-4">
-            <div class="footer-links"  style="float:right">
-                    <h4>연락망</h4>
-                    <p>
-                      월드메르디앙벤쳐 2차 
-                      Korea, Seoul 가산디지털단지역<br>
-                      <strong>Phone:</strong> +1 5589 55488 55<br>
-                      <strong>Email:</strong> info@example.com<br>
-                    </p>
-                    
-                 
-                  </div>
-      </div>
-    </div>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved <br> BootstrapMade
-      </div>
-     </div>
-    
- 
- 
-  </footer><!-- #footer -->
 
-  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-  <!-- Uncomment below i you want to use a preloader -->
-  <!-- <div id="preloader"></div> -->
+	<!--====== Javascripts & Jquery ======-->
+	<script src="resources/bootstrap/js/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.slicknav.min.js"></script>
+	<script src="resources/bootstrap/js/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery-ui.min.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	<!-- ---------------------------------------------------------------------- -->
 
-  <!-- JavaScript Libraries -->
-  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
-  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="resources/intro/lib/easing/easing.min.js"></script>
-  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
-  <script src="resources/intro/lib/wow/wow.min.js"></script>
-  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
-  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
-  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="resources/intro/contactform/contactform.js"></script>
+	<!-- javascripts -->
+	<script src="resources/tableBoot/js/jquery.js"></script>
+	<!-- nice scroll -->
+	<script src="resources/tableBoot/js/jquery.scrollTo.min.js"></script>
+	<script src="resources/tableBoot/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
 
-  <!-- Template Main Javascript File -->
-  <script src="resources/intro/js/main.js"></script>
+	<!-- jquery ui -->
+	<script src="resources/tableBoot/js/jquery-ui-1.9.2.custom.min.js"></script>
 
-  
+	<!--custom checkbox & radio-->
+	<script type="text/javascript" src="resources/tableBoot/js/ga.js"></script>
+	<!--custom switch-->
+	<script src="resources/tableBoot/js/bootstrap-switch.js"></script>
+	<!--custom tagsinput-->
+	<script src="resources/tableBoot/js/jquery.tagsinput.js"></script>
+
+	<!-- colorpicker -->
+
+	<!-- bootstrap-wysiwyg -->
+	<script src="resources/tableBoot/js/jquery.hotkeys.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg-custom.js"></script>
+	<script src="resources/tableBoot/js/moment.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-colorpicker.js"></script>
+	<script src="resources/tableBoot/js/daterangepicker.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-datepicker.js"></script>
+	<!-- ck editor -->
+	<script type="text/javascript"
+		src="resources/tableBoot/assets/ckeditor/ckeditor.js"></script>
+	<!-- custom form component script for this page-->
+	<script src="resources/tableBoot/js/form-component.js"></script>
+	<!-- custome script for all page -->
+	<script src="resources/tableBoot/js/scripts.js"></script>
+
 
 </body>
 </html>
- 

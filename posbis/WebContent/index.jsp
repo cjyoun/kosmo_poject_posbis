@@ -10,6 +10,7 @@
 
 	<script>
 		location.replace("/posbis/mainForm.do");	
+		//location.replace("/posbis/mainForm2.do");	
 	</script>
 
 </body>

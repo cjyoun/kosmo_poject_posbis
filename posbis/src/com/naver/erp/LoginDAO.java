@@ -23,9 +23,9 @@ public interface LoginDAO {
 	List<String> getbusinessTypeList2(String business_type_name1);
 	
 	//회원가입 등록 대표자 정보---------------------------------------------------------------------------------
-	int insertJoinUser(joinDTO joinDTO);	
+	int insertJoinUser(JoinDTO joinDTO);	
 	//회원가입 등록 사업장 정보---------------------------------------------------------------------------------
-	int insertJoinBusinessInfo(joinDTO joinDTO);
+	int insertJoinBusinessInfo(JoinDTO joinDTO);
 	
 	//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
 	// 성유진DAO
@@ -39,7 +39,7 @@ public interface LoginDAO {
 	int getfindBusinessNoCnt(Map<String, String> FindIdPwd );
 	int getfindIDPasswordCnt(Map<String, String> FindIdPwd );
 	
-	searchIDPwdDTO getfindIDPwd(Map<String, String>  FindIdPwd );
+	SearchIDPwdDTO getfindIDPwd(Map<String, String>  FindIdPwd );
 	
 	
 	//마이페이지 데이터 가져오기---------------------------------------------------------------------------------- 

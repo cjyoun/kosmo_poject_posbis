@@ -343,7 +343,7 @@ public class LoginController {
 	// 회원가입 등록 ajax
 	@RequestMapping(value = "/joinRegProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
 	@ResponseBody
-	public int joinRegProc(joinDTO joinDTO , HttpSession session) {
+	public int joinRegProc(JoinDTO joinDTO , HttpSession session) {
 		// 사용자 등록
 		int insertJoinCnt = 0;
 
@@ -757,7 +757,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/findIDPassword.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
 	@ResponseBody
-	public searchIDPwdDTO findIDPassword(@RequestParam(value = "user_name") String user_name,
+	public SearchIDPwdDTO findIDPassword(@RequestParam(value = "user_name") String user_name,
 			@RequestParam(value = "business_no") String business_no,
 			@RequestParam(value = "question_code") String question_code,
 			@RequestParam(value = "answer") String answer) {
@@ -773,7 +773,7 @@ public class LoginController {
 		map.put("question_code", question_code);
 		map.put("answer", answer);
 
-		searchIDPwdDTO findfindIDPwd = null;
+		SearchIDPwdDTO findfindIDPwd = null;
 
 		try {
 
@@ -794,7 +794,28 @@ public class LoginController {
 	}
 
 	
+	//----------------------------------------------------------------
 	
+	
+	@RequestMapping( value="/payFormLogin.do" )   
+	   public ModelAndView payFormLogin(HttpSession session) {      // 메소드 이름은 상관 없음.
+
+	      // [ModelAndView 객체] 생성.
+	      // [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
+	      // [ModelAndView 객체] 리턴하기
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("payFormLogin.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
+
+	      String rank_code = (String)session.getAttribute("rank_code");
+			String user_id = (String)session.getAttribute("user_id");
+			mav.addObject("rank_code",rank_code);
+			mav.addObject("user_id",user_id);
+	      
+	     // int u_no = (int)session.getAttribute("u_no");
+	      
+	      return mav;
+	      
+	   }	
 	
 	//----------------------------------------------------------------
 	

@@ -25,7 +25,7 @@ public interface LoginService {
 
 	
 	//회원가입 등록 대표자 정보---------------------------------------------------------------------------------
-	int insertJoinUser(joinDTO joinDTO);
+	int insertJoinUser(JoinDTO joinDTO);
 
 	/*
 	 * //회원가입 등록 사업장
@@ -41,7 +41,7 @@ public interface LoginService {
 	
 	//아이디 암호 조회 후  개수 ---------------------------------------------------------------------------------
 	int getfindIDPasswordCnt(Map<String, String> FindIdPwd );
-	searchIDPwdDTO getfindIDPwd(Map<String, String> FindIdPwd );
+	SearchIDPwdDTO getfindIDPwd(Map<String, String> FindIdPwd );
 	
 	//마이페이지 데이터 가져오기---------------------------------------------------------------------------------- 
 	MyPageDTO getmypageList();

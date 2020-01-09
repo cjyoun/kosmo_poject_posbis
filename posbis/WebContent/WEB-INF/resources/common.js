@@ -12,7 +12,7 @@ function is_empty( selector ){
 			}
 		} else {
 			var tmp = obj.val();
-			
+			//alert(tmp);
 			tmp = tmp.split(" ").join("");
 			if(tmp!=""){
 				flag = false;

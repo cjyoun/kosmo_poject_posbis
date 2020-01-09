@@ -61,7 +61,7 @@
 	</select>
 <!--********************************************************************-->
 <!--회원가입 등록 대표자 정보 -->   
-   <insert id='insertJoinUser' parameterType="com.naver.erp.joinDTO">
+   <insert id='insertJoinUser' parameterType="com.naver.erp.JoinDTO">
    insert into user_info(
           u_no
           ,user_id         
@@ -86,7 +86,7 @@
    </insert>
 <!--********************************************************************-->
 <!--회원가입 등록 사업장 정보 -->   
-   <insert id='insertJoinBusinessInfo' parameterType="com.naver.erp.joinDTO">
+   <insert id='insertJoinBusinessInfo' parameterType="com.naver.erp.JoinDTO">
   insert into business_info(
           business_no
           ,u_no         
@@ -144,7 +144,7 @@
 <!--********************************************************************-->
 <!-- 아이디 암호 사업자번호 조회 후  개수- -->
 
-	<select id='getfindIDPwd' parameterType="hashmap" resultType="com.naver.erp.searchIDPwdDTO">
+	<select id='getfindIDPwd' parameterType="hashmap" resultType="com.naver.erp.SearchIDPwdDTO">
 		select 
 			user_id		as "user_id"
 			,user_pwd	as "user_pwd"

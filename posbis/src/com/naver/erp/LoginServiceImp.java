@@ -74,7 +74,7 @@ public class LoginServiceImp implements LoginService {
 		//---------------------------------------------------------------------------------
 		//회원가입 등록 대표자 정보----------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------
-		public int insertJoinUser(joinDTO joinDTO) {
+		public int insertJoinUser(JoinDTO joinDTO) {
 
 			//회원가입 등록 사업장 정보----------------------------------------------------------------------------------
 
@@ -145,10 +145,10 @@ public class LoginServiceImp implements LoginService {
 			
 		};
 		
-		public searchIDPwdDTO getfindIDPwd(Map<String, String> FindIdPwd ) {
+		public SearchIDPwdDTO getfindIDPwd(Map<String, String> FindIdPwd ) {
 			System.out.println("loginserviceImp"+FindIdPwd);
 			
-			searchIDPwdDTO findIDPassword = this.loginDAO.getfindIDPwd(FindIdPwd);
+			SearchIDPwdDTO findIDPassword = this.loginDAO.getfindIDPwd(FindIdPwd);
 			return findIDPassword;
 			
 			

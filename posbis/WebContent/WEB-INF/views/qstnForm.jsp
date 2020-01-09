@@ -23,12 +23,69 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->   
 <html>
 <head>
+ <meta charset="UTF-8">
+<meta name="description" content="loans HTML Template">
+<meta name="keywords" content="loans, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-  <meta name="author" content="GeeksLabs">
-  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-  <link rel="shortcut icon" href="img/favicon.png">
-   <title>문의사항</title>
+
+<!-- Favicon -->
+<link href="resources/bootstrap/img/favicon.ico" rel="shortcut icon" />
+
+<!-- Google font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+	rel="stylesheet">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/flaticon.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/slicknav.min.css" />
+
+<!-- Main Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/style.css" />
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+<!-- 	<link rel="shortcut icon" href="img/favicon.png">
+ -->
+<!-- Bootstrap CSS -->
+<link href="resources/tableBoot/css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap theme -->
+<link href="resources/tableBoot/css/bootstrap-theme.css"
+	rel="stylesheet">
+<!--external css-->
+<!-- font icon -->
+<link href="resources/tableBoot/css/elegant-icons-style.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/daterangepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-datepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-colorpicker.css"
+	rel="stylesheet" />
+<!-- date picker -->
+
+<!-- color picker -->
+
+<!-- Custom styles -->
+<link href="resources/tableBoot/css/style.css" rel="stylesheet">
+<link href="resources/tableBoot/css/style-responsive.css"
+	rel="stylesheet" />
+
+<!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+    
    <script>
       //===============================================================
       // boay 태그 안의 모든 태그를 읽어들인 후 실행할 자스 코딩 설정
@@ -307,7 +364,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 						return;
 					}
 	        	 else{
-	        		 location.replace("/posbis/payForm.do");
+	        		 location.replace("/posbis/payFormLogin.do");
 	             }
 	         }
    	        
@@ -324,7 +381,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 						return;
 					}
 	        	 else{
-	        		 location.replace("/posbis/payForm.do");
+	        		 location.replace("/posbis/payFormLogin.do");
 	             }
 	         }
    	     }
@@ -400,181 +457,82 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
     
    
    <!-- ---------------------------------------------------------------------------------------------------------- -->
-   
-   
-   
-     <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Favicons -->
-<!--   <link href="resources/intro/img/favicon.png" rel="icon"> -->
-  <link href="resources/intro/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,600,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
-
-  <!-- Bootstrap CSS File -->
-  <link href="resources/intro/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Libraries CSS Files -->
-  <link href="resources/intro/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/animate/animate.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="resources/intro/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-  <!-- Main Stylesheet File -->
-  <link href="resources/intro/css/style.css" rel="stylesheet">
-  
-   <!-- Bootstrap CSS -->
-  <link href="resources/sidetopbar/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="resources/sidetopbar/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="resources/sidetopbar/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- full calendar css-->
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-  <!-- easy pie chart-->
-  <link href="resources/sidetopbar/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
-  <!-- owl carousel -->
-<!--   <link rel="stylesheet" href="css/owl.carousel.css" type="text/css"> -->
-<!--   <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet"> -->
-  <!-- Custom styles -->
- <!--  <link rel="stylesheet" href="css/fullcalendar.css"> -->
-  <link href="resources/sidetopbar/css/widgets.css" rel="stylesheet">
-  <link href="resources/sidetopbar/css/style.css" rel="stylesheet"> 
-<!--   <link href="resources/sidetopbar/css/style-responsive.css" rel="stylesheet" />
-  <link href="resources/sidetopbar/css/xcharts.min.css" rel=" stylesheet">
-  <link href="resources/sidetopbar/css/jquery-ui-1.10.4.min.css" rel="stylesheet"> -->
-  <!-- ======================================================= -->
-  
-   <!-- JavaScript Libraries -->
-  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
-  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="resources/intro/lib/easing/easing.min.js"></script>
-  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
-  <script src="resources/intro/lib/wow/wow.min.js"></script>
-  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
-  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
-  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="resources/intro/contactform/contactform.js"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="resources/intro/js/main.js"></script>
-
-   
-  <!-- Bootstrap CSS -->
-  <link href="resources/table/css/bootstrap.min.css" rel="stylesheet">
-  <!-- bootstrap theme -->
-  <link href="resources/table/css/bootstrap-theme.css" rel="stylesheet">
-  <!--external css-->
-  <!-- font icon -->
-  <link href="resources/table/css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="resources/table/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- Custom styles -->
-  <link href="resources/table/css/style.css" rel="stylesheet">
-  <link href="resources/table/css/style-responsive.css" rel="stylesheet" />
-   
-
-   
-   
+ 
 </head>
-<!--==========================
-  Header
-  ============================-->
-  <header id="header">
+<body>
 
-         <div id="topbar">
-           <div class="container">
-          
-           </div>
-         </div>
+ <!-- Header Section -->
+	<header class="header-section">
+		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+		</a>
+		<nav class="header-nav">
+			<ul class="main-menu">
+				<li><a class="active">회사소개</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goIntroForm();">POSBIS</a></li>
+					</ul>
+				</li>
+				<li><a href="#">마이페이지</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMyPageForm();">내정보보기</a></li>
+						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
+					</ul>
+				</li>
+				
+				<li><a href="#">매장관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
+						<li><a onClick="goSalesForm();">매출 관리</a></li>
+					</ul>
+				</li>
+				<li><a href="#">업체동향</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goPreSearchForm();">시장분석</a></li>
+						<li><a onClick="goPreChartForm();">비교차트</a></li>
+					</ul>
+				</li>
+				<li><a href="#">고객센터</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
+						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
+						<li><a onClick="goqstnRegForm();">문의하기</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="header-right">
 
-       <div class="header">
- 
-
-           <div class="logo float-left">
-             <!-- Uncomment below if you prefer to use an image logo -->
-             <h1 style="cursor:pointer"  class="text-light"><a  onClick="goHomePageForm();" class="scrollto"><span>POSBIS</span></a></h1>
-             <!-- <a href="#header" class="scrollto"><img src="img/logo.png" alt="" class="img-fluid"></a> -->
-           </div>
-   
-          	   <div   class= "loginmaintaining">
-                      <a><i class="icon_profile"></i>&nbsp;&nbsp;&nbsp;<b>${user_id}</b> 님 반갑습니다</a><br><br>                     
-                  <div style="float:right">   
+				<div class="hr-text">
+				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
+                    &nbsp;
                      <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
-				 </div>  
-                </div>
-   
-           <nav class="main-nav float-right d-none d-lg-block">
-        <ul>
-          <li style="cursor:pointer"  class="drop-down" ><a href="">회사소개</a>
-            <ul>
-              <li style="cursor:pointer" onClick="goIntroForm();"><a href="#">POSBIS</a></li>
-             <br>
-            </ul>
-          </li>
-		     <li style="cursor:pointer"  class="drop-down"><a href="#">업체동향</a>
-		            <ul>
-		              <li style="cursor:pointer" ><a onClick="goPreSearchForm();">시장분석</a></li>
-		              <li style="cursor:pointer" ><a onClick="goPreChartForm();">비교차트</a></li>
- 						<br>
-		            </ul>
-		          </li>
-           <li style="cursor:pointer"  class="drop-down"><a href="#">매장관리</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goMenuForm();">메뉴 관리</a></li>
-              <li style="cursor:pointer" ><a onClick="goSalesForm();">매출 관리</a></li>
-               <br>
-            </ul>
-          </li>
-    
-           <li style="cursor:pointer"  class="drop-down"><a href="#">마이페이지</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goMyPageForm();">내정보보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goMyQstnForm();">문의내역확인</a></li>
-           	  <br>
-            </ul>
-          </li>
-          
-           <li style="cursor:pointer"  class="drop-down"><a href="#">고객센터</a>
-            <ul>
-              <li style="cursor:pointer" ><a onClick="goQstnForm();">Q&A 목록보기</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goFAQForm();">자주 묻는 질문</a></li>
-           	  <li style="cursor:pointer" ><a onClick="goqstnRegForm();">문의하기</a></li>
-           	   <br> 
-            </ul>
-          </li>
- 
- 
-        </ul>
-      </nav><!-- .main-nav -->
-           
-         </div>
-       </header><!-- #header -->
+				</div>
+				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
+				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
 
-  <!--==========================
-    Intro Section
-  ============================-->
-  <section id="intro" class="clearfix">
-    <div class="container d-flex h-100">
-      <div class="row justify-content-center align-self-center">
-        <div class="col-md-6 intro-info order-md-first order-last">  
-        </div>
-      </div>
-    </div>
-  </section> 
- 
+			</div>
+		</nav>
+	</header>
+	<!-- Header Section end -->
+
+<!-- Page top Section end -->
+	<section class="page-top-section set-bg"
+		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container">
+			<h2>Q&A</h2>
+			<div style=" color:#fff; width:30%">
+			<nav class="site-breadcrumb">
+				<span class="sb-item active">고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">Q&A 목록보기</span>
+			</nav>
+			</div>
+		</div>
+	</section>
+	<!-- Page top Section end -->
+
+
+
 <!--==========================
     Q&A 게시판
     ============================-->
@@ -751,73 +709,91 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
  
 
 
-
-  <!--==========================
+<!--==========================
     꼬리말
   ============================-->
-  <footer id="footer" class="section-bg">
-    <div class="footer-top">
-      <div class="container">
+	<footer class="footer-section">
+		<div class="container">
+			<a href="index.html" class="footer-logo"> 
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+			</a>
+			<div class="row">
 
-        <div class="row">
+				<div class="footer-widget">
 
-          <div class="col-lg-12">
+					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
+						eget nada terra videa magna derita valies darta donna mare
+						fermentum iaculis eu non diam phasellus. Scelerisque felis
+						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
+						congue.</p>
+					<p>
+						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
+						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>
+					</p>
+				</div>
 
-            <div class="row">
 
-                <div class="col-sm-8">
-
-                  <div class="footer-info">
-                    <h3>POSBIS</h3>
-                    <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc congue.</p>
-                  </div>
-                </div>
-				  <div class="col-sm-4">
-            <div class="footer-links"  style="float:right">
-                    <h4>연락망</h4>
-                    <p>
-                      월드메르디앙벤쳐 2차 
-                      Korea, Seoul 가산디지털단지역<br>
-                      <strong>Phone:</strong> +1 5589 55488 55<br>
-                      <strong>Email:</strong> info@example.com<br>
-                    </p>
-                    
-                 
-                  </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>POSBIS</strong>. All Rights Reserved <br> BootstrapMade
-      </div>
-     </div>
-    
- 
- 
-  </footer><!-- #footer -->
+			</div>
+			<div class="copyright">
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+				Copyright &copy;
+				2020
+				All rights reserved | This template is made with <i
+					class="fa fa-heart-o" aria-hidden="true"></i> by <a
+					href="https://colorlib.com" target="_blank">Colorlib</a>
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+			</div>
+		</div>
+	</footer>
+	<!-- #footer -->
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <!-- Uncomment below i you want to use a preloader -->
   <!-- <div id="preloader"></div> -->
 
-  <!-- JavaScript Libraries -->
-  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
-  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="resources/intro/lib/easing/easing.min.js"></script>
-  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
-  <script src="resources/intro/lib/wow/wow.min.js"></script>
-  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
-  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
-  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="resources/intro/contactform/contactform.js"></script>
+  <!--====== Javascripts & Jquery ======-->
+	<script src="resources/bootstrap/js/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.slicknav.min.js"></script>
+	<script src="resources/bootstrap/js/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery-ui.min.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	<!-- ---------------------------------------------------------------------- -->
 
-  <!-- Template Main Javascript File -->
-  <script src="resources/intro/js/main.js"></script>
+	<!-- javascripts -->
+	<script src="resources/tableBoot/js/jquery.js"></script>
+	<!-- nice scroll -->
+	<script src="resources/tableBoot/js/jquery.scrollTo.min.js"></script>
+	<script src="resources/tableBoot/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
+
+	<!-- jquery ui -->
+	<script src="resources/tableBoot/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<!--custom checkbox & radio-->
+	<script type="text/javascript" src="resources/tableBoot/js/ga.js"></script>
+	<!--custom switch-->
+	<script src="resources/tableBoot/js/bootstrap-switch.js"></script>
+	<!--custom tagsinput-->
+	<script src="resources/tableBoot/js/jquery.tagsinput.js"></script>
+
+	<!-- colorpicker -->
+
+	<!-- bootstrap-wysiwyg -->
+	<script src="resources/tableBoot/js/jquery.hotkeys.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg-custom.js"></script>
+	<script src="resources/tableBoot/js/moment.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-colorpicker.js"></script>
+	<script src="resources/tableBoot/js/daterangepicker.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-datepicker.js"></script>
+	<!-- ck editor -->
+	<script type="text/javascript"
+		src="resources/tableBoot/assets/ckeditor/ckeditor.js"></script>
+	<!-- custom form component script for this page-->
+	<script src="resources/tableBoot/js/form-component.js"></script>
+	<!-- custome script for all page -->
+	<script src="resources/tableBoot/js/scripts.js"></script>
   
   
 
