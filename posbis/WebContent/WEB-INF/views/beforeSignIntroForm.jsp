@@ -206,7 +206,7 @@
 
           <div class="col-lg-3 col-md-6 wow fadeInUp">
             <div class="member">
-              <img src="resources/intro/img/team-1.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/team-1.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>채 재윤</h4>
@@ -218,7 +218,7 @@
 
           <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
             <div class="member">
-              <img src="resources/intro/img/team-2.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/team-2.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>성 유진</h4>
@@ -230,7 +230,7 @@
 
           <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
             <div class="member">
-              <img src="resources/intro/img/team-3.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/team-3.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>이 정숙</h4>
@@ -242,7 +242,7 @@
 
           <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="member">
-              <img src="resources/intro/img/team-4.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/team-4.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>김 수민</h4>
@@ -256,7 +256,7 @@
       
       <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="member">
-              <img src="resources/intro/img/testimonial-1.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/testimonial-1.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>김 수정</h4>
@@ -268,7 +268,7 @@
           
           <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="member">
-              <img src="resources/intro/img/testimonial-2.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/testimonial-2.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>최 수현</h4>
@@ -282,7 +282,7 @@
           
           <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
             <div class="member">
-              <img src="resources/intro/img/testimonial-3.jpg" class="img-fluid" alt="">
+              <img src="resources/bootstrap/img/testimonial-3.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>김 윤미</h4>
@@ -295,7 +295,7 @@
 
       </div>
     </section><!-- #team -->
-    
+    <br><br><br>
     
 
 <!--==========================
@@ -303,9 +303,9 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+
 			<div class="row">
 
 				<div class="footer-widget">

@@ -31,4 +31,6 @@ public interface SalesService {
 
 	// 홈페이지 매출 현황
 	List<Map<String, String>> getSalesNow(int u_no);
+	// 홈페이지 매출 현황
+	List<Map<String, String>> getSalesWeek(int u_no);
 }

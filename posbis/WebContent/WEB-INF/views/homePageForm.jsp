@@ -66,6 +66,9 @@
       Author: BootstrapMade
       Author URL: https://bootstrapmade.com
     ======================================================= -->
+  
+<!-- 회원등급 표시 아이콘 -->     
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
 
   
   <style>
@@ -157,10 +160,6 @@
 
 <script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js">
       </script>
-      <script type = "text/javascript">
-         google.charts.load('current', {packages: ['corechart']});     
-      </script>
-      
        
    <script>  
 
@@ -263,6 +262,83 @@
 		//=============/이정숙꺼끝=============================================
 
 
+	/******************************************************************김수민 차트**************************************************************/
+         	google.charts.load('current', {packages: ['corechart']});     
+	        google.charts.setOnLoadCallback(drawChart);
+	   		function drawChart() {
+            // Define the chart to be drawn.
+           var data = google.visualization.arrayToDataTable([
+               [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
+               [ ${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount},  'color: #7966e3;',  ${salesNow[0].now_sales_amount} ], 
+               [ ${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income},  'color: #b2a9e7;',  ${salesNow[0].now_sales_income} ],
+               [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount},  'color: #74a2f2;',  ${salesNow[1].now_sales_amount} ],
+               [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
+            ]);
+
+           var options = {
+                   title: '[전월대비 당월 매출현황(원)]'
+                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+                   , legend: { position: "none" }
+                    , bar: {groupWidth: "42%"}
+                     , isStacked: false
+                     , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+                         startup: true,
+                         duration: 3800,
+                         easing: 'linear' }
+                   , annotations: {
+                    textStyle: {
+                       fontSize : 13
+                       , bold: true
+                       , italic: true
+                       , color: '#white'
+                       ,  auraColor: '#black'
+                       ,  opacity: 0.8
+
+
+                      }
+                      }    
+                     
+             }; 
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.BarChart(document.getElementById('container'));
+            chart.draw(data, options);
+         }
+
+	//***********************************************************김수민 차트2**************************************************************
+	        google.charts.load('current', {'packages':['corechart']});
+	        google.charts.setOnLoadCallback(drawChart2);
+
+	        function drawChart2() {
+	          var data = google.visualization.arrayToDataTable([
+	            ['판매일자', '매출액(원)'],
+	            ['${salesWeek[0].sales_week}',${salesWeek[0].sales_amount_week}],
+	            ['${salesWeek[1].sales_week}',${salesWeek[1].sales_amount_week}],
+	            ['${salesWeek[2].sales_week}',${salesWeek[2].sales_amount_week}],
+	            ['${salesWeek[3].sales_week}',${salesWeek[3].sales_amount_week}],
+	            ['${salesWeek[4].sales_week}',${salesWeek[4].sales_amount_week}],
+	            ['${salesWeek[5].sales_week}',${salesWeek[5].sales_amount_week}],
+	            ['${salesWeek[6].sales_week}',${salesWeek[6].sales_amount_week}]
+	          ]);
+
+																					
+	          var options = {
+	            title: '[최근 일주일 매출]',
+	            curveType: 'function',
+	            legend: { position: 'bottom' },
+	            height: 350
+                , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+                    startup: true,
+                    duration: 4300,
+                    easing: 'linear' }
+
+	          }; 
+
+	          var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+	          chart2.draw(data, options);
+	        }
+	    	/******************************************************김수민 끝***************************************************************/
 			
 			
 	     //--------------------------------------------------------
@@ -405,7 +481,16 @@
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -427,7 +512,7 @@
 			<h2>홈페이지</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">회원가입</span> &nbsp; > &nbsp; <span class="sb-item active">About us</span>
+				<span class="sb-item active">INFO</span> &nbsp; > &nbsp; <span class="sb-item active">홈페이지</span>
 			</nav>
 			</div>
 		</div>
@@ -499,55 +584,9 @@
 				<h2>내가 가진 가게 총매출 현황</h2>
 			</div>
 			
-			<div id = "container" style = "width: 550px; height: 270px; margin: 0 auto;">
-		      </div>
-		      <script language = "JavaScript">
-		         function drawChart() {
-		            // Define the chart to be drawn.
-		           var data = google.visualization.arrayToDataTable([
-		               [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
-		               [ ${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount},  'color: #7966e3;',  ${salesNow[0].now_sales_amount} ], 
-		               [ ${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income},  'color: #b2a9e7;',  ${salesNow[0].now_sales_income} ],
-		               [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount},  'color: #74a2f2;',  ${salesNow[1].now_sales_amount} ],
-		               [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
-		            ]);
-		
-		           var options = {
-		                   title: '[전월대비 당월 매출현황(원)]'
-
-		                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-		                   , legend: { position: "none" }
-		                    , bar: {groupWidth: "42%"}
-		                     , isStacked: false
-		                     , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-		                           startup: true,
-		                           duration: 1000,
-		                           easing: 'linear' }
-		                     , annotations: {
-		                      textStyle: {
-		                         fontSize : 13
-		                         , bold: true
-		                         , italic: true
-		                         , color: '#white'
-		                         ,  auraColor: '#black'
-		                         ,  opacity: 0.8
-		
-		                      }
-		                      } 
-		                        
-		                     
-		             }; 
-		
-		            // Instantiate and draw the chart.
-		            var chart = new google.visualization.BarChart(document.getElementById('container'));
-		            chart.draw(data, options);
-		         }
-		         google.charts.setOnLoadCallback(drawChart);
-		      </script>
-
-
-
-			
+			<div id = "container" style = "width: 1000px; height: 270px; margin: 0 auto;"></div>
+			<br>
+     		<div id="curve_chart" style="width: 1000; height: 400px; margin: 0 auto"></div>
 		</div>
 	</section>
 	<!-- Why Section2 end -->  
@@ -559,14 +598,11 @@
 				<h2>나의 문의 글 보기</h2>
 			</div>
 
-				<div class="panel-body"> 
+				<div class="panel-body" style = "height: 270px;"> 
 			 		 <div class="col-sm-12" align="center">
 					   <table  class="table table-bordered"  align=center id="mystore">
 					  	 <form name="myQstnList" method="post" action="/posbis/homePageForm.do" align="center" >
 
-							
-							<div style="border: 0px solid;">&nbsp;<span class="pagingNumber"></span> &nbsp;
-							</div>
 							<table class="table table-striped table-advance table-hover"> 
 								<thead>
 								<tr>
@@ -764,9 +800,9 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+
 			<div class="row">
 
 				<div class="footer-widget">

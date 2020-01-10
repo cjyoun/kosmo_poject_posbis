@@ -989,11 +989,20 @@
 											<input type="radio"	class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
 										</label> 
 										<font name="checkRankCode" size="2" color="red"></font> 
+										</div>
 										<br>
 										<br>
 										<span class="help-block"> <br>
-										<a class="help">(월10,000원)&nbsp;&nbsp; [회원등급별혜택]</a></span>
-									</div>
+										<a >(월10,000원)&nbsp;&nbsp; [회원등급별혜택]</a></span>
+										<div class='helpA' style="text-align:left; width:420">
+						               일반<br>
+						               - 비용: 무료<br>
+						               - 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 확인 가능<br>
+						               프리미엄<br>
+						               - 비용: 월 10,000원 (부가세 별도)<br>
+						               - 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
+						               </div>
+									
 								</div>
 								<div class="form-group">
 									<label class="col-sm-2 control-label">서비스이용약관</label>
@@ -1065,9 +1074,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

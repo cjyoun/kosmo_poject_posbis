@@ -68,6 +68,11 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
 
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+
+
+
   <script>
 
   //--------------------------------------------------------
@@ -212,7 +217,16 @@
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+               	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -233,7 +247,7 @@
 			<h2>회사소개</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">회사소개</span>&nbsp; > &nbsp; <span class="sb-item active">POSBIS</span>
+				<span class="sb-item active">INFO</span>&nbsp; > &nbsp; <span class="sb-item active">POSBIS</span>
 			</nav>
 			</div>
 			
@@ -450,9 +464,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

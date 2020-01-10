@@ -67,6 +67,8 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
   
+  
+  
   <style>
 .loginmaintaining {
 	color: #6c757d;
@@ -446,9 +448,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

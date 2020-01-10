@@ -67,6 +67,9 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
 
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+
  
   <style>
  .loginmaintaining {
@@ -367,8 +370,18 @@ function goInfoUpdateForm(){
 			</ul>
 			<div class="header-right">
 
+				
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+               	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -417,8 +430,9 @@ function goInfoUpdateForm(){
 					 <input type="hidden" name="user_pwd" class="user_pwd">
 					 <input type="hidden" name="user_id" class="user_id" value=${user_id}>
 					 	<!-- ======== -->
-					 	   <div class="form-group">
-				             <label class="col-sm-2 control-label">사업자 번호</label>
+
+					 	   <div class="form-group" style="width:50%; margin:50 0 0 0">
+				             <label class="col-sm-2 control-label" >사업자 번호</label>
 				             <div class="col-sm-6">
 									<select class="form-control addr_gu" name="changeBusinessNo" align="center">
 								 		<c:forEach items="${businessNoList}" var="businessNoList">											
@@ -427,15 +441,17 @@ function goInfoUpdateForm(){
 										</c:forEach>
 									</select> 				            
 							 </div>
-							 
+							
+							 		<div >
 									 	<button  class="btn btn-default" type="button" value="가게정보 삭제" onClick="delBusi();">가게정보 삭제</button>
+									 	&nbsp;
 										<button  class="btn btn-default" type="button" value="가게 추가"  onclick="location.replace('/posbis/newBusiForm.do');">가게 추가</button>
-	 
-							</div>
-									 	
+									</div> 
+							</div> 
+		 	
 
 								 
-				</form><br><br><br><br> 
+				</form><br><br>
 
                <!-- 회원정보 form 태그 -->
                <form class="cusForm" name = "cusForm" method="post" action=""><center>
@@ -444,7 +460,7 @@ function goInfoUpdateForm(){
          
   <!-- page start-->
    
-          <div class="col-sm-6-1">
+          <div class="col-sm-6">
             <section class="panel">
               <header class="panel-heading">
                 	개인정보
@@ -488,17 +504,17 @@ function goInfoUpdateForm(){
                   </table> 
                    </section>
                    <br>
-                   <button  class="btn btn-default" type="button" value="메인으로" onClick="goMainForm();" >메인으로</button>
+                   <!-- <button  class="btn btn-default" type="button" value="메인으로" onClick="goMainForm();" >메인으로</button> -->
                    <button  class="btn btn-default" type="button" value="정보수정" onClick="goInfoUpdateForm();" >정보수정</button>
+                    &nbsp;&nbsp;
                    <button  class="btn btn-default" type="button" value="회원탈퇴" onClick="gowithdrawalForm();" >회원탈퇴</button>
              </div>   
           
           &nbsp;&nbsp;
           
- 			<div class=" col-md-6 portfolio-item filter-web" data-wow-delay="0.1s">
-	            <div class="portfolio-wrap">
-	              <img src="resources/intro/img/features-1.svg" class="img-fluid" alt="">
-	              <div class="portfolio-info">
+ 			<div >
+	            <div>
+	              <img src="resources/bootstrap/img/testimonial-3.jpg" class="img-fluid" alt="">
 
               	</div>
             </div>
@@ -520,9 +536,7 @@ function goInfoUpdateForm(){
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

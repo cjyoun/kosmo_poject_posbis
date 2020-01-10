@@ -15,10 +15,10 @@ public class MenuSearchDTO {
 	private int menu_avail; 
 	private String menu_using;
 	private int selectPageNo=1;
-	private int rowCntPerPage=15;
+	private int rowCntPerPage=10;
 	private String[] chooseBusinessNo;
 	private String chooseAllBusinessNo;
-	private String sort="business_name asc";
+	private String sort="2 asc";
 	
 	
 	

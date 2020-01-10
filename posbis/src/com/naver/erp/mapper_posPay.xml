@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+
+
+<mapper namespace="com.naver.erp.PosPayDAO">
+
+<!-- 메뉴 리스트 select -->
+<!--**************************************************************************-->
+  <select id="getPosMenuList" parameterType="String" resultType="java.util.HashMap">
+  		select menu_price, menu_name from menu where business_no=#{business_no}
+	</select>
+	
+<!-- 	
+	메뉴 총개수 
+**************************************************************************
+  <select id="getPosMenuAllCnt" parameterType="String" resultType="int">
+  		select count(*) from menu where business_no=#{business_no}
+	</select>
+	
+	 -->
+	 
+	 
+
+<!--메뉴 클릭시 정보 불러오기  -->	
+	<select id="getPosPerMenuList" parameterType="com.naver.erp.PosMenuDTO" resultType="java.util.HashMap">
+	 	select
+	 		nvl(to_char(menu_no),'0')   as   "menu_no"
+	 		,business_no   as   "business_no"
+	 		,menu_name   as   "menu_name" 
+		    ,nvl(to_char(menu_price),'0')  as   "menu_price"
+		    ,nvl(to_char(menu_cost),'0')as   "menu_cost"
+		    ,menu_category_code as   "menu_category_code"
+		    ,menu_using as   "menu_using"
+		from menu where business_no=#{business_no} and menu_name=#{menu_name}
+   </select>
+   
+   
+	
+</mapper>

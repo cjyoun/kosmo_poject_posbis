@@ -23,8 +23,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->   
 <html>
 <head>
-
-<meta charset="UTF-8">
+ <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,7 +85,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
       Author: BootstrapMade
       Author URL: https://bootstrapmade.com
     ======================================================= -->
-    
+
+ <!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+   
 
    <script>
       //===============================================================
@@ -298,7 +300,15 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다                 	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -376,9 +386,9 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+
 			<div class="row">
 
 				<div class="footer-widget">
@@ -413,24 +423,49 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
   <!-- Uncomment below i you want to use a preloader -->
   <!-- <div id="preloader"></div> -->
 
-  <!-- JavaScript Libraries -->
-  <script src="resources/intro/lib/jquery/jquery.min.js"></script>
-  <script src="resources/intro/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="resources/intro/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="resources/intro/lib/easing/easing.min.js"></script>
-  <script src="resources/intro/lib/mobile-nav/mobile-nav.js"></script>
-  <script src="resources/intro/lib/wow/wow.min.js"></script>
-  <script src="resources/intro/lib/waypoints/waypoints.min.js"></script>
-  <script src="resources/intro/lib/counterup/counterup.min.js"></script>
-  <script src="resources/intro/lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="resources/intro/lib/isotope/isotope.pkgd.min.js"></script>
-  <script src="resources/intro/lib/lightbox/js/lightbox.min.js"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="resources/intro/contactform/contactform.js"></script>
+ <!--====== Javascripts & Jquery ======-->
+	<script src="resources/bootstrap/js/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.slicknav.min.js"></script>
+	<script src="resources/bootstrap/js/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery-ui.min.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	<!-- ---------------------------------------------------------------------- -->
 
-  <!-- Template Main Javascript File -->
-  <script src="resources/intro/js/main.js"></script>
-  
+	<!-- javascripts -->
+	<script src="resources/tableBoot/js/jquery.js"></script>
+	<!-- nice scroll -->
+	<script src="resources/tableBoot/js/jquery.scrollTo.min.js"></script>
+	<script src="resources/tableBoot/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
+
+	<!-- jquery ui -->
+	<script src="resources/tableBoot/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<!--custom checkbox & radio-->
+	<script type="text/javascript" src="resources/tableBoot/js/ga.js"></script>
+	<!--custom switch-->
+	<script src="resources/tableBoot/js/bootstrap-switch.js"></script>
+	<!--custom tagsinput-->
+	<script src="resources/tableBoot/js/jquery.tagsinput.js"></script>
+
+	<!-- colorpicker -->
+
+	<!-- bootstrap-wysiwyg -->
+	<script src="resources/tableBoot/js/jquery.hotkeys.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg-custom.js"></script>
+	<script src="resources/tableBoot/js/moment.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-colorpicker.js"></script>
+	<script src="resources/tableBoot/js/daterangepicker.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-datepicker.js"></script>
+	<!-- ck editor -->
+	<script type="text/javascript"
+		src="resources/tableBoot/assets/ckeditor/ckeditor.js"></script>
+	<!-- custom form component script for this page-->
+	<script src="resources/tableBoot/js/form-component.js"></script>
+	<!-- custome script for all page -->
+	<script src="resources/tableBoot/js/scripts.js"></script>
   
 
 </body>

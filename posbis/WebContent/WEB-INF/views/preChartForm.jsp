@@ -70,6 +70,8 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
     
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
     
       
    <style>
@@ -872,7 +874,16 @@
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+               	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -1008,24 +1019,35 @@
 		
 				 		<br>    
 				         
-				         우리가게 인기메뉴<br>
-				         <table border=1 width=200 class="myPopularityMenu"  >
-			
-				         </table>
-				         
-				         
-				         <br>
-				         다른 가게 인기메뉴<br>
-				         <table border=1 width=200 class="othersPopularityMenu" >
-				         		
-				         </table>
-				         
-				         <br>
-				         같은 동네, 같은 업종 의 점포수
-				         <table border=1 width=200 >
-				         	<tr class="store_count">		
-				         </table>
-				         
+				          <div>
+				         <table>
+				         	<tr align="center">
+					         	<td >
+						         우리가게 인기메뉴<br>
+						         <table border=1 width=200 class="myPopularityMenu"  >
+					
+						         </table>
+						         
+						         </td>
+						         
+						         
+						         <td>
+						         다른 가게 인기메뉴<br>
+						         <table border=1 width=200 class="othersPopularityMenu" >
+						         		
+						         </table>
+						         </td>
+						         
+						         <td>
+						         같은 동네, 같은 업종 의 점포수
+						         <table border=1 width=200 >
+						         	<tr class="store_count">		
+						         </table>
+						         </td>
+					         </tr>
+					     </table>    
+				         </div>
+				         				         
 				         <br><br>
 				        <!--  <br><br>
 				         우리가게 인기메뉴<br>
@@ -1071,11 +1093,11 @@
 				        <!--  <br><br>
 				         우리가게 인기메뉴<br>
 				    	 <div id="chart_div2" style="width: 300px; height: 200px;"></div> -->
-				    	 
+				    <!-- 	 
 				    	 <button class="btn btn-info" type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">검색페이지로가기</button>&nbsp;&nbsp;
 				      <button class="btn btn-primary" type="button" value="마이페이지로가기" style="width=130" onClick="location.replace('/posbis/myPageForm.do')">마이페이지로가기</button>&nbsp;&nbsp;
 				      <button class="btn btn-success"  value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">q&a로가기</button>
-	         	        
+	         	         -->
 	          		<br>
 	          		<br>
 	   				</div>
@@ -1097,9 +1119,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

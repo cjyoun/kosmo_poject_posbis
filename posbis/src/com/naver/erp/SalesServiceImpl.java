@@ -98,4 +98,11 @@ public class SalesServiceImpl implements SalesService{
 		      return salesNow;
 	   }
 
+		// 홈페이지 매출 현황
+	   public List<Map<String, String>> getSalesWeek(int u_no){
+		      List<Map<String,String>> salesWeek = this.salesDAO.getSalesWeek(u_no);
+
+		      return salesWeek;
+	   }
+
 }

@@ -49,26 +49,27 @@
 
 
 <!-- 메뉴 리스트 select -->
+<!-- 2020-01-09 수정 -->
 <!--**************************************************************************-->
   <select id="getMenuList" parameterType="com.naver.erp.MenuSearchDTO" resultType="java.util.HashMap">
 	select * from(select zzz.*, rownum RNUM from(
 		select
-        m.business_no                  		"business_no"
-        , b.business_name              		"business_name"
-        , m.menu_no                       	"menu_no"
-        , m.menu_name                 		"menu_name"
-        , c.main_category_name            	"main_category_name"
-        , c.mid_category_name              	"mid_category_name"
-        , c.sub_category_name              	"sub_category_name"
-        , m.menu_price                 		"menu_price"
-        , m.menu_cost                  		"menu_cost"
-        ,(m.menu_price-m.menu_cost)			"menu_avail"
-        , m.menu_using                    	"menu_using"
-       from menu m, business_info b, code_menu_category c, user_info u
-       where 
-       	1=1
-       	and m.menu_category_code = c.menu_category_code 
-       		and m.business_no=b.business_no and u.user_id=#{user_id}
+		    b.business_no                          "business_no"
+		    , b.business_name                      "business_name"
+		    , m.menu_no                           "menu_no"
+		    , m.menu_name                         "menu_name"
+		    , c.main_category_name                "main_category_name"
+		    , c.mid_category_name                  "mid_category_name"
+		    , c.sub_category_name                  "sub_category_name"
+		    , m.menu_price                         "menu_price"
+		    , m.menu_cost                          "menu_cost"
+		    ,(m.menu_price-m.menu_cost)            "menu_avail"
+		    , m.menu_using                        "menu_using"
+		from menu m, business_info b, code_menu_category c, user_info u
+		where 
+		    1=1
+			and b.business_no = m.business_no and u.user_id=#{user_id}
+		    and u.u_no = b.u_no and m.menu_category_code = c.menu_category_code
 	    	<include refid="menuWhere"/>
 	    	order by ${sort}
 		) zzz ) where 
@@ -84,13 +85,14 @@
 	select 
 	  count(*)
 	from menu m, business_info b, code_menu_category c, user_info u
-       where 
-       	1=1
-       	and m.menu_category_code = c.menu_category_code 
-       		and m.business_no=b.business_no and u.user_id=#{user_id}
+	where 
+	    1=1
+		and b.business_no = m.business_no and u.user_id=#{user_id}
+	    and u.u_no = b.u_no and m.menu_category_code = c.menu_category_code
 		<include refid="menuWhere"/>
 	</select>
-   
+ <!-- 2020-01-09 수정 끝--> 
+  
 	<!-- 메뉴 기본 정보 입력하는 insert 문을 내포한 insert 태그 선언-->
 	<insert id="insertMenu" parameterType="com.naver.erp.MenuDTO" >
 		

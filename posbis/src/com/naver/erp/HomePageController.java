@@ -59,9 +59,9 @@ public class HomePageController {
 
 		     
 		     
-				//========================================================================
-				//차트
-				//========================================================================
+			//========================================================================
+			//차트 김수민
+			//========================================================================
 		     List<Map<String,String>> salesNow = this.salesService.getSalesNow(u_no);
 		     
 		     // ModelAndView 객체에 검색 개수, 게시판 검색 목록 저장하기
@@ -71,7 +71,8 @@ public class HomePageController {
 		     mav.addObject("salesNow" , salesNow);
 		     
 			//mav.addObject("salesSearchDTO",salesSearchDTO); //자동 기능...안써도 감...? => 안 쓰면 안찍힘...
-		     
+		     List<Map<String,String>> salesWeek = this.salesService.getSalesWeek(u_no);
+		     mav.addObject("salesWeek" , salesWeek);
 		     
 		     
 		     //성유진

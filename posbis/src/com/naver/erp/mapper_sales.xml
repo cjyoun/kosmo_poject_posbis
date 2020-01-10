@@ -207,19 +207,65 @@
             and u_no=#{u_no}
    </select>
    
-   
-<!-- ========================================================================================= -->
+   <!-- ========================================================================================= -->
    <select id='getSalesNow' parameterType="int" resultType="java.util.HashMap">   
 	
-	select
+<!-- 	select
 	    to_char(sales_date,'yyyy.mm')   as "now_sales_date"
 	    ,sum(menu_price * sales_count)||'' 	as  "now_sales_amount"
 	    ,sum((menu_price * sales_count)-(menu_cost* sales_count))||'' 	as  "now_sales_income"
+	    ,count(*) 	as  "now_sales_count"
 	from sales
 	where business_no in (select business_no from business_info where u_no = #{u_no})
 	group by to_char(sales_date,'yyyy.mm')
 		having (to_char(sales_date,'yyyy.mm') = to_char(add_months(sysdate,-12),'yyyy.mm') )  or (to_char(sales_date,'yyyy.mm') = to_char(add_months(sysdate,-1),'yyyy.mm') )
 	order by to_char(sales_date,'yyyy.mm')
+	 -->
+	
+	select
+	    mon.month   as "now_sales_date"
+	    ,nvl(sum(s.menu_price * s.sales_count),0) 	as  "now_sales_amount"
+	    ,nvl(sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)),0) 	as  "now_sales_income"
+	    ,nvl(count(*),0) 	as  "now_sales_count"
+    from sales s right outer join
+    (
+        select to_char(sysdate,'yyyy.mm') "MONTH" from dual
+        union select to_char(add_months(sysdate,-1),'yyyy.mm') from dual
+    ) mon on to_char(s.sales_date,'yyyy.mm') = mon.month
+     and s.business_no in (select business_no from business_info where u_no = #{u_no})    
+	group by to_char(s.sales_date,'yyyy.mm'),mon.month
+	order by to_char(s.sales_date,'yyyy.mm')
+	
+   </select>
+	
+   <select id='getSalesWeek' parameterType="int" resultType="java.util.HashMap">  
+   
+<!--    select
+	    to_char(sales_date,'mm.dd (dy)') as "sales_week"
+	    ,sum(menu_price * sales_count) as "sales_amount_week"
+	from sales
+	where business_no in (select business_no from business_info where u_no = #{u_no})
+	group by sales_date
+		having to_char(sales_date,'yyyy-mm-dd dy')>to_char(sysdate-7,'yyyy-mm-dd dy')
+	order by to_char(sales_date,'yyyy-mm-dd')
+	 -->
+	
+	select
+	    to_char(dy.day,'mm.dd (dy)') as "sales_week"
+	    ,nvl(sum(s.menu_price * s.sales_count),0) as "sales_amount_week"
+	from sales s right outer join
+    (
+        select sysdate-6 "DAY" from dual
+        union select sysdate-5 from dual
+        union select sysdate-4 from dual
+        union select sysdate-3 from dual
+        union select sysdate-2 from dual
+        union select sysdate-1 from dual
+        union select sysdate from dual
+    ) dy on to_char(dy.day,'yyyy-mm-dd')=to_char(s.sales_date,'yyyy-mm-dd')
+     and s.business_no in (select business_no from business_info where u_no = #{u_no})
+    group by s.sales_date, dy.day
+    order by dy.day
 	
    </select>
 	

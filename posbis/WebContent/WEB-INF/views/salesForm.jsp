@@ -67,6 +67,10 @@
       Author: BootstrapMade
       Author URL: https://bootstrapmade.com
     ======================================================= -->
+   
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+   
     
  <style>
  .loginmaintaining {
@@ -296,6 +300,21 @@
 					$('.sales_date_t2').val("");
 			}
 		 }
+
+		// 검색조건 초기화
+         function goKeywordReset(){
+            document.salesForm.reset();  
+            inputData("[name=selectPageNo]" ,"1");
+            inputData("[name=rowCntPerPage]","${salesSearchDTO.rowCntPerPage}");
+			inputData("[name=sort]","s.sales_date desc");
+            if($("[name=chooseBusinessNo]:checked").length==0){
+                $("[name=chooseBusinessNo]").prop("checked",true);
+                $("[name=chooseAllBusinessNo]").prop("checked",true);
+            }
+             <c:forEach items="${salesSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
+                inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
+             </c:forEach>
+         }
    
       
 		//--------------------------------------------------------
@@ -443,7 +462,16 @@
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -492,13 +520,15 @@
 						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
 						 
             					  
-       			<div style="float:right"> <a href="javascript:;" onclick="showMenuSales();" >[메뉴별 매출관리]로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br> 
+       			<div style="float:right"> <a href="javascript:;" onclick="showMenuSales();" >[ 메뉴별 매출관리 ]로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br> 
+   <div style="border:1px solid #d2d2d2;">
+      <Br>
 <table>
 	<tr>
 		<td>
 		
-			<table><tr><td>
-               <a href="">[ 사업자 번호 ] :</a>
+			<table><tr><td style="color:#330066">
+               [ 사업자 번호 ] :
                   <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
                <tr>
             <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
@@ -514,27 +544,30 @@
             
 		<br><br> 
  	<tr>
-		<td>
+		<td style="color:#330066">
 				   
-				<a href="">[ 기간&nbsp;&nbsp;&nbsp;설정 ] : </a><input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
+				[ 기간&nbsp;&nbsp;&nbsp;설정 ] : <input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
 				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();""></span>
 						      
 		<br><br>
 	<tr>
-		<td>					      
+		<td >					      
 				
-				              <a href="">[ 기간&nbsp;&nbsp;&nbsp;선택 ] : </a>
+				              <span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;선택 ] : </span>
 				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
-				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br></span>
+				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br>
 		<br>  					      
 	<tr>
-		<td>		               
-				             <a href="">[ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ] : </a><input type = "text" name="keyword" class="keyword">&nbsp;
+		<td style="color:#330066">		               
+				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ] : <input type = "text" name="keyword" class="keyword">&nbsp;
 				             <input type="button" value="검   색" onClick="goSearch();">&nbsp;
               				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp;
+              				 <a href="javascript:goKeywordReset();"><u>검색조건 초기화</u></a>
               				
               			</table> 
+              	<br>
+   </div> 
  <!-- =========================================================================================================================================================================== -->
  
  
@@ -555,7 +588,7 @@
               <table class="table table-striped table-advance table-hover" id="select">
                 <thead>
                   <tr>
-                  <td align=center class="sumSales">
+                  <td align=center class="sumSales" >
             		[거래 건수]: ${salesListAllCnt}&nbsp;&nbsp;
                     [판매수량 합계] : ${salesSum.sum_sales_count} &nbsp;&nbsp;
 		            [총 매출  합계] : ${salesSum.sum_sales_amount}원&nbsp;&nbsp;
@@ -735,9 +768,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

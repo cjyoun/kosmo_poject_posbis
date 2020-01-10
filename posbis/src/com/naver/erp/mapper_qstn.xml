@@ -294,32 +294,30 @@
 	   <!-- 로그인후 홈페이지에서 내가 쓴글만 QSTN 리스트 가져오기 -->
 	   	<select id="getMyQstnList" parameterType="com.naver.erp.MyQstnSearchDTO" resultType="java.util.HashMap">
 		select * from(select zzz.*, rownum RNUM from(
-			select 
-    			q.qna_no                                                            "qna_no"                        
+			select
+    			q.qna_no                                                            "qna_no"
     			,q.subject                                                          "subject"
     			,to_char(q.qna_date, 'yyyy-mm-dd')                                  "qna_date"
-    			,(select count(*) from qna 
-        	where group_no = q.qna_no and print_level>0 ) 						  "reply_cnt" 
+    			,(select count(*) from qna
+        	where group_no = q.qna_no and print_level>0 ) 						  "reply_cnt"
 			from qna q
 			where q.u_no=#{u_no}
 
 			order by q.qna_date desc
-		) zzz ) where 
-			<![CDATA[
-				RNUM>= ${selectPageNo*rowCntPerPage-rowCntPerPage+1}
-				and RNUM<= ${selectPageNo*rowCntPerPage}
-			]]> 
+		) zzz ) where RNUM &lt;= 5
 		</select>
 		
 		
 
 		<!-- 내가 쓴글 목록 총 개수 구하기-->
 		<select id="getMyQstnAllCnt" parameterType="com.naver.erp.MyQstnSearchDTO" resultType="int">
+		select * from(select zzz.*, rownum RNUM from(	
 			select 
 				count(*) 
-			from qna q, user_info u	
-			where 1=1
-				and u.u_no=q.u_no and u.u_no=#{u_no}
+			from qna q
+			where q.u_no=#{u_no}
+			order by q.qna_date desc
+		) zzz ) where RNUM &lt;= 5
 		</select>
 		
 		

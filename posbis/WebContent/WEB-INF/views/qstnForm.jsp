@@ -86,6 +86,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
       Author URL: https://bootstrapmade.com
     ======================================================= -->
     
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+    
+    
    <script>
       //===============================================================
       // boay 태그 안의 모든 태그를 읽어들인 후 실행할 자스 코딩 설정
@@ -504,7 +508,16 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -715,9 +728,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">

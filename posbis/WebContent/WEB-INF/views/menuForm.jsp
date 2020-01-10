@@ -68,6 +68,9 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
 
+<!-- 회원등급 표시 아이콘 -->   
+<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+
 
   
  <style>
@@ -120,14 +123,15 @@
                   ,"goSearch();"                  //페이지번호 클릭 후 실행할 자스코드
                )
             );
+
             
-            
-            var is_used = $('input[name="menu_using"]:checked').val();
             // 검색조건 입력양식에 넣어주기
+            var is_used = $('input[name="menu_using"]:checked').val();
             inputData("[name=selectPageNo]","${menuSearchDTO.selectPageNo}");
             inputData("[name=rowCntPerPage]","${menuSearchDTO.rowCntPerPage}");
             inputData("[name=keyword]","${menuSearchDTO.keyword}");
             inputData("[name=menu_using]","${menuSearchDTO.menu_using}");
+            inputData("[name=sort]","${menuSearchDTO.sort}");
             inputData("[name=chooseAllBusinessNo]","${menuSearchDTO.chooseAllBusinessNo}");
             <c:forEach items="${menuSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
                inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
@@ -176,29 +180,79 @@
             }
 
             
-            // 검색 함수
             function goSearch() {
-               if (is_empty("[name=menuForm] [name=keyword]")) {
-                  $("[name=menuForm] [name=keyword]").val("");
-               }
+                if (is_empty("[name=menuForm] [name=keyword]")) {
+                   $("[name=menuForm] [name=keyword]").val("");
+                }
 
-               var keyword = $("[name=menuForm] [name=keyword]").val();
-                  keyword = $.trim(keyword);
-                  $("[name=menuForm] [name=keyword]").val(keyword)
-                  document.menuForm.submit();
-            }
-            
-            // 모두검색 함수
-            function goSearchAll(){
-               document.menuForm.reset();
-               $("[name=menuForm] [name=selectPageNo]").val("1");
-               $("[name=menuForm] [name=rowCntPerPage]").val("15");
-               $('[name=menu_using]').prop("checked",false);
-               <c:forEach items="${salesSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
-               inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
-               </c:forEach>
-               goSearch();
-            }
+                var keyword = $("[name=menuForm] [name=keyword]").val();
+                   keyword = $.trim(keyword);
+                   $("[name=menuForm] [name=keyword]").val(keyword)
+                   $.ajax({
+     					// 서버 쪽 호출 URL 주소 지정
+     					url : "/posbis/menuProc.do"
+     					
+     					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+     					, type : "post"
+     	
+     					// 서버로 보낼 파라미터명과 파라미터 값을 설정
+     					, data : $("[name=menuForm]").serialize()				
+     					
+     					// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정.
+     					// 익명함수의 매개변수 data에는 서버가 응답한 데이터가 들어온다.
+     					, success : function(menuDTO){
+     						if(menuDTO != null){
+   								$("body").load("/posbis/menuForm.do",$("[name=menuForm]").serialize()); 
+     						}
+     						else if (menuDTO == null){
+     							alert("실패");
+     						}
+     						else {
+     							alert("서버 오류 발생. 관리자에게 문의 바람");
+     						} 
+     					}
+     					
+     					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+     					, error : function(request, error){
+     						alert("서버 접속 실패");
+     						alert($("[name=menuForm]").serialize());
+     						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+     						
+     					}
+     					
+     				});
+
+                   }
+             
+             // 모두검색 함수
+             function goSearchAll(){    
+                inputData("[name=sort]","2 asc");   
+                inputData("[name=selectPageNo]" ,"1");
+                inputData("[name=rowCntPerPage]","${menuSearchDTO.rowCntPerPage}");
+                inputData("[name=keyword]","");
+                $('#menu_using_y').prop("checked",true);
+                <c:forEach items="${salesSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
+                inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
+                </c:forEach>
+                goSearch();
+             }
+          
+
+             // 검색조건 초기화
+             function goKeywordReset(){
+             	document.menuForm.reset( );  
+             	inputData("[name=selectPageNo]" ,"1");
+                 inputData("[name=rowCntPerPage]","${menuSearchDTO.rowCntPerPage}");
+                 inputData("[name=keyword]","");
+                 $('#menu_using_y').prop("checked",true);
+                 <c:forEach items="${salesSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
+                 	inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
+                 </c:forEach>
+                 if($("[name=chooseBusinessNo]:checked").length==0){
+                     $("[name=chooseBusinessNo]").prop("checked",true);
+                     $("[name=chooseAllBusinessNo]").prop("checked",true);
+                 }
+             }// 2020-01-09 수정 끝
             
             
             // 메뉴등록 페이지로 이동
@@ -387,7 +441,16 @@
 			<div class="header-right">
 
 				<div class="hr-text">
-				<i class="flaticon-029-telephone-1"></i><b>${user_id}</b> 님 반갑습니다                	
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -434,35 +497,41 @@
          <form name="menuForm" method="post" action="/posbis/menuForm.do">
          <!-- 메뉴관리 검색 조건 및 메뉴등록  -->
          <div style="float:right"><a href = "javascript:goMenuRegForm();">[메뉴 등록]으로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br>
+         <div style="border:1px solid #d2d2d2;"><br>
          <table>
             <tr>
                <td> 
-               <table><tr><td>
-	               <a href="">[ 사업자 번호 ] :</a>
+               <!-- 2020-01-09 수정 -->
+               <table><tr><td style="color:#330066">
+	               [ 사업자 번호 ]&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
 	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
 	               <tr>
-	            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-	              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
+	            		<c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+	             	<td>
+	             	<td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
 	                    <c:if test="${(status.index+1)%3==0}">
 	                     <c:if test="${!status.last }">
-	                        <tr>
+	                        <tr><td>
 	                     </c:if>
 	                  </c:if>   
 	            </c:forEach>
             </table>
                <br> 
             <tr>
-               <td> <a href="">[메뉴사용여부]&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-               <td><input type ="radio" id= "menu_using_all" name="menu_using" class="menu_using"  value="menu_using"><label for="menu_using_all">모두보기</label>
+               <td style="color:#330066"> [ 메뉴사용여부 ]&nbsp;&nbsp;:&nbsp;&nbsp;
+                  <input type ="radio" id= "menu_using_all" name="menu_using" class="menu_using"  value="menu_using"><label for="menu_using_all">모두보기</label>
                   <input type ="radio" id= "menu_using_y" name="menu_using" class="menu_using" value="Y" checked><label for="menu_using_y">사용</label>
                   <input type ="radio" id= "menu_using_n" name="menu_using" class="menu_using" value="N"><label for="menu_using_n">미사용</label><br>
             <br>  
             <tr>
-               <td> <a href="">[키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드]&nbsp;&nbsp;:&nbsp;&nbsp;</a>
-               <td><input type="text" name="keyword" class="keyword">
-                  <input type="button" value="검   색" onClick="goSearch();">&nbsp;
+               <td style="color:#330066"> [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드 ]&nbsp;&nbsp;:&nbsp;&nbsp;
+                  <input type="text" name="keyword" class="keyword">
+                  <input type="button" value="검    색" onClick="goSearch();">&nbsp;
                   <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp;
-         <br></table><br>
+                  <a href="javascript:goKeywordReset();">&nbsp;<u>검색조건 초기화</u> 
+         <br></table><br><!-- 2020-01-09 수정 끝-->
+         </div>
+         
             <!-- 메뉴관리 검색 조건 및 메뉴등록 끝 -->
               <div class="col-sm-12" align="center">
              <table class="table table-striped table-advance table-hover" id="select">
@@ -491,7 +560,7 @@
             
                <!-- 선택한 페이지 번호 저장되는 입력양식 -->
                <input type="hidden" name="selectPageNo">
-               <input type="hidden" name="sort" value="business_name asc">
+               <input type="hidden" name="sort" value="2 asc">
                <input type="hidden" name="user_id" value="${user_id}">
                <!------------------ 메뉴리스트 페이징 및 총개수 리턴 보여주기 끝---------------------->
             
@@ -713,9 +782,7 @@
   ============================-->
 	<footer class="footer-section">
 		<div class="container">
-			<a href="index.html" class="footer-logo"> 
-			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
-			</a>
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 			<div class="row">
 
 				<div class="footer-widget">
