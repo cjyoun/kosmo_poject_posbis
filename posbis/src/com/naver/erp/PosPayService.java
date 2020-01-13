@@ -20,6 +20,11 @@ public interface PosPayService {
 	//메뉴 클릭시 정보 불러 오기
 	////////////////////////////////////////////////////////////
 	List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO);
+
 	
+	//가게이름 불러오기
+	String getBusiness_name(String business_no);
+
+
 	
 }

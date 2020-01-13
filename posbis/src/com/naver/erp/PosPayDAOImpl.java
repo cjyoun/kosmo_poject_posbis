@@ -59,8 +59,18 @@ public class PosPayDAOImpl implements PosPayDAO{
 				);
 		System.out.println("podao 끝");
 		return posPerMenuList;
-	};	
+	}	
 		
+	//--------------------------------------------------------------------------
+	// 가게이름 불러오기
 
+	public String getBusiness_name(String business_no) {
+		String business_name = this.sqlSession.selectOne(
+				"com.naver.erp.PosPayDAO.getBusiness_name"  
+				, business_no					
+		);
+		
+		return business_name;
+	}
 	
 }

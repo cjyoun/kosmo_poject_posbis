@@ -211,9 +211,10 @@ public class QstnController {
             ///-----------------------------------------------최수현/////////////////////////////////
             // 내가 로그인한 정보의 group_no 가져오기
             //-----------------------------------------
-            
+            System.out.println("user_id==>"+user_id);
             List<Map<String,String>> group_no = this.qstnService.getQstnGroupNo(user_id);
             mav.addObject("group_no", group_no);
+            System.out.println("group_no===>"+group_no);
         	///-----------------------------------------------최수현/////////////////////////////////
             
 
@@ -334,7 +335,7 @@ public class QstnController {
             System.out.println("insertQstn 시작");
             // [QstnServiceImpl 객체]의 insertQstn 메소드 호출로 게시판 입력하고 [게시판 입력 적용 행의 개수] 얻기
             qstnRegCnt = this.qstnService.insertQstn(qstnDTO);
-          System.out.println(qstnDTO.getQna_no()+"--------------------------"); 
+          //System.out.println(qstnDTO.getQna_no()+"--------------------------"); 
          }catch(Exception e) {
             System.out.println("insertQstn에서 <에러발생>");
             System.out.println( e.getMessage() );
@@ -348,30 +349,33 @@ public class QstnController {
       
       
       @RequestMapping(
-            value = "/qstnMasterRegProc.do"   
-            ,method = RequestMethod.POST
-            ,produces = "application/json; charset=UTF-8"
-      )
-      @ResponseBody
-      public int masterQstn(
-            //-------------------------------------------------------
-            // 파라미터값을 저장할 [masterQstn 객체]를 매개변수로 선언
-            //-------------------------------------------------------
-            QstnDTO qstnDTO
-      ){
-         int masterCnt = 0;
-         try {
-            System.out.println("masterQstn 시작");
-            // [QstnServiceImpl 객체]의 masterQstn 메소드 호출로 게시판 입력하고 [관리자 계정의 개수] 얻기
-            masterCnt = this.qstnService.masterQstn(qstnDTO);
-         }catch(Exception e) {
-            System.out.println("<에러발생>");
-            System.out.println( "masterQstn에서 에러 발생: "+e.getMessage() );
-            System.out.println(masterCnt);
-            masterCnt = -1;
-         }
-         return masterCnt;
-      }
+              value = "/qstnMasterRegProc.do"   
+              ,method = RequestMethod.POST
+              ,produces = "application/json; charset=UTF-8"
+        )
+        @ResponseBody
+        public int masterQstn(
+              //-------------------------------------------------------
+              // 파라미터값을 저장할 [masterQstn 객체]를 매개변수로 선언
+              //-------------------------------------------------------
+              QstnDTO qstnDTO
+              ,HttpSession session
+        ){
+      	  String user_id = (String) session.getAttribute("user_id");
+      	  qstnDTO.setUser_id(user_id);
+           int masterCnt = 0;
+           try {
+              System.out.println("masterQstn 시작");
+              // [QstnServiceImpl 객체]의 masterQstn 메소드 호출로 게시판 입력하고 [관리자 계정의 개수] 얻기
+              masterCnt = this.qstnService.masterQstn(qstnDTO);
+           }catch(Exception e) {
+              System.out.println("<에러발생>");
+              System.out.println( "masterQstn에서 에러 발생: "+e.getMessage() );
+              System.out.println(masterCnt);
+              masterCnt = -1;
+           }
+           return masterCnt;
+        }
 
       //*****************************************************
       // /qstnContentForm.do 로 접속 시 호출되는 메소드 선언

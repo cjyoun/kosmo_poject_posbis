@@ -68,9 +68,10 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
    
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-   
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">  
     
  <style>
  .loginmaintaining {
@@ -99,7 +100,13 @@
    background-color: #f5f8fd;
 
 }
-  
+  select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
+} 
+select::-ms-expand { display: none; } 
   
   </style>
 
@@ -426,32 +433,32 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a class="active" style="cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -492,8 +499,10 @@
 			<h2>매출관리</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">매출관리</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="fas fa-won-sign"></i> 매출관리</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -515,6 +524,7 @@
               
                
 			<div class="panel-body"> 
+			<div class="container">
 				 <form name = "salesForm" method="post" action="/posbis/salesForm.do">
 					<div  class="form-group">
 						<!-- 선택한 페이지번호가 저장되는 입력양식 표현하기 -->
@@ -528,14 +538,14 @@
 		<td>
 		
 			<table><tr><td style="color:#330066">
-               [ 사업자 번호 ] :
+               [ 사업자 번호 ]&nbsp; : &nbsp;
                   <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
-               <tr>
+               <tr><td>
             <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
               <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
                     <c:if test="${(status.index+1)%3==0}">
                      <c:if test="${!status.last }">
-                        <tr>
+                        <tr><td>
                      </c:if>
                   </c:if>   
             </c:forEach>
@@ -546,23 +556,26 @@
  	<tr>
 		<td style="color:#330066">
 				   
-				[ 기간&nbsp;&nbsp;&nbsp;설정 ] : <input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
+				[ 기간&nbsp;&nbsp;&nbsp;설정 ]&nbsp; : &nbsp;<input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
 				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();""></span>
 						      
 		<br><br>
 	<tr>
 		<td >					      
 				
-				              <span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;선택 ] : </span>
+				              <span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
 				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br>
 		<br>  					      
 	<tr>
 		<td style="color:#330066">		               
-				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ] : <input type = "text" name="keyword" class="keyword">&nbsp;
-				             <input type="button" value="검   색" onClick="goSearch();">&nbsp;
-              				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp;
+				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ]&nbsp; : &nbsp;<input type = "text" name="keyword" class="keyword">&nbsp;
+				            <!--  <input type="button" value="검   색" onClick="goSearch();">&nbsp;
+              				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp; -->
+              				 <br><br>
+                  			 <button type="button" class="btn btn-default"style="margin:0 10 0 110" onClick="goSearch();">검      색</button>&nbsp;
+                 			 <button type="button" class="btn btn-default"style="" onClick="goSearchAll();">모두  검색</button>&nbsp;
               				 <a href="javascript:goKeywordReset();"><u>검색조건 초기화</u></a>
               				
               			</table> 
@@ -598,12 +611,12 @@
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
                   <tr><br> 
                   <td align=right>
-			            <br><select name="rowCntPerPage" style="width:50px;">
-			               <option value="10">10
-			               <option value="15">15
-			               <option value="20">20
-			               <option value="25">25
-			               <option value="30">30
+			            <br><select name="rowCntPerPage" style="width:50px;height:25px;">
+			               <option value="10">&nbsp;10&nbsp;
+			               <option value="15">&nbsp;15&nbsp;
+			               <option value="20">&nbsp;20&nbsp;
+			               <option value="25">&nbsp;25&nbsp;
+			               <option value="30">&nbsp;30&nbsp;
 			            </select> 행보기
 			   </table>
 			</form>
@@ -614,7 +627,7 @@
       	<table class="table table-striped table-advance table-hover " id="sales">
             <thead>
                 <tr>
-             <th>no
+             <th>NO
                 <c:choose>
 				<c:when test="${param.sort=='b.business_name desc'}">
 					<th style="cursor:pointer"
@@ -726,26 +739,26 @@
                 <tbody>
                 <c:forEach items="${salesList}" var="sales" varStatus="loopTagStatus">  <!-- requestScope.은 생략 가능 -->
                   <tr>
-                    <td >
-					<%-- 게시판 목록 중에 각 행의 정순 일련번호 출력--%>
-					${salesSearchDTO.selectPageNo*salesSearchDTO.rowCntPerPage-salesSearchDTO.rowCntPerPage+1
-																					+loopTagStatus.index}  
-					<!-- 각 행의 상호명 출력 -->
-					<td  >${sales.business_name}
-					<!-- 각 행의 메뉴 이름 출력 -->
-					<td  >${sales.menu_name}
-					<!-- 각 행의 메뉴 가격 출력 -->
-					<td align=right   class="menu_price">${sales.menu_price}
-					<!-- 각 행의 판매 수량 출력 -->
-					<td align=right   class="sales_count">${sales.sales_count}
-					<!-- 각 행의 총매출 출력 -->
-					<td align=right    class="sales_amount">${sales.sales_amount}
-					<!-- 각 행의 순매출 출력 -->
-					<td align=right    class="sales_income">${sales.sales_income}
-					<!-- 각 행의 판매 날짜 출력 -->
-					<td align=right   >${sales.sales_date}
-					
-					
+                    <td align=center width="4%">
+	               <%-- 게시판 목록 중에 각 행의 정순 일련번호 출력--%>
+	               	${salesSearchDTO.selectPageNo*salesSearchDTO.rowCntPerPage-salesSearchDTO.rowCntPerPage+1
+	                                                               +loopTagStatus.index}  
+	               <!-- 각 행의 상호명 출력 -->
+	               	<td align=center width="9%" >${sales.business_name}
+	               <!-- 각 행의 메뉴 이름 출력 -->
+              	 	<td align=center width="9%" >${sales.menu_name}
+	               <!-- 각 행의 메뉴 가격 출력 -->
+	               	<td align=right width="7%"  class="menu_price">${sales.menu_price}
+	               <!-- 각 행의 판매 수량 출력 -->
+	               	<td align=center width="6%"  class="sales_count">${sales.sales_count}
+	               <!-- 각 행의 총매출 출력 -->
+	               	<td align=right  width="7%"  class="sales_amount">${sales.sales_amount}
+	               <!-- 각 행의 순매출 출력 -->
+	               	<td align=right  width="7%"  class="sales_income">${sales.sales_income}
+	               <!-- 각 행의 판매 날짜 출력 -->
+	               	<td align=center width="20%"  >${sales.sales_date}
+	               
+	               
                   </tr>
                  </c:forEach>
                  </tbody>
@@ -773,11 +786,7 @@
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

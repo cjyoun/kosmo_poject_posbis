@@ -33,4 +33,7 @@ public interface SalesService {
 	List<Map<String, String>> getSalesNow(int u_no);
 	// 홈페이지 매출 현황
 	List<Map<String, String>> getSalesWeek(int u_no);
+	
+	// [메뉴 등록 후 입력 적용 행의 개수] 리턴하는 메소드 선언
+	int insertSales(SalesDTO salesDTO);
 }

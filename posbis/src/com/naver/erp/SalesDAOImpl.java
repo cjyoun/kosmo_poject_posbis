@@ -137,4 +137,15 @@ public class SalesDAOImpl implements SalesDAO{
 		      return salesWeek;
 		   
 	   }
+	   
+	// [게시판 글 입력 후 입력 적용 행의 개수]를 리턴하는 메소드 선언
+		public int insertSales(SalesDTO salesDTO) {
+			//System.out.println("12344=>" + menuDTO.getU_no());
+			int salesRegCnt = this.sqlSession.insert(
+					"com.naver.erp.salesDAO.insertSales"    // 실행할 SQL 구문의 위치 지정
+					,salesDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
+			);
+			System.out.println(salesRegCnt);
+			return salesRegCnt;
+		}
 }

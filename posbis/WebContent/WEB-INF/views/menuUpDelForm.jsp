@@ -67,9 +67,10 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
 
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
 
 
  <script>
@@ -217,7 +218,7 @@
 
 				
 				$("[name=main_category_name]").change(function(){
-	   				alert($(this).val());
+	   				//alert($(this).val());
 	   				$("[name=mid_category_name]").empty();
 	   			$.ajax({
 	      
@@ -243,7 +244,7 @@
 
 	   
 			$("[name=mid_category_name]").change(function(){
-	   			alert($(this).val());
+	   			//alert($(this).val());
 	   			$("[name=sub_category_name]").empty();
 	   
 		  			 $.ajax({
@@ -378,32 +379,32 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a class="active" style="cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -443,9 +444,11 @@
 			<h2>메뉴수정</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">메뉴관리</span>
-				&nbsp; > &nbsp; <span class="sb-item active">메뉴수정</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="fas fa-utensils"></i> 메뉴관리</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="ti-eraser"></i> 메뉴수정</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -461,27 +464,18 @@
  
     <section id="main-content">
       <section class="wrapper">
-        <div class="row">
-          <div class="col-lg-10"><br><br>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">마이페이지</a></li>
-              <li><i class="fa fa-user-md"></i>메뉴관리</li>
-              <li><i class="fa fa-user-md"></i>메뉴수정</li>
-            </ol>
-          </div>
-        </div>
  
       <div class="row">
       
-          <div class="col-lg-8">
-            <section class="panel">
-              <header class="panel-heading">
+          <div class="col-lg-8" style="margin:0 0 0 200; ">
+            <section class="panel" >
+              <header class="panel-heading" style="text-align:center;">
                  [메뉴수정]
               </header>
               <div class="panel-body"> 
-                  <form name = "menuUpDelForm" method="post" action="/posbis/menuUpDelProc.do"class="form-validate form-horizontal" id="feedback_form"  >
-                    <div class="form-group"> 
-                    <label for="cname" class="control-label col-lg-2">메뉴사용여부 <span class="required">*</span></label>
+                  <form name = "menuUpDelForm" method="post" action="/posbis/menuUpDelProc.do"class="form-validate form-horizontal" id="feedback_form" >
+                    <div class="form-group" > 
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 125">메뉴사용여부 <span class="required">*</span></label>
  
 				 <div class="col-lg-6">
 				<c:choose >
@@ -497,7 +491,7 @@
 			</div>
 </div>
                   <div class="form-group"> 
-                    <label for="cname" class="control-label col-lg-2">분류 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 125">분류 <span class="required">*</span></label>
                      <div class="col-lg-2">
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
@@ -524,21 +518,21 @@
                   </div>
                    
                   <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">메뉴이름 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 125">메뉴이름 <span class="required">*</span></label>
                     <div class="col-lg-6">
 					<input type="text" size="40" maxlength="50" name="menu_name" value="${menuDTO.menu_name}" class="form-control"> </div> 
                   </div>
                   
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">메뉴가격 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 125">메뉴가격 <span class="required">*</span></label>
                     <div class="col-lg-6">
-<input type="text" size="40" maxlength="50" name="menu_price" value="${menuDTO.menu_price}" class="form-control"> </div>원
+						<input type="text" size="40" maxlength="50" name="menu_price" value="${menuDTO.menu_price}" class="form-control"> </div>원
                   </div>
                   
                   <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">메뉴원가 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 125">메뉴원가 <span class="required">*</span></label>
                     <div class="col-lg-6">
-<input type="text" size="40" maxlength="50" name="menu_cost" value="${menuDTO.menu_cost}" class="form-control"> </div>원
+						<input type="text" size="40" maxlength="50" name="menu_cost" value="${menuDTO.menu_cost}" class="form-control"> </div>원
                   </div>
                   
        <!------------------------------------------------------------->
@@ -563,19 +557,20 @@
 			<input type="reset" value="목록보기" onClick="document.menuForm.submit();">
 			</div>
 			 -->
-			<div style="float:right"> 
+			<div style="margin:0 0 0 420"> 
                    <button class="btn btn-info" type="button" value="메뉴수정" onClick="checkMenuUpDelForm('up')">메뉴수정 </button>
                    <button class="btn btn-danger" type="button" value="메뉴삭제" onClick="checkMenuUpDelForm('del')">메뉴삭제 </button>
                 
                 <button class="btn btn-success" type="reset" value="목록보기"   onClick="document.menuForm.submit();">목록보기 </button>
              
-                </div>
+            </div>
 			<!------------------------------------------------------------->
 		</form>
+		
 		<form name="menuForm" method="post" action="/posbis/menuForm.do" >
-			<input type="hidden" name="selectPageNo" value="${param.selectPageNo}" }>
-		    <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}" }>
-		    <input type="hidden" name="keyword" value="${param.keyword}" }>
+			<input type="hidden" name="selectPageNo" value="${param.selectPageNo}" >
+		    <input type="hidden" name="rowCntPerPage" value="${param.rowCntPerPage}" >
+		    <input type="hidden" name="keyword" value="${param.keyword}" >
 		</form>
 
               </div>
@@ -584,6 +579,7 @@
     </div>
  </section>
 </section>
+<br><br>
  <!--==========================
     꼬리말
   ============================-->
@@ -594,11 +590,7 @@
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

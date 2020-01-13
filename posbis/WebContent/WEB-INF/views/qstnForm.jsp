@@ -86,126 +86,121 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
       Author URL: https://bootstrapmade.com
     ======================================================= -->
     
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-    
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">   
+  
+  
+<style>
+
+ select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
+} 
+select::-ms-expand { display: none; }
+</style>  
+  
+  
     
    <script>
-      //===============================================================
-      // boay 태그 안의 모든 태그를 읽어들인 후 실행할 자스 코딩 설정
-      //===============================================================
-      $(document).ready(function(){
-         //-----------------------------------------------------------------------
-         // name="rowCntPerPage"에 change 이벤트가 발생하면 실행할 코드 설정하기
-         //-----------------------------------------------------------------------
-         $('[name=rowCntPerPage]').change(function(){
-            goSearch();
-         });
-         
-         //--------------------------------------------------------------------------
-         // 페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입하기
-         // -------------------------------------------------------------------------
-         $(".pagingNumber").html(
-               getPagingNumber(                        
-                  "${qstnAllCnt}"               // 검색 결과 총 행 개수
-                  ,"${qstnSearchDTO.selectPageNo}"  // 선택된 현재 페이지 번호
-                  ,"${qstnSearchDTO.rowCntPerPage}" // 페이지 당 출력행의 개수
-                  ,"15"                              // 페이지 당 보여줄 페이지 번호 개수
-                  ,"goSearch();"                     // 페이지 번호 클릭 후 실행할  자스코드
-         ));
-         
-         //---------------------------------------------------------------------------------------
-         // 게시판 목록을 보여주는 table의 헤더행, 짝수행, 홀수행, 마우스온일 때 배경색 설정하기
-         //---------------------------------------------------------------------------------------
-         setTableTrBgColor(
-               "qstnTable"         // 테이블 class 값
-               ,"${headerColor}"      // 헤더 tr 배경색
-               ,"${oddTrColor}"      // 홀수행 배경색
-               ,"${evenTrColor}"      // 짝수행 배경색
-               ,"${mouseOverColor}"   // 마우스온 시 배경색
-         );
-         
-         //-------------------------------------------------------
-         // 클라이언트가 보낸 검색 조건을 입력 양식에 넣어 주기
-         //-------------------------------------------------------
+   //===============================================================
+   // boay 태그 안의 모든 태그를 읽어들인 후 실행할 자스 코딩 설정
+   //===============================================================
+   $(document).ready(function(){
+      //-----------------------------------------------------------------------
+      // name="rowCntPerPage"에 change 이벤트가 발생하면 실행할 코드 설정하기
+      //-----------------------------------------------------------------------
+      $('[name=rowCntPerPage]').change(function(){
+         goSearch();
+      });
+      
+      //--------------------------------------------------------------------------
+      // 페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입하기
+      // -------------------------------------------------------------------------
+      $(".pagingNumber").html(
+            getPagingNumber(                        
+               "${qstnAllCnt}"               // 검색 결과 총 행 개수
+               ,"${qstnSearchDTO.selectPageNo}"  // 선택된 현재 페이지 번호
+               ,"${qstnSearchDTO.rowCntPerPage}" // 페이지 당 출력행의 개수
+               ,"15"                              // 페이지 당 보여줄 페이지 번호 개수
+               ,"goSearch();"                     // 페이지 번호 클릭 후 실행할  자스코드
+      ));
+      
+      //---------------------------------------------------------------------------------------
+      // 게시판 목록을 보여주는 table의 헤더행, 짝수행, 홀수행, 마우스온일 때 배경색 설정하기
+      //---------------------------------------------------------------------------------------
+      setTableTrBgColor(
+            "qstnTable"         // 테이블 class 값
+            ,"${headerColor}"      // 헤더 tr 배경색
+            ,"${oddTrColor}"      // 홀수행 배경색
+            ,"${evenTrColor}"      // 짝수행 배경색
+            ,"${mouseOverColor}"   // 마우스온 시 배경색
+      );
+      
+      //-------------------------------------------------------
+      // 클라이언트가 보낸 검색 조건을 입력 양식에 넣어 주기
+      //-------------------------------------------------------
+
+      
+       inputData( "[name=selectPageNo]","${qstnSearchDTO.selectPageNo}" );
+       inputData( "[name=rowCntPerPage]","${qstnSearchDTO.rowCntPerPage}" );
+       inputData( "[name=keyword1]","${qstnSearchDTO.keyword1}" );
+
+
+
+
+
+
+//---------------------------------------------------------------------------------------------
+
 /* 
-         $('[name=rowCntPerPage]').val("${qstnSearchDTO.rowCntPerPage}");
-         $('[name=keyword1]').val("${qstnSearchDTO.keyword1}");
-         $('[name=selectPageNo]').val("${qstnSearchDTO.selectPageNo}");
-         
-         <c:forEach items="${qstnSearchDTO.date}" var="date">
-            $('[name=date]').filter("[value='${date}']").prop("checked",true);
-         </c:forEach>
-         
-         <c:forEach items="${qstnSearchDTO.readCnt}" var="readCnt">
-            $('[name=readCnt]').filter("[value=${readCnt}]").prop("checked",true);
-         </c:forEach>
-   
+      var tableObj = $("#FAQ");
+      if (tableObj.length==0)
+      {
+         alert("id=FAQ 를 가진 태그가 존재하지 않습니다. 점검 바람!");
+         return;
+      }
+      // id=movieList 를 가진 태그 내부에 모든 tr 을 관리 JQuery 객체 메위주를 변수 trObj에 저장.
+      var trObj = tableObj.find("tr");
+         // 위 코딩은 아래와 같이 쓸 수 있으나 또다시 id = movieList를 가진
+         // JQuery 객체를 생성하므로 비효율적이다.
+         // var trObj = $("#movieList").find("tr");
+         // var trObj = $(#movieList tr);
+      // 홀수 tr 을 관리 JQuery  객체 메위주를 변수 trOddObj 에 저장
+      var trOddObj = trObj.filter(":even");
+      // 짝수 tr 을 관리 JQuery  객체 메위주를 변수 trEvenObj 에 저장
+      var trEvenObj = trObj.filter(":odd");
+
+      //짝수번째 tr 감추기
+      trEvenObj.hide();
+
+      // 홀수 tr 에 마우스 대면 마우스 댄 tr의 다음 tr만 보이기
+      trOddObj.hover(
+         function(){
+            // 짝수 tr 감추기. 기존에 보여진 짝수 tr을 감추기 위함이다.
+            trEvenObj.hide();
+            // 마우스를 댄 홀수 tr 의 다음 짝수 tr 보이기
+            $(this).next().show()
+         }
+         ,function(){
+            
+         }
+      );
+      // table 영역에서 마우스 빼면 짝수 tr 안 보이기
+      tableObj.hover(
+         function(){
+            
+         }
+         ,function(){
+            trEvenObj.hide();
+         }
+      );
+
+
 */
-         
-          inputData( "[name=selectPageNo]","${qstnSearchDTO.selectPageNo}" );
-          inputData( "[name=rowCntPerPage]","${qstnSearchDTO.rowCntPerPage}" );
-          inputData( "[name=keyword1]","${qstnSearchDTO.keyword1}" );
-          /* inputData( "[name=keyword2]","${qstnSearchDTO.keyword2}" );
-          inputData( "[name=orAnd]","${qstnSearchDTO.orAnd}" );
-          <c:forEach items="${qstnSearchDTO.date}" var="date">
-             inputData("[name=date]","${date}");
-         </c:forEach>
-          <c:forEach items="${qstnSearchDTO.readCnt}" var="readCnt">
-             inputData("[name=readCnt]","${readCnt}");
-         </c:forEach> */
-
-
-
-
-
-//---------------------------------------------------------------------------------------------
-
-/* 
-         var tableObj = $("#FAQ");
-         if (tableObj.length==0)
-         {
-            alert("id=FAQ 를 가진 태그가 존재하지 않습니다. 점검 바람!");
-            return;
-         }
-         // id=movieList 를 가진 태그 내부에 모든 tr 을 관리 JQuery 객체 메위주를 변수 trObj에 저장.
-         var trObj = tableObj.find("tr");
-            // 위 코딩은 아래와 같이 쓸 수 있으나 또다시 id = movieList를 가진
-            // JQuery 객체를 생성하므로 비효율적이다.
-            // var trObj = $("#movieList").find("tr");
-            // var trObj = $(#movieList tr);
-         // 홀수 tr 을 관리 JQuery  객체 메위주를 변수 trOddObj 에 저장
-         var trOddObj = trObj.filter(":even");
-         // 짝수 tr 을 관리 JQuery  객체 메위주를 변수 trEvenObj 에 저장
-         var trEvenObj = trObj.filter(":odd");
-
-         //짝수번째 tr 감추기
-         trEvenObj.hide();
-
-         // 홀수 tr 에 마우스 대면 마우스 댄 tr의 다음 tr만 보이기
-         trOddObj.hover(
-            function(){
-               // 짝수 tr 감추기. 기존에 보여진 짝수 tr을 감추기 위함이다.
-               trEvenObj.hide();
-               // 마우스를 댄 홀수 tr 의 다음 짝수 tr 보이기
-               $(this).next().show()
-            }
-            ,function(){
-               
-            }
-         );
-         // table 영역에서 마우스 빼면 짝수 tr 안 보이기
-         tableObj.hover(
-            function(){
-               
-            }
-            ,function(){
-               trEvenObj.hide();
-            }
-         );
-
-
- */
 
 
 
@@ -215,122 +210,134 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
 
 
-         
-   
+      
+
 });
-         
+      
 
-         
-      //*******************************************
-      // [게시판 목록 화면]으로 이동하는 함수 선언
-      //*******************************************
-      function goSearch(){
-         //------------------------------------------------------------------------------
-         // 만약 키워드가 공백 또는 길이가 없다면 길이 없는 데이터로 셋팅하기
-         // 공백 상태에서 서버로 전송되면 공백을 가지고 DB 검색한다
-         // 이 현상을 막기 위해 공백 또는 길이가 없다면 길이 없는 데이터로 통일해서 셋팅
-         //------------------------------------------------------------------------------
-         if( is_empty("[name=qstnForm] [name=keyword1]") ){
-            $("[name=qstnForm] [name=keyword1]").val("");
-         }
-         
-         //-------------------------------------------------------------------------------
-         // 키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
-         //-------------------------------------------------------------------------------
-         var keyword1 = $("[name=qstnForm] [name=keyword1]").val();
-         keyword1 = $.trim(keyword1);
-         $("[name=qstnForm] [name=keyword1]").val(keyword1);
-         //----------------------------------------------------------------------------
-         /* 위 코드는 아래처럼도 가능.
-            $("[name=qstnForm] [name=keyword1]").val(
-               $.trim($("[name=qstnForm] [name=keyword1]").val()  )
-            ); 
-         */
-         
-      /*    if( is_empty("[name=qstnForm] [name=keyword2]") ){
-            $("[name=qstnForm] [name=keyword2]").val("");
-         }
-         //-------------------------------------------------------------------------------
-         // 키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
-         //-------------------------------------------------------------------------------
-         var keyword2 = $("[name=qstnForm] [name=keyword2]").val();
-         keyword2 = $.trim(keyword2);
-         $("[name=qstnForm] [name=keyword2]").val(keyword2); */
-         //----------------------------------------------------------------------------
-         // name=qstnForm 을 가진 form 태그의 action 값의 URL로 웹서버에 접속하기
-         //----------------------------------------------------------------------------
-         document.qstnForm.submit();
+      
+   //*******************************************
+   // [게시판 목록 화면]으로 이동하는 함수 선언
+   //*******************************************
+   function goSearch(){
+      //------------------------------------------------------------------------------
+      // 만약 키워드가 공백 또는 길이가 없다면 길이 없는 데이터로 셋팅하기
+      // 공백 상태에서 서버로 전송되면 공백을 가지고 DB 검색한다
+      // 이 현상을 막기 위해 공백 또는 길이가 없다면 길이 없는 데이터로 통일해서 셋팅
+      //------------------------------------------------------------------------------
+      if( is_empty("[name=qstnForm] [name=keyword1]") ){
+         $("[name=qstnForm] [name=keyword1]").val("");
       }
       
+      //-------------------------------------------------------------------------------
+      // 키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
+      //-------------------------------------------------------------------------------
+      var keyword1 = $("[name=qstnForm] [name=keyword1]").val();
+      keyword1 = $.trim(keyword1);
+      $("[name=qstnForm] [name=keyword1]").val(keyword1);
+      //----------------------------------------------------------------------------
+      /* 위 코드는 아래처럼도 가능.
+         $("[name=qstnForm] [name=keyword1]").val(
+            $.trim($("[name=qstnForm] [name=keyword1]").val()  )
+         ); 
+      */
       
-      
-      //*********************************************
-      // [모두 검색] 버튼 누르면 호출되는 함수 선언
-      //*********************************************
-      function goSearchAll(){
-         //--------------------------------------------------------------------------
-         // name=qstnForm 을 가진 form 태그의 내부의 모든 입력양식 중에
-         // 체크박스나 라디오는 체크를 풀고 그 외 입력양식은 value 속성값을 비운다
-         //--------------------------------------------------------------------------
-         document.qstnForm.reset();
-         //---------------------------------------------------------------------
-         // 선택페이지 번호와 페이지당 보여지는 행의 개수는 비우면 안 되므로
-         // 기본값을 넣어 준다. 이게 없으면 DB 연동을 할 수 없기 떄문이다
-         //---------------------------------------------------------------------
-         $("[name=qstnForm] [name=selectPageNo]").val("1");
-         $("[name=qstnForm] [name=rowCntPerPage]").val("10");
-         goSearch(); 
+   /*    if( is_empty("[name=qstnForm] [name=keyword2]") ){
+         $("[name=qstnForm] [name=keyword2]").val("");
       }
-      //*********************************************
-      // [게시판 입력 화면]으로 이동하는 함수 선언
-      //*********************************************
-      function goQstnRegForm(){
-         // get 방식으로 파값이 전혀 없는 상태에서 웹서버에 괄호 안 url 주소로 접근해서 걔가 나한테 던져준 html으로 새로운 화면을 열겠다
-         location.replace("/posbis/qstnRegForm.do")
-      }
-      function goQstnForm(){
-            location.replace("/posbis/qstnForm.do");
-         }
-      //**********************************************************************************
-      // [1개의 게시판 내용물]을 보여주는 [게시판 상세 보기 화면]으로 이동하는 함수 선언
-      //**********************************************************************************
-       function goQstnContentForm(qna_no, writer_id, print_level, group_no){ 
+      //-------------------------------------------------------------------------------
+      // 키워드 앞뒤에 공백이 있으면 제거하고 다시 넣어주기
+      //-------------------------------------------------------------------------------
+      var keyword2 = $("[name=qstnForm] [name=keyword2]").val();
+      keyword2 = $.trim(keyword2);
+      $("[name=qstnForm] [name=keyword2]").val(keyword2); */
+      //----------------------------------------------------------------------------
+      // name=qstnForm 을 가진 form 태그의 action 값의 URL로 웹서버에 접속하기
+      //----------------------------------------------------------------------------
+      document.qstnForm.submit();
+   }
+   
+   
+   
+   //*********************************************
+   // [모두 검색] 버튼 누르면 호출되는 함수 선언
+   //*********************************************
+   function goSearchAll(){
+      //--------------------------------------------------------------------------
+      // name=qstnForm 을 가진 form 태그의 내부의 모든 입력양식 중에
+      // 체크박스나 라디오는 체크를 풀고 그 외 입력양식은 value 속성값을 비운다
+      //--------------------------------------------------------------------------
+      document.qstnForm.reset();
+      //---------------------------------------------------------------------
+      // 선택페이지 번호와 페이지당 보여지는 행의 개수는 비우면 안 되므로
+      // 기본값을 넣어 준다. 이게 없으면 DB 연동을 할 수 없기 떄문이다
+      //---------------------------------------------------------------------
+      $("[name=qstnForm] [name=selectPageNo]").val("1");
+      $("[name=qstnForm] [name=rowCntPerPage]").val("10");
+      goSearch(); 
+   }
 
-        //----------------------------------------------------------------------최수현
-			var flag = false;
-			 <c:forEach items="${group_no}" var="group_no" varStatus="loopTagStatus">
-					
-			 		if (group_no=="${group_no.GROUP_NO}" || print_level==0){
-			           flag=true;
-					}
-				 
+
+   
+   //*********************************************
+   // [게시판 입력 화면]으로 이동하는 함수 선언
+   //*********************************************
+   function goQstnRegForm(){
+      // get 방식으로 파값이 전혀 없는 상태에서 웹서버에 괄호 안 url 주소로 접근해서 걔가 나한테 던져준 html으로 새로운 화면을 열겠다
+      location.replace("/posbis/qstnRegForm.do")
+   }
+   function goQstnForm(){
+         location.replace("/posbis/qstnForm.do");
+      }
+
+   
+   //**********************************************************************************
+   // [1개의 게시판 내용물]을 보여주는 [게시판 상세 보기 화면]으로 이동하는 함수 선언
+   //**********************************************************************************
+     function goQstnContentForm(qna_no, writer_id, print_level, group_no){ 
+			
+			//alert(print_level);
+
+	    	 var flag = false;
+		 	<c:forEach items="${group_no}" var="group_no" varStatus="loopTagStatus">
+	     			 if (group_no=="${group_no.GROUP_NO}" | print_level==0){flag=true;} 
 			 </c:forEach>
-			 if(flag==false){
-				 alert("게시글에 대한 권한이 없습니다.");
-				 return;
-				 }
-         //------------------------------------------------------------------------
-         // 상세보기 화면으로 이동할 떄 가져갈 파라미터값을 만든다
-         // qna_no는 필수이고 나머지는 검색 조건 관련 파라미터값이다
-         // 검색조건 관련 파라미터값을 가지고 가야 다시 이리로 올 때 검색 조건들을
-         // 넣어 줄 수 있다
-         //------------------------------------------------------------------------
-         var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
-         
-         /* $(".xxx").remove();
-         $("body").prepend("<div class=xxx><hr>" + str + "<hr></div>");
-         return; */
-         
-         location.replace( "/posbis/qstnContentForm.do?" + str );
-      /*    alert(qna_no)
-         var selectPageNo = $("[name=qstnForm] [name=selectPageNo]").val()
-         var rowCntPerPage = $("[name=qstnForm] [name=rowCntPerPage]").val()
-         location.replace(
-               "${ctRoot}/qstnContentForm.do?qna_no=" + qna_no + "&" 
-                                 + $("[name=qstnForm]").serialize() 
-         */
-      }
-      
+	  	   if(flag==false){
+			  		 $.ajax({
+		       		  url : "/posbis/qstnMasterRegProc.do"
+		                 , type : "post"
+		                 , data : $("[name=qstnContentForm]").serialize()
+		                 , success : function(masterCnt){
+		  	                  if(masterCnt == 1){
+		  		                      var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
+		  		                      location.replace( "/posbis/qstnContentForm.do?" + str );
+		  	                  }
+		  	                  else if(masterCnt==0){
+		  	       				alert("게시글에 대한 권한이 없습니다.");
+		  							
+		  	                  }
+		  	                  
+		                 }
+		                 // 서버의 응답을 못받았을 경우 실행할 익명함수 설정.
+		                 , error : function(){
+		                	    alert("서버 접속 실패");
+		                 }
+		   			});
+	    	}
+	  	   else if(flag==true){
+	  		 var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
+            location.replace( "/posbis/qstnContentForm.do?" + str );
+	    		 
+			} 
+   } 
+     //**********************************************************************************
+     //    //   끝    [1개의 게시판 내용물]을 보여주는 [게시판 상세 보기 화면]으로 이동하는 함수 선언
+     //**********************************************************************************
+
+
+
+
+       
       
    //--------------------------------------------------------
 	   //로고 클릭시
@@ -472,32 +479,32 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a class="active" style="cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -538,8 +545,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 			<h2>Q&A</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">Q&A 목록보기</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="far fa-comments"></i> 고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="icon-question"></i> Q&A 목록보기</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -559,9 +568,11 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
                 	   <a href="">Q&A게시판</a>
               </header>
               
-              <div class="panel-body">   
+              <div class="panel-body">  
+              <div class="container"> 
         
           <form name="qstnForm" method="post" action="/posbis/qstnForm.do">
+          <br><br>
           <div  class="form-group">
                <!-------------------------------->
          <!-- 키워드 검색 입력 양식 표현 -->
@@ -608,12 +619,12 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
                <!--    한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기   -->
                <!--------- 행의 개수는 DB 연동시 아주 중요한 역할을 한다 -------------->
                <!---------------------------------------------------------------------->
-               <select name="rowCntPerPage">
-                  <option value="10">10
-                  <option value="15">15
-                  <option value="20">20
-                  <option value="25">25
-                  <option value="30">30
+               <select name="rowCntPerPage" style="width:50px;height:25px;">
+                  	<option value="10">&nbsp;10&nbsp;
+					<option value="15">&nbsp;15&nbsp;
+					<option value="20">&nbsp;20&nbsp;
+					<option value="25">&nbsp;25&nbsp;
+					<option value="30">&nbsp;30&nbsp;
                </select> 행보기
       </table>
       </form>
@@ -653,14 +664,17 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
                      <!------------------------------------------>
                      <c:if test="${qstn.print_level>0}">
                         <c:forEach begin="0" end="${qstn.print_level}">
-                             &nbsp;&nbsp;
+                             &nbsp;
                         </c:forEach>
-                        ㄴ
+                        ㄴ답글&nbsp;:&nbsp;
                      </c:if> 
                      <!--------------------------------------------->
                      <!-- 게시판 검색 목록 중에 각 행의 제목 출력 -->
                      <!--------------------------------------------->
                      ${qstn.subject}
+                     <c:if test="${qstn.manager=='t'}">
+                 	     <i class="fa fa-fw  fas fa-lock" style="font-size:13px;"></i>
+                      </c:if>
                <!----------------------------------------------->
                <!-- 게시판 검색 목록 중에 각 행의 글쓴이 출력 -->
                <!----------------------------------------------->
@@ -693,23 +707,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
        검색 결과가 없습니다
    </c:if>
       <br><br>
-            <!-- <section class="panel">
-              <header class="panel-heading">
-                      FAQ
-              </header>
-              <div class="panel-body">  
-                  <div class="col-sm-10" align="center">
-      
-              <table id="FAQ"class="table table-striped table-advance table-hover">
-         <tr><td><b>Q.인간은 왜 일을 해야 하나요?
-         <tr><td>&nbsp;&nbsp;A.돈 벌어야 되니까요.
-         <tr><td><b>Q.life is egg라던데 사실인가요?
-         <tr><td>&nbsp;&nbsp;A.네 사실입니다
-         <tr><td><b>Q.요즘 입덕한 사람은 누군가요?
-         <tr><td>&nbsp;&nbsp;A.양준일이요. 개착하고 개귀여워 ㅠㅠㅠ
-      </table>
-</div>
-</section> -->
+
 
             </div>
             </div>
@@ -733,11 +731,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

@@ -10,6 +10,7 @@ public class PreSearchDTO {
 	private String business_type_name2;
 	private String addr_gu1;
 	private String addr_gu2;
+	private String addr_dong1;
 	private int month_sales=0;
 	private int selectPageNo=1;
 	private int rowCntPerPage=10;
@@ -19,9 +20,6 @@ public class PreSearchDTO {
 	private List<Map<String,String>> preResultList;
 	private int preResultAllCnt=0;
 	
-	
-
-
 	
 	
 	public String getBusiness_type_name1() {
@@ -48,6 +46,12 @@ public class PreSearchDTO {
 	public void setAddr_gu2(String addr_gu2) {
 		this.addr_gu2 = addr_gu2;
 	}
+	public String getAddr_dong1() {
+		return addr_dong1;
+	}
+	public void setAddr_dong1(String addr_dong1) {
+		this.addr_dong1 = addr_dong1;
+	}
 	public int getMonth_sales() {
 		return month_sales;
 	}
@@ -69,7 +73,6 @@ public class PreSearchDTO {
 	public String getSort() {
 		return sort;
 	}
-	
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
@@ -86,6 +89,9 @@ public class PreSearchDTO {
 		this.preResultAllCnt = preResultAllCnt;
 	}
 	
+	
+
+
 	
 	
 	

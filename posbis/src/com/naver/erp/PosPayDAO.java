@@ -21,4 +21,8 @@ public interface PosPayDAO {
 		
 	List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO);
 
+	
+	//가게이름 불러오기
+	String getBusiness_name(String business_no);
+
 }

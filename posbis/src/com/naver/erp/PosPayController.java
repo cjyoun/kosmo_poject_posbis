@@ -16,7 +16,8 @@ public class PosPayController {
 
 	@Autowired
 	private PosPayService posPayService;
-
+	@Autowired
+	private SalesService salesService;
 	
 	
 	@RequestMapping(value ="/posPayForm.do")
@@ -28,14 +29,20 @@ public class PosPayController {
 		
 
 	  	String business_no = (String)session.getAttribute("pos_business_no");
-		
+	  	
+	  	
 		try {
 			
 			mav.addObject("business_no", business_no);
 
 			System.out.println("!11");
+			
+			// 가게 이름 얻기
+			String business_name = this.posPayService.getBusiness_name(business_no);
+			mav.addObject("business_name", business_name);
+			System.out.println(business_name);
 
-//	       //================[메뉴 총 개수] 얻기=====================
+//	      		 //================[메뉴 총 개수] 얻기=====================
 //				int posMenuAllCnt = this.posPayService.getPosMenuAllCnt(business_no);
 //				mav.addObject("posMenuAllCnt", posMenuAllCnt);
 //				//================끝  [메뉴 총 개수] 얻기=====================
@@ -77,9 +84,9 @@ public class PosPayController {
 		List<Map<String,String>> posPerMenuList=null;
 	  	String business_no = (String)session.getAttribute("pos_business_no");
 	  	posMenuDTO.setBusiness_no(business_no);
+
 		
 		try {
-			
 			
 			 posPerMenuList= this.posPayService.getPosPerMenuList(posMenuDTO);
 			 System.out.println("posPerMenuList.size() : " + posPerMenuList.size() );
@@ -99,6 +106,34 @@ public class PosPayController {
 		System.out.println(posPerMenuList);
 		return posPerMenuList;
 
+	}
+	
+	//---------------------------------------------
+	// 가상주소 /posbis/posSalesRegProc.do 로 접근하면 호출되는 메소드 선언.
+	//---------------------------------------------
+	@RequestMapping(
+			value="/posSalesRegProc.do"			// 접속하는 클래스의 URL 주소 설정
+			,method=RequestMethod.POST		// 접속하는 클래스의 파마리터값 전송 방법
+			,produces="application/json;charset=UTF-8"	// 응답할 데이터 종류 설정
+	)
+	@ResponseBody
+	public int insertSales(
+			SalesDTO salesDTO			
+	) {
+		//[게시판 입력 적용행의 개수]저장할 변수 선언
+		int salesRegCnt = 0;
+	
+	try {
+		
+			
+		salesRegCnt = this.salesService.insertSales(salesDTO);
+		}catch(Exception e) {
+			System.out.println("<에러발생>");
+			System.out.println(e.getMessage());
+			
+			salesRegCnt=-1;
+		}
+		return salesRegCnt;
 	}
 	
 }

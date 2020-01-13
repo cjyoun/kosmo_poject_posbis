@@ -124,17 +124,24 @@ public class PreSearchServiceImpl implements PreSearchService{
 	
 	
 
-	// select / AddrGu2 얻기
-	public List<String> getAddrGu2(String addr_gu1) {
-		List<String> addrGu2List;
-		addrGu2List = this.preSearchDAO.getAddrGu2(addr_gu1);
-		return addrGu2List;
+	// select / AddrDong1 얻기
+	public List<String> getAddrDong1(String addr_gu1) {
+		List<String> addrDong1List;
+		addrDong1List = this.preSearchDAO.getAddrDong1(addr_gu1);
+		return addrDong1List;
 	}
 	
+
+	//--------------------------------------------------------------------------------------------------   
 	
 	
 	
-	
+	//bestMenuList 얻기
+	public List<String> getBestMenuList(PreSearchDTO preSearchDTO){
+		List<String> bestMenuList;
+		bestMenuList = this.preSearchDAO.getBestMenuList(preSearchDTO);
+		return bestMenuList;
+	}
 	
 	
 

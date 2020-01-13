@@ -59,7 +59,11 @@ public class PosPayServiceImpl implements PosPayService{
 	      return posPerMenuList;
 	}
 	
-	
-	
+	//가게이름 불러오기
+	public String getBusiness_name(String business_no) {
+		String business_name = this.posPayDAO.getBusiness_name(business_no);
+	      
+	    return business_name;
+	}
 
 }

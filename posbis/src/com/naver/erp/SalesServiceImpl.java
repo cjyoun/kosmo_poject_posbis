@@ -104,5 +104,13 @@ public class SalesServiceImpl implements SalesService{
 
 		      return salesWeek;
 	   }
+	   
+	// 매출 등록 성유진 시작
+	public int insertSales(SalesDTO salesDTO){
 
+		// 1개의 메뉴 등록 후 적용 행의 개수 리턴하기
+		int salesRegCnt = this.salesDAO.insertSales(salesDTO);
+		return salesRegCnt;
+	}
+	// 성유진 끝
 }

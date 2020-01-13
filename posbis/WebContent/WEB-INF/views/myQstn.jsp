@@ -85,9 +85,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
       Author URL: https://bootstrapmade.com
     ======================================================= -->
 
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
 
   <style>
   .loginmaintaining {
@@ -114,7 +115,13 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
 
 }
-  
+ select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
+} 
+select::-ms-expand { display: none; }  
   
   </style>
 
@@ -303,32 +310,32 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a class="active" style="cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -370,8 +377,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 			<h2>나의 문의내역</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">마이페이지</span>&nbsp; > &nbsp; <span class="sb-item active">문의내역 확인</span>
-			</nav>
+            <span class="sb-item active">
+	            <i class="icon-user"></i> 마이페이지</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="ti-comment-alt"></i> 문의내역 확인</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -397,14 +406,19 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
           <div  class="form-group">	
 
          <!-- 키워드 검색 입력 양식 표현 -->
-         [키워드] : <input type="text" name="keyword1" class="keyword1">
+         [키워드] : <input type="text" name="keyword1" class="keyword1" style="margin:10 0 0 0">
          
          <!-------------------------------->
          <!-------- 버튼 표현하기 --------->
          <!-------------------------------->
-         <input type="button" value="검    색" class="qstnSearch"  onClick="goSearch();">&nbsp;
-         <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp;
-         <a href="javascript:goQstnRegForm();">[문의하기]</a>&nbsp;&nbsp;<br>
+
+
+         <button type="button" class="btn btn-default"style="margin:0 21 0 30" onClick="goSearch();">검      색</button>
+         <button type="button" class="btn btn-default"style="" onClick="goSearchAll();">모두  검색</button>&nbsp;&nbsp;
+         <a href="javascript:goQstnRegForm();">[문의하기]</a>&nbsp;&nbsp;
+
+         <br>
+         
           <!--------------------------------------------------->
          <!-- 어제 또는 오늘 게시판 글을 검색하는 조건 표현 -->
          <!--------------------------------------------------->
@@ -428,12 +442,12 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
               [총 개수] : ${myQstnAllCnt2}&nbsp;&nbsp;&nbsp;
 
-               <select name="rowCntPerPage">
-                  <option value="10">10
-                  <option value="15">15
-                  <option value="20">20
-                  <option value="25">25
-                  <option value="30">30
+               <select name="rowCntPerPage" style="width:50px;height:25px;">
+                 	<option value="10">&nbsp;10&nbsp;
+					<option value="15">&nbsp;15&nbsp;
+					<option value="20">&nbsp;20&nbsp;
+					<option value="25">&nbsp;25&nbsp;
+					<option value="30">&nbsp;30&nbsp;
                </select> 행보기
       </table>
       </form>
@@ -502,11 +516,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

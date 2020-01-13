@@ -38,4 +38,7 @@ public interface SalesDAO {
 	// 홈페이지 매출 현황
 	List<Map<String, String>> getSalesWeek(int u_no);
 	
+	
+	int insertSales(SalesDTO salesDTO);
+	
 }

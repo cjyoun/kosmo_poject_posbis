@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%@ include file="common.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -67,8 +67,11 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
     
- <!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
+
  
  <style>
  .loginmaintaining {
@@ -99,220 +102,252 @@
 }
   
   
+select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
+} 
+select::-ms-expand { display: none; }
+
+  
   </style>
  
  
 <script>
+	
+	
+	  $(document).ready(function(){
 
 			
-	  	   $(document).ready(function(){
-		  	   //alert("ready!");
-		  	   
-		  	   //월매출 콤마 넣기
-	  		    $(".month_sales").each(function() {
-                var num = $(this).text();
-                var commaNum = numberWithCommas(num);
-                $(this).text(commaNum+ "원");
-        		 });
-				
-
-				
- 	  		 	$('[name=rowCntPerPage]').change(function(){
-	  		 		goPreSearch();
-				}); 
-
- 	  		 	
- 	  			//페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입
-					$(".pagingNumber").html(
-						getPagingNumber(
-							"${preResultAllCnt}"                //검색 결과 총 행 개수
-							,"${preSearchDTO.selectPageNo}"	//선택된 현재 페이지 번호
-							,"${preSearchDTO.rowCntPerPage}"	//페이지 당 출력행 개수
-							,"15"								//페이지 당 보여줄 페이지번호 개수
-							,"goPreSearch();"						//페이지 번호 클릭 후 실행할 자스코드
-						)
-					); 
- 	  			
-
-				
-				
- 				$('[name=business_type_name1]').change(function(){
-					getBusinessTypeName2();
-					
-				}); 
-
- 				$('[name=addr_gu1]').change(function(){
- 					getAddrGu2();
-				}); 
-				
-								
-
-				
-				inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
-				inputData("[name=selectPageNo]","${preSearchDTO.selectPageNo}");
-				inputData("[name=business_type_name1]","${preSearchDTO.business_type_name1}");
-				 if("${preSearchDTO.business_type_name2}" == null){
-					inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
-					}else{
-						getBusinessTypeName2();
-				 }
-				inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
-				 inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-			    if("${preSearchDTO.addr_gu2}" == null){
-			  	inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-			    }else{
-			    	getAddrGu2();
-				} 
-				inputData("[name=month_sales]","${preSearchDTO.month_sales}");
-
-
-
-	  	   });	 
-
-
-
-	  	// addr_gu2 List
-			function getAddrGu2(){
-
-				$.ajax({
-					url : "/posbis/getAddrGu2Proc.do"
-					, type : "post"
-					, data : "addr_gu1="+$('[name=addr_gu1]').val()
-					, success : function(data){
-							$("[name=addr_gu2]").empty();
-							$("[name=addr_gu2]").append("<option value=''>----구선택----</option>");
-							for( var i=0; data.length>i; i++){
-								//alert();
-								$('[name=addr_gu2]').append("<option value="+data[i]+">"+data[i])
-
-							}
-							if("${preSearchDTO.addr_gu2}"!=null){
-								inputData("[name=addr_gu2]","${preSearchDTO.addr_gu2}");
-							}
-							else{
-								inputData("[name=addr_gu2]","");
-							}
-							
-					}
-					, error : function(){
-						alert("서버 접속 실패");
-					}
-				})
-			}
-
-
-	  	   
-		
-			// 업종 소분류
-			function getBusinessTypeName2(){
-
-				$.ajax({
-					url : "/posbis/getBusinessTypeName2Proc.do"
-					, type : "post"
-					, data : "business_type_name1="+$('[name=business_type_name1]').val()
-					, success : function(data){
-							$("[name=business_type_name2]").empty();
-							$("[name=business_type_name2]").append("<option value=''>----중분류----</option>");
-							//alert("business_type_name2///"+data[0]);
-							for( var i=0; data.length>i; i++){
-								//alert();
-								$('[name=business_type_name2]').append("<option value="+data[i]+">"+data[i])
-
-							}
-							if("${preSearchDTO.business_type_name2}"!=null){
-								inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
-							}
-							else{
-								inputData("[name=business_type_name2]","");
-							}
-							
-					}
-					, error : function(){
-						alert("서버 접속 실패");
-					}
-				})
-			}
-
-
-
-			
-
-			//월매출 콤마 넣기 함수
-	         function numberWithCommas(number) {
-	             var parts = number.toString().split(".");
-	             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	             return parts.join(".");
-	         }
-
+		  
+		   //alert("ready!");
 		   
-
-
-
-
+		   //월매출 콤마 넣기
+		    $(".month_sales").each(function() {
+	     var num = $(this).text();
+	     var commaNum = numberWithCommas(num);
+	     $(this).text(commaNum);
+			 });
+			
+	
+			
+		 	$('[name=rowCntPerPage]').change(function(){
+		 		goPreSearch();
+			}); 
+	
+		 	
+			//페이징 처리 관련 HTML 소스를 class=pagingNumber 가진 태그 안에 삽입
+				$(".pagingNumber").html(
+					getPagingNumber(
+						"${preResultAllCnt}"                //검색 결과 총 행 개수
+						,"${preSearchDTO.selectPageNo}"	//선택된 현재 페이지 번호
+						,"${preSearchDTO.rowCntPerPage}"	//페이지 당 출력행 개수
+						,"15"								//페이지 당 보여줄 페이지번호 개수
+						,"goPreSearch();"						//페이지 번호 클릭 후 실행할 자스코드
+					)
+				); 
+			
+	
+			
+			
+			$('[name=business_type_name1]').change(function(){
+				getBusinessTypeName2();
 				
-	         function goPreSearch(){	 		
-/*
-			       	$.ajax({
-						url : "/posbis/getPreResultProc.do"
-						, type : "post"
-						, data : $("[name=preSearchForm]").serialize() 
-						, success : function(data){
-							alert("성공");
-
-							$("[name=preResultTable] tbody").empty();
-					
-							for ( var i=0; i<data.rowCntPerPage; i++){
-								
-								$("[name=preResultTable] tbody").append("<tr><td  align=center>"+data.preResultList[i].PAGINGRNUM
-																												+"<td  align=center>"+data.preResultList[i].RANKING
-																												+"<td  align=right class=month_sales>"+data.preResultList[i].MONTH_SALES
-																												+"<td  align=center>"+data.preResultList[i].BUSINESS_TYPE
-																												+"<td  align=center>"+data.preResultList[i].BEST_MENU_TYPE
-																												+"<td  align=center>"+data.preResultList[i].ADDR_GU+" "+data.preResultList[i].ADDR_DONG+"</tr");
+			}); 
+	
+			$('[name=addr_gu1]').change(function(){
+				getAddrDong1();
+				inputData("[name=addr_dong1]","");
+			}); 
+			
 							
-							}
-							alert(data.selectPageNo)
-							
+	
+			
+			inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
+			inputData("[name=selectPageNo]","${preSearchDTO.selectPageNo}");
+			inputData("[name=business_type_name1]","${preSearchDTO.business_type_name1}");
+			 if("${preSearchDTO.business_type_name2}" == null){
+				inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
+				}else{
+					getBusinessTypeName2();
+			 }
+			inputData("[name=addr_gu1]","${preSearchDTO.addr_gu1}");
+			 inputData("[name=addr_dong1]","${preSearchDTO.addr_dong1}");
+		    if("${preSearchDTO.addr_dong1}" == null){
+		  	inputData("[name=addr_dong1]","${preSearchDTO.addr_dong1}");
+		    }else{
+		    	getAddrDong1();
+			} 
+			inputData("[name=month_sales]","${preSearchDTO.month_sales}");
+			inputData("[name=sort]","${preSearchDTO.sort}");
+	
+	
+	
+	  });	 
+	
+	
+	
+	// addr_dong1 List
+		function getAddrDong1(){
+	
+			$.ajax({
+				url : "/posbis/getAddrDong1Proc.do"
+				, type : "post"
+				, data : "addr_gu1="+$('[name=addr_gu1]').val()
+				, success : function(data){
+						$("[name=addr_dong1]").empty();
+						$("[name=addr_dong1]").append("<option value=''>&nbsp;----동선택----</option>");
+						for( var i=0; data.length>i; i++){
+							//alert();
+							$('[name=addr_dong1]').append("<option value="+data[i]+">&nbsp;"+data[i])
+	
 						}
-						, error : function(request,status,error){
-							alert("서버 접속 실패");
-							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						if("${preSearchDTO.addr_dong1}"!=null){
+							inputData("[name=addr_dong1]","${preSearchDTO.addr_dong1}");
+						}
+						else{
+							inputData("[name=addr_dong1]","");
+						}
 						
+				}
+				, error : function(){
+					alert("서버 접속 실패");
+				}
+			})
+		}
+	
+	
+	  
+	
+		// 업종 소분류
+		function getBusinessTypeName2(){
+	
+			$.ajax({
+				url : "/posbis/getBusinessTypeName2Proc.do"
+				, type : "post"
+				, data : "business_type_name1="+$('[name=business_type_name1]').val()
+				, success : function(data){
+						$("[name=business_type_name2]").empty();
+						$("[name=business_type_name2]").append("<option value=''>&nbsp;----소분류----</option>");
+						//alert("business_type_name2///"+data[0]);
+						for( var i=0; data.length>i; i++){
+							//alert();
+							$('[name=business_type_name2]').append("<option value="+data[i]+">&nbsp;"+data[i])
+	
 						}
-					}) 
-				*/
-				$.ajax({
+						if("${preSearchDTO.business_type_name2}"!=null){
+							inputData("[name=business_type_name2]","${preSearchDTO.business_type_name2}");
+						}
+						else{
+							inputData("[name=business_type_name2]","");
+						}
+						
+				}
+				, error : function(){
+					alert("서버 접속 실패");
+				}
+			})
+		}
+	
+	
+	
+		
+	
+		//월매출 콤마 넣기 함수
+	  function numberWithCommas(number) {
+	      var parts = number.toString().split(".");
+	      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	      return parts.join(".");
+	  }
+	
+	
+	
+	
+	
+	
+			
+	  function goPreSearch(){	 		
+	/*
+		       	$.ajax({
 					url : "/posbis/getPreResultProc.do"
-						, type : "post"
-						, data : $("[name=preSearchForm]").serialize() 
-						, success : function(data){
-							//alert("성공");
-
-								
-								$("body").load("/posbis/preSearchForm.do",$("[name=preSearchForm]").serialize());
+					, type : "post"
+					, data : $("[name=preSearchForm]").serialize() 
+					, success : function(data){
+						alert("성공");
+	
+						$("[name=preResultTable] tbody").empty();
+				
+						for ( var i=0; i<data.rowCntPerPage; i++){
 							
-							
-						}
-						, error : function(request,status,error){
-							alert("서버 접속 실패");
-							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							$("[name=preResultTable] tbody").append("<tr><td  align=center>"+data.preResultList[i].PAGINGRNUM
+																											+"<td  align=center>"+data.preResultList[i].RANKING
+																											+"<td  align=right class=month_sales>"+data.preResultList[i].MONTH_SALES
+																											+"<td  align=center>"+data.preResultList[i].BUSINESS_TYPE
+																											+"<td  align=center>"+data.preResultList[i].BEST_MENU_TYPE
+																											+"<td  align=center>"+data.preResultList[i].ADDR_GU+" "+data.preResultList[i].ADDR_DONG+"</tr");
 						
 						}
-					}) 
+						alert(data.selectPageNo)
+						
+					}
+					, error : function(request,status,error){
+						alert("서버 접속 실패");
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					
-					//document.preSearchForm.submit(); 
-		      }   
+					}
+				}) 
+			*/
+			$.ajax({
+				url : "/posbis/getPreResultProc.do"
+					, type : "post"
+					, data : $("[name=preSearchForm]").serialize() 
+					, success : function(data){
+						//alert("성공");
+	
+							
+							$("body").load("/posbis/preSearchForm.do",$("[name=preSearchForm]").serialize());
+						
+						
+					}
+					, error : function(request,status,error){
+						alert("서버 접속 실패");
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					
+					}
+				}) 
+				
+				//document.preSearchForm.submit(); 
+	   }   
+	
+	
+	  
+		//검색 조건 초기화
+		function goSearchReset(){
+			
+	         document.preSearchForm.reset( );  
+	         inputData("[name=selectPageNo]" ,"1");
+	          inputData("[name=rowCntPerPage]","${preSearchDTO.rowCntPerPage}");
+	          inputData("[name=addr_gu1]","");
+	          inputData("[name=addr_dong1]","");
+	          inputData("[name=business_type_name1]","");
+	          inputData("[name=business_type_name2]","");
+	          inputData("[name=month_sales]","0");
+	         
+	
+		}
+	
+	
+	
+	
+	function goPreSearchAll(){
+			document.preSearchForm.reset( );
+			$("[name=preSearchForm] [name=selectPageNo]").val("1");
+			$("[name=preSearchForm] [name=rowCntPerPage]").val("10");
+			goPreSearch();
+	}
 
 
-
-	      
-
-	      function goPreSearchAll(){
-				document.preSearchForm.reset( );
-				$("[name=preSearchForm] [name=selectPageNo]").val("1");
-				$("[name=preSearchForm] [name=rowCntPerPage]").val("10");
-				goPreSearch();
-		  }
 
 	    //--------------------------------------------------------
 		   //로고 클릭시
@@ -422,32 +457,32 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a class="active" style="cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -489,8 +524,10 @@
 			<h2>시장분석</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">업체동향</span> &nbsp; > &nbsp; <span class="sb-item active">시장분석</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="icon-location-pin"></i> 업계동향</span> &nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="icon-magnifier"></i> 시장분석</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -512,98 +549,241 @@
               <div class="panel-body">
          
       <div class="container">
- 	<!--======================-->
-					<!------검     색        조      건-------------->
+<!--======================-->
 					<!--======================-->
+               <!------검     색        조      건-------------->
+               <!--======================-->
 
-					<!-- 검색조건 form -->
-					<form name="preSearchForm" method="post"
-						action="/posbis/preSearchForm.do">
+               <!-- 검색조건 form -->
+               <form name="preSearchForm" method="post"
+                  action="/posbis/preSearchForm.do">
 
-			 
-							<table>
-								<tr>
-									<td><span class="help-block"> [지 &nbsp; &nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
-									<td><select name="addr_gu1">
-												<option value="">----구선택----</option>
-												<c:forEach items="${addrGu1List}" var="addrGu1">
-													<option value="${addrGu1.addr_gu1}">${addrGu1.addr_gu1}</option>
-												</c:forEach>
-										  </select> &nbsp;
-								
-										<select name="addr_gu2">
-											<option value="">----구선택----</option>
-										</select>	
-								<tr>
-									<td><span class="help-block"> [업 &nbsp; &nbsp; 종]&nbsp;&nbsp;:&nbsp;&nbsp;</span>
-									<td> <select name="business_type_name1">
-												<option value="">----대분류----
-													<c:forEach items="${businessTypeName1List}"
-														var="businessTypeName1">
-														<option value="${businessTypeName1.business_type_name1}">${businessTypeName1.business_type_name1}
-														</option>
-													</c:forEach>
-									   	</select> &nbsp; 
-										<select name="business_type_name2">
-												<option value="">----소분류----
-										</select> &nbsp;
-								<tr>
-									<td><span class="help-block">[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</span>
-									<td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>
-															<input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="20000"><label for="month_sales_2"> 20,000이상</label>
-															<input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="50000"><label for="month_sales_all_5"> 50,000이상 </label>
-															<input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="100000"><label for="month_sales_all_10"> 100,000이상</label>
-								<tr>
-									<td>
-									<td> <input type="button" value="검색" style="" onClick="goPreSearch();">&nbsp;
-										 <input type="button" value="모두검색" style="" onClick="goPreSearchAll();">&nbsp;
-							</table>
-						 <br><br>
-						
-						
-						  <div class="col-sm-12" align="center">
+                   <div style="border:1px solid #d2d2d2;">
+                     <br>
+                     <table width="50%">
+                        <tr>
+                           <td><span class="help-block"><b> [지 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</b></span>
+                              <td>
+                                 <div class="form-group"> 
+                                    <div style="float:left; padding:3 5 3 5px;">
+                                       <!-- <select name="addr_gu1" size=1   class="form-control" id="exampleInputEmail1" >  -->
+                                       <select name="addr_gu1" size=1   style="width:120px; height:25px;"> 
+                                          <option value="">&nbsp;-----구선택-----</option>
+                                          <c:forEach items="${addrGu1List}" var="addrGu1">
+                                             <option value="${addrGu1.addr_gu1}">&nbsp;${addrGu1.addr_gu1}</option>
+                                          </c:forEach>
+                                         </select> 
+                                    </div>
+                                    
+                                    <div style="float:left; padding:3 5 3 5px;"><span style="font-size:18; margin:20 0 0 0px;">></span></div>
+                                 
+                                    <div  style="float:left; padding:3 5 3 5px;">
+                                       <!-- <select name="addr_dong1" size=1    class="form-control" id="exampleInputEmail1" > -->
+                                       <select name="addr_dong1" size=1    style="width:120px; height:25px;" >
+                                          <option value="">&nbsp;-----동선택-----</option>
+                                       </select> 
+                                    </div>
+                                 </div>
+                                       
+                        <tr>
+                           <td><span class="help-block"> <b>[업 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;종]&nbsp;&nbsp;:&nbsp;&nbsp;</b></span>
+                           <td>
+                              <div class="form-group"> 
+                                    <div style="float:left; padding:3 5 3 5px;">
+                                    <!-- <select name="business_type_name1"   class="form-control" id="exampleInputEmail1" > -->
+                                    <select name="business_type_name1" size=1    style="width:120px; height:25px;"  >
+                                       <option value="">&nbsp;-----대분류-----
+                                          <c:forEach items="${businessTypeName1List}"
+                                             var="businessTypeName1">
+                                             <option value="${businessTypeName1.business_type_name1}">&nbsp;${businessTypeName1.business_type_name1}
+                                             </option>
+                                          </c:forEach>
+                                       </select>
+                                    </div>
+                                    
+                                    <div style="float:left; padding:3 5 3 5px;"><span style="font-size:18; margin:20 0 0 0px;">></span></div>
+                                    
+                                    <div  style="float:left; padding:3 5 3 5px;">
+                                    <select name="business_type_name2"     style="width:120px; height:25px;" >
+                                          <option value="">&nbsp;-----소분류-----
+                                    </select>
+                                    </div>
+                           </div>
+                        <tr>
+                           <td><span class="help-block"><b>[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</b></span>
+                           <td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>&nbsp;&nbsp;
+                                             <input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="1000000"><label for="month_sales_2"> 100만원 이상</label>&nbsp;&nbsp;
+                                             <input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="3000000"><label for="month_sales_all_5"> 300만원 이상 </label>&nbsp;&nbsp;
+                                             <input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="5000000"><label for="month_sales_all_10"> 500만원 이상</label>&nbsp;&nbsp;
+                        <tr>
+                           <td>
+                           <td> 
+                           
+                                 <button type="button" class="btn btn-default"style="margin:0 20 0 0" onClick="goPreSearch();">검      색</button>&nbsp;
+                                 <button type="button" class="btn btn-default"style="margin:0 10 0 0" onClick="goPreSearchAll();">모두검색</button>&nbsp;
+                                        <a href="javascript:goSearchReset();" ><u>검색조건 초기화</u>
+                     </table>
+                     <br>
+               </div>
+                   <br><br>
+                  
+                    <div class="col-sm-12" align="center">
+                    
+                   
+               
+                  <input type="hidden" name="selectPageNo">      
+                  <input type="hidden" name="sort" value="ranking asc">      
+               </form>
+               <!-- /preSearchForm  -->
+               <br>
+               <br>
+
+						 <!-- ====== 추천 메뉴 ========================================================== -->
 						 
+                   	 <table class="table-advance">
+						 <thead>
+						 		<tr><th  align=center colspan="${fn:length(bestMenuList)}" >추천메뉴
+
+						 </thead>
+						 <tbody>	
+						 	
+                 			<tr>                   		
+                    			<td  align=center style="vertical-align:bottom; padding:60 20 0 40px" >
+                    			
+		                        	<i  class="icon-badge" style="color:#AEADAA;font-size:60px;">
+		                        	</i>
+		                        	<div style="margin:-48 -40 11 0 ">
+		                        		<span style="color:#AEADAA; margin:0 0 0 -40; font-size:32;"><strong>2</strong></span>
+		                        	</div>
+	                    			  <br>
+	                    			  <div  style="background-color:lightgray; width:150; height:80; line-height:4;">
+	                    			  <div style="height:1"></div>
+				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+			                    			<a style="cursor:pointer;">
+			                    			<c:if test="${bestMenu.RANKING==2}">		  
+												<h5>${bestMenu.MENU_NAME}
+												<c:if test="${(loopTagStatus.index+1)>3}">
+			                    					...
+			                    				</c:if>
+			                    				</h5>
+			                    			</c:if>
+			                    			</a>
+			                    		</c:forEach>
+                    			 	</div>  
+                    			 	
+                    			 	
+                    			<td  align=center style="vertical-align:bottom; padding:30 20 0 40px" >
+                    			
+		                        	<i  class="icon-badge" style="color:#F3DA1B;font-size:60px;">
+		                        	</i>
+		                        	<div style="margin:-48 -40 11 0">
+		                        		<span style="color:#F3DA1B; margin:0 0 0 -40; font-size:32;"><strong>1</strong></span>
+		                        	</div>
+	                    			  <br>
+	                    			  <div  style="background-color:lightgray; width:150; height:110; line-height:6;">
+	                    			  <div style="height:1"></div>
+				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+			                    			<a style="cursor:pointer;">
+			                    			<c:if test="${bestMenu.RANKING==1}">		  
+												<h5>${bestMenu.MENU_NAME}
+												<c:if test="${(loopTagStatus.index+1)>5}">
+			                    					...
+			                    				</c:if>
+			                    				</h5>
+			                    			</c:if>
+			                    			</a>
+			                    		</c:forEach>
+                    			 	</div>
+
+
+								<td  align=center style="vertical-align:bottom; padding:90 20 0 40px" >
+                    			
+		                        	<i  class="icon-badge" style="color:#DAA637;font-size:60px;">
+		                        	</i>
+		                        	<div style="margin:-48 -40 11 0 ">
+		                        		<span style="color:#DAA637; margin:0 0 0 -40; font-size:32;"><strong>3</strong></span>
+		                        	</div>
+	                    			  <br>
+	                    			  <div  style="background-color:lightgray; width:150; height:50; line-height:4;">
+	                    			  	<div style="height:1"></div>
+				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+			                    			<a style="cursor:pointer;">
+			                    			<c:if test="${bestMenu.RANKING==3}">		  
+												<h5>${bestMenu.MENU_NAME}
+												<c:if test="${(loopTagStatus.index+1)>3}">
+			                    					...
+			                    				</c:if>
+			                    				</h5>
+			                    			</c:if>
+			                    			</a>
+			                    		</c:forEach>
+                    			 	</div> 	             
+	                    			 	
+	                    		<%-- 	 	    		            				
+	                    		<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus">	
+	                    			<c:if test="${bestMenu.RANKING==1}">
+	                    			<td  align=center style="vertical-align:bottom; padding:10 20 30 40px" >
+			                        	<i  class="fa fa-fw  fas fa-trophy" style="color:#F3DA1B;font-size:50px;"></i>
+			                        	<div style="margin:-42 -42 5 0 ">
+			                        		<span style="color:#fff; margin:0 0 0 -42; font-size:32;"><strong>1</strong></span>
+			                        	</div>
+		                    			  <br>
+										<div style="background-color:lightgray; width:150; height:110; line-height:6;">${bestMenu.MENU_NAME}</div>
+	                    			</c:if>
+	                    			
+	                    			<c:if test="${bestMenu.RANKING==3}">
+	                    			<td  align=center style="vertical-align:bottom; padding:71px 20 30 40px" >
+			                        	<i  class="fa fa-fw  fas fa-trophy" style="color:#DAA637;font-size:50px;"></i>
+			                        	<div style="margin:-42 -42 5 0 ">
+			                        		<span style="color:#fff; margin:0 0 0 -42; font-size:32; "><strong>3</strong></span>
+			                        	</div>
+		                    			  <br>
+										<div style="background-color:lightgray; width:150; height:50; line-height:4;">${bestMenu.MENU_NAME}</div>
+	                    			</c:if> 
+			                     </c:forEach> --%>
+                   		 </tbody>
+                    
+                 	 </table>
+                 	 <!-- ====== / 추천 메뉴 ========================================================== -->
+				
+					<br>
+					<br>
+
+                 
+                 	 
+                 	 
+				<!-- ====== 행보기 ==========================================================  -->
 				  <table class="table table-striped table-advance table-hover"  id="select">
-							 <thead>
-                  				<tr>
-								<td align=right>
-									<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
-									<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
-										ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
-										EL 로 표현하여 삽입 -->	
-									[검색 총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
-									<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
-									<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
-									<select name="rowCntPerPage">
-										<option value="10">10&nbsp;
-										<option value="15">15&nbsp;
-										<option value="20">20&nbsp;
-										<option value="25">25&nbsp;
-										<option value="30">30&nbsp;
-									</select> 행보기
-						</table>
-						
-			
-					
-						<input type="hidden" name="selectPageNo">		
-						<input type="hidden" name="sort" value="ranking asc">		
-					</form>
-					<!-- /preSearchForm  -->
-
-
+						 <thead>
+                 				<tr>
+							<td align=right>
+								<!-- EL 문법으로 게시판 검색 총 개수 출력 -->
+								<!-- 달러{boardListAllCnt}(EL은 주석문에서 유효) 은 컨트롤러 클래스 내부에
+									ModelAndView 객체에 boardListAllCnt 라는 키갑스올 저장된 데이터를
+									EL 로 표현하여 삽입 -->	
+								[검색 총 개수] : ${preResultAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
+								<!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력 양식 -->
+								<!-- 선택한 페이지 번호는 DB 연동시 아주 중요한 역할 -->	
+								<select name="rowCntPerPage" style="width:50px;height:25px;">
+									<option value="10">&nbsp;10&nbsp;
+									<option value="15">&nbsp;15&nbsp;
+									<option value="20">&nbsp;20&nbsp;
+									<option value="25">&nbsp;25&nbsp;
+									<option value="30">&nbsp;30&nbsp;
+								</select> 행보기
+					</table>
+                 	 <!-- ====== / 행보기========================================================== -->
 					
 					
 					<!-- 페이징 번호 삽입할 span 태그 선언 -->
 					<div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 					
-					<!--======================-->
-               <!--======검색결과=======-->
-               <!--======================-->
-               <form name="preResultForm">
+			
+           		   <!-- ====== 결과 테이블 ========================================================== -->
                     <table class="table table-striped table-advance table-hover"  id="select">
                        <thead>
                             <tr>
-                        <th> 순서 
+                        <th> NO 
                         
                      <!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
@@ -687,16 +867,15 @@
 
                      <c:forEach items="${preResultList}" var="preResult" varStatus="loopTagStatus">
                      <tr>
-                        <td  align=center>${preResult.PAGINGRNUM}
-                        <td  align=center>${preResult.RANKING}
-                        <td  align=right class=month_sales>${preResult.MONTH_SALES}
-                        <td  align=left>${preResult.BUSINESS_TYPE1} > ${preResult.BUSINESS_TYPE2}
-                        <td   align=center>${preResult.BEST_MENU_TYPE}
-                        <td   align=center>${preResult.ADDR_GU} ${preResult.ADDR_DONG} 
+                        <td  align=center width="7%">${preResult.PAGINGRNUM}
+                        <td  align=center width="10%">${preResult.RANKING}
+                        <td  align=right  width="20%" class=month_sales>${preResult.MONTH_SALES} 원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <td  align=left  width="30%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${preResult.BUSINESS_TYPE1} > ${preResult.BUSINESS_TYPE2}
+                        <td   align=center  width="20%">${preResult.BEST_MENU_TYPE}
+                        <td   align=center  width="20%">${preResult.ADDR_GU} ${preResult.ADDR_DONG} 
                      </c:forEach>
                   </table>
-               </form>
-               <!-- /검색결과 form -->
+               <!--============================= /검색결과 ===========================-->
 
 
                <c:if test="${empty preResultList}">
@@ -767,11 +946,7 @@
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

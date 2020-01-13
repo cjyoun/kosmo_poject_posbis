@@ -5,14 +5,14 @@ body,form,td,th,pre {
 	font-size: 9pt; 
 	color: black; 
 	line-height: 160%; 
-	font-family: 굴림,tahoma,돋움,verdana; 
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
 } 
 
 /*-----------------------------------------------------------------------*/ 
 input { 
 	font-size: 9pt; 
 	color:black; 
-	font-family: 굴림,tahoma,돋움,verdana; 
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
 	height: 20px; 
 } 
 a:link {text-decoration:none;color:#696969} 
@@ -28,7 +28,7 @@ a:visited {text-decoration:none;color:#330066}
 	border-collapse: collapse; 
 	border:0px solid gray;         /*padding:5;*/
 	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana; 
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
  }
  
 /*-----------------------------------------------------------------------*/ 
@@ -39,7 +39,7 @@ a:visited {text-decoration:none;color:#330066}
 	border-collapse: collapse; 
 	border:1px solid black;         /*padding:5;*/
 	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana; 
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
  }
  
 /*-----------------------------------------------------------------------*/ 
@@ -54,7 +54,7 @@ a:visited {text-decoration:none;color:#330066}
 	border-left:0px;
 	border-right:0px;
 	font-size: 9pt;
-	font-family: tahoma,굴림,돋움,verdana;  	
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
 	/* border-collapse:collapse;  
 	border:0px;
 	font-size: 9pt;

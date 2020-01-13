@@ -156,7 +156,7 @@
    ========================================================================== */
 
 body {
-    font-family: '맑은 고딕 Semilight';
+    font-family:  '돋움',Dotum,'돋움체',DotumChe;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -173,7 +173,7 @@ h5,
 h6 {
     color: #3d405c;
     margin: 0px 0px 15px 0px;
-    font-family: '맑은 고딕 Semilight';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 }
 
 h1 {
@@ -204,6 +204,7 @@ h6 {
 }
 
 p {
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
     margin: 0px 0px 20px 0px;
 }
 
@@ -224,6 +225,10 @@ a:active,
 a:hover {
     outline: 0;
     text-decoration: none;
+}
+
+b {
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 }
 
 ol,
@@ -818,7 +823,7 @@ html body .display-7 {
 }
 
 .arrow li:before {
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     font-weight: 900;
     display: inline-block;
     position: absolute;
@@ -839,7 +844,7 @@ html body .display-7 {
 }
 
 .bullet-check li:before {
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     font-weight: 900;
     display: inline-block;
     position: absolute;
@@ -2032,7 +2037,7 @@ Pageheader
     padding-right: .5rem;
     color: #b1b1c0;
     content: "\f105";
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     font-weight: 600;
 }
 
@@ -2333,7 +2338,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
     background-color: #59b3ff;
     padding: 31px 15px;
     text-align: center;
-    left: 10px;  font-family: 'Circular Std Medium'; color: #fff;}
+    left: 10px;  font-family: '돋움',Dotum,'돋움체',DotumChe; color: #fff;}
 
    .ribbons-text{transform: rotate(90deg);
     position: absolute;
@@ -2360,7 +2365,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .product-rating{font-size: 12px;
     
     color: #ffa811;}
-.product-price{ position: absolute; top: 0; right: 0; font-size: 16px; color: #3d405c;font-family: 'Circular Std Medium'; line-height: 1;}
+.product-price{ position: absolute; top: 0; right: 0; font-size: 16px; color: #3d405c;font-family: '돋움',Dotum,'돋움체',DotumChe; line-height: 1;}
 .product-btn{}
 .product-del{font-size: 14px; color: #71748d;}
 .product-sidebar{ background-color: #fff; border:1px solid #e6e6f2;  }
@@ -2443,7 +2448,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .product-colors label:before {
      content: "\f00c";
     position: absolute;
-    font-family: 'Font Awesome\ 5 Free';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     font-weight: 900;
     padding: 0px;
     margin: 4px 8px;
@@ -2552,7 +2557,7 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
   text-align: center;
   color: #333;
   font-size: 13px;
-  font-family: 'Circular Std Medium';
+  font-family: '돋움',Dotum,'돋움체',DotumChe;
   
   line-height: 1.6;
   -webkit-transform: translateX(-100%);
@@ -2684,6 +2689,48 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
     color: #fff;
+    background-color: #4656e9;
+    border-color: #4656e9;
+}
+
+/*--- btn primary2 --*/
+
+.btn-primary2 {
+    color: #0e0c28;
+    background-color: #f5f2f2;
+    border-color: #0e0c28;
+    width:200;
+    height:120;
+}
+
+.btn-primary2:hover {
+    color: #0e0c28;
+    background-color: #B1CBF6;
+    border-color: #0e0c28;
+    width:200;
+    height:120;
+}
+
+.btn-primary2.focus,
+.btn-primary2:focus {
+    color: #0e0c28;
+    background-color: #4656e9;
+    border-color: #4656e9;
+    box-shadow: 0 0 0 1px rgb(37, 52, 158);
+    width:200;
+    height:120;
+}
+
+.btn-primary2:not(:disabled):not(.disabled).active:focus,
+.btn-primary2:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary2.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgb(37, 52, 158);
+}
+
+.btn-primary2:not(:disabled):not(.disabled).active,
+.btn-primary2:not(:disabled):not(.disabled):active,
+.show>.btn-primary2.dropdown-toggle {
+    color: #0e0c28;
     background-color: #4656e9;
     border-color: #4656e9;
 }
@@ -4513,7 +4560,7 @@ Pills vertical
 .table thead th,
 .table th {
     color: #3d405c;
-    font-family: 'Circular Std Medium';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 }
 
 .table-bordered {
@@ -4545,7 +4592,7 @@ tr.group,
 tr.group:hover {
     background-color: #5969ff !important;
     color: #fff;
-    font-family: 'Circular Std Medium';
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     font-size: 18px;
 }
 
@@ -5498,7 +5545,7 @@ Vertical Timeline - by CodyHouse.co
     height: 7em;
     font-size: 0.75em;
     line-height: 1.333333em;
-    font-family: Consolas, monospace;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
     padding: 5px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;

@@ -68,9 +68,10 @@
       Author URL: https://bootstrapmade.com
     ======================================================= -->
     
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
 
    <head>
  
@@ -107,7 +108,7 @@
 
 	   $(document).ready(function() {
 
-		   $(".help").hover(
+		  /*  $(".help").hover(
 	            function(){
 
 	               $(this).append("<div class='helpA'>");
@@ -122,7 +123,7 @@
 	            ,function(){
 	               $(this).find(".helpA").remove();
 	            }
-	         );
+	         ); */
 		   
 	 
 
@@ -480,32 +481,32 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a class="active" style="cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -547,9 +548,11 @@
 			<h2>회원정보 수정</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">마이페이지</span> &nbsp; > &nbsp; <span class="sb-item active">내정보보기</span>
-				&nbsp; > &nbsp; <span class="sb-item active">회원정보 수정</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="icon-user"></i> 마이페이지</span> &nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="icon-settings"></i> 내정보보기</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="fas fa-wrench"></i> 회원정보 수정</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -561,79 +564,76 @@
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center">
+       <div class="col-lg-6" align="center" style="margin:0 0 0 340">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">회원정보수정</a>
               </header>  
+              
  
 			<div class="panel-body"> 
 			
       <div class="container">
-      <div  class="form-group">
-  
-    <form class="infoUpdateForm" method="post" name="infoUpdateForm" action="/posbis/infoUpdateForm.do">
- 
- 
-   <section class="panel">
-     <header class="panel-heading">
-       	대표자 정보
-     </header>
- 
-   <table class="table table-hover">
- 
-  <tr>
-   <td> 아이디 </td>
-   <td>
-      <input type = "text" name="user_id" class="user_id form-control" readonly value="${myNStoreInfo[0].user_id}"/>
-   	
-    </td>
-    
-  </tr>
-  
-    <tr>
-     <td> 현재 비밀번호 </td>
-     <td> <input type = "password" name="user_pwd" class="user_pwd form-control" /> </td>
-   </tr>
+      <form class="infoUpdateForm" method="post" name="infoUpdateForm" action="/posbis/infoUpdateForm.do">
+      <div  class="form-group" style="border-bottom:insert;">
 
-  <tr>
-   <td> 새 비밀번호 </td>
-   <td> <input type = "password" name="newPwd" class="newPwd form-control" /> </td>
-  </tr>
-
-  <tr>
-   <td> 새 비밀번호 확인 </td>
-    <td> <input type = "password"  name="checkPwd" class="checkPwd form-control"/><font name="check" size="2" color="red"></font> </td>
-  </tr>
-
-  <tr>
-   <td> 성명 </td>
-   <td> <input type = "text" name="user_name" class="user_name form-control" value="${myNStoreInfo[0].user_name}"/> </td>
-  </tr>
-  
-  <tr>
-   <td> 생년월일 </td>
-   <td> 
-        <input type="text" class="birth form-control" id="birth" name="birth"  maxlength="8" readonly value="${myNStoreInfo[0].birth}" ></td>
-   
-   </tr>
-
-
-  <tr>
-   <td> 이메일 </td>
-   <td>
-    <input type = "text" name="email" class="email form-control" value="${myNStoreInfo[0].email}"/>
-   </td>
-  </tr>
-</table>
-</section>
-</div>  
- 
+		<section class="panel">
+		    <header class="panel-heading">
+		      	대표자 정보
+		    </header>
+		
+			  <table class="table table-hover">
+			
+				 <tr>
+				  <td> 아이디 </td>
+				  <td>
+				     <input type = "text" name="user_id" class="user_id form-control" readonly value="${myNStoreInfo[0].user_id}"/>	
+				  </td>			  
+				</tr>
+				
+				  <tr>
+				   <td> 현재 비밀번호 </td>
+				   <td> <input type = "password" name="user_pwd" class="user_pwd form-control" /> </td>
+				 </tr>
+				
+				<tr>
+				 <td> 새 비밀번호 </td>
+				 <td> <input type = "password" name="newPwd" class="newPwd form-control" /> </td>
+				</tr>
+				
+				<tr>
+				 <td> 새 비밀번호 확인 </td>
+				  <td> <input type = "password"  name="checkPwd" class="checkPwd form-control"/><font name="check" size="2" color="red"></font> </td>
+				</tr>
+				
+				<tr>
+				 <td> 성명 </td>
+				 <td> <input type = "text" name="user_name" class="user_name form-control" value="${myNStoreInfo[0].user_name}"/> </td>
+				</tr>
+				
+				<tr>
+				 <td> 생년월일 </td>
+				 <td> 
+				      <input type="text" class="birth form-control" id="birth" name="birth"  maxlength="8" readonly value="${myNStoreInfo[0].birth}" ></td>			 
+				</tr>		
+				
+				<tr>
+				 <td> 이메일 </td>
+				 <td>
+				  <input type = "text" name="email" class="email form-control" value="${myNStoreInfo[0].email}"/>
+				   </td>
+				</tr>
+				
+			</table>
+			
+		</section>
+	</div>  
+		 
 
  <br><br><br>
  
  
-  
+  <div  class="form-group" style="border-bottom:insert;">
   <section class="panel">
     <header class="panel-heading">
        	사업장 정보
@@ -641,7 +641,7 @@
 
      <table class="table table-hover">  
   <tr>
-   <td> 사업자 번호 </td>
+   <td  width="243"> 사업자 번호 </td>
       <td> <input type = "text" name="business_no" class="business_no form-control" readonly value="${myNStoreInfo[0].business_no}"/> </td>
    
    </tr>
@@ -696,27 +696,49 @@
   <tr>
    <td> 매장 번호 </td>
    <td>
-    <input type = "text" size = "12" name="store_tel_num" class="store_tel_num form-control" value="${myNStoreInfo[0].store_tel_num}"/>&nbsp;&nbsp;*숫자만 입력하세요
+    <input type = "text" size = "12" name="store_tel_num" class="store_tel_num form-control" value="${myNStoreInfo[0].store_tel_num}"/>
+    <span>&nbsp;&nbsp;*숫자만 입력하세요</span>
    </td>
   </tr>
  <tr>
        <td >회원등급</td>
-       <td><input type="radio" name="rank_code" class="rank_code  " value="1">일반 
-             <input type="radio" name="rank_code"  class="rank_code" value="2">프리미엄 &nbsp;&nbsp;(월 10,000원)&nbsp;&nbsp; 
-             <a class="help">[회원등급혜택]</a>
+       <td>
+       		<br>
+       		<div class="btn-group" data-toggle="buttons">
+	       		<label class="btn btn-default active"> 
+					<input type="radio" class="rank_code" name="rank_code" id="option1"	value="1"> 일반
+				</label> 
+				<label class="btn btn-default"> 
+					<input type="radio"	class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
+				</label> 
+			</div>
+             &nbsp;&nbsp;(월 10,000원)&nbsp;&nbsp; 
+             <br><br>
+             [회원등급혜택]
+             <br>
+             <div class='helpA'>
+             <br>&nbsp;일반<br>
+	             &nbsp;&nbsp;- 비용: 무료<br>
+	             &nbsp;&nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 확인 가능
+	             <br><br>&nbsp;프리미엄<br>
+	             &nbsp;&nbsp;- 비용: 월 10,000원 (부가세 별도)<br>
+	             &nbsp;&nbsp;- 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
+             </div>
        </td>
   </tr>
     
 
 </table>
+</section>
+</div>
 
 <br>
 
-  <div style="float:right">
-    <button class="btn btn-info" type="button" value="저장" onClick="checkUserRegForm();" >저장 </button> 		
-	<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
-	<button class="btn btn-danger" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
-</div>
+  	<div style="float:right">
+    	<button class="btn btn-info" type="button" value="저장" onClick="checkUserRegForm();" >저장 </button> 		
+		<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
+		<button class="btn btn-danger" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
+	</div>
 
 </form>
  
@@ -739,11 +761,7 @@
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

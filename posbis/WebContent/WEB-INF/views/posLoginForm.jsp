@@ -13,9 +13,11 @@
     <link href="resources/pos/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/pos/assets/libs/css/style.css">
     <link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <style>
+    <!-- GoogleFont CSS -->
+<!-- <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+ -->	<style>
     html,
-    body {
+    body { 
         height: 100%;
     }
 
@@ -33,7 +35,42 @@
 
 		<script>
 		   $(document).ready(function(){
-			   inputData("[name=business_no]",'664-18-01171');
+			   
+			   inputData("[name=business_no]",'${cookie.business_no.value}');
+				  inputData("[name=user_pwd]",'${cookie.user_pwd.value}'); 
+				 
+				 <c:if test="${!empty cookie.business_no.value}">
+			  	$('[name=is_posLogin]').prop("checked",true);
+			  	</c:if>
+
+			  	
+	            $("#business_no").keyup(function(){
+	                var b_no = $(this).val();
+	                //숫자만 골라서 저장할 변수 선언
+	                var num="";
+	                //money 변수 안의 데이터 중 숫자만 골라 num 변수에 누적 시킴
+	                for(var i=0; i<b_no.length; i++){
+	                   //money 안의 데이터 중 i번째 데이터가 숫자문자면 num 변수 축적
+	                   if("0123456789".indexOf(b_no.charAt(i))>=0){
+	                      num=num + b_no.charAt(i);
+	                   }
+	                }
+	                   //-를 포함한 최종 문자열을 저장할 변수 선언
+	                   var result="";
+	                   //cnt 변수의 역할은 낚아챈 개수가 저장된다.
+	                   var cnt=0;
+	                   for(var i=0; i<num.length; i++){
+	                      cnt++;
+	                      if(cnt==4 || cnt==6){
+	                         result = result + "-" + num.charAt(i);
+	                      }
+	                      else{
+	                         result = result + num.charAt(i);
+	                      }
+	                   }
+	                   $(this).val(result);
+	             });
+			   
 			 });
 
 
@@ -106,22 +143,24 @@
 				<img class="logo-img" src="resources/pos/assets/images/logo.png"
 					alt="logo">
 			</div>
+		
 			<div class="card-body">
 				<form name="posLoginForm">
 					<div class="form-group">
-						<input class="form-control form-control-lg" id="business_no" name="business_no" type="text" placeholder="사업자번호(000-00-00000)" autocomplete="off">
+						<input class="form-control form-control-lg" id="business_no" maxlength="12" name="business_no" type="text" placeholder="사업자번호" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<input class="form-control form-control-lg" id="user_pwd" name="user_pwd" type="password" placeholder="비밀번호">
+						<input class="form-control form-control-lg" id="user_pwd" maxlength="10" name="user_pwd" type="password" placeholder="비밀번호">
 					</div>
 					<div class="form-group">
 						<label class="custom-control custom-checkbox"> 
-							<input class="custom-control-input" type="checkbox"><span class="custom-control-label">사업자번호 기억하기</span>
+							<input class="custom-control-input" type="checkbox" name="is_posLogin" ><span class="custom-control-label">사업자번호 저장</span>
 						</label>
 					</div>
-					<button type="button" class="btn btn-primary btn-lg btn-block" onClick="goPosLogin();">로그인하기</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block" onClick="goPosLogin();">로그인</button>
 				</form>
 			</div>
+			
 		</div>
 	</div>
 

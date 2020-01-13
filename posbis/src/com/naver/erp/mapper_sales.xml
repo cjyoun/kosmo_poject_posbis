@@ -10,87 +10,87 @@
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
 <mapper namespace="com.naver.erp.SalesDAO">
 
-	 <sql id="salesWhere">
- 		<if test="(keyword!=null and keyword.length()>0)">
-			and(	upper(s.menu_name) like upper('%${keyword}%')
-				or upper(s.menu_price||'') like upper('%${keyword}%')
-				or upper((s.menu_price * s.sales_count)||'') like upper('%${keyword}%')
-				or upper(to_char(s.sales_date,'yyyy-mm-dd')) like upper('%${keyword}%')
-			    )
-		</if>
-					<!-- 만약 sales_date_t1이 있고 sales_date_t2가 없으면 -->
-			<if test="(sales_date_t1!=null and sales_date_t1.length()>0) and (sales_date_t2==null or sales_date_t2.length()==0)">
-				and(
-					to_date('${sales_date_t1}','yyyy-mm-dd')=s.sales_date
-				)
-			</if>
-		<!-- 만약 sales_date_t2이 있고 sales_date_t1가 없으면 -->
-			<if test="(sales_date_t2!=null and sales_date_t2.length()>0) and (sales_date_t1==null or sales_date_t1.length()==0)">
-				and(
-					to_date('${sales_date_t2}','yyyy-mm-dd')=s.sales_date
-				)
-			</if>
-					<!-- 만약 sales_date_t1, sales_date_t2 둘다 있으면 -->
-			<if test="(sales_date_t2!=null and sales_date_t2.length()>0) and (sales_date_t1!=null and sales_date_t1.length()>0)">
-				and(
-						s.sales_date >= to_date('${sales_date_t1}','yyyy-mm-dd')
-				        and
-						s.sales_date &lt;= to_date('${sales_date_t2}','yyyy-mm-dd')
-				)
-			</if>
-			
-			<if test='sales_date=="1"'>
-			and(
-				s.sales_date = sysdate
-			)
-			</if>
-			<if test='sales_date=="2"'>
-			and(
-				s.sales_date &lt;= sysdate and
-				s.sales_date >= sysdate-6
-			)
-			</if>
-			<if test='sales_date=="3"'>
-			and(
-				to_char(sysdate,'yyyymm')=to_char(s.sales_date,'yyyymm')
-			)
-			</if>
-					
- 			<if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
-			and s.business_no in
-				<foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
-						#{chooseBusinessNo}
-				</foreach>
-			</if>
-	 </sql>
+    <sql id="salesWhere">
+       <if test="(keyword!=null and keyword.length()>0)">
+         and(   upper(s.menu_name) like upper('%${keyword}%')
+            or upper(s.menu_price||'') like upper('%${keyword}%')
+            or upper((s.menu_price * s.sales_count)||'') like upper('%${keyword}%')
+            or upper(to_char(s.sales_date,'yyyy-mm-dd')) like upper('%${keyword}%')
+             )
+      </if>
+               <!-- 만약 sales_date_t1이 있고 sales_date_t2가 없으면 -->
+         <if test="(sales_date_t1!=null and sales_date_t1.length()>0) and (sales_date_t2==null or sales_date_t2.length()==0)">
+            and(
+               to_char(to_date('${sales_date_t1}','yyyy-mm-dd'),'yyyymmdd')=to_char(s.sales_date,'yyyymmdd')
+            )
+         </if>
+      <!-- 만약 sales_date_t2이 있고 sales_date_t1가 없으면 -->
+         <if test="(sales_date_t2!=null and sales_date_t2.length()>0) and (sales_date_t1==null or sales_date_t1.length()==0)">
+            and(
+               to_char(to_date('${sales_date_t2}','yyyy-mm-dd'),'yyyymmdd')=to_char(s.sales_date,'yyyymmdd')
+            )
+         </if>
+               <!-- 만약 sales_date_t1, sales_date_t2 둘다 있으면 -->
+         <if test="(sales_date_t2!=null and sales_date_t2.length()>0) and (sales_date_t1!=null and sales_date_t1.length()>0)">
+            and(
+                  to_char(s.sales_date,'yyyymmdd') >= to_char(to_date('${sales_date_t1}','yyyy-mm-dd'),'yyyymmdd')
+                    and
+                  to_char(s.sales_date,'yyyymmdd') &lt;= to_char(to_date('${sales_date_t2}','yyyy-mm-dd'),'yyyymmdd')
+            )
+         </if>
+         
+         <if test='sales_date=="1"'>
+         and(
+            to_char(s.sales_date,'yyyymmdd') = to_char(sysdate,'yyyymmdd')
+         )
+         </if>
+         <if test='sales_date=="2"'>
+         and(
+            to_char(s.sales_date,'yyyymmdd') &lt;= to_char(sysdate,'yyyymmdd') and
+            to_char(s.sales_date,'yyyymmdd') >= to_char(sysdate-6,'yyyymmdd')
+         )
+         </if>
+         <if test='sales_date=="3"'>
+         and(
+            to_char(sysdate,'yyyymm')=to_char(s.sales_date,'yyyymm')
+         )
+         </if>
+               
+          <if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
+         and s.business_no in
+            <foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
+                  #{chooseBusinessNo}
+            </foreach>
+         </if>
+    </sql>
 	
 	
 	<!--**************************************************************************-->
 	<!-- 게시판 검색하는 select 문을 내포한 select 태그 선언 -->
 	<!--**************************************************************************-->
-	<select id="getSalesList" parameterType="com.naver.erp.SalesSearchDTO" resultType="java.util.HashMap">
-		<!-- number 자료형을 문자형으로 바꾸는 이유는 HashMap 객체에 String으로 저장되기 때문이다.  -->
-		select * from(select zzz.*, rownum RNUM from(
-			select
+	   <select id="getSalesList" parameterType="com.naver.erp.SalesSearchDTO" resultType="java.util.HashMap">
+      <!-- number 자료형을 문자형으로 바꾸는 이유는 HashMap 객체에 String으로 저장되기 때문이다.  -->
+      select * from(select zzz.*, rownum RNUM from(
+         select
                 b.business_name                         as  "business_name"
-			    ,s.menu_name            				as  "menu_name"
-			    ,s.menu_price           			as  "menu_price"
-			    ,s.sales_count          			as  "sales_count"
-			    ,(s.menu_price * s.sales_count) 	as  "sales_amount"
-			    ,((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) 	as  "sales_income"
-			    ,to_char(s.sales_date,'yyyy-mm-dd (dy)')     as  "sales_date"
-			from sales s, business_info b, user_info u
-			where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
-			<!-- and s.business_no like '%${changeBusinessNo}%' -->
-			<!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
- 		 <include refid="salesWhere"/>
-			order by ${sort}
-		)zzz) where <!-- xml에서 <>는 부등호가 아닌 태그의 시작과 끝이다. <![CDATA[ ]]>로 구문을 감싸면 <>를 태그가 아닌 부등호로 인식 -->
-			<![CDATA[
-				RNUM>= ${selectPageNo*rowCntPerPage-rowCntPerPage+1}
-				and RNUM<= ${selectPageNo*rowCntPerPage}
-			]]>
-	</select>
+             ,s.menu_name                        as  "menu_name"
+             ,s.menu_price                    as  "menu_price"
+             ,s.sales_count                   as  "sales_count"
+             ,(s.menu_price * s.sales_count)    as  "sales_amount"
+             ,((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count))    as  "sales_income"
+             ,to_char(s.sales_date,'yyyy-mm-dd (dy) HH:MI:SS PM')     as  "sales_date"
+         from sales s, business_info b, user_info u
+         where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
+         <!-- and s.business_no like '%${changeBusinessNo}%' -->
+         <!-- and (s.business_no in (select b.business_no from business_info b where u_no=(select u_no from user_info where user_id=#{user_id}))) -->
+        <include refid="salesWhere"/>
+         order by ${sort}
+      )zzz) where <!-- xml에서 <>는 부등호가 아닌 태그의 시작과 끝이다. <![CDATA[ ]]>로 구문을 감싸면 <>를 태그가 아닌 부등호로 인식 -->
+         <![CDATA[
+            RNUM>= ${selectPageNo*rowCntPerPage-rowCntPerPage+1}
+            and RNUM<= ${selectPageNo*rowCntPerPage}
+         ]]>
+   </select>
 	
 	<!--*************************************************************-->
 	<!-- 게시판 글 목록 총 개수 구하는  select 태그 선언-->
@@ -268,6 +268,33 @@
     order by dy.day
 	
    </select>
+   
+   <insert id="insertSales" parameterType="com.naver.erp.SalesDTO" >
+		
+	insert into sales(
+            business_no
+            , business_type_code
+            , addr_no
+            , menu_no
+            , menu_name
+            , menu_category_code
+            , menu_price
+            , menu_cost
+            , sales_count
+            , sales_date
+    )values(
+            (select business_no from business_info where business_no=#{business_no})
+            ,(select business_type_code from business_info where business_no=#{business_no})
+            ,(select addr_no from business_info where business_no=#{business_no})
+            ,(select menu_no from menu where menu_no=#{menu_no})
+            ,(select menu_name from menu where menu_no=#{menu_no})
+            ,(select menu_category_code from menu where menu_no=#{menu_no})
+            ,(select menu_price from menu where menu_no=#{menu_no})
+            ,(select menu_cost from menu where menu_no=#{menu_no})
+            ,4
+            ,sysdate
+   		
+	</insert>
 	
 	
 </mapper>	

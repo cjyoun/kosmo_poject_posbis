@@ -1,194 +1,238 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	
-	
+   
+   
 
 
 <mapper namespace="com.naver.erp.PreSearchDAO">
 
-	<sql id="preSearchWhere">
-				select business_no, month_sales, business_type1,business_type2, addr_dong, addr_gu
-					  , SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type 
-					  , RANK() OVER (ORDER BY month_sales desc)   RANKING from
-					(select
-					 sm.business_no
-					  ,sm.month_sales
-					  ,sm.business_type1
-					  ,sm.business_type2
-					  ,sm.addr_dong
-                      ,sm.addr_gu
-					  ,best.sub_category_name
-				from
-				 (select distinct best_no.business_no, cmc.sub_category_name
-					 from ( SELECT business_no
-					               , menu_no
-					               , SUM(sales_count) AS SALES_SUM
-					               , MAX( SUM(sales_count) ) OVER(partition by business_no) AS MAX_SALES_SUM
-					        FROM sales s
-					        where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
-					        GROUP BY business_no, menu_no
-					        ) best_no
-					        , menu m
-					        , code_menu_category cmc
-				 where  best_no.menu_no=m.menu_no
-				    and m.menu_category_code=cmc.menu_category_code
-				    and sales_sum= max_sales_sum  ) best
-				, (select
-				    s.business_no
-				    , sum(s.sales_count*m.menu_price)   as "MONTH_SALES"
-				    , (select cbt.business_type_name2
-				        from code_business_type cbt, business_info bi
-				        where cbt.business_type_code=bi.business_type_code
-				            and s.business_no=bi.business_no)    as "BUSINESS_TYPE2"
-				    , (select cbt.business_type_name1
-				        from code_business_type cbt, business_info bi
-				        where cbt.business_type_code=bi.business_type_code
-				            and s.business_no=bi.business_no)    as "BUSINESS_TYPE1"
-				    , (select a.addr_dong
-				        from addr a, business_info bi
-				        where bi.addr_no=a.addr_no
-				            and bi.business_no=s.business_no) as "ADDR_DONG"
-                    , (select a.addr_gu
+         <sql id="preSearchWhere">
+            
+          select business_no, month_sales, business_type1,business_type2, addr_dong, addr_gu
+                             , SUBSTR(XMLAgg(XMLElement(x,',',sub_category_name) order by sub_category_name ).EXTRACT('//text()'),2) best_menu_type
+                             , RANK() OVER (ORDER BY month_sales desc)   RANKING
+                           from (select bi3.*, best.sub_category_name
+                             from (select mst.business_no, mst.month_sales
+                                             ,(select cbt.business_type_name2
+                                                 from code_business_type cbt, business_info bi
+                                                 where cbt.business_type_code=bi.business_type_code
+                                                     and mst.business_no=bi.business_no)    as "BUSINESS_TYPE2"
+                     
+                                             , (select cbt.business_type_name1
+                                                 from code_business_type cbt, business_info bi
+                                                 where cbt.business_type_code=bi.business_type_code
+                                                     and mst.business_no=bi.business_no)    as "BUSINESS_TYPE1"
+                     
+                                             , (select a.addr_dong
+                                                 from addr a, business_info bi
+                                                 where bi.addr_no=a.addr_no
+                                                     and mst.business_no=bi.business_no) as "ADDR_DONG"
+                     
+                                             , (select a.addr_gu
+                                                 from addr a, business_info bi
+                                                 where bi.addr_no=a.addr_no
+                                                     and mst.business_no=bi.business_no) as "ADDR_GU"
+                                     from (select bi2.business_no, to_number(nvl(mst2.month_sales||'','0'))  as "MONTH_SALES"
+                                            from
+                                            (select s.business_no , sum(s.sales_count*m.menu_price)  as "MONTH_SALES"
+                                             from (select biall.business_no, s2.sales_count, s2.menu_price, s2.sales_date, s2.menu_no from sales s2, business_info biall where biall.business_no=s2.business_no(+)) s , menu m
+                                             where s.menu_no=m.menu_no and to_char( s.sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
+                                             group by s.business_no
+                                             order by sum(s.sales_count*m.menu_price) desc ) mst2
+                                             , business_info bi2
+                                     where mst2.business_no(+)=bi2.business_no) mst ) bi3
+                                     , (select biall.business_no, best2.sub_category_name "SUB_CATEGORY_NAME"
+                                     from (select distinct best_no.business_no, cmc.sub_category_name
+                                           from (SELECT business_no , menu_no, SUM(sales_count) AS SALES_SUM, MAX( SUM(sales_count) ) OVER(partition by business_no) AS MAX_SALES_SUM
+                                                 FROM sales s
+                                                 where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
+                                                 GROUP BY business_no, menu_no) best_no
+                                                 , menu m
+                                                 , code_menu_category cmc
+                                            where  best_no.menu_no=m.menu_no
+                                               and m.menu_category_code=cmc.menu_category_code
+                                               and sales_sum= max_sales_sum  ) best2
+                                           , business_info biall
+                                     where biall.business_no=best2.business_no(+)) best
+                             where best.business_no=bi3.business_no) result
+                         
+                     where  1=1
+                     and month_sales&gt;=${month_sales}
+             <if test="addr_gu1!=null and addr_gu1.length()>0">
+                and (select a.addr_gu
                         from addr a, business_info bi
                         where bi.addr_no=a.addr_no
-                            and bi.business_no=s.business_no) as "ADDR_GU" 
-				from sales s , menu m
-				where s.menu_no=m.menu_no
-				    and  to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
-				group by s.business_no
-				order by sum(s.sales_count*m.menu_price) desc ) sm
-				where best.business_no = sm.business_no )  result
-				where  1=1
-					and month_sales &gt;= ${month_sales}
-		    	<if test="addr_gu1!=null and addr_gu1.length()>0">
-				    and (select a.addr_gu
-				            from addr a, business_info bi
-				            where bi.addr_no=a.addr_no
-				                and bi.business_no=result.business_no)  in ( #{addr_gu1} <if test="addr_gu2!=null and addr_gu2.length()>0"> , #{addr_gu2} </if> )
-				</if>
-				<if test="business_type_name1!=null and business_type_name1.length()>0">
-			    and (select cbt.business_type_name1
-			            from code_business_type cbt, business_info bi
-			            where cbt.business_type_code=bi.business_type_code
-			                and bi.business_no=result.business_no) = #{business_type_name1}
-			  	</if>
-			  	<if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
-				    and (select cbt.business_type_name2
-				            from code_business_type cbt, business_info bi
-				            where cbt.business_type_code=bi.business_type_code
-				                and bi.business_no=result.business_no) = #{business_type_name2}
-       	       	</if>
-       	       	
-				group by business_no , month_sales, business_type1, business_type2, addr_dong, addr_gu
-				 order by month_sales desc
-	
-	</sql>
+                            and bi.business_no=result.business_no)  =  #{addr_gu1} 
+            </if>
+            <if test="(addr_gu1!=null and addr_gu1.length()>0)and(addr_dong1!=null and addr_dong1.length()>0)">
+                and (select a.addr_dong
+                        from addr a, business_info bi
+                        where bi.addr_no=a.addr_no
+                            and bi.business_no=result.business_no)  =  #{addr_dong1}
+             </if> 
+            <if test="business_type_name1!=null and business_type_name1.length()>0">
+             and (select cbt.business_type_name1
+                     from code_business_type cbt, business_info bi
+                     where cbt.business_type_code=bi.business_type_code
+                         and bi.business_no=result.business_no) = #{business_type_name1}
+              </if>
+              <if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+                and (select cbt.business_type_name2
+                        from code_business_type cbt, business_info bi
+                        where cbt.business_type_code=bi.business_type_code
+                            and bi.business_no=result.business_no) = #{business_type_name2}
+                    </if>
+                    
+            group by business_no , month_sales, business_type1, business_type2, addr_dong, addr_gu
+             order by month_sales desc 
+   
+   </sql>
 
 
 
 
 
-	<!-- ===== [프리미엄 검색 리스트] =================================================================-->	
-	<select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
-			      select  pagingrnum||'' PAGINGRNUM, business_no, month_sales||'' MONTH_SALES, business_type1, business_type2, addr_dong, addr_gu, best_menu_type, RANKING||'' RANKING from(     
-				select bb.* , rownum PAGINGRNUM from(       
-                	select b.* from(   
-					<include refid="preSearchWhere"/>
-					 ) b order by ${sort})  bb)
-			
-					where pagingrnum &gt; =${selectPageNo*rowCntPerPage-rowCntPerPage+1}
-							 and pagingrnum &lt; =${selectPageNo*rowCntPerPage}
-							
-				
-	</select>
-	
+   <!-- ===== [프리미엄 검색 리스트] =================================================================-->   
+   <select id="getPreResultList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
+                  select  pagingrnum||'' PAGINGRNUM, business_no, month_sales||'' MONTH_SALES, business_type1, business_type2, addr_dong, addr_gu, nvl(best_menu_type,'없음') BEST_MENU_TYPE, RANKING||'' RANKING from(     
+                select bb.* , rownum PAGINGRNUM from(       
+                    select b.* from( 
+               <include refid="preSearchWhere"/>
+                ) b order by ${sort})  bb)
+         
+               where pagingrnum &gt; =${selectPageNo*rowCntPerPage-rowCntPerPage+1}
+                      and pagingrnum &lt; =${selectPageNo*rowCntPerPage}
+                     
+            
+   </select>
+   
 
-	<!--====[프리미엄 검색 개수]===========================================================================-->	
-	<select id="getPreResultAllCnt" parameterType="com.naver.erp.PreSearchDTO" resultType="int">
-		select count(*)
-		from (
-		 	<include refid="preSearchWhere"/>)
-	</select>
-	
-	
-	<select id="getBusinessInfoList" parameterType="int" resultType="java.util.HashMap">
-		select 
-			business_no   as "business_no"
-			, business_name   as "business_name"
-		from business_info
-		where u_no=#{u_no}
-	</select>
-		
+   <!--====[프리미엄 검색 개수]===========================================================================-->   
+   <select id="getPreResultAllCnt" parameterType="com.naver.erp.PreSearchDTO" resultType="int">
+      select count(*)
+      from (
+          <include refid="preSearchWhere"/>)
+   </select>
+   
+   
+   <select id="getBusinessInfoList" parameterType="int" resultType="java.util.HashMap">
+      select 
+         business_no   as "business_no"
+         , business_name   as "business_name"
+      from business_info
+      where u_no=#{u_no}
+   </select>
+      
 
-<!-- =====[구 리스트] 얻기====================================================================== -->		
-	<!-- [select / addrGu1]얻기 -->
-	<select id="getAddrGu1List"  resultType="java.util.HashMap">
-		select
-  				 distinct(addr_gu)  as "addr_gu1"
-		from addr
-		order by addr_gu
-		
-	</select>
-		
+<!-- =====[구 리스트] 얻기====================================================================== -->      
+   <!-- [select / addrGu1]얻기 -->
+   <select id="getAddrGu1List"  resultType="java.util.HashMap">
+      select
+               distinct(addr_gu)  as "addr_gu1"
+      from addr
+      order by addr_gu
+      
+   </select>
+      
 
-<!-- ====[UserNo] 얻기============================================================================ -->		
-		
+<!-- ====[UserNo] 얻기============================================================================ -->      
+      
    <select id='getUserNo' parameterType="String" resultType="int">   
       select u_no from user_info where user_id=#{user_id}
    </select>
    
 
-	<!-- =====[BusinessNoList] 얻기========================================================================= -->
+   <!-- =====[BusinessNoList] 얻기========================================================================= -->
 
-	<select id='getBusinessNoList' parameterType="int"
-		resultType="java.util.HashMap">
-		select
-		business_no as "business_no"
-		, business_name as "business_name"
+   <select id='getBusinessNoList' parameterType="int"
+      resultType="java.util.HashMap">
+      select
+      business_no as "business_no"
+      , business_name as "business_name"
 
-		from business_info
-		where
-		1=1
-		and u_no=#{u_no}
-		
+      from business_info
+      where
+      1=1
+      and u_no=#{u_no}
+      
 
-	</select>
-	
+   </select>
+   
 
-<!-- =====[business type 대분류 리스트] 얻기========================================================================= -->	
-	<select id="getBusinessTypeName1List"  resultType="java.util.HashMap">
-		select
-  				 distinct(business_type_name1)  as "business_type_name1"
-		from code_business_type
-		order by business_type_name1
-	</select>
-	
+<!-- =====[business type 대분류 리스트] 얻기========================================================================= -->   
+   <select id="getBusinessTypeName1List"  resultType="java.util.HashMap">
+      select
+               distinct(business_type_name1)  as "business_type_name1"
+      from code_business_type
+      order by business_type_name1
+   </select>
+   
 
-<!-- =====[business type 소분류 리스트] 얻기========================================================================= -->	
-	<select id="getBusinessTypeName2" parameterType="String" resultType="String">
-		select
-  				 business_type_name2  as "business_type_name2"
-		from code_business_type
-		where 1=1
-				and business_type_name1 = #{business_type_name1}
-		order by business_type_name2
-	</select>
-	
-	
-<!-- =====[addr_gu2 리스트] 얻기========================================================================= -->	
-	<select id="getAddrGu2" parameterType="String" resultType="String">
-		select
-  				 distinct addr_gu  as "addr_gu2"
-		from addr
-		where 1=1
-				and addr_gu != #{addr_gu1}
-		order by addr_gu
-	</select>
-	
-	
-	 
-	
-	
-</mapper>	
-	
+<!-- =====[business type 소분류 리스트] 얻기========================================================================= -->   
+   <select id="getBusinessTypeName2" parameterType="String" resultType="String">
+      select
+               business_type_name2  as "business_type_name2"
+      from code_business_type
+      where 1=1
+            and business_type_name1 = #{business_type_name1}
+      order by business_type_name2
+   </select>
+   
+   
+<!-- =====[addr_dong1 리스트] 얻기========================================================================= -->   
+   <select id="getAddrDong1" parameterType="String" resultType="String">
+      select
+               distinct addr_dong  as "addr_dong1"
+      from addr
+      where 1=1
+            and addr_gu = #{addr_gu1}
+      order by addr_dong
+   </select>
+   
+   
+   
+<!-- =====[bestMenuList] 얻기========================================================================= -->   
+   <select id="getBestMenuList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
+
+      select * from
+          (select menu_name, sales_sum, DENSE_RANK() OVER (ORDER BY sales_sum desc)   RANKING from
+          (select unique a.menu_name, sales_sum
+          from(SELECT s.business_no , s.menu_no, s.menu_name, SUM(s.sales_count) AS SALES_SUM
+                FROM sales s, business_info bi, addr a, code_business_type cbt, menu m
+                where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
+                      and s.menu_no=m.menu_no and a.addr_no=bi.addr_no and bi.business_type_code=cbt.business_type_code and bi.business_no=m.business_no
+
+                         <if test="addr_gu1!=null and addr_gu1.length()>0">
+                               and a.addr_gu= #{addr_gu1}
+                     </if>
+                     <if test="(addr_gu1!=null and addr_gu1.length()>0)and(addr_dong1!=null and addr_dong1.length()>0)">
+                               and a.addr_dong= #{addr_dong1}
+                      </if> 
+                     <if test="business_type_name1!=null and business_type_name1.length()>0">
+                               and cbt.business_type_name1=#{business_type_name1}
+                       </if>
+                       <if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+                               and cbt.business_type_name2=#{business_type_name2}
+                       </if>
+
+
+                GROUP BY s.business_no, s.menu_no,s.menu_name   
+                order by SALES_SUM desc) a
+                ,(select s.business_no , sum(s.sales_count*m.menu_price)  as "MONTH_SALES"
+                    from (select biall.business_no, s2.sales_count, s2.menu_price, s2.sales_date, s2.menu_no
+                            from sales s2, business_info biall where biall.business_no=s2.business_no(+)) s , menu m
+                    where s.menu_no=m.menu_no
+                    group by s.business_no
+                    order by sum(s.sales_count*m.menu_price) desc ) month_sales 
+          where a.business_no=month_sales.business_no and month_sales&gt;=${month_sales} order by sales_sum desc))
+          where ranking&lt;=3
+          
+          
+   </select>
+   
+    
+   
+   
+</mapper>   
+   

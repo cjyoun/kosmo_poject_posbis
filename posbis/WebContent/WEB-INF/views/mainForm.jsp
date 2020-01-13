@@ -153,28 +153,29 @@ function gobeforeSignIntroForm(){
 				<div class="col-lg-6">
 					<div class="hs-text">
 						<h2>POSBIS</h2>
-						<p>Donec eget efficitur ex. Donec eget dolor vitae eros feugiat tristique id vitae massa. Proin vulputate congue rutrum. Fusce lobortis a enim eget tempus. Class aptent taciti sociosqu ad litora torquent per conubia.</p>
-						<a class="site-btn sb-dark" onClick="gobeforeSignIntroForm();" style="color:#fff">회사소개 바로가기</a>
+						<p>서울특별시 소상공인 점포의 정보 원천으로 활용하시어 점포의 매출 증대와 이익 증대를 위해 함께 노력하는 동반자가 되어 드릴 것을 진심으로 기원하며, 소상공인들께 최상의 서비스를 추구할 것을 약속드립니다. 고객의 입장, 고객의 중심에서 생각하는 회사로 항상 노력하겠습니다.</p>
+						<button class="site-btn3 sb-dark" onClick="gobeforeSignIntroForm();" style="color:#fff">회사소개 바로가기</button>
 					</div>
 				</div>
-				<div class="col-lg-6">
-					<form class="hero-form" name="mainForm">
-						<input type="text" placeholder="ID" name="user_id" class="id-pwd user_id">
-						<input type="password" placeholder="Password" name="user_pwd" class="id-pwd user_pwd">
-						<div class="textColor">
-							<input type="checkbox" value="remember-me" name="is_login" value="y"  style="float:left">&nbsp; 아이디/암호 기억하기
-
-							
-							<span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0">아이디 암호 찾기</a></span><br>
-		         	     </div>
-		         	     <br><br> 
+				<div class="col-lg-6" style="margin: 0 0 0 0">
+					<form class="hero-form" name="mainForm" style="width:400; margin: 0 0 0 100">
+						<div style="width:300; margin: 0 0 0 -65px">
+							<input type="text" placeholder="ID" name="user_id" class="id-pwd user_id">
+							<input type="password" placeholder="Password" name="user_pwd" class="id-pwd user_pwd">
+							<div class="textColor">
+								<input type="checkbox" value="remember-me" name="is_login" value="y"  style="float:left">&nbsp; 아이디/암호 기억하기
 	
-						<button type="button" class="site-btn" onClick="goLoginForm();">Log in</button>
-						<br>
-						<br>
-						<br>
-						<button type="button" class="site-btn2"  onClick="goJoinForm();">Sign up</button>
-
+								
+								<span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0">아이디 암호 찾기</a></span><br>
+			         	     </div>
+			         	     <br><br> 
+		
+							<button type="button" class="site-btn" onClick="goLoginForm();">Log in</button>
+							<br>
+							<br>
+							<br>
+							<button type="button" class="site-btn2"  onClick="goJoinForm();">Sign up</button>
+						</div>
 					</form>
 					
 				</div>
@@ -200,11 +201,7 @@ function gobeforeSignIntroForm(){
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>

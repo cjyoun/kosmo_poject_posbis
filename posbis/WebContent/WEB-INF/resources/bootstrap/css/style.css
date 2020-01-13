@@ -12,7 +12,7 @@
 html,
 body {
 	height: 100%;
-	font-family: "Open Sans", sans-serif;
+	font-family: '돋움',Dotum,'돋움체',DotumChe;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -141,7 +141,7 @@ Commom elements
 	border: none;
 	font-size: 14px;
 	font-weight: 600;
-	min-width: 330px;
+	min-width: 100%;
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
@@ -157,7 +157,23 @@ Commom elements
 	border: none;
 	font-size: 14px;
 	font-weight: 600;
-	min-width: 330px;
+	min-width: 100%;
+	padding: 22px 35px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #f43f00;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
+
+.site-btn3 {
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+	min-width: 200px;
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
@@ -173,6 +189,10 @@ Commom elements
 }
 
 .site-btn.sb-dark {
+	background: #22242b;
+}
+
+.site-btn3.sb-dark {
 	background: #22242b;
 }
 
@@ -515,6 +535,7 @@ Header section
 	transition: all 0.4s;
 	-webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.15);
 	box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.15);
+	margin:10 0 0 0;
 	
 	
 }

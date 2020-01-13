@@ -148,15 +148,30 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 		
 		
 
-		// select / AddrGu2 얻기
-		public List<String> getAddrGu2(String addr_gu1) {
+		// select / AddrDong1 얻기
+		public List<String> getAddrDong1(String addr_gu1) {
 			//System.out.println("DAO/addr_gu1===>"+addr_gu1);
-			List<String> addrGu2List;
-			addrGu2List = this.sqlSession.selectList(
-					"com.naver.erp.PreSearchDAO.getAddrGu2"
+			List<String> addrDong1List;
+			addrDong1List = this.sqlSession.selectList(
+					"com.naver.erp.PreSearchDAO.getAddrDong1"
 					, addr_gu1
 			);
-			return addrGu2List;
+			return addrDong1List;
+		}
+		
+
+		//--------------------------------------------------------------------------------------------------   
+		
+		
+		
+		//bestMenuList 얻기
+		public List<String> getBestMenuList(PreSearchDTO preSearchDTO){
+			List<String> bestMenuList;
+			bestMenuList = this.sqlSession.selectList(
+					"com.naver.erp.PreSearchDAO.getBestMenuList"
+					,preSearchDTO
+			);
+			return bestMenuList;
 		}
 		
 	

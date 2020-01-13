@@ -41,62 +41,64 @@ public class PosLoginController {
 	}
 	
 	
-	// -------------------------------------------------------------------------------------------------------------------------------------
-		// 아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기
-		@RequestMapping(value = "/posLoginProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
-		@ResponseBody
-		public int posLoginProc(
-				PosLoginDTO posLoginDTO
-				, @RequestParam(value = "is_posLogin", required = false) String is_posLogin
-				, HttpSession session
-				, HttpServletResponse response
-			) 
-		{
+// -------------------------------------------------------------------------------------------------------------------------------------
+	// 아이디, 암호 체크 후 ajax를 통해 아이디 조회 후 로그인 하기
+	@RequestMapping(value = "/posLoginProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
+	@ResponseBody
+	public int posLoginProc(
+			PosLoginDTO posLoginDTO
+			, @RequestParam(value = "is_posLogin", required = false) String is_posLogin
+			, HttpSession session
+			, HttpServletResponse response
+		) 
+	{
+		
+		//System.out.println(posLoginDTO.getBusiness_no());
+		//System.out.println(posLoginDTO.getUser_pwd());
+		
+		//System.out.println("is_posLogin = " + is_posLogin);
+
+
+		int admin_idCnt = 0;
+
+		try {
+
+			admin_idCnt = this.posLoginService.getAdminNoCnt(posLoginDTO);
 			
-			//System.out.println(posLoginDTO.getBusiness_no());
-			//System.out.println(posLoginDTO.getUser_pwd());
+			if (admin_idCnt == 1) {
+				
+				// 로그인한 business_no를 세션에 담기
+				session.setAttribute("pos_business_no", posLoginDTO.getBusiness_no());
 			
-			//System.out.println("is_posLogin = " + is_posLogin);
+				if (is_posLogin != null) {
+					System.out.println("if(is_posLogin != null)접속성공");
 
+					Cookie cookie1 = new Cookie("business_no", posLoginDTO.getBusiness_no());
+					cookie1.setMaxAge(60 * 60 * 24);
+					response.addCookie(cookie1);
 
-			int admin_idCnt = 0;
+					Cookie cookie2 = new Cookie("user_pwd", posLoginDTO.getUser_pwd());
+					cookie2.setMaxAge(60 * 60 * 24);
+					response.addCookie(cookie2);
+				} else {
 
-			try {
+					Cookie cookie1 = new Cookie("business_no", null);
+					cookie1.setMaxAge(0);
+					response.addCookie(cookie1);
 
-				admin_idCnt = this.posLoginService.getAdminNoCnt(posLoginDTO);
-				
-				if (admin_idCnt == 1) {
-					
-					// 로그인한 business_no를 세션에 담기
-					session.setAttribute("pos_business_no", posLoginDTO.getBusiness_no());
-				
-				/*
-				 * if (is_login != null) { System.out.println("if(is_login != null)접속성공");
-				 * 
-				 * Cookie cookie1 = new Cookie("user_id", user_id); cookie1.setMaxAge(60 * 60 *
-				 * 24); response.addCookie(cookie1);
-				 * 
-				 * Cookie cookie2 = new Cookie("user_pwd", user_pwd); cookie2.setMaxAge(60 * 60
-				 * * 24); response.addCookie(cookie2); } else {
-				 * 
-				 * Cookie cookie1 = new Cookie("user_id", null); cookie1.setMaxAge(0);
-				 * response.addCookie(cookie1);
-				 * 
-				 * Cookie cookie2 = new Cookie("user_pwd", null); cookie2.setMaxAge(0);
-				 * response.addCookie(cookie2); }
-				 */
+					Cookie cookie2 = new Cookie("user_pwd", null);
+					cookie2.setMaxAge(0);
+					response.addCookie(cookie2);
 				}
-
-			} catch (Exception e) {
-				System.out.println("e.getMessage()" + e.getMessage());
-				System.out.println("posLoginProc접속실패");
-				admin_idCnt = -1;
 			}
-			System.out.println("controller/admin_idCnt-->"+admin_idCnt);
-			return admin_idCnt;
+
+		} catch (Exception e) {
+			System.out.println("e.getMessage()" + e.getMessage());
+			System.out.println("posLoginProc접속실패");
+			admin_idCnt = -1;
 		}
-
-	
-	
+		
+		System.out.println("controller/admin_idCnt-->"+admin_idCnt);
+		return admin_idCnt;
+	}
 }
-

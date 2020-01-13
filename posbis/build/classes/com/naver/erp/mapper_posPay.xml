@@ -9,7 +9,13 @@
 <!-- 메뉴 리스트 select -->
 <!--**************************************************************************-->
   <select id="getPosMenuList" parameterType="String" resultType="java.util.HashMap">
-  		select menu_price, menu_name from menu where business_no=#{business_no}
+  	select 
+  		menu_no
+  		, menu_price
+  		, menu_name 
+  	from menu
+  	where business_no=#{business_no}
+  		 and menu_using='Y'
 	</select>
 	
 <!-- 	
@@ -36,6 +42,13 @@
 		from menu where business_no=#{business_no} and menu_name=#{menu_name}
    </select>
    
-   
+<!-- 가게이름 불러오기 -->   
+	<select id="getBusiness_name" parameterType="String" resultType="String">
+		select business_name from business_info where business_no=#{business_no}
+	</select>
+	
+<!-- 메뉴 결제시 매출 insert  --> 
+
+
 	
 </mapper>

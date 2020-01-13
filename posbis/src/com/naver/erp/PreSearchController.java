@@ -166,8 +166,15 @@ public class PreSearchController {
          mav.addObject("businessTypeName1List", businessTypeName1List);
          //System.out.println("Controller/businessTypeName1List///"+businessTypeName1List);
          //================= 끝  [select / businessTypeName1List]얻기====================
-         
-         
+
+
+
+         //=====================[bestMenuList]얻기====================
+         List<String> bestMenuList = this.preSearchService.getBestMenuList(preSearchDTO);
+         mav.addObject("bestMenuList", bestMenuList);
+         System.out.println(bestMenuList);
+
+         //================= 끝  [bestMenuList]얻기====================
          
          //System.out.println("Controller/preSearchDTO.rowCntPerPage===>"+preSearchDTO.getRowCntPerPage());
          //System.out.println("Controller/preSearchDTO.selectPageNo===>"+preSearchDTO.getSelectPageNo());
@@ -190,27 +197,27 @@ public class PreSearchController {
    
    
 
-   // addr_gu2 얻기
-   @RequestMapping( value="/getAddrGu2Proc.do" //접속하는 클래스의 URL 주소 설정
+   // addr_dong1 얻기
+   @RequestMapping( value="/getAddrDong1Proc.do" //접속하는 클래스의 URL 주소 설정
              ,method=RequestMethod.POST //접속하는 클래스의 파라미터값 전송 방법
           ,produces="application/json;charset=UTF-8" //응답할 데이터 종류 설정(여기선 json) )
    )
    @ResponseBody 
-   public List<String> getAddrGu2Proc(
+   public List<String> getAddrDong1Proc(
          @RequestParam(value="addr_gu1") String addr_gu1 
    ) {
       //System.out.println("Controller/addr_gu1===>"+addr_gu1);
-      List<String> addrGu2List;
+      List<String> addrDong1List;
       try {
-         addrGu2List = this.preSearchService.getAddrGu2(addr_gu1);
+    	  addrDong1List = this.preSearchService.getAddrDong1(addr_gu1);
       }
       catch(Exception e) {
-         System.out.println("getAddrGu2Proc <에러발생>");
+         System.out.println("getAddrDong1Proc <에러발생>");
          System.out.println(e.getMessage());
-         addrGu2List = null;
+         addrDong1List = null;
       }
-      //System.out.println("Controller/addrGu2List===>"+addrGu2List);
-      return addrGu2List;
+      //System.out.println("Controller/addrDong1List===>"+addrDong1List);
+      return addrDong1List;
    }
    
    
@@ -241,6 +248,9 @@ public class PreSearchController {
       //System.out.println("Controller/businessTypeName2List===>"+businessTypeName2List);
       return businessTypeName2List;
    }
+   
+   
+  
    
    
    

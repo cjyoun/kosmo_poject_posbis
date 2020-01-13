@@ -18,7 +18,7 @@ body {
 
     background: #eeeeee;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
     padding: 0px !important;
 
@@ -248,7 +248,7 @@ table tr th { color: #688a7e;}
 
     font-weight: 300;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -266,7 +266,7 @@ table tr th { color: #688a7e;}
 
     font-weight: 300;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -358,7 +358,7 @@ table tr th { color: #688a7e;}
 
     font-weight: 300;
 
-    font-family: 'Lato', sans-serif;
+    font-family: ''돋움',Dotum,'돋움체',DotumChe;
 
     box-shadow: 0 4px #e56b60;
 
@@ -2237,6 +2237,7 @@ div[data-role="editor-toolbar"] {
 }
 
 
+
 .panel .panel-heading .panel-title {
 
   line-height: 40px;
@@ -4027,7 +4028,7 @@ div[data-role="editor-toolbar"] {
 
     background: #00a0df;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
     font-size: 11px;
 
@@ -6523,7 +6524,7 @@ ul.inbox-pagination li {
 
     font-weight: 300;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -6533,7 +6534,7 @@ ul.inbox-pagination li {
 
     font-weight: 400;
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -8743,7 +8744,7 @@ table.sliders tr td {
 
     color: #34495e;
 
-    font-family: "Lato", sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
     font-size: 14px;
 
@@ -8799,7 +8800,7 @@ table.sliders tr td {
 
     content: "\f00d";
 
-    font-family: "FontAwesome";
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -8857,7 +8858,7 @@ table.sliders tr td {
 
     content: "\f067";
 
-    font-family: "FontAwesome";
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
 }
 
@@ -9035,7 +9036,7 @@ table.sliders tr td {
 
 .daterangepicker .calendar th, .daterangepicker .calendar td {
 
-    font-family: 'Lato', sans-serif;
+    font-family: '돋움',Dotum,'돋움체',DotumChe;
 
     font-weight: 300;
 

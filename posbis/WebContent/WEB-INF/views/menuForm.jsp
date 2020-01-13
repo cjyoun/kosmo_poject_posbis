@@ -67,10 +67,11 @@
       Author: BootstrapMade
       Author URL: https://bootstrapmade.com
     ======================================================= -->
-
-<!-- 회원등급 표시 아이콘 -->   
-<link rel="stylesheet" href="resources\pos\assets\vendor\fonts\themify-icons\themify-icons.css">
-
+    
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
 
   
  <style>
@@ -98,9 +99,17 @@
  
     
    background-color: #f5f8fd;
+   
 
 }
   
+select { 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
+} 
+select::-ms-expand { display: none; }
   
   </style>
  
@@ -405,32 +414,32 @@
 		</a>
 		<nav class="header-nav">
 			<ul class="main-menu">
-				<li><a class="active">INFO</a>
+				<li><a style="color:#fff; cursor:pointer;">INFO</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a href="#">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a href="#">매장관리</a>
+				<li><a class="active" style="cursor:pointer;">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a href="#">업체동향</a>
+				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -471,8 +480,10 @@
 			<h2>메뉴관리</h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-				<span class="sb-item active">매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">메뉴관리</span>
-			</nav>
+	            <span class="sb-item active">
+	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
+	            <i class="fas fa-utensils"></i> 메뉴관리</span>
+	         </nav>
 			</div>
 		</div>
 	</section>
@@ -503,11 +514,11 @@
                <td> 
                <!-- 2020-01-09 수정 -->
                <table><tr><td style="color:#330066">
-	               [ 사업자 번호 ]&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;
+	               [ 사업자 &nbsp;  번호 ]&nbsp;&nbsp;:&nbsp;&nbsp;
 	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
-	               <tr>
+	               <tr><td>
 	            		<c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-	             	<td>
+	             	
 	             	<td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
 	                    <c:if test="${(status.index+1)%3==0}">
 	                     <c:if test="${!status.last }">
@@ -526,8 +537,12 @@
             <tr>
                <td style="color:#330066"> [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드 ]&nbsp;&nbsp;:&nbsp;&nbsp;
                   <input type="text" name="keyword" class="keyword">
-                  <input type="button" value="검    색" onClick="goSearch();">&nbsp;
-                  <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp;
+                  <!-- <input type="button" value="검    색" onClick="goSearch();">&nbsp;
+				  <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp; -->
+				  <br><br>
+                  <button type="button" class="btn btn-default"style="margin:0 0 0 120" onClick="goSearch();">검      색</button>&nbsp;
+                  <button type="button" class="btn btn-default"style="" onClick="goSearchAll();">모두  검색</button>&nbsp;
+                  
                   <a href="javascript:goKeywordReset();">&nbsp;<u>검색조건 초기화</u> 
          <br></table><br><!-- 2020-01-09 수정 끝-->
          </div>
@@ -542,12 +557,12 @@
                   [메뉴 총 개수] : ${menuListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
                   
                   <!-- 행보기 선택 select -->
-                  <select name="rowCntPerPage" style="width:50px;">
-                     <option value="10">10
-                     <option value="15">15
-                     <option value="20">20
-                     <option value="25">25
-                     <option value="30">30
+                  <select name="rowCntPerPage" style="width:50px;height:25px;">
+                     	<option value="10">&nbsp;10&nbsp;
+						<option value="15">&nbsp;15&nbsp;
+						<option value="20">&nbsp;20&nbsp;
+						<option value="25">&nbsp;25&nbsp;
+						<option value="30">&nbsp;30&nbsp;
                   </select> 행보기
             </table>
             
@@ -572,7 +587,7 @@
       <table class="table table-striped table-advance table-hover"  id="menu">
          <thead>
                 <tr>
-          <th>번호
+          <th>NO
                   <!-- 매장이름 -->
                   <c:choose>
                      <c:when test="${param.sort=='business_name desc'}">
@@ -726,27 +741,27 @@
  
                   <tr style="cursor: pointer" onClick="goMenuUpDelForm(${menu.menu_no});">
                   <!-- 번호 정순 출력 -->
-                  <td>
+                  <td align=center width="4%">
                   ${menuSearchDTO.selectPageNo*menuSearchDTO.rowCntPerPage-
                                         menuSearchDTO.rowCntPerPage+1+loopTagStatus.index}
                   <!-- 매장명출력 -->
-                 <td>${menu.business_name}</td>
+                 <td align=center width="10%">${menu.business_name}</td>
                   <!-- 대분류출력 -->
-                  <td>${menu.main_category_name}</td>
+                  <td align=center width="6%">${menu.main_category_name}</td>
                   <!-- 각 행의 메뉴 중분류 출력  -->
-                  <td>${menu.mid_category_name}</td>
+                  <td align=center width="6%">${menu.mid_category_name}</td>
                   <!-- 각 행의 메뉴 소분류 출력  -->
-                  <td>${menu.sub_category_name}</td>
+                  <td align=center width="6%">${menu.sub_category_name}</td>
                   <!-- 각 행의 메뉴 이름 출력  -->
-                  <td>${menu.menu_name}</td>
+                  <td align=center width="15%">${menu.menu_name}</td>
                   <!-- 각 행의 메뉴 가격 출력  -->
-                  <td  align=right class=price_amount>${menu.menu_price}원</td>
+                  <td  align=right width="10%" class=price_amount>${menu.menu_price}원</td>
                   <!-- 각 행의 메뉴 원가 출력  -->
-                  <td  align=right class=price_amount>${menu.menu_cost}원</td>
+                  <td  align=right width="10%" class=price_amount>${menu.menu_cost}원</td>
                   <!-- 각 행의 메뉴 이익 단가 출력  -->
-                  <td  align=right class=price_amount>${menu.menu_avail}원</td>
+                  <td  align=right width="10%" class=price_amount>${menu.menu_avail}원</td>
                   <!-- 각 행의 메뉴 사용 여부 출력  -->
-                  <td align=center class=menu_using value="${menu.menu_using}">
+                  <td align=center width="5%" class=menu_using value="${menu.menu_using}">
                            <c:if test="${menu.menu_using=='Y'}">
                               사용
                            </c:if>
@@ -787,11 +802,7 @@
 
 				<div class="footer-widget">
 
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus. Scelerisque felis
-						imperdiet proin fermentum leo. Amet volutpat consequat mauris nunc
-						congue.</p>
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
 					<p>
 						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
 						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>
