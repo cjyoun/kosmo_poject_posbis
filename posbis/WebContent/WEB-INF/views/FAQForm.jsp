@@ -23,6 +23,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 <!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->   
 <html>
 <head>
+<title>FAQ</title>
  <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -265,34 +266,35 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a class="active" style="cursor:pointer;">고객센터</a>
+				<li><a class="active" style=" cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -302,7 +304,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -311,7 +313,8 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 	               <i class="ti-crown">&nbsp;</i>
 	            </c:if>
 	            
-	            <b>${user_id}</b> 님 반갑습니다                 	
+	            <b>${user_id}</b> 님 반갑습니다
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -330,7 +333,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>FAQ</h2>
+			<h2><strong>FAQ</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -361,18 +364,18 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
               <div class="panel-body">  
                   <div class="col-sm-10" align="center">
       
-              <table id="FAQ"class="table table-striped table-advance table-hover">
-		         <tr><td><b>Q.[회원등급] 프리미엄 회원 정기 결제일은 언제인가요?
-		         <tr><td>&nbsp;&nbsp;A. 프리미엄 월회비는 최초 등급전환/가입일과 동일한 날짜에 결제됩니다.
-		         <tr><td><b>Q.[기능문의] 가게 매출에서 상품별로 차지하는 비율이 궁금합니다. 
-		         <tr><td>&nbsp;&nbsp;A. 해당 기능은 현재 프리미엄 회원 전용 서비스로 제공 중입니다.<br>
+              <table id="FAQ"class="table table-striped table-advance table-hover" style="cursor: pointer; margin:20 0 20 0; width:1340">
+		         <tr><td style="height: 40"><b>Q.[회원등급] 프리미엄 회원 정기 결제일은 언제인가요?
+		         <tr><td style="height: 40">&nbsp;&nbsp;A. 프리미엄 월회비는 최초 등급전환/가입일과 동일한 날짜에 결제됩니다.
+		         <tr><td style="height: 40"><b>Q.[기능문의] 가게 매출에서 상품별로 차지하는 비율이 궁금합니다. 
+		         <tr><td style="height: 40">&nbsp;&nbsp;A. 해당 기능은 현재 프리미엄 회원 전용 서비스로 제공 중입니다.<br>
 		         		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;프리미엄 회원이시라면 비교차트 탭에서 차트로 확인이 가능합니다.
-		         <tr><td><b>Q.[회원등급] 프리미엄 회원 해지 시 카드 정보는 삭제되나요?
-		         <tr><td>&nbsp;&nbsp;A. 해지 즉시 등록하신 카드가 자동으로 삭제됩니다.
-		         <tr><td><b>Q.[정보수정] 사업자번호가 변경되었는데 재가입해야하나요?
-		         <tr><td>&nbsp;&nbsp;A. 내정보보기 페이지에서 사업자번호 추가/삭제가 가능합니다.
-		         <tr><td><b>Q.[회원등급] 프리미엄 회원의 혜택에는 어떤 것이 있나요?
-		         <tr><td>&nbsp;&nbsp;A. 차트를 통해 내 가게의 상품별 매출을 한 눈에 볼 수 있습니다.<br>
+		         <tr><td style="height: 40"><b>Q.[회원등급] 프리미엄 회원 해지 시 카드 정보는 삭제되나요?
+		         <tr><td style="height: 40">&nbsp;&nbsp;A. 해지 즉시 등록하신 카드가 자동으로 삭제됩니다.
+		         <tr><td style="height: 40"><b>Q.[정보수정] 사업자번호가 변경되었는데 재가입해야하나요?
+		         <tr><td style="height: 40">&nbsp;&nbsp;A. 내정보보기 페이지에서 사업자번호 추가/삭제가 가능합니다.
+		         <tr><td style="height: 40"><b>Q.[회원등급] 프리미엄 회원의 혜택에는 어떤 것이 있나요?
+		         <tr><td style="height: 40">&nbsp;&nbsp;A. 차트를 통해 내 가게의 상품별 매출을 한 눈에 볼 수 있습니다.<br>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;또한 지역별/상품별 매출현황 비교, 위치기반 메뉴추천 등의 서비스가 제공됩니다.
       </table>
 		</div>

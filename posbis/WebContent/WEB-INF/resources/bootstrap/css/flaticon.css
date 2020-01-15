@@ -4,7 +4,7 @@
   	*/
 
 @font-face {
-  font-family: '돋움',Dotum,'돋움체',DotumChe;
+  font-family: "Flaticon";
   src: url("../icon-fonts/Flaticon.eot");
   src: url("../icon-fonts/Flaticon.eot?#iefix") format("embedded-opentype"),
        url("../icon-fonts/Flaticon.woff") format("woff"),
@@ -16,14 +16,14 @@
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-  font-family: '돋움',Dotum,'돋움체',DotumChe;
+  font-family: "Flaticon";
     src: url("../icon-fonts/Flaticon.svg#Flaticon") format("svg");
   }
 }
 
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
-  font-family: '돋움',Dotum,'돋움체',DotumChe;
+  font-family: Flaticon;
   font-style: normal;
 }
 

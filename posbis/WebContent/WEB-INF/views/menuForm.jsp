@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>메뉴 관리</title>
   <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -407,39 +408,42 @@ select::-ms-expand { display: none; }
    </head>
 
 <body>
- <!-- Header Section -->
+<!-- Header Section -->
 	<header class="header-section">
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a class="active" style="cursor:pointer;">매장관리</a>
+				<li><a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -449,7 +453,7 @@ select::-ms-expand { display: none; }
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -477,7 +481,7 @@ select::-ms-expand { display: none; }
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>메뉴관리</h2>
+			<h2><strong>메뉴관리</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -503,7 +507,7 @@ select::-ms-expand { display: none; }
               </header>
          <div class="panel-body">
          
-      <div class="container">
+      <div style="width:95%">
           
          <form name="menuForm" method="post" action="/posbis/menuForm.do">
          <!-- 메뉴관리 검색 조건 및 메뉴등록  -->
@@ -514,19 +518,23 @@ select::-ms-expand { display: none; }
                <td> 
                <!-- 2020-01-09 수정 -->
                <table><tr><td style="color:#330066">
-	               [ 사업자 &nbsp;  번호 ]&nbsp;&nbsp;:&nbsp;&nbsp;
+	               [ 사업자 번호 ]&nbsp; : &nbsp;
 	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
 	               <tr><td>
-	            		<c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-	             	
-	             	<td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
-	                    <c:if test="${(status.index+1)%3==0}">
+	            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+	              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
+	                    <c:if test="${(status.index+1)%2!=0}">
+	                     <c:if test="${!status.last }">
+	                        <td width="40">
+	                     </c:if>
+	                    </c:if>
+	                    <c:if test="${(status.index+1)%2==0}">
 	                     <c:if test="${!status.last }">
 	                        <tr><td>
 	                     </c:if>
 	                  </c:if>   
 	            </c:forEach>
-            </table>
+	            </table>
                <br> 
             <tr>
                <td style="color:#330066"> [ 메뉴사용여부 ]&nbsp;&nbsp;:&nbsp;&nbsp;
@@ -535,20 +543,19 @@ select::-ms-expand { display: none; }
                   <input type ="radio" id= "menu_using_n" name="menu_using" class="menu_using" value="N"><label for="menu_using_n">미사용</label><br>
             <br>  
             <tr>
-               <td style="color:#330066"> [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드 ]&nbsp;&nbsp;:&nbsp;&nbsp;
+               <td style="color:#330066"> [ 키&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;드 ]&nbsp;&nbsp;:&nbsp;&nbsp;
                   <input type="text" name="keyword" class="keyword">
                   <!-- <input type="button" value="검    색" onClick="goSearch();">&nbsp;
 				  <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp; -->
 				  <br><br>
-                  <button type="button" class="btn btn-default"style="margin:0 0 0 120" onClick="goSearch();">검      색</button>&nbsp;
-                  <button type="button" class="btn btn-default"style="" onClick="goSearchAll();">모두  검색</button>&nbsp;
-                  
-                  <a href="javascript:goKeywordReset();">&nbsp;<u>검색조건 초기화</u> 
+                 		<button type="button" class="btn btn-default"style="margin:0 20 0 220" onClick="goSearch();">검      색</button>&nbsp;
+	      			 <button type="button" class="btn btn-default"style="margin:0 20 0 0" onClick="goSearchAll();">모두  검색</button>&nbsp;
+	   				 <a href="javascript:goKeywordReset();"><u>검색조건 초기화</u></a>
          <br></table><br><!-- 2020-01-09 수정 끝-->
          </div>
          
             <!-- 메뉴관리 검색 조건 및 메뉴등록 끝 -->
-              <div class="col-sm-12" align="center">
+              <div class="col-sm-12" align="center" style="width:120%">
              <table class="table table-striped table-advance table-hover" id="select">
                     <thead>
                         <tr>
@@ -569,7 +576,7 @@ select::-ms-expand { display: none; }
             
             <!------------------ 메뉴리스트 페이징 및 총개수 리턴 보여주기 ---------------------->
             <div class="pagingDiv">&nbsp; <span class="pagingNumber"></span> &nbsp;</div>
-               
+               <br>
                
             
             
@@ -741,17 +748,17 @@ select::-ms-expand { display: none; }
  
                   <tr style="cursor: pointer" onClick="goMenuUpDelForm(${menu.menu_no});">
                   <!-- 번호 정순 출력 -->
-                  <td align=center width="4%">
+                  <td align=center width="3%">
                   ${menuSearchDTO.selectPageNo*menuSearchDTO.rowCntPerPage-
                                         menuSearchDTO.rowCntPerPage+1+loopTagStatus.index}
                   <!-- 매장명출력 -->
-                 <td align=center width="10%">${menu.business_name}</td>
+                 <td align=center width="13%">${menu.business_name}</td>
                   <!-- 대분류출력 -->
-                  <td align=center width="6%">${menu.main_category_name}</td>
+                  <td align=center width="8%">${menu.main_category_name}</td>
                   <!-- 각 행의 메뉴 중분류 출력  -->
-                  <td align=center width="6%">${menu.mid_category_name}</td>
+                  <td align=center width="11%">${menu.mid_category_name}</td>
                   <!-- 각 행의 메뉴 소분류 출력  -->
-                  <td align=center width="6%">${menu.sub_category_name}</td>
+                  <td align=center width="10%">${menu.sub_category_name}</td>
                   <!-- 각 행의 메뉴 이름 출력  -->
                   <td align=center width="15%">${menu.menu_name}</td>
                   <!-- 각 행의 메뉴 가격 출력  -->
@@ -759,9 +766,9 @@ select::-ms-expand { display: none; }
                   <!-- 각 행의 메뉴 원가 출력  -->
                   <td  align=right width="10%" class=price_amount>${menu.menu_cost}원</td>
                   <!-- 각 행의 메뉴 이익 단가 출력  -->
-                  <td  align=right width="10%" class=price_amount>${menu.menu_avail}원</td>
+                  <td  align=right width="11%" class=price_amount>${menu.menu_avail}원</td>
                   <!-- 각 행의 메뉴 사용 여부 출력  -->
-                  <td align=center width="5%" class=menu_using value="${menu.menu_using}">
+                  <td align=center width="8%" class=menu_using value="${menu.menu_using}">
                            <c:if test="${menu.menu_using=='Y'}">
                               사용
                            </c:if>

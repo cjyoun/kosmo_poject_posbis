@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<title>가게등록</title>
  <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -442,39 +443,42 @@
    </script>
 
 <body>
- <!-- Header Section -->
+<!-- Header Section -->
 	<header class="header-section">
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a class="active" style="cursor:pointer;">마이페이지</a>
+				<li><a class="active" style=" cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -482,10 +486,9 @@
 					</ul>
 				</li>
 			</ul>
-
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -495,7 +498,7 @@
 	            </c:if>
 	            
 	            <b>${user_id}</b> 님 반갑습니다
-               	
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -513,7 +516,7 @@
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>가게등록</h2>
+			<h2><strong>가게등록</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -546,22 +549,22 @@
 
 		<input type="hidden" name="user_id" value="${user_id}">  
             <div class="form-group">
-             <label class="col-sm-2 control-label">사업자 번호</label>
+             <label class="col-sm-2 control-label" style="margin:0 20 0 30">사업자 번호</label>
              <div class="col-sm-6">
                      <input type="text" name="business_no" class="business_no form-control" placeholder="(10자리, 000-00-0000)" maxlength="12" required/>
              </div>
-					<a class="btn btn-default"onclick="checkBusinessNo();" title="Bootstrap 3 themes generator" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo">사업자 번호 중복확인</a>
+					<a class="btn btn-default"onclick="checkBusinessNo();" title="Bootstrap 3 themes generator" name="checkOverlapBusinessNo" class="checkOverlapBusinessNo" style="margin:0 17 0 0">사업자 번호 중복확인</a>
          	</div>
 			
 			 <div class="form-group">
-			 	<label class="col-sm-2 control-label">상호명</label>
+			 	<label class="col-sm-2 control-label" style="margin:0 20 0 30">상호명</label>
       		<div class="col-sm-6">
 	  				<input type="text" name="business_name" class="business_name form-control" placeholder="상호명"/> 
             </div>
             </div>
             
         <div class="form-group">
-                    <label class="col-sm-2 control-label">주소</label>
+                    <label class="col-sm-2 control-label" style="margin:0 20 0 30">주소</label>
                     <div class="col-lg-6">
                        <select class="form-control m-bot15 addr_gu" name="addr_gu">
                                               <option>--구 선택--</option>
@@ -577,7 +580,7 @@
                     </div>
                   </div>
 			 <div class="form-group">
-			  	<label class="col-sm-2 control-label">상세주소</label>
+			  	<label class="col-sm-2 control-label" style="margin:0 20 0 30">상세주소</label>
 			 <div class="col-sm-6">
 			 	<input type="text" size=50 name="addr_detail"
                      class="addr_detail form-control" />
@@ -585,7 +588,7 @@
 			 </div>
 			 
 			  <div class="form-group">
-                    <label class="col-sm-2 control-label">업종</label>
+                    <label class="col-sm-2 control-label" style="margin:0 20 0 30">업종</label>
                     <div class="col-lg-6">
                        <select class="form-control m-bot15 business_type_name1" name="business_type_name1">
                                               <option>--선택--</option>
@@ -604,20 +607,21 @@
 				</div>
 
 				<div class="form-group">
-                    <label class="col-sm-2 control-label">매장번호</label>
+                    <label class="col-sm-2 control-label" style="margin:0 20 0 30">매장번호</label>
                     <div class="col-sm-6">
                     <input type="text" size="12" name="store_tel_num"
                      class="store_tel_num form-control" />
-                    *숫자만 입력하세요
+                    <span style="float:left">*숫자만 입력하세요</span>
                 </div>
                 </div>
                 
  
                <div class="form-group">
-                    <label class="col-sm-2 control-label">비밀번호</label>
+                    <label class="col-sm-2 control-label" style="margin:0 20 0 30">비밀번호</label>
                     <div class="col-sm-6">
                    <input type="password" name="user_pwd" class="user_pwd form-control"
-                     placeholder="PASSWORD"  maxlength="10" required /> *사용자 확인을 위해 비밀번호를 입력하세요 
+                     placeholder="PASSWORD"  maxlength="10" required /> 
+                     <span style="float:left">*사용자 확인을 위해 비밀번호를 입력하세요 </span>
               	</div>
               	</div>
          

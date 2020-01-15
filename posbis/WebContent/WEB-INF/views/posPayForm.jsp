@@ -19,7 +19,7 @@
     <link href="resources/pos/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/pos/assets/libs/css/style.css">
     <link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-
+	<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">  
 
 
 
@@ -154,7 +154,7 @@
 										appendTr += "<td>"+menu_name
 										appendTr += "<td class=perPrice name='"+category+"'>"+menu_price
 										appendTr += "<td><input type='text' name='"+menu_name+"' value='1' class='sales_count' size=3 readonly>"
-										appendTr += "<td><input type=button class=count_update name=count_update value='수정'><td><input type=button name=menu_deleteBtn class='"+menu_name+"' value='삭제'></tr>"
+										appendTr += "<td><input type=button class=count_update name=count_update value='수정' style='WIDTH: 50pt; HEIGHT: 20pt'><td><input type=button name=menu_deleteBtn class='"+menu_name+"' value='삭제' style='WIDTH: 50pt; HEIGHT: 20pt'></tr>"
 										$("[name=tablelist] [name=perMenuList]").append(appendTr)
 										
 				 
@@ -297,33 +297,11 @@
 
 		});
 
-		function salesRegForm(){
-
-			$.ajax({
-			
-				url : "/posbis/posSalesRegProc.do"
-					
-				, type : "post"
-				
-				, data : $('[name=perMenuList]').serialize()
-				
-				, success : function(salesRegCnt){
-					alert("결제하시겠습니까?"+salesRegCnt);
-					
-					if(salesRegCnt==1){
-						alert("결제가 완료되었습니다.");
-						location.replace("/posbis/posPayForm.do");
-					}
-					else{
-						alert("결제 실패! 관리자에게 문의 바랍니다.");
-					}
-				}
-				, error : function(){
-					alert("서버 접속에 실패하였습니다.");
-				}
-			});
-			
-		} //function salesRegForm(){
+		//로그아웃 클릭시
+        function goPosLoginForm(){
+           
+           location.replace("/posbis/posLoginForm.do");
+        }
 		
 </script>
 
@@ -344,6 +322,8 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-right-top">
+                    
+                    	<!-- 사업자 번호 -->
                         <li class="nav-item dropdown connection">
   							<a class="nav-link">
   								<div id="businessNo" align="right" style=line-height:1.5>
@@ -351,8 +331,15 @@
   								</div>
   							</a>
                         </li>
+                        
+                        <!-- 시간 -->
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link"><div id="nowTime" align="right" padding="0" style=line-height:1.5>nowDate</div></a>
+                            <a class="nav-link" ><div id="nowTime" align="right" padding="0" style=line-height:1.5>nowDate</div></a>
+                        </li>
+                        
+                        <!-- 로그아웃 -->
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLoginForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
                         </li>
                     </ul>
                 </div>
@@ -422,14 +409,14 @@
                     <!-- ================ 메뉴 ======================================== -->
                     <!-- ============================================================== -->
                     <div class="row">
-					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" style="height:800">
+					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" style="height:800">
 					    <div class="card"  style="height:100%;">
 	                          <h5 class="card-header">메뉴 LIST</h5>
 	                          	<div class="sidebar-nav-fixed" >
 	                          	<div class="card-body">
 								<form id="form" data-parsley-validate="" novalidate="" name="menuNameform" method="post"  action="/posbis/menuNameform.do" >
 									<c:forEach items="${posMenuList}" var="posMenu">
-			                  			<div style="margin: 15px 25px 15px; float: left;">
+			                  			<div style="margin: 22px; float: left;">
 											<label for="${posMenu.MENU_NO}" class="btn btn-primary2"> 
 											<input type="checkbox"  class="btn btn-primary2" autocomplete="off" value="${posMenu.MENU_NAME}" name="menu_name" id="${posMenu.MENU_NO}" style="display:none" onClick="goMenuNameForm();">
 											<h2>${posMenu.MENU_NAME}</h2><span class="price" style="font-size:25px">${posMenu.MENU_PRICE}원</span>
@@ -449,7 +436,7 @@
                     <!-- ============================================================== -->
                     <!-- 결제목록 -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" style="height:800">                    
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12" style="height:800">                    
 						<div class="card" style="height:76%">
                   			<h5 class="card-header">결제 목록</h5>
                   				<div class="card-body">

@@ -7,6 +7,8 @@
 
 <html>
 <head>
+<title>비교차트</title>
+
  <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -130,9 +132,13 @@
 				$('[name=changeBusinessNo]').change(function(){		
 					changeChart();
 					checkBusinessNoForm();
-					
-					
-					
+
+				});	
+
+				$('[name=changeYear]').change(function(){		
+					changeChart();
+					checkBusinessNoForm();
+
 				});	
 
 				$('[name=changeBusinessNo]').change();
@@ -141,7 +147,7 @@
 	  	});
 
 		  	
-	     function changeChart(){
+ 	     function changeChart(){
 	    	 var business = $('[name=changeBusinessNo]').val();
              if(business == 'all'){        
                  $('.BusinessNoChart').hide();
@@ -151,7 +157,7 @@
            	  $('.allBusinessNoChart').hide();
                  $('.BusinessNoChart').show();
              }
-	     } 
+	     }  
  
      	
 
@@ -187,6 +193,7 @@
 	     
      	function checkBusinessNoForm(){
 				//alert($("[name=preChartForm]").serialize());
+				//alert($("[name=allBusinessNumber]").serialize()+"&changeYear="+$("[name=changeYear]").val());
 
 			 	// 사업자 번호 선택 란이 '모두검색' 일 때.
 				if($("[name=changeBusinessNo]").val() == 'all' ) {
@@ -204,8 +211,9 @@
 						, async : false
 						// 서버로 보낼 파라미터명과 파라미터 값을 설정
 						// 같은 이름의 다른 값들 여럿을 보내면 DTO에서는 배열로 받을 것. (AllBusinessNoDTO 가 받음.)
-						, data : $("[name=allBusinessNumber]").serialize()				
-							
+						
+						, data : $("[name=allBusinessNumber]").serialize()+"&changeYear="+$("[name=changeYear]").val()			
+						//, data : $("[name=allBusinessNumber]").serialize()	
 							
 						, success : function(allBusinessNoSalesChartListDTO){
 							
@@ -226,7 +234,7 @@
 										if( name == allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].BUSINESS_NAME) {
 											//alert("같은 가게 " +i+" ==== " + name);
 											allBusinessNoSales[j][i] = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].sales_amount;
-											allBusinessNoName[j] = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].BUSINESS_NAME;
+											allBusinessNoName[j] = allBusinessNoSalesChartListDTO.allBusinessNoSalesMonthList[i].business_name;
 											//alert(allBusinessNoName[j]+ i +" ==== " + allBusinessNoSales[j][i]);
 										}
 										else{
@@ -354,18 +362,25 @@
 							$(".menu2").remove();
 							$(".menu3").remove();
 
-							// 우리가게 인기메뉴 가져와서 보여주기
-							for(var i=0; i<myPopularityListDTO.myPopularityMenu.length; i++){
-								myMenuName[i] = myPopularityListDTO.myPopularityMenu[i].MENU_NAME ;
-								//("myMenuName => " + myMenuName[i]);
-								myCount[i] = myPopularityListDTO.myPopularityMenu[i].SALES_COUNT ;
-								//alert("myCount => " + myCount[i]);
-								$('.myPopularityMenu').append('<tr class="menu2"><td align=center >'+ myMenuName[i] +'</td>');
+
+							if(myPopularityListDTO.othersPopularityMenu.length == 0){
+								$('.myPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">없음</td>');
 							}
+							else{
+								// 우리가게 인기메뉴 가져와서 보여주기
+								for(var i=0; i<myPopularityListDTO.myPopularityMenu.length; i++){
+									myMenuName[i] = myPopularityListDTO.myPopularityMenu[i].MENU_NAME ;
+									//("myMenuName => " + myMenuName[i]);
+									myCount[i] = myPopularityListDTO.myPopularityMenu[i].SALES_COUNT ;
+									//alert("myCount => " + myCount[i]);
+									$('.myPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">'+ myMenuName[i] +'</td>');
+								}
+							}
+							
 						
 							
 							if(myPopularityListDTO.othersPopularityMenu.length == 0){
-								$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >없음</td>');
+								$('.othersPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">없음</td>');
 							}
 							else{
 								// 다른가게 인기메뉴 가져와서 보여주기
@@ -374,15 +389,14 @@
 									//alert("othersMenuName => " + othersMenuName[i]);
 									othersCount[i] = myPopularityListDTO.othersPopularityMenu[i].SALES_COUNT ;
 									//alert("othersCount => " + othersCount[i]);
-									$('.othersPopularityMenu').append('<tr class="menu2"><td align=center >'+ othersMenuName[i] +'</td>');
-									
+									$('.othersPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">'+ othersMenuName[i] +'</td>');	
 										
 								}
 							}
 
 							var storeCount = myPopularityListDTO.storeCount;
 							//alert("storeCount => " + storeCount)
-							$('.store_count').append('<td align=center class="menu3" >'+ storeCount +'</td>');
+							$('.store_count').append('<td align=center class="menu3" style="height:30">'+ storeCount +'</td>');
 
 							
 						}
@@ -527,9 +541,10 @@
 
 				 
 	
-	       var options4 = {
+              var options4 = {
                   title: '[월 매출]'
-                   , curveType : 'function'
+                 , fontSize : 17
+                 , curveType : 'function'
                  , series: {
                          0: { lineWidth: 2, color: '#7966E3'   },
                          1: { lineWidth: 2, color: '#74A2F2'   }
@@ -539,7 +554,7 @@
                    , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
                        startup: true,
                        duration: 1500,
-                       easing: 'linear' }
+                       easing: 'out' }
               
                    };
 	
@@ -591,21 +606,22 @@
 		       ]);
 	       
 		
-		       var options1 = {
-		         	title: '[월 매출]'
-			        , curveType : 'function'
-		        	, series: {
-	                      0: { lineWidth: 2, color: '#7966E3',  },
-	                      1: { lineWidth: 2, color: '#74A2F2', lineDashStyle: [4, 4] }
-	                   }
-	             	, pointSize: 6
-	                , dataOpacity: 0.3
-	                , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-	                    startup: true,
-	                    duration: 1500,
-	                    easing: 'linear' }
-			     
-		       };
+			   var options1 = {
+		                  title: '[월 매출]'
+		                 , curveType : 'function'
+		                  , fontSize : 17
+		                 , series: {
+		                         0: { lineWidth: 2, color: '#7966E3',  },
+		                         1: { lineWidth: 2, color: '#74A2F2', lineDashStyle: [4, 4] }
+		                      }
+		                   , pointSize: 6
+		                   , dataOpacity: 0.3
+		                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+		                       startup: true,
+		                       duration: 1500,
+		                       easing: 'out' }
+		              
+		             };
 		
 		
 		       var chart1 = new google.visualization.LineChart(document.getElementById('chart_div1'));
@@ -636,36 +652,35 @@
 				       ]);
 			
 			       var options2_1 = {
-	                     title: '[상품별 매출(%)]'
-	                   	, colors: ['#7966E3', '#74A2F2', '#949FB1', '#4D5360']
-	                    , is3D: true 
-	                    , legend: { position: "top" }
-	                };
-
-			       var options2_2 = {
-	                        title: '[상품별 매출(개수)]'
-	                       , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-	                       , legend: { position: "none" }
-	                      , bar: {groupWidth: "38%"}
-	                       , isStacked: false
-	                       , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-	                             startup: true,
-	                             duration: 2500,
-	                             easing: 'linear' }
-	                       , annotations: {
-	                                    textStyle: {
-	                                                fontSize : 13
-	                                                , bold: true
-	                                                , italic: true
-	                                                , color: '#white'
-	                                                ,  auraColor: '#black'
-	                                                ,  opacity: 0.8
-	                     
-	                                             }
-	                                    }    
-	                       
-	                    
+	                        title: '[상품별 매출(%)]'
+	                       , fontSize : 17
+	                         , colors: ['#7966E3', '#74A2F2', '#949FB1', '#4D5360']
+	                       , is3D: true 
+	                       , legend: { position: "top" }
 	                   };
+
+	                var options2_2 = {
+	                           title: '[상품별 매출(개수)]'
+	                         , fontSize : 17
+	                          , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+	                          , legend: { position: "none" }
+	                         , bar: {groupWidth: "33%"}
+	                          , isStacked: false
+	                          , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                                startup: true,
+	                                duration: 4000,
+	                                easing: 'out' }
+	                          , annotations: {
+	                                       textStyle: {
+	                                                   fontSize : 17
+	                                                   , bold: true
+	                                                   , italic: true
+	                                                   , color: '#white'
+	                                                   ,  auraColor: '#black'
+	                                                   ,  opacity: 0.8	                        
+	                                                }
+	                                       }                           
+	                      };
 			       
 			       var chart2_1 = new google.visualization.PieChart(document.getElementById('chart_div2_1'));
 			       chart2_1.draw(data2, options2_1);
@@ -703,7 +718,7 @@
 					//alert(sum);
 
 			       var data3 = google.visualization.arrayToDataTable([
-			    	   ['메뉴',             '총 이익(원)', { role: 'annotation' },     '순이익(원)',       { role: 'style' },  { role: 'annotation' }  ],
+			    	   ['메뉴',             '총이익 (원)', { role: 'annotation' },     '순이익 (원)',       { role: 'style' },  { role: 'annotation' }  ],
 	                     [benefitMenuName[0],     sum,             sum,              salesBenefitMenu[0],     'opacity: 0.5',      salesBenefitMenu[0]   ],
 	                     [benefitMenuName[1],     sum,             sum,              salesBenefitMenu[1],     'opacity: 0.5',      salesBenefitMenu[1]   ],
 	                     [benefitMenuName[2],     sum,             sum,              salesBenefitMenu[2],     'opacity: 0.5',      salesBenefitMenu[2]   ],
@@ -711,15 +726,17 @@
 				       ]);
 			
 			       var options3 = {
-			         	title: '[상품별 순이익]'
-			         	, colors: ['#7966E3', '#74A2F2']
-		                , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-		                    startup: true,
-		                    duration: 4000,
-		                    easing: 'linear' 
-			             }
-				     
-			       };
+	                     title: '[상품별 순이익]'
+	                    , legend: { position: 'top' }
+	                      , fontSize : 17
+	                     , colors: ['#7966E3', '#74A2F2']
+	                      , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                          startup: true,
+	                          duration: 3000,
+	                          easing: 'out' 
+	                      }
+	                 
+	                };
 			       
 			       var chart3 = new google.visualization.ColumnChart(document.getElementById('chart_div3'));
 			       chart3.draw(data3, options3);
@@ -832,39 +849,42 @@
  </head>
 
  <body>
-  <!-- Header Section -->
+<!-- Header Section -->
 	<header class="header-section">
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a class="active" style="cursor:pointer;">업계동향</a>
+				<li><a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -874,7 +894,7 @@
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -884,7 +904,7 @@
 	            </c:if>
 	            
 	            <b>${user_id}</b> 님 반갑습니다
-               	
+                	
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
@@ -903,7 +923,7 @@
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>비교차트</h2>
+			<h2><strong>비교차트</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -928,7 +948,7 @@
        <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	   <a href="">차트관리</a>
+                	   <a href="">비교차트</a>
               </header>
               
               <div class="panel-body">
@@ -941,6 +961,7 @@
           	<c:forEach items="${businessNoList}" var="businessNoList">					
 					<input type="hidden" name="allBusinessNo"   value="${businessNoList.business_no}"> 
 			</c:forEach>
+			
           </form>
           
         
@@ -949,11 +970,11 @@
             	 
 	            	<form name="preChartForm" method="post" action="/posbis/preChartForm.do"> 
 	
-						<table border=0 width=700  >
+						<table border=0 width=1000  >
 							<tr>
 								<td align=right>
-									사업자번호 : 
-									<select name="changeBusinessNo">	<!-- 중요! -->
+									사업자번호 : &nbsp;
+									<select name="changeBusinessNo" style="width:200px;height:25px; text-align-last: center">	<!-- 중요! -->
 										<!-- ************************************************************************************** -->
 										<!-- 사용자 정의 태그인 JSTL C코어 태그 중 <forEach> 태그를 사용하여 ModelAndView 객체에    -->
 										<!-- "boardList" 라는 키값으로 저장된 List<Mpa<Stirng,String>> 객체의 데이터를 출력하기.    -->
@@ -981,16 +1002,24 @@
 										</c:forEach>
 										
 									</select> 
+									
+								<tr><td>
+									
+								<tr>
+								<td align=right>
+									연&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도&nbsp;&nbsp; : &nbsp;
+									<select name="changeYear" style="width:200px;height:25px; text-align-last: center">	
+										<option value="2019" selected>2019
+										<option value="2020">2020
+									</select>
 							</table>
 						</form>
 		
-						
-	             	  <br>
-	               
+
 
 				
 				</div>
-				<br><br>
+				<br>
 				<c:set var="changeBusinessNo" value="${all}" />
 					<%-- <c:if test="${changeBusinessNo eq 'all'}"> --%>
 					<!-- <div class="panel-body"> -->
@@ -1001,7 +1030,7 @@
 				         [가게별 월매출]<br>
 				        <%--  ${changeBusinessNo} --%>
 
-				         <div id="allChart_div" name="allChart_div" style="width: 900px; height: 500px;"></div>
+				         <div id="allChart_div" name="allChart_div" style="width: 1000px; height: 500px;"></div>
 		
 		
 				 		<br>    
@@ -1018,35 +1047,41 @@
 				        <%--  ${changeBusinessNo} --%>
 
 				        <!--  <div id="chart_div1" style="width: 900px; height: 500px;"></div> -->
-						<div id="chart_div1" style="width: 800px; height: 300px;  left: 0px; top: 235px;"></div>	
+						<div id="chart_div1" style="width: 1000px; height: 500px;  left: 0px; top: 235px;"></div>
 		
 				 		<br>    
 				         
 				          <div>
 				         <table>
-				         	<tr align="center">
+				         	<tr style="text-align:center">
 					         	<td >
 						         우리가게 인기메뉴<br>
-						         <table border=1 width=200 class="myPopularityMenu"  >
-					
-						         </table>
-						         
 						         </td>
-						         
-						         
-						         <td>
+						         				         
+						         <td style="padding:0 35 0 35; height:40">
 						         다른 가게 인기메뉴<br>
-						         <table border=1 width=200 class="othersPopularityMenu" >
-						         		
-						         </table>
 						         </td>
 						         
 						         <td>
 						         같은 동네, 같은 업종 의 점포수
-						         <table border=1 width=200 >
+						         </td>
+					         </tr>
+					         
+					         <tr>
+					         	<td>
+					         	<table border=1 width=200 class="myPopularityMenu"  ></table>
+					         	</td>
+					         	
+					         	<td style="padding:0 35 0 35">
+					         	<table border=1 width=200 class="othersPopularityMenu" ></table>
+					         	</td>
+					         	
+					         	<td>
+					         	<table border=1 width=200 >
 						         	<tr class="store_count">		
 						         </table>
-						         </td>
+					         	</td>
+					         
 					         </tr>
 					     </table>    
 				         </div>
@@ -1083,12 +1118,12 @@
 					    <table class="columns">
 	                     
 	                     <tr>
-	                      	<td><div id="chart_div2_1" style="width: 510px; height: 310px;"></div></td>
-	                      	<td><div id="chart_div2_2" style="width: 510px; height: 310px;"></div></td>
-	                     </tr>
-	                     <tr>
-	                      	<td><div id="chart_div3" style="width: 510px; height: 310px;"></div></td>
-	                     </tr>
+                            <td><div id="chart_div2_1" style="width: 600px; height: 350px;"></div></td>
+                            <td><div id="chart_div2_2" style="width: 600px; height: 350px;"></div></td>
+                        </tr>
+                        <tr>
+                            <td><div id="chart_div3" style="width: 700px; height: 350px;"></div></td>
+                        </tr>
 
 	                     
 	                   </table>

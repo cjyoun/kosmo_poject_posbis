@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Home 화면</title>
   <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -119,7 +120,7 @@
   width: auto;
   padding: 16px;
   margin-top: -22px;
-  color: white;
+  color: #6993da ;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
@@ -264,10 +265,10 @@
 		//=============/이정숙꺼끝=============================================
 
 
-	/******************************************************************김수민 차트**************************************************************/
-         	google.charts.load('current', {packages: ['corechart']});     
-	        google.charts.setOnLoadCallback(drawChart);
-	   		function drawChart() {
+/******************************************************************김수민 차트**************************************************************/
+            google.charts.load('current', {packages: ['corechart']});     
+           google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
             // Define the chart to be drawn.
            var data = google.visualization.arrayToDataTable([
                [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
@@ -279,17 +280,18 @@
 
            var options = {
                    title: '[전월대비 당월 매출현황(원)]'
+                   , fontSize : 15
                    , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
                    , legend: { position: "none" }
-                    , bar: {groupWidth: "42%"}
+                    , bar: {groupWidth: "33%"}
                      , isStacked: false
                      , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
                          startup: true,
                          duration: 3800,
-                         easing: 'linear' }
+                         easing: 'out' }
                    , annotations: {
                     textStyle: {
-                       fontSize : 13
+                       fontSize : 17
                        , bold: true
                        , italic: true
                        , color: '#white'
@@ -307,41 +309,41 @@
             chart.draw(data, options);
          }
 
-	//***********************************************************김수민 차트2**************************************************************
-	        google.charts.load('current', {'packages':['corechart']});
-	        google.charts.setOnLoadCallback(drawChart2);
+   //***********************************************************김수민 차트2**************************************************************
+           google.charts.load('current', {'packages':['corechart']});
+           google.charts.setOnLoadCallback(drawChart2);
 
-	        function drawChart2() {
-	          var data = google.visualization.arrayToDataTable([
-	            ['판매일자', '매출액(원)'],
-	            ['${salesWeek[0].sales_week}',${salesWeek[0].sales_amount_week}],
-	            ['${salesWeek[1].sales_week}',${salesWeek[1].sales_amount_week}],
-	            ['${salesWeek[2].sales_week}',${salesWeek[2].sales_amount_week}],
-	            ['${salesWeek[3].sales_week}',${salesWeek[3].sales_amount_week}],
-	            ['${salesWeek[4].sales_week}',${salesWeek[4].sales_amount_week}],
-	            ['${salesWeek[5].sales_week}',${salesWeek[5].sales_amount_week}],
-	            ['${salesWeek[6].sales_week}',${salesWeek[6].sales_amount_week}]
-	          ]);
+           function drawChart2() {
+             var data = google.visualization.arrayToDataTable([
+               ['판매일자', '매출액(원)'],
+               ['${salesWeek[0].sales_week}',${salesWeek[0].sales_amount_week}],
+               ['${salesWeek[1].sales_week}',${salesWeek[1].sales_amount_week}],
+               ['${salesWeek[2].sales_week}',${salesWeek[2].sales_amount_week}],
+               ['${salesWeek[3].sales_week}',${salesWeek[3].sales_amount_week}],
+               ['${salesWeek[4].sales_week}',${salesWeek[4].sales_amount_week}],
+               ['${salesWeek[5].sales_week}',${salesWeek[5].sales_amount_week}],
+               ['${salesWeek[6].sales_week}',${salesWeek[6].sales_amount_week}]
+             ]);
 
-																					
-	          var options = {
-	            title: '[최근 일주일 매출]',
-	            curveType: 'function',
-	            legend: { position: 'bottom' },
-	            height: 350
+                                                               
+             var options = {
+               title: '[최근 일주일 매출]',
+            fontSize : 15,
+               curveType: 'function',
+               legend: { position: 'bottom' },
+               height: 350
                 , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
                     startup: true,
                     duration: 4300,
-                    easing: 'linear' }
+                    easing: 'out' }
 
-	          }; 
+             }; 
 
-	          var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
+             var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-	          chart2.draw(data, options);
-	        }
-	    	/******************************************************김수민 끝***************************************************************/
-			
+             chart2.draw(data, options);
+           }
+          /******************************************************김수민 끝***************************************************************/	
 			
 	     //--------------------------------------------------------
 	   	   //로고 클릭시
@@ -445,34 +447,37 @@
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a class="active" style="cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -482,7 +487,7 @@
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -511,7 +516,7 @@
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>홈페이지</h2>
+			<h2><strong>홈페이지</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -583,17 +588,17 @@
   
   <!-- Why Section2 end -->
 	<section class="why-section spad" style="background-color:#f8f9fa">
-      <div class="container" >
-         <div class="text-center mb-5 pb-4">
+      <div class="container" style="max-width:1700">
+         <div class="text-center mb-5 pb-4" style="margin:-20 0 0 0">
             <h2>내가 가진 가게 총매출 현황</h2>
          </div>
          <table align="center">   
             <tr>
                <td width="600px" height="350px" align="center" valign="middle">      
-                  <div id = "container" style = "width: 600px; height:350px; margin: 0 auto;"></div>
-               <td width="100px" height="350px" >&nbsp;
+                  <div id = "container" style = "width: 700px; height:350px; margin: 0 auto;"></div>
+               <td width="50px" height="350px" >&nbsp;
                <td width="600px" height="350px" align="center" valign="middle">
-                    <div id="curve_chart" style="width: 600px; height:350px; margin: 0 auto"></div>
+                    <div id="curve_chart" style="width: 700px; height:350px; margin: 0 auto"></div>
            </table>
       </div>
    </section>

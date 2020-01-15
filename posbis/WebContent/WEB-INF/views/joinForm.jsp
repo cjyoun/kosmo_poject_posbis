@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>회원가입</title>
 <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -806,7 +807,7 @@
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>회원가입</h2>
+			<h2><strong>회원가입</strong></h2>
 			
 		</div>
 	</section>
@@ -854,7 +855,7 @@
 								
 								<div class="form-group" >
 									
-									<label class="col-sm-2 control-label" style="margin:0 0 0 100">비밀번호 확인</label>
+									<label class="col-sm-3 control-label" style="margin:0 0 0 35">비밀번호 확인</label>
 
 									<div class="col-sm-6">
 										<input type="password" name="user_pwd2" class="form-control user_pwd2" maxlength="10">
@@ -1002,9 +1003,9 @@
 										&nbsp;&nbsp;(월 10,000원)&nbsp;&nbsp; 
 							             
 							             [회원등급혜택]
-							             <br>
-							             <div class='helpA' style="text-align:left">
-							             	<br>&nbsp;일반<br>
+							             
+							             <div class='helpA' style="text-align:left; font-size:12">
+							             	&nbsp;일반<br>
 								            &nbsp;- 비용: 무료<br>
 								            &nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 <br>확인 가능
 								            <br>&nbsp;<br>프리미엄<br>
@@ -1014,7 +1015,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label" style="margin:0 0 0 100">서비스이용약관</label>
+									<label class="col-sm-3 control-label" style="margin:0 0 0 35">서비스이용약관</label>
 									<div class="col-sm-6">
 										<textarea class="form-control" name="editor1"
 											rows="6" readonly>회원 가입 약관

@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Q&A 문의하기</title>
+
   <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -273,39 +275,40 @@
 </head>
 
 <body> 
- <!-- Header Section -->
+<!-- Header Section -->
 	<header class="header-section">
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a class="active" style="cursor:pointer;">고객센터</a>
+				<li><a class="active" style=" cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -315,7 +318,7 @@
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -342,8 +345,8 @@
 <!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container" >
-			<h2>Q&A</h2>
+		<div class="container">
+			<h2><strong>Q&A</strong></h2>
 			<div style=" color:#fff; width:30%"> 
 				<nav class="site-breadcrumb">
 				 <span class="sb-item active">
@@ -369,19 +372,12 @@
 						<h2>Get in touch</h2>
 						<p>POSBIS는 늘 당신의 곁에 있습니다. 늘 당신의 말에 귀를 기울이고 있습니다. 남겨주신 말씀은 Q&A 게시판에 등록되어, 관리자의 답변은 답글로 받으실 수 있습니다. POSBIS를 향해 남겨주신 말씀 귀하게 쓰겠습니다. 당신과 우리의 찬란한 발전을 기원합니다.</p>
 						<ul>
-							<li><i class="flaticon-032-placeholder"></i>1525  Loans Lane, Los Angeles, CA</li>
+							<li><i class="flaticon-032-placeholder"></i>월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역</li>
 							<li><i class="flaticon-029-telephone-1"></i>+1 (603)535-4592</li>
 							<li><i class="flaticon-025-arroba"></i>hello@youremail.com</li>
 							<li><i class="flaticon-038-wall-clock"></i>Everyday: 06:00 -22:00</li>
 						</ul>
-						<div class="social-links">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-instagram"></i></a>
-							<a href="#"><i class="fa fa-linkedin"></i></a>
-							<a href="#"><i class="fa fa-pinterest"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-youtube-play"></i></a>
-						</div>
+						
 					</div>
 				</div>
 				<div class="col-lg-8">
@@ -417,9 +413,9 @@
 					          
 					        </div>
 							<div class="col-md-12" style="margin:0 0 0 55">
-								<button class="site-btn3" type="button" value="저장"  onClick="checkQstnRegForm()">저장</button>
-								<button class="site-btn3" type="reset"value="다시작성">다시 작성</button>
-								<button class="site-btn3" type="button" value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
+								<button class="site-btn3-1" type="button" value="저장"  onClick="checkQstnRegForm()">저장</button>
+								<button class="site-btn3-1" type="reset"value="다시작성">다시 작성</button>
+								<button class="site-btn3-1" type="button" value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
 							</div>
 						</div>
 					</form>
@@ -430,104 +426,6 @@
 	</section>
 	<!-- Contact Section end -->    
     
-    
-    
-<%-- 
-  <main id="main">
-   <section id="main-content">
-   <section class="wrapper">
-       <div class="col-lg-8" align="center">
-            <section class="panel">
-              <header class="panel-heading">
-                      <a href="">글 쓰기</a>
-              </header>   
-              <div class="panel-body">
- 
-
-      <div class="container">
-
-
-<form method="post" name="qstnRegForm" action="/posbis/qstnRegProc.do">
-   
-
-      <input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
-   <div class="row" align="center">
-          <div class="col-sm-9">
-            <section class="panel">
-            <input type="hidden" name="qna_no" value="${(empty param.qna_no)?0:param.qna_no}"> 
-              <c:if test="${empty param.qna_no}"> <!-- empty는 존재하지 않거나 null이거나 길이가 없으면 (사용할 만한 데이터가 아니면) 무조건 true 리턴-->
-             <header class="panel-heading">[새 글쓰기]</header>
-         </c:if>
-         <c:if test="${param.qna_no>0}"> <!-- 무조건 test 오른쪽은 EL이 나온다. EL 영역 안에 처음과 맨 끝에 공백 넣으면 안 됨 -->
-           <header class="panel-heading">[답글쓰기]</header>
-         </c:if>
-             
-              
-   
-              <table class="table table-bordered"  align=center>
-                  <tr>
-                     <th>이 름
-                     <td><input type="text" size="10" maxlength="10" name="user_id" value="${user_id}">
-                  <tr>
-                     <th>제 목
-                    <td><input type="text" size="40" maxlength="50" name="subject">
-                  <tr>
-                    <th>내 용
-                     <td><textarea name="content" rows="13" cols="60"></textarea>
-                  <tr>
-                     <th>비밀번호
-                     <td><input type="password" size="8" maxlength="12" name="qna_pwd">
-              </table>
-            </section>
-          
-        <div style="float:center">     
-      <button class="btn btn-info" type="button" value="저장"  onClick="checkQstnRegForm()">저장</button>
-      <button class="btn btn-primary" type="reset"value="다시작성">다시작성</button>
-      <button class="btn btn-danger" type="button" value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
- 
-
- 
- 
- 
-   </div>
-   </div>
-   </div>
-   </form>
-   
-   </section>
-   </div>
-   
-   
-   <!--============================================= 사이드바 김수민================================================-->
-   <div style="float:right">
-           <section class="panel">
-           <header class="panel-heading" align="center">[POSBIS INFO]</header>
-   
-              <table class="table table-bordered" align="right" width="200" height="400">
-                  <tr align="center" valign="middle">
-                     <th>address
-                     <td>월드메르디앙벤쳐 2차<br>
-                   Korea, Seoul<br>
-                   가산디지털단지역<br>
-                   용기의 방, 409호
-                  <tr align="center" valign="middle">
-                     <th>business<br>hours
-                    <td>9:30 ~ 18:30
-                  <tr align="center" valign="middle">
-                    <th>tel
-                     <td>+1 5589 55488 55
-                  <tr align="center" valign="middle">
-                     <th>e-mail
-                     <td>info@example.com
-              </table>
-            </section>
-   </div>
-   <!--================================================================================================================-->
-   
-   
-   
- 
-  </main> --%>
 <!--==========================
     꼬리말
   ============================-->

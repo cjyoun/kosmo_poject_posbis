@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>시장분석</title>
+
    <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -115,6 +117,10 @@ select::-ms-expand { display: none; }
  
  
 <script>
+
+	
+
+
 	
 	
 	  $(document).ready(function(){
@@ -261,10 +267,60 @@ select::-ms-expand { display: none; }
 	      return parts.join(".");
 	  }
 	
+
+//----------- 추천메뉴 여러개 일 때 생략된 것들 alert로 보여주는 부분 (랭킹 1 2 3위) --------------
+		
+	  function goAlert1(){
+	         var result="";
+	      
+	         <c:forEach items="${bestMenuList}" var="bestMenu">
+	            if("${bestMenu.RANKING}"==1 ){
+	               result= result+", "+"${bestMenu.MENU_NAME}"
+	               //alert("${bestMenu.MENU_NAME}");
+	            }
+	         </c:forEach>
+	            while( result.charAt(0) == "," && result.length>1){
+	               result = result.substring(1);
+	             }
+	         alert(result);
+	   }
+
+
+		
+
+	  function goAlert2(){
+	         var result="";
+	      
+	         <c:forEach items="${bestMenuList}" var="bestMenu">
+	            if("${bestMenu.RANKING}"==2 ){
+	               result= result+", "+"${bestMenu.MENU_NAME}"
+	               //alert("${bestMenu.MENU_NAME}");
+	            }
+	         </c:forEach>
+	            while( result.charAt(0) == "," && result.length>1){
+	               result = result.substring(1);
+	             }
+	         alert(result);
+	   }
+
+
+		
+	  function goAlert3(){
+	         var result="";
+	      
+	         <c:forEach items="${bestMenuList}" var="bestMenu">
+	            if("${bestMenu.RANKING}"==3 ){
+	               result= result+", "+"${bestMenu.MENU_NAME}"
+	               //alert("${bestMenu.MENU_NAME}");
+	            }
+	         </c:forEach>
+	            while( result.charAt(0) == "," && result.length>1){
+	               result = result.substring(1);
+	             }
+	         alert(result);
+	   }
 	
-	
-	
-	
+//--------------------------------------------------------------------------------------	
 	
 			
 	  function goPreSearch(){	 		
@@ -455,34 +511,37 @@ select::-ms-expand { display: none; }
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a style="color:#fff; cursor:pointer;">매장관리</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a class="active" style="cursor:pointer;">업계동향</a>
+				<li><a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -492,7 +551,7 @@ select::-ms-expand { display: none; }
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -521,7 +580,7 @@ select::-ms-expand { display: none; }
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>시장분석</h2>
+			<h2><strong>시장분석</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -543,7 +602,7 @@ select::-ms-expand { display: none; }
        <div class="col-lg-10" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	   <a href="">프리미엄 검색</a>
+                	   <a href="">시장 검색</a>
               </header>
               
               <div class="panel-body">
@@ -560,38 +619,39 @@ select::-ms-expand { display: none; }
 
                    <div style="border:1px solid #d2d2d2;">
                      <br>
-                     <table width="50%">
+                     <table width="80%" style="margin:0 -93 0 235">
                         <tr>
-                           <td><span class="help-block"><b> [지 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;역]&nbsp;&nbsp;:&nbsp;&nbsp;</b></span>
-                              <td>
-                                 <div class="form-group"> 
-                                    <div style="float:left; padding:3 5 3 5px;">
-                                       <!-- <select name="addr_gu1" size=1   class="form-control" id="exampleInputEmail1" >  -->
-                                       <select name="addr_gu1" size=1   style="width:120px; height:25px;"> 
-                                          <option value="">&nbsp;-----구선택-----</option>
-                                          <c:forEach items="${addrGu1List}" var="addrGu1">
-                                             <option value="${addrGu1.addr_gu1}">&nbsp;${addrGu1.addr_gu1}</option>
-                                          </c:forEach>
-                                         </select> 
-                                    </div>
-                                    
-                                    <div style="float:left; padding:3 5 3 5px;"><span style="font-size:18; margin:20 0 0 0px;">></span></div>
-                                 
-                                    <div  style="float:left; padding:3 5 3 5px;">
-                                       <!-- <select name="addr_dong1" size=1    class="form-control" id="exampleInputEmail1" > -->
-                                       <select name="addr_dong1" size=1    style="width:120px; height:25px;" >
-                                          <option value="">&nbsp;-----동선택-----</option>
-                                       </select> 
-                                    </div>
-                                 </div>
-                                       
-                        <tr>
-                           <td><span class="help-block"> <b>[업 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;종]&nbsp;&nbsp;:&nbsp;&nbsp;</b></span>
+                           <td style="color:#330066; ">
+	              				<b> [지 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  역]&nbsp;&nbsp;:&nbsp;&nbsp;</b>
                            <td>
                               <div class="form-group"> 
-                                    <div style="float:left; padding:3 5 3 5px;">
+                                 <div style="float:left; padding:3 5 3 5px; margin: 0 0 0 -80">
+                                    <!-- <select name="addr_gu1" size=1   class="form-control" id="exampleInputEmail1" >  -->
+                                    <select name="addr_gu1" size=1   style="width:160px; height:25px;"> 
+                                       <option value="">&nbsp;-----구선택-----</option>
+                                       <c:forEach items="${addrGu1List}" var="addrGu1">
+                                          <option value="${addrGu1.addr_gu1}">&nbsp;${addrGu1.addr_gu1}</option>
+                                       </c:forEach>
+                                      </select> 
+                                 </div>
+                                 
+                                 <div style="float:left; padding:3 5 3 5px;"><span style="font-size:18; margin:20 0 0 0px;">></span></div>
+                              
+                                 <div  style="float:left; padding:3 5 3 5px;">
+                                    <!-- <select name="addr_dong1" size=1    class="form-control" id="exampleInputEmail1" > -->
+                                    <select name="addr_dong1" size=1    style="width:160px; height:25px;" >
+                                       <option value="">&nbsp;-----동선택-----</option>
+                                    </select> 
+                                 </div>
+                              </div>
+                                       
+                        <tr>
+                           <td style="color:#330066"> <b>[업 &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;종]&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+                           <td>
+                              <div class="form-group"> 
+                                    <div style="float:left; padding:3 5 3 5px; margin: 0 0 0 -80">
                                     <!-- <select name="business_type_name1"   class="form-control" id="exampleInputEmail1" > -->
-                                    <select name="business_type_name1" size=1    style="width:120px; height:25px;"  >
+                                    <select name="business_type_name1" size=1    style="width:160px; height:25px;"  >
                                        <option value="">&nbsp;-----대분류-----
                                           <c:forEach items="${businessTypeName1List}"
                                              var="businessTypeName1">
@@ -604,14 +664,14 @@ select::-ms-expand { display: none; }
                                     <div style="float:left; padding:3 5 3 5px;"><span style="font-size:18; margin:20 0 0 0px;">></span></div>
                                     
                                     <div  style="float:left; padding:3 5 3 5px;">
-                                    <select name="business_type_name2"     style="width:120px; height:25px;" >
+                                    <select name="business_type_name2"     style="width:160px; height:25px;" >
                                           <option value="">&nbsp;-----소분류-----
                                     </select>
                                     </div>
                            </div>
                         <tr>
-                           <td><span class="help-block"><b>[&nbsp;월&nbsp;매&nbsp;출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</b></span>
-                           <td> <input type="radio" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>&nbsp;&nbsp;
+                           <td style="color:#330066"><b>[&nbsp;월&nbsp;&nbsp;매 출&nbsp;]&nbsp;&nbsp;:&nbsp;&nbsp;<br>(지난달 기준)</b>
+                           <td> <input type="radio" style="margin: 0 0 0 -80" id="month_sales_all" name="month_sales" class="month_sales" value="0"><label for="month_sales_all"> 모두 </label>&nbsp;&nbsp;
                                              <input type="radio" id="month_sales_2"  name="month_sales" class="month_sales" value="1000000"><label for="month_sales_2"> 100만원 이상</label>&nbsp;&nbsp;
                                              <input type="radio" id="month_sales_all_5"  name="month_sales" class="month_sales" value="3000000"><label for="month_sales_all_5"> 300만원 이상 </label>&nbsp;&nbsp;
                                              <input type="radio" id="month_sales_all_10"  name="month_sales" class="month_sales" value="5000000"><label for="month_sales_all_10"> 500만원 이상</label>&nbsp;&nbsp;
@@ -619,7 +679,7 @@ select::-ms-expand { display: none; }
                            <td>
                            <td> 
                            
-                                 <button type="button" class="btn btn-default"style="margin:0 20 0 0" onClick="goPreSearch();">검      색</button>&nbsp;
+                                 <button type="button" class="btn btn-default"style="margin:0 20 0 -80" onClick="goPreSearch();">검      색</button>&nbsp;
                                  <button type="button" class="btn btn-default"style="margin:0 10 0 0" onClick="goPreSearchAll();">모두검색</button>&nbsp;
                                         <a href="javascript:goSearchReset();" ><u>검색조건 초기화</u>
                      </table>
@@ -636,7 +696,7 @@ select::-ms-expand { display: none; }
                </form>
                <!-- /preSearchForm  -->
                <br>
-               <br>
+
 
 						 <!-- ====== 추천 메뉴 ========================================================== -->
 						 
@@ -646,78 +706,102 @@ select::-ms-expand { display: none; }
 
 						 </thead>
 						 <tbody>	
-						 	
-                 			<tr>                   		
-                    			<td  align=center style="vertical-align:bottom; padding:60 20 0 40px" >
-                    			
-		                        	<i  class="icon-badge" style="color:#AEADAA;font-size:60px;">
-		                        	</i>
-		                        	<div style="margin:-48 -40 11 0 ">
-		                        		<span style="color:#AEADAA; margin:0 0 0 -40; font-size:32;"><strong>2</strong></span>
-		                        	</div>
-	                    			  <br>
-	                    			  <div  style="background-color:lightgray; width:150; height:80; line-height:4;">
-	                    			  <div style="height:1"></div>
-				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
-			                    			<a style="cursor:pointer;">
-			                    			<c:if test="${bestMenu.RANKING==2}">		  
-												<h5>${bestMenu.MENU_NAME}
-												<c:if test="${(loopTagStatus.index+1)>3}">
-			                    					...
-			                    				</c:if>
-			                    				</h5>
-			                    			</c:if>
-			                    			</a>
-			                    		</c:forEach>
-                    			 	</div>  
-                    			 	
-                    			 	
-                    			<td  align=center style="vertical-align:bottom; padding:30 20 0 40px" >
-                    			
-		                        	<i  class="icon-badge" style="color:#F3DA1B;font-size:60px;">
-		                        	</i>
-		                        	<div style="margin:-48 -40 11 0">
-		                        		<span style="color:#F3DA1B; margin:0 0 0 -40; font-size:32;"><strong>1</strong></span>
-		                        	</div>
-	                    			  <br>
-	                    			  <div  style="background-color:lightgray; width:150; height:110; line-height:6;">
-	                    			  <div style="height:1"></div>
-				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
-			                    			<a style="cursor:pointer;">
-			                    			<c:if test="${bestMenu.RANKING==1}">		  
-												<h5>${bestMenu.MENU_NAME}
-												<c:if test="${(loopTagStatus.index+1)>5}">
-			                    					...
-			                    				</c:if>
-			                    				</h5>
-			                    			</c:if>
-			                    			</a>
-			                    		</c:forEach>
-                    			 	</div>
+						 	                          <tr>                         
+                             <td  align=center style="vertical-align:bottom; padding:60 20 0 40px" >
+                             
+                                 <i  class="icon-badge" style="color:#AEADAA;font-size:60px;">
+                                 </i>
+                                 <div style="margin:-54 -40 11 0 ">
+                                    <span style="color:#AEADAA; margin:0 0 0 -40; font-size:32;"><strong>2</strong></span>
+                                 </div>
+                                  <br>
+                                  <div  style="background-color:lightgray; width:150; height:90; line-height:4;">
+                                  <div style="height:1"></div>
+                                   
+                                   <c:set var="loop_index" value="0"></c:set>
+                                   <c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+                                      <a onClick="goAlert2();" style="cursor:pointer;">
+                                      <c:if test="${bestMenu.RANKING!=2}">
+                                         <c:set var="loop_index" value="${loop_index + 1}" />
+                                      </c:if>
+                                      <c:if test="${bestMenu.RANKING==2}">     
+                                       <h5>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)<=2}">
+                                      <strong style="font-size:17"> ${bestMenu.MENU_NAME}</strong>
+                                       </c:if>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)==3}">
+                                               <strong>...</strong>
+                                            </c:if>   
+                                            </h5>
+                                      </c:if>
+                                      </a>
+                                   </c:forEach>
+                                 </div>  
+                                 
+                                 
+                             <td  align=center style="vertical-align:bottom; padding:30 20 0 40px" >
+                             
+                                 <i  class="icon-badge" style="color:#F3DA1B;font-size:60px;">
+                                 </i>
+                                 <div style="margin:-54 -40 11 0">
+                                    <span style="color:#F3DA1B; margin:0 0 0 -40; font-size:32;"><strong>1</strong></span>
+                                 </div>
+                                  <br>
+                                  <div  style="background-color:lightgray; width:150; height:120; line-height:6;">
+                                  <div style="height:1"></div>
+                                  
+                                   <c:set var="loop_index" value="0"></c:set>
+                                   <c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+                                      <a onClick="goAlert1();" style="cursor:pointer;">
+                                      <c:if test="${bestMenu.RANKING!=1}">
+                                         <c:set var="loop_index" value="${loop_index + 1}" />
+                                      </c:if>
+                                      <c:if test="${bestMenu.RANKING==1}">     
+                                       <h5>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)<=3}">
+                                       <strong style="font-size:17">${bestMenu.MENU_NAME}</strong>
+                                       </c:if>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)==4}">
+                                               <strong>...</strong>
+                                            </c:if>   
+                                            </h5>
+                                      </c:if>
+                                      </a>
+                                   </c:forEach>
+                                 </div>
 
 
-								<td  align=center style="vertical-align:bottom; padding:90 20 0 40px" >
-                    			
-		                        	<i  class="icon-badge" style="color:#DAA637;font-size:60px;">
-		                        	</i>
-		                        	<div style="margin:-48 -40 11 0 ">
-		                        		<span style="color:#DAA637; margin:0 0 0 -40; font-size:32;"><strong>3</strong></span>
-		                        	</div>
-	                    			  <br>
-	                    			  <div  style="background-color:lightgray; width:150; height:50; line-height:4;">
-	                    			  	<div style="height:1"></div>
-				                    	<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
-			                    			<a style="cursor:pointer;">
-			                    			<c:if test="${bestMenu.RANKING==3}">		  
-												<h5>${bestMenu.MENU_NAME}
-												<c:if test="${(loopTagStatus.index+1)>3}">
-			                    					...
-			                    				</c:if>
-			                    				</h5>
-			                    			</c:if>
-			                    			</a>
-			                    		</c:forEach>
-                    			 	</div> 	             
+                        <td  align=center style="vertical-align:bottom; padding:90 20 0 40px" >
+                             
+                                 <i  class="icon-badge" style="color:#DAA637;font-size:60px;">
+                                 </i>
+                                 <div style="margin:-54 -40 11 0 ">
+                                    <span style="color:#DAA637; margin:0 0 0 -40; font-size:32;"><strong>3</strong></span>
+                                 </div>
+                                  <br>
+                                  <div  style="background-color:lightgray; width:150; height:60; line-height:4;">
+                                     <div style="height:1"></div>
+                                     
+                                     <c:set var="loop_index" value="0"></c:set>
+                                   <c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus" >
+                                      <a onClick="goAlert3();" style="cursor:pointer;">
+                                      <c:if test="${bestMenu.RANKING!=3}">
+                                         <c:set var="loop_index" value="${loop_index + 1}" />
+                                      </c:if>
+                                      <c:if test="${bestMenu.RANKING==3}">     
+                                       <h5>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)<=1}">
+                                       <strong style="font-size:17">${bestMenu.MENU_NAME}</strong>
+                                       </c:if>
+                                       <c:if test="${(loopTagStatus.index-loop_index+1)==2}">
+                                               <strong >...</strong>
+                                            </c:if>   
+                                            </h5>
+                                      </c:if>
+                                     </a>
+                                   </c:forEach>
+                                 </div>                 
+                                     	             
 	                    			 	
 	                    		<%-- 	 	    		            				
 	                    		<c:forEach items="${bestMenuList}" var="bestMenu" varStatus="loopTagStatus">	
@@ -778,7 +862,7 @@ select::-ms-expand { display: none; }
 					<!-- 페이징 번호 삽입할 span 태그 선언 -->
 					<div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
 					
-			
+			<br>
            		   <!-- ====== 결과 테이블 ========================================================== -->
                     <table class="table table-striped table-advance table-hover"  id="select">
                        <thead>

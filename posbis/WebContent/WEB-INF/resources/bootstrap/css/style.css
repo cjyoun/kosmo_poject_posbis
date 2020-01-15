@@ -12,7 +12,7 @@
 html,
 body {
 	height: 100%;
-	font-family: '돋움',Dotum,'돋움체',DotumChe;
+	font-family: 'Noto Sans KR', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
@@ -145,7 +145,7 @@ Commom elements
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 	line-height: normal;
 	cursor: pointer;
@@ -161,7 +161,7 @@ Commom elements
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 	line-height: normal;
 	cursor: pointer;
@@ -177,7 +177,23 @@ Commom elements
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
-	background: #f43f00;
+	background: #8a8070;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
+
+.site-btn3-1 {
+	display: inline-block;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+	min-width: 200px;
+	padding: 22px 35px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #6993da;
 	color: #fff;
 	line-height: normal;
 	cursor: pointer;
@@ -193,7 +209,7 @@ Commom elements
 }
 
 .site-btn3.sb-dark {
-	background: #22242b;
+	background: #8a8070;
 }
 
 .site-btn.sb-big {
@@ -220,7 +236,7 @@ Commom elements
 }
 
 .accordion-area .panel-header .panel-link.active {
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 }
 
@@ -285,7 +301,7 @@ Commom elements
 }
 
 .tab-element .nav-tabs .nav-link.active {
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 }
 
@@ -339,7 +355,7 @@ Commom elements
 .milestone-icon {
 	float: left;
 	font-size: 62px;
-	color: #f43f00;
+	color: #6993da;
 	width: 75px;
 }
 
@@ -375,8 +391,8 @@ Commom elements
 	-ms-flex-pack: center;
 	justify-content: center;
 	font-size: 39px;
-	color: #f43f00;
-	border: 3px solid #f43f00;
+	color: #6993da;
+	border: 3px solid #6993da;
 	border-radius: 50%;
 	float: left;
 	margin-right: 20px;
@@ -394,7 +410,7 @@ Commom elements
 }
 
 .icon-box-item:hover .ib-icon {
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 }
 
@@ -507,7 +523,7 @@ Header section
 
 .main-menu li a:hover,
 .main-menu li a.active {
-	color: #f43f00;
+	color: #6993da;
 }
 
 .main-menu li:hover>.sub-menu {
@@ -552,7 +568,7 @@ Header section
 }
 
 .main-menu .sub-menu li a:hover {
-	color: #f43f00;
+	color: #6993da;
 }
 
 /*-------------------------------------------------------------------------------------------------------------*/
@@ -592,7 +608,7 @@ Header section
 	left: 12px;
 	display: inline-block;
 	text-align: center;
-	background: #f43f00;
+	background: #6993da;
 	border-radius: 50%;
 	font-size: 16px;
 	font-weight: 300;
@@ -601,7 +617,7 @@ Header section
 }
 
 .header-right .hr-btn.hr-btn-2 {
-	background: #f43f00;
+	background: #6993da;
 	padding: 36px 20px;
 	min-width: 236px;
 	text-align: center;
@@ -663,7 +679,7 @@ Hero section
 }
 
 .hero-slider .owl-dots .owl-dot.active {
-	background: #f43f00;
+	background: #6993da;
 }
 
 .hs-text {
@@ -730,7 +746,7 @@ CTA section
 
 .cta-section h2 strong {
 	font-weight: 900;
-	color: #f43f00;
+	color: #6993da;
 }
 
 .cta-section h5 {
@@ -764,7 +780,7 @@ Feature section
 
 .readmore {
 	font-size: 16px;
-	color: #f43f00;
+	color: #6993da;
 	font-weight: 900;
 }
 
@@ -840,7 +856,7 @@ Info section
 .info-text ul li {
 	font-size: 30px;
 	font-weight: 700;
-	color: #f43f00;
+	color: #6993da;
 	margin-bottom: 10px;
 }
 
@@ -917,7 +933,7 @@ Footer section
 }
 
 .copyright i {
-	color: #f43f00;
+	color: #6993da;
 }
 
 .copyright a {
@@ -925,7 +941,7 @@ Footer section
 }
 
 .copyright a:hover {
-	color: #f43f00;
+	color: #6993da;
 }
 
 /* ----------------
@@ -995,7 +1011,7 @@ About Page
 
 .review-item h6 {
 	font-weight: 700;
-	color: #f43f00;
+	color: #6993da;
 }
 
 .review-item h6 span {
@@ -1171,7 +1187,7 @@ Loans Page
 	padding-top: 10px;
 	border-radius: 80px;
 	text-align: center;
-	background: #f43f00;
+	background: #6993da;
 }
 
 .ui-slider .ui-slider-handle:focus {
@@ -1268,7 +1284,7 @@ Blog Page
 	border-radius: 40px;
 	text-transform: uppercase;
 	color: #fff;
-	background: #f43f00;
+	background: #6993da;
 }
 
 .blog-title {
@@ -1318,7 +1334,7 @@ Blog Page
 }
 
 .site-pagination a.active {
-	color: #f43f00;
+	color: #6993da;
 }
 
 .sb-widget {
@@ -1356,7 +1372,7 @@ Blog Page
 	padding-left: 24px;
 	padding-right: 59px;
 	border: none;
-	border-bottom: 2px solid #f43f00;
+	border-bottom: 2px solid #6993da;
 	background: #ebf0f3;
 }
 
@@ -1384,7 +1400,7 @@ Blog Page
 }
 
 .sb-widget .tags a:hover {
-	background: #f43f00;
+	background: #6993da;
 	color: #fff;
 }
 
@@ -1418,7 +1434,7 @@ Contact Page
 
 .contact-text ul li i {
 	font-size: 29px;
-	color: #f43f00;
+	color: #6993da;
 	display: inline-block;
 	width: 41px;
 	position: relative;
@@ -1440,8 +1456,8 @@ Contact Page
 }
 
 .social-links a:hover {
-	color: #f43f00;
-	border-color: #f43f00;
+	color: #6993da;
+	border-color: #6993da;
 }
 
 .contact-form {
@@ -1590,7 +1606,7 @@ Contact Page
 		border-bottom: 1px solid #111;
 	}
 	.slicknav_nav a:hover {
-		color: #f43f00;
+		color: #6993da;
 		border-radius: 0;
 		background: #0b0e25;
 	}
@@ -1604,7 +1620,7 @@ Contact Page
 	}
 	.slicknav_parent:hover {
 		background: #22242b;
-		color: #f43f00;
+		color: #6993da;
 	}
 	.header-right {
 		display: none;

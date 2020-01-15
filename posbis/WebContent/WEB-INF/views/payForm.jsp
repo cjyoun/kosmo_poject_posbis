@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>카드등록</title>
  <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -303,10 +304,7 @@
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>카드등록</h2>
-			<nav class="site-breadcrumb">
-				<a class="sb-item" href="#">회원가입</a> <span class="sb-item active">About us</span>
-			</nav>
+			<h2><strong>카드등록</strong></h2>
 		</div>
 	</section>
 	<!-- Page top Section end -->
@@ -319,7 +317,7 @@
    <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-7" align="center">
+       <div class="col-lg-7" align="center" style="margin:0 0 0 275">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">프리미엄 회원 결제</a>
@@ -425,8 +423,8 @@
  
                   </div>
    
-        		<div style="float:right">
-                <button class="btn btn-success" type="button" value="등록" onClick="checkCardInsert();">등록 </button>
+        		<div style="margin:30 0 0 0">
+                <button class="btn btn-success" type="button" value="등록" onClick="checkCardInsert();" style="margin:0 40 0 0">등록 </button>
                 <button class="btn btn-danger" type="button" value="취소" onClick="cardCancel();">취소 </button>
                 </div>
                 

@@ -219,28 +219,28 @@ public class QstnDAOImpl implements QstnDAO{
 //--------------------------------------------------------------------------------------------------
    // 관리자 계정 개수를 리턴하는 메소드 선언
    public int masterQstn(QstnDTO qstnDTO) {
-	      // [SqlSessionTemplate 객체]의 update(~,~) 를 호출하여 [조회수 증가] 하기
-	   	 System.out.println("DAO/DTO.user_id==========>"+qstnDTO.getUser_id());
-	      int masterCnt = this.sqlSession.selectOne(
-	             "com.naver.erp.QstnDAO.masterQstn"      // 실행할 SQL 구문의 위치 지정
-	           , qstnDTO    
-	      );
-	      System.out.println("DAO/masterCnt====>"+masterCnt);
-	      return masterCnt;
-	      
-	   }
+         // [SqlSessionTemplate 객체]의 update(~,~) 를 호출하여 [조회수 증가] 하기
+          System.out.println("DAO/DTO.user_id==========>"+qstnDTO.getUser_id());
+         int masterCnt = this.sqlSession.selectOne(
+                "com.naver.erp.QstnDAO.masterQstn"      // 실행할 SQL 구문의 위치 지정
+              , qstnDTO    
+         );
+         System.out.println("DAO/masterCnt====>"+masterCnt);
+         return masterCnt;
+         
+      }
    
    public String writer(QstnDTO qstnDTO) {
-	      // [SqlSessionTemplate 객체]의 update(~,~) 를 호출하여 [조회수 증가] 하기
-	   	 
-	      String writer = this.sqlSession.selectOne(
-	             "com.naver.erp.QstnDAO.writer"      // 실행할 SQL 구문의 위치 지정
-	           , qstnDTO    
-	      );
-	      System.out.println("DAO/masterCnt====>"+writer);
-	      return writer;
-	      
-	   }
+         // [SqlSessionTemplate 객체]의 update(~,~) 를 호출하여 [조회수 증가] 하기
+          
+         String writer = this.sqlSession.selectOne(
+                "com.naver.erp.QstnDAO.writer"      // 실행할 SQL 구문의 위치 지정
+              , qstnDTO    
+         );
+         System.out.println("DAO/masterCnt====>"+writer);
+         return writer;
+         
+      }
 
  //-------------------------------성유진-------------------------------------------------------------------   
    // 검색한 게시판 목록 리턴하는 메소드 선언
@@ -263,7 +263,7 @@ public class QstnDAOImpl implements QstnDAO{
 
       //System.out.println(qstnSearchDTO.getU_no());
       // QstnDAO 인터페이스를 구현한 객체의  getQstnAllCnt 메소드를 호출하여 검색한 게시판 목록 총 개수를 얻는다.
-	  // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
+     // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
       int myQstnAllCnt = this.sqlSession.selectOne(
              "com.naver.erp.QstnDAO.getMyQstnAllCnt"      // 실행할 SQL 구문의 위치 지정
             , myQstnSearchDTO                            // SQL 구문의 parameterType 지정.
@@ -299,7 +299,7 @@ public class QstnDAOImpl implements QstnDAO{
 
       //System.out.println(qstnSearchDTO.getU_no());
       // QstnDAO 인터페이스를 구현한 객체의  getQstnAllCnt 메소드를 호출하여 검색한 게시판 목록 총 개수를 얻는다.
-	  // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
+     // System.out.println("qstnSearchDTO-==>"+ qstnSearchDTO);
       int myQstnAllCnt2 = this.sqlSession.selectOne(
              "com.naver.erp.QstnDAO.getMyQstnAllCnt2"      // 실행할 SQL 구문의 위치 지정
             , myQstnSearchDTO                            // SQL 구문의 parameterType 지정.
@@ -310,18 +310,32 @@ public class QstnDAOImpl implements QstnDAO{
       return myQstnAllCnt2;
    }
    
-	 //-----------성유진끝----------------
+    //-----------성유진끝----------------
    
    
    
-	///-----------------------------------------------최수현/////////////////////////////////
-	// 내가 로그인한 정보의 group_no 가져오기
-	//-----------------------------------------
-	public List<Map<String,String>> getQstnGroupNo(String user_id) {
-		List<Map<String,String>> group_no =this.sqlSession.selectList("com.naver.erp.QstnDAO.getQstnGroupNo",user_id);
-	return group_no;
-	}
+   ///-----------------------------------------------최수현/////////////////////////////////
+   // 내가 로그인한 정보의 group_no 가져오기
+   //-----------------------------------------
+   public List<Map<String,String>> getQstnGroupNo(String user_id) {
+      List<Map<String,String>> group_no =this.sqlSession.selectList("com.naver.erp.QstnDAO.getQstnGroupNo",user_id);
+   return group_no;
+   }
+   
+   
+   
+   
+
+   // 로그인한 자가 관리자인지///이정숙
+   //***************************************************************
+   public String getUserMaster(String user_id) {
+      String userMaster = this.sqlSession.selectOne("com.naver.erp.QstnDAO.getUserMaster",user_id);
+      return userMaster;
+   }
+   //***************************************************************
+
+   
   
-	
+   
 
 }

@@ -6,6 +6,7 @@
 <html>
 
 <head>
+<title>POSBIS</title>
   <meta charset="UTF-8">
 	<meta name="description" content="loans HTML Template">
 	<meta name="keywords" content="loans, html">

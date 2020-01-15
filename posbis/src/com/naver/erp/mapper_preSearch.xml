@@ -195,38 +195,40 @@
 <!-- =====[bestMenuList] 얻기========================================================================= -->   
    <select id="getBestMenuList" parameterType="com.naver.erp.PreSearchDTO" resultType="java.util.HashMap">
 
-      select * from
-          (select menu_name, sales_sum, DENSE_RANK() OVER (ORDER BY sales_sum desc)   RANKING from
-          (select unique a.menu_name, sales_sum
-          from(SELECT s.business_no , s.menu_no, s.menu_name, SUM(s.sales_count) AS SALES_SUM
-                FROM sales s, business_info bi, addr a, code_business_type cbt, menu m
-                where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1), 'yyyymm')
-                      and s.menu_no=m.menu_no and a.addr_no=bi.addr_no and bi.business_type_code=cbt.business_type_code and bi.business_no=m.business_no
-
-                         <if test="addr_gu1!=null and addr_gu1.length()>0">
-                               and a.addr_gu= #{addr_gu1}
-                     </if>
-                     <if test="(addr_gu1!=null and addr_gu1.length()>0)and(addr_dong1!=null and addr_dong1.length()>0)">
-                               and a.addr_dong= #{addr_dong1}
-                      </if> 
-                     <if test="business_type_name1!=null and business_type_name1.length()>0">
-                               and cbt.business_type_name1=#{business_type_name1}
-                       </if>
-                       <if test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
-                               and cbt.business_type_name2=#{business_type_name2}
-                       </if>
-
-
-                GROUP BY s.business_no, s.menu_no,s.menu_name   
-                order by SALES_SUM desc) a
-                ,(select s.business_no , sum(s.sales_count*m.menu_price)  as "MONTH_SALES"
-                    from (select biall.business_no, s2.sales_count, s2.menu_price, s2.sales_date, s2.menu_no
-                            from sales s2, business_info biall where biall.business_no=s2.business_no(+)) s , menu m
-                    where s.menu_no=m.menu_no
-                    group by s.business_no
-                    order by sum(s.sales_count*m.menu_price) desc ) month_sales 
-          where a.business_no=month_sales.business_no and month_sales&gt;=${month_sales} order by sales_sum desc))
-          where ranking&lt;=3
+       select * from (
+               select menu_name, sales_sum, DENSE_RANK() OVER (ORDER BY sales_sum desc)
+               RANKING from
+               (SELECT s.menu_name, SUM(s.sales_count) AS SALES_SUM
+               FROM sales s, business_info bi, addr a, code_business_type cbt, menu m
+               where to_char( sales_date, 'yyyymm')=to_char(add_months(sysdate,-1),
+               'yyyymm')
+               and s.menu_no=m.menu_no and a.addr_no=bi.addr_no and
+               bi.business_type_code=cbt.business_type_code and
+               bi.business_no=m.business_no
+            
+            
+               <if test="addr_gu1!=null and addr_gu1.length()>0">
+                  and a.addr_gu= #{addr_gu1}
+               </if>
+               <if
+                  test="(addr_gu1!=null and addr_gu1.length()>0)and(addr_dong1!=null and addr_dong1.length()>0)">
+                  and a.addr_dong= #{addr_dong1}
+               </if>
+               <if
+                  test="business_type_name1!=null and business_type_name1.length()>0">
+                  and cbt.business_type_name1=#{business_type_name1}
+               </if>
+               <if
+                  test="(business_type_name1!=null and business_type_name1.length()>0) and (business_type_name2!=null and business_type_name2.length()>0)">
+                  and cbt.business_type_name2=#{business_type_name2}
+               </if>
+            
+            
+            
+               GROUP BY s.menu_name
+               order by SALES_SUM desc)
+               order by sales_sum desc)
+               where ranking&lt;=3
           
           
    </select>

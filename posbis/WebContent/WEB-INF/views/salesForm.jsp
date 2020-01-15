@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>매출 관리</title>
+
   <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -110,7 +112,9 @@ select::-ms-expand { display: none; }
   
   </style>
 
-
+<!-- 구글차트 수입 -->
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ 
  <script>         
       	$(document).ready(function(){
 		 
@@ -416,49 +420,92 @@ select::-ms-expand { display: none; }
 			//--------------------------------------------------------
 
 			
-			function goMessageForm(){
-			    alert("건의사항이 접수 되었습니다. 감사합니다");
-		 
-			 }
-      
+		
+	         google.charts.load('current', {packages: ['corechart', 'bar']});
+	         google.charts.setOnLoadCallback(drawBasic);
+	
+	         function drawBasic() {
+	
+	               var data = google.visualization.arrayToDataTable([
+	                 ['총매출', '매출이익(원)', { role: 'annotation' },
+	                          '매출원가(원)', { role: 'annotation' } ],
+	                 
+	                 ['총매출', ${salesSum.sum_sales_income},  ${salesSum.sum_sales_income},
+	                          ${salesSum.sum_sales_amount - salesSum.sum_sales_income}, ${salesSum.sum_sales_amount - salesSum.sum_sales_income}]
+	               ]);
+	
+	               var options = {
+	                       fontSize : 17,
+	                      width: "100%",
+	                      height: "100%",
+	                      legend: { position: 'top', maxLines: 3 },
+	                      bar:  { groupWidth: '40%' },
+	                      isStacked: 'percent',
+	                       colors: ['#74a2f2', '#9abbf4']
+	                        ,animation: {
+	                             startup: true,
+	                             duration: 1200,
+	                             easing: 'linear' }
+	                        ,annotations: {
+	                           textStyle: {
+	                               fontSize : 17
+	                               , color: 'none'
+	                               , bold: true
+	                               , italic: true
+	                               , opacity: 0.7
+	                           }
+	                           }
+	                 };
+	
+	               var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	
+	               chart.draw(data, options);
+	             }
+            
+	         $(window).resize(function(){
+	                drawBasic();
+	             });
 
       </script>
 
 
 <body>
- <!-- Header Section -->
+<!-- Header Section -->
 	<header class="header-section">
 		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
 			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
 		</a>
-		<nav class="header-nav">
+		<nav class="header-nav" style="height:98;">
 			<ul class="main-menu">
-				<li><a style="color:#fff; cursor:pointer;">INFO</a>
-					<ul class="sub-menu" style="cursor:pointer;">
+				<li>
+
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
 						<li><a onClick="goHomePageForm();">Home 화면</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">마이페이지</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMyPageForm();">내정보보기</a></li>
 						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
 					</ul>
 				</li>
 				
-				<li><a class="active" style="cursor:pointer;">매장관리</a>
+				<li><a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">업계동향</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer;">고객센터</a>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
 						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
@@ -468,7 +515,7 @@ select::-ms-expand { display: none; }
 			</ul>
 			<div class="header-right">
 
-				<div class="hr-text">
+				<div class="hr-text" style="margin:-17 0 -15 0">
 				<c:if test = "${rank_code eq '1'}">
 	               <i class="ti-user">&nbsp;</i>
 	            </c:if>
@@ -496,7 +543,7 @@ select::-ms-expand { display: none; }
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>매출관리</h2>
+			<h2><strong>매출관리</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active">
@@ -542,14 +589,21 @@ select::-ms-expand { display: none; }
                   <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
                <tr><td>
             <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})&nbsp;&nbsp;
-                    <c:if test="${(status.index+1)%3==0}">
+              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
+                    <c:if test="${(status.index+1)%2!=0}">
+                     <c:if test="${!status.last }">
+                        <td width="40">
+                     </c:if>
+                    </c:if>
+                    <c:if test="${(status.index+1)%2==0}">
                      <c:if test="${!status.last }">
                         <tr><td>
                      </c:if>
                   </c:if>   
             </c:forEach>
             </table>
+            
+            
             
             
 		<br><br> 
@@ -563,19 +617,19 @@ select::-ms-expand { display: none; }
 	<tr>
 		<td >					      
 				
-				              <span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
+				              <span style="color:#330066"> [ 기간&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
 				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br>
 		<br>  					      
 	<tr>
 		<td style="color:#330066">		               
-				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ]&nbsp; : &nbsp;<input type = "text" name="keyword" class="keyword">&nbsp;
+				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드 ]&nbsp; : &nbsp;<input type = "text" name="keyword" class="keyword">&nbsp;
 				            <!--  <input type="button" value="검   색" onClick="goSearch();">&nbsp;
               				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp; -->
               				 <br><br>
-                  			 <button type="button" class="btn btn-default"style="margin:0 10 0 110" onClick="goSearch();">검      색</button>&nbsp;
-                 			 <button type="button" class="btn btn-default"style="" onClick="goSearchAll();">모두  검색</button>&nbsp;
+                  			 <button type="button" class="btn btn-default"style="margin:0 20 0 220" onClick="goSearch();">검      색</button>&nbsp;
+                 			 <button type="button" class="btn btn-default"style="margin:0 20 0 0" onClick="goSearchAll();">모두  검색</button>&nbsp;
               				 <a href="javascript:goKeywordReset();"><u>검색조건 초기화</u></a>
               				
               			</table> 
@@ -595,17 +649,20 @@ select::-ms-expand { display: none; }
 						
 					</div>	
 
+
+
+				
 <!--************************************************************************************************************************-->
-              <div class="col-sm-12" align="center">
-            
+            <div class="col-sm-12" align="center">
+              <div id="chart_div" style="width:50%; height:15%"></div>
               <table class="table table-striped table-advance table-hover" id="select">
                 <thead>
                   <tr>
                   <td align=center class="sumSales" >
-            		[거래 건수]: ${salesListAllCnt}&nbsp;&nbsp;
-                    [판매수량 합계] : ${salesSum.sum_sales_count} &nbsp;&nbsp;
-		            [총 매출  합계] : ${salesSum.sum_sales_amount}원&nbsp;&nbsp;
-		            [순 매출  합계] : ${salesSum.sum_sales_income}원
+                  [거래 건수]: ${salesListAllCnt}&nbsp;&nbsp;
+                    [판매 수량] : ${salesSum.sum_sales_count} &nbsp;&nbsp;
+                  [총 매출] : ${salesSum.sum_sales_amount}원&nbsp;&nbsp;
+                  [매출이익] : ${salesSum.sum_sales_income}원
 
             <!-- 한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기 -->
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
@@ -622,8 +679,10 @@ select::-ms-expand { display: none; }
 			</form>
    	<form name="menuSalesForm" method="post" action="/posbis/menuSalesForm.do">
 					</form>      
+			
             <!-- 페이징 번호를 삽입할 span 태그 선언하기  -->
       <div class="pagingDiv">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+      <br>
       	<table class="table table-striped table-advance table-hover " id="sales">
             <thead>
                 <tr>
@@ -856,7 +915,7 @@ select::-ms-expand { display: none; }
 	<!-- custome script for all page -->
 	<script src="resources/tableBoot/js/scripts.js"></script>
   
-  
+  	
 
 </body>
 </html>

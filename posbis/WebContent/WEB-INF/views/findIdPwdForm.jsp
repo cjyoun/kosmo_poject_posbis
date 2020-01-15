@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>아이디/암호 찾기</title>
 <meta charset="UTF-8">
 <meta name="description" content="loans HTML Template">
 <meta name="keywords" content="loans, html">
@@ -78,7 +79,8 @@
 	         	, data : $("[name=findIdPwdForm]").serialize()
 	         	, success : function(findIDPassword) {
 	         		if( findIDPassword.user_id!=null && findIDPassword.user_id!=null ){
-	         			alert("등록된 아이디는"+findIDPassword.user_id+"비밀번호는"+findIDPassword.user_pwd+"입니다");
+	         			alert("등록된 아이디는 "+findIDPassword.user_id+"\n비밀번호는 "+findIDPassword.user_pwd+" 입니다");
+	         			
 	         			location.replace('/posbis/findIdPwdForm.do');
 	         			
 	         		}else if( findIDPassword.user_id==null && findIDPassword.user_id==null ) {
@@ -143,7 +145,7 @@
     <!-- Page top Section end -->
 	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container">
-			<h2>아이디/비밀번호 찾기</h2>
+			<h2><strong>아이디/비밀번호 찾기</strong></h2>
 			<nav class="site-breadcrumb">
 				<a class="sb-item" href="#">Home</a>
 				<span class="sb-item active">About us</span>
@@ -163,7 +165,7 @@
 	 <section id="main-content">
 	      <section class="wrapper">
 	      
-         <div class="col-lg-6" align="center">
+         <div class="col-lg-6" align="center" style="margin:0 0 0 320">
             <section class="panel">
               <header class="panel-heading">
                  [아이디/비밀번호 찾기]
@@ -172,40 +174,40 @@
                   <form name="findIdPwdForm" class="form-validate form-horizontal" id="feedback_form"  >
                   
                   <div class="form-group"> 
-                    <label for="cname" class="control-label col-lg-2">이름 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">이름 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text" name="user_name" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">사업자 등록 번호 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">사업자 등록 번호 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text"  name="business_no" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">질문 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">질문 <span class="required">*</span></label>
                     <div class="col-lg-6">
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
                         <select name="question_code" size=1 class="form-control" id="exampleInputEmail1" > 
-			                  <option value="" selected> --선택요망--</option>
-			                  <option value="1">자신의 보물 1호는?</option>
-			                  <option value="2">졸업한 초등학교 이름은?</option>
-			                  <option value="3">어머니의 이름은?</option>
-			                  <option value="4">존경하는 인물은?</option>
+			                  <option value=''>---질문을 선택해주세요---</option>
+                              <option value="1">내가 졸업한 초등학교 이름은?</option>
+                              <option value="2">나의 보물 1호는?</option>
+                              <option value="3">가장 기억에 남는 선생님의 이름은?</option>
+                              <option value="4">가장 감명깊게 본 영화는?</option>
 			             </select>
                       </div> 
                   </div>
                   
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2">답변 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">답변 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text" name="answer" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                   
-        			 <div style="float:right">
+        			 <div style="margin:30 0 0 0">
                    <button class="btn btn-primary" type="button" value="메인으로" onClick="findIdPwdStart();"  >아이디 비밀번호 찾기 </button>
  				  <button class="btn btn-success" type="button" value="메인으로" onClick="goJoinForm();" >로그인 하기 </button>
  					</div>
