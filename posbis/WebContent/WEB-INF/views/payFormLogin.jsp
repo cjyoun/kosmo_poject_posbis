@@ -447,11 +447,12 @@
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>카드등록</strong></h2>
+
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>카드등록</strong></h2>
+			
 		</div>
 	</section>
 	<!-- Page top Section end -->
@@ -464,7 +465,7 @@
    <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-7" align="center" style="margin:0 0 0 275">
+       <div class="col-lg-7" align="center" style="margin:0 0 0 410">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">프리미엄 회원 결제</a>
@@ -571,8 +572,8 @@
                   </div>
    
         		<div style="margin:30 0 0 0">
-                <button class="btn btn-success" type="button" value="등록" onClick="checkCardInsert();" style="margin:0 40 0 0">등록 </button>
-                <button class="btn btn-danger" type="button" value="취소" onClick="cardCancel();">취소 </button>
+                <button class="btn btn-default" type="button" value="등록" onClick="checkCardInsert();" style="margin:0 40 0 0">등록 </button>
+                <button class="btn btn-default" type="button" value="취소" onClick="cardCancel();">취소 </button>
                 </div>
                 
                  <%-- <input type="text" name="user_id"  value="${param.user_id}"> --%>

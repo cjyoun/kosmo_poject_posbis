@@ -400,16 +400,17 @@ function goInfoUpdateForm(){
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>내정보 보기</strong></h2>
+
+	
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>내정보 보기</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="icon-user"></i> 마이페이지</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-settings"></i> 내정보 보기</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-user"></i> 마이페이지 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-settings"></i> 내정보 보기</span>
 	         </nav>
 			</div>
 		</div>
@@ -423,7 +424,7 @@ function goInfoUpdateForm(){
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">내정보 보기</a>
@@ -437,8 +438,8 @@ function goInfoUpdateForm(){
 					 <input type="hidden" name="user_id" class="user_id" value=${user_id}>
 					 	<!-- ======== -->
 
-					 	   <div class="form-group" style="width:60%; margin:50 0 0 0">
-				             <label class="col-sm-2 control-label">사업자 번호</label>
+					 	   <div class="form-group" style="width:60%; margin:50 0 0 -42">
+				             <label class="col-sm-2 control-label" style="padding:0 0 0 0">사업자 번호</label>
 				             <div class="col-sm-6">
 									<select class="form-control addr_gu" name="changeBusinessNo" align="center">
 								 		<c:forEach items="${businessNoList}" var="businessNoList">											
@@ -450,7 +451,7 @@ function goInfoUpdateForm(){
 							
 							 		<div >
 									 	<button  class="btn btn-default" type="button" value="가게정보 삭제" onClick="delBusi();">가게정보 삭제</button>
-									 	&nbsp;
+									 	&nbsp;&nbsp;&nbsp;&nbsp;
 										<button  class="btn btn-default" type="button" value="가게 추가"  onclick="location.replace('/posbis/newBusiForm.do');">가게 추가</button>
 									</div> 
 							</div> 
@@ -466,7 +467,7 @@ function goInfoUpdateForm(){
          
   <!-- page start-->
    
-          <div class="col-sm-6" style="margin:0 0 0 60">
+          <div class="col-sm-6" style="margin:0 0 0 145">
             <section class="panel" >
               <header class="panel-heading">
                 	개인정보

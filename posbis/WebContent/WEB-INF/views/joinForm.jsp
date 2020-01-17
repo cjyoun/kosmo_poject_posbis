@@ -803,12 +803,11 @@
 
 	</header>
 	<!-- #header -->
+
 	<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>회원가입</strong></h2>
-			
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>회원가입</strong></h2>
 		</div>
 	</section>
 	<!-- Page top Section end -->
@@ -823,7 +822,7 @@
 	<main id="main">
 	<section id="main-content">
 		<section class="wrapper" >
-			<div class="col-lg-6" align="center" style="margin:0 0 0 350">
+			<div class="col-lg-7" align="center" style="margin:0 0 0 410">
 				<section class="panel">
 					<header class="panel-heading">
 						<a href="">회원가입</a>
@@ -855,7 +854,7 @@
 								
 								<div class="form-group" >
 									
-									<label class="col-sm-3 control-label" style="margin:0 0 0 35">비밀번호 확인</label>
+									<label class="col-sm-3 control-label" style="margin:0 0 0 15">비밀번호 확인</label>
 
 									<div class="col-sm-6">
 										<input type="password" name="user_pwd2" class="form-control user_pwd2" maxlength="10">
@@ -1161,12 +1160,12 @@
 								</div>
 								<br>
 								<div style="float: right">
-									<button class="btn btn-info" type="button" value="등록"
+									<button class="btn btn-default" type="button" value="등록"
 										onClick="checkUserRegForm();">가입</button>
 
-									<button class="btn btn-primary" type="reset" value="다시작성">다시작성
+									<button class="btn btn-default" type="reset" value="다시작성">다시작성
 									</button>
-									<button class="btn btn-danger" type="button" value="취소"
+									<button class="btn btn-default" type="button" value="취소"
 										onClick="goMainForm();">가입취소</button>
 								</div>
 							</form>

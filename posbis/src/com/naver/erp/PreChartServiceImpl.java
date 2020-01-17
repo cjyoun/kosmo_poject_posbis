@@ -56,9 +56,9 @@ public class PreChartServiceImpl implements PreChartService{
 	
 	// business_no 가지고 나의 가게 월매출 얻기
 	@Override
-	public List<Map<String, String>> getSalesMonthList(String changeBusinessNo) {
+	public List<Map<String, String>> getSalesMonthList(PreChartParamDTO preChartParamDTO) {
 		System.out.println("service : getSalesMonthList 시작");
-		List<Map<String,String>> salesMonthList = this.preChartDAO.getSalesMonthList(changeBusinessNo);
+		List<Map<String,String>> salesMonthList = this.preChartDAO.getSalesMonthList(preChartParamDTO);
 		System.out.println("service : getSalesMonthList 끝"); 
 		return salesMonthList;
 	}
@@ -79,9 +79,9 @@ public class PreChartServiceImpl implements PreChartService{
 	
 	// business_no 가지고 같은 동네, 같은 업종의 가게들의 월 평균 매출 얻기
 	@Override
-	public List<Map<String, String>> getAllSalesMonthList(String changeBusinessNo) {
+	public List<Map<String, String>> getAllSalesMonthList(PreChartParamDTO preChartParamDTO) {
 		System.out.println("service : getAllSalesMonthList 시작");
-		List<Map<String,String>> allSalesMonthList = this.preChartDAO.getAllSalesMonthList(changeBusinessNo);
+		List<Map<String,String>> allSalesMonthList = this.preChartDAO.getAllSalesMonthList(preChartParamDTO);
 		System.out.println("service : getAllSalesMonthList 끝"); 
 		return allSalesMonthList;
 	}
@@ -92,10 +92,10 @@ public class PreChartServiceImpl implements PreChartService{
 	
 	// business_no 가지고 우리 가게 인기메뉴 구하기	
 	@Override
-	public List<Map<String,String>> getMyPopularityMenu(String changeBusinessNo) {
+	public List<Map<String,String>> getMyPopularityMenu(PreChartParamDTO preChartParamDTO) {
 	//public List<String> getMyPopularityMenu(String changeBusinessNo) {	
 		System.out.println("service : getMyPopularityMenu 시작");
-		List<Map<String,String>> myPopularityMenu = this.preChartDAO.getMyPopularityMenu(changeBusinessNo);
+		List<Map<String,String>> myPopularityMenu = this.preChartDAO.getMyPopularityMenu(preChartParamDTO);
 		//List<String> myPopularityMenu = this.preChartDAO.getMyPopularityMenu(changeBusinessNo);
 		System.out.println("service : getMyPopularityMenu 끝"); 
 		return myPopularityMenu;
@@ -107,10 +107,10 @@ public class PreChartServiceImpl implements PreChartService{
 
 	// business_no 가지고 다른 가게 인기메뉴 구하기	
 	@Override
-	public List<Map<String,String>> getOthersPopularityMenu(String changeBusinessNo) {
+	public List<Map<String,String>> getOthersPopularityMenu(PreChartParamDTO preChartParamDTO) {
 	//public List<String> getOthersPopularityMenu(String changeBusinessNo) {	
 		System.out.println("service : getOthersPopularityMenu 시작");
-		List<Map<String,String>> othersPopularityMenu = this.preChartDAO.getOthersPopularityMenu(changeBusinessNo);
+		List<Map<String,String>> othersPopularityMenu = this.preChartDAO.getOthersPopularityMenu(preChartParamDTO);
 		//List<String> othersPopularityMenu = this.preChartDAO.getOthersPopularityMenu(changeBusinessNo);
 		System.out.println("service : getOthersPopularityMenu 끝"); 
 		return othersPopularityMenu;
@@ -121,9 +121,9 @@ public class PreChartServiceImpl implements PreChartService{
 //--------------------------------------------------------------------------------------------------   
 	// business_no 가지고 같은 업종, 같은 동네 점포수 구하기
 	@Override
-	public String getStoreCount(String changeBusinessNo) {
+	public String getStoreCount(PreChartParamDTO preChartParamDTO) {
 		System.out.println("service : getStoreCount 시작");
-		String storeCount = this.preChartDAO.getStoreCount(changeBusinessNo);
+		String storeCount = this.preChartDAO.getStoreCount(preChartParamDTO);
 		System.out.println("service : getStoreCount 끝"); 
 		return storeCount;
 	}
@@ -133,9 +133,9 @@ public class PreChartServiceImpl implements PreChartService{
 //--------------------------------------------------------------------------------------------------   
 	// business_no 가지고 상품별 판매 횟수 구하기
 	@Override
-	public List<Map<String, String>> getMenuSalesCount(String changeBusinessNo) {
+	public List<Map<String, String>> getMenuSalesCount(PreChartParamDTO preChartParamDTO) {
 		System.out.println("service : getMenuSalesCount 시작");
-		List<Map<String, String>> menuSalesCount = this.preChartDAO.getMenuSalesCount(changeBusinessNo);
+		List<Map<String, String>> menuSalesCount = this.preChartDAO.getMenuSalesCount(preChartParamDTO);
 		System.out.println("service : getMenuSalesCount 끝"); 
 		return menuSalesCount;
 	}
@@ -144,9 +144,9 @@ public class PreChartServiceImpl implements PreChartService{
 //--------------------------------------------------------------------------------------------------   
 	// business_no 가지고 상품별 순이익 구하기
 	@Override
-	public List<Map<String, String>> getSalesBenefit(String changeBusinessNo) {
+	public List<Map<String, String>> getSalesBenefit(PreChartParamDTO preChartParamDTO) {
 		System.out.println("service : getSalesBenefit 시작");
-		List<Map<String, String>> salesBenefit = this.preChartDAO.getSalesBenefit(changeBusinessNo);
+		List<Map<String, String>> salesBenefit = this.preChartDAO.getSalesBenefit(preChartParamDTO);
 		System.out.println("service : getSalesBenefit 끝"); 
 		return salesBenefit;
 	}
@@ -160,6 +160,8 @@ public class PreChartServiceImpl implements PreChartService{
 		System.out.println("service : getAllBusinessNoSalesMonthList 끝"); 
 		return allBusinessNoSalesMonthList;
 	}
+
+
 
    
 }

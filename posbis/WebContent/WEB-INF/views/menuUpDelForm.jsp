@@ -442,17 +442,17 @@
 	</header>
 	<!-- Header Section end -->
 	
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>메뉴수정</strong></h2>
-			<div style=" color:#fff; width:30%">
+
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>메뉴수정</strong></h2>
+			<div style=" color:#fff; width:40%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-utensils"></i> 메뉴관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="ti-eraser"></i> 메뉴수정</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-warehouse"></i> 매장관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-utensils"></i> 메뉴관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="ti-eraser"></i> 메뉴수정</span>
 	         </nav>
 			</div>
 		</div>
@@ -472,7 +472,7 @@
  
       <div class="row">
       
-          <div class="col-lg-8" style="margin:0 0 0 200; ">
+          <div class="col-lg-8" style="margin:0 0 0 330; ">
             <section class="panel" >
               <header class="panel-heading" style="text-align:center;">
                  [메뉴수정]
@@ -563,10 +563,10 @@
 			</div>
 			 -->
 			<div style="margin:0 0 0 420"> 
-                   <button class="btn btn-info" type="button" value="메뉴수정" onClick="checkMenuUpDelForm('up')">메뉴수정 </button>
-                   <button class="btn btn-danger" type="button" value="메뉴삭제" onClick="checkMenuUpDelForm('del')">메뉴삭제 </button>
+                   <button class="btn btn-default" type="button" value="메뉴수정" onClick="checkMenuUpDelForm('up')">메뉴수정 </button>
+                   <button class="btn btn-default" type="button" value="메뉴삭제" onClick="checkMenuUpDelForm('del')">메뉴삭제 </button>
                 
-                <button class="btn btn-success" type="reset" value="목록보기"   onClick="document.menuForm.submit();">목록보기 </button>
+                <button class="btn btn-default" type="reset" value="목록보기"   onClick="document.menuForm.submit();">목록보기 </button>
              
             </div>
 			<!------------------------------------------------------------->

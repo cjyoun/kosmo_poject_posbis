@@ -158,41 +158,48 @@ public class PreChartController {
 	@ResponseBody
 	public PreChartListDTO preChartProc(
 
-			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			//@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			PreChartParamDTO preChartParamDTO
 			, PreChartListDTO preChartListDTO
 
 	) {
 		System.out.println("preChartProc 시작1");
 
-		System.out.println("business_no ===> " + changeBusinessNo);
+		System.out.println("business_no ===> " + preChartParamDTO.getChangeBusinessNo());
+		System.out.println("business_no ===> " + preChartParamDTO.getChangeYear());
+
 		try {
 
 // 나의 가게의 월매출 현황
 //==================================================================================================================			
-			System.out.println("salesMonthList 시작1");
-			List<Map<String, String>> salesMonthList = this.preChartService.getSalesMonthList(changeBusinessNo);
-			// List<String> salesMonthList =
-			// this.preChartService.getSalesMonthList(changeBusinessNo);
-//			sml.add((Map<String, String>) salesMonthList);
+			
+			  System.out.println("salesMonthList 시작1"); 
+			  //List<Map<String, String>> salesMonthList = this.preChartService.getSalesMonthList(changeBusinessNo);
+			  List<Map<String, String>> salesMonthList = this.preChartService.getSalesMonthList(preChartParamDTO);
 
-			System.out.println("salesMonthList.size()=>" + salesMonthList.size());
-
-			for (int i = 0; i < 12; i++) {
-				System.out.println("salesMonthList.get(\"salesMonthList\")=>" + salesMonthList.get(i));
-			}
+			  System.out.println("salesMonthList.size()=>" + salesMonthList.size());
+			  
+			  for (int i = 0; i < 12; i++) {
+			  System.out.println("salesMonthList.get(\"salesMonthList\")=>" +
+			  salesMonthList.get(i)); }
+			 
 
 //==================================================================================================================	
 
 // 나와 같은 동네, 같은 업종의 가게들의 평균 월매출 현황
 //==================================================================================================================			
 
-			List<Map<String, String>> allSalesMonthList = this.preChartService.getAllSalesMonthList(changeBusinessNo);
+			
+			  //List<Map<String, String>> allSalesMonthList =this.preChartService.getAllSalesMonthList(changeBusinessNo);
+			  List<Map<String, String>> allSalesMonthList =this.preChartService.getAllSalesMonthList(preChartParamDTO);
 
-			System.out.println("allSalesMonthList.size()=>" + allSalesMonthList.size());
-
-			for (int i = 0; i < 12; i++) {
-				System.out.println("allSalesMonthList.get(\"allSalesMonthList\")=>" + allSalesMonthList.get(i));
-			}
+			  
+			  System.out.println("allSalesMonthList.size()=>" + allSalesMonthList.size());
+			  
+			  for (int i = 0; i < 12; i++) {
+			  System.out.println("allSalesMonthList.get(\"allSalesMonthList\")=>" +
+			  allSalesMonthList.get(i)); }
+			 
 
 //			
 //			System.out.println( "sml.size()=>" + sml.size());
@@ -226,7 +233,8 @@ public class PreChartController {
 	)
 	@ResponseBody
 	public MyPopularityListDTO preChartProc2(
-			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			// @RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			PreChartParamDTO preChartParamDTO
 			, MyPopularityListDTO myPopularityListDTO
 
 	) {
@@ -239,13 +247,15 @@ public class PreChartController {
 //		List<String> myPopularityMenu = new ArrayList<String>();
 //		List<String> othersPopularityMenu = new ArrayList<String>();
 		
-		System.out.println("business_no ===> " + changeBusinessNo);
+		System.out.println("==================================================");
+		System.out.println("나의 가게 인기메뉴, 다른가게 인기메뉴, 점포수 구하기");
+		System.out.println("YEAR ====== " + preChartParamDTO.getChangeYear());
 
 		try {
 			
 // 나의 가게 인기메뉴 구하기.
 //==================================================================================================================			
-			myPopularityMenu = this.preChartService.getMyPopularityMenu(changeBusinessNo);
+			myPopularityMenu = this.preChartService.getMyPopularityMenu(preChartParamDTO);
 			
 			System.out.println("myPopularityMenu ===> " + myPopularityMenu.size());
 			for (int i = 0; i < myPopularityMenu.size(); i++) {
@@ -256,7 +266,7 @@ public class PreChartController {
 			
 // 다른 가게 인기메뉴 구하기.
 //==================================================================================================================			
-			othersPopularityMenu = this.preChartService.getOthersPopularityMenu(changeBusinessNo);
+			othersPopularityMenu = this.preChartService.getOthersPopularityMenu(preChartParamDTO);
 
 			System.out.println("othersPopularityMenu ===> " + othersPopularityMenu.size());
 			for (int i = 0; i < othersPopularityMenu.size(); i++) {
@@ -268,7 +278,7 @@ public class PreChartController {
 			
 // 같은 동네, 같은 업종 점포수 구하기.
 //==================================================================================================================			
-			String storeCount = this.preChartService.getStoreCount(changeBusinessNo);
+			String storeCount = this.preChartService.getStoreCount(preChartParamDTO);
 			
 			System.out.println("storeCount ===> " + storeCount);
 			
@@ -307,7 +317,8 @@ public class PreChartController {
 	@ResponseBody
 	public MySalesRatioDTO preChartProc3(
 
-			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			//@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+			PreChartParamDTO preChartParamDTO
 			, MySalesRatioDTO mySalesRatioDTO
 
 	) {
@@ -315,13 +326,15 @@ public class PreChartController {
 		List<Map<String,String>> menuSalesCount = new ArrayList<Map<String,String>>();
 		List<Map<String,String>> salesBenefit = new ArrayList<Map<String,String>>();
 		
-		System.out.println("business_no ===> " + changeBusinessNo);
+		System.out.println("==================================================");
+		System.out.println("상품별 판매 개수 구하기 , 상품별 순이익 구하기");
+
 
 		try {
 			
 // 상품별 판매 개수 구하기
 //==================================================================================================================			
-			menuSalesCount = this.preChartService.getMenuSalesCount(changeBusinessNo);
+			menuSalesCount = this.preChartService.getMenuSalesCount(preChartParamDTO);
 			
 			System.out.println("menuSalesCount ===> " + menuSalesCount.size());
 			for (int i = 0; i < menuSalesCount.size(); i++) {
@@ -334,7 +347,7 @@ public class PreChartController {
 			
 // 상품별 순이익 구하기
 //==================================================================================================================			
-			salesBenefit = this.preChartService.getSalesBenefit(changeBusinessNo);
+			salesBenefit = this.preChartService.getSalesBenefit(preChartParamDTO);
 			
 			System.out.println("salesBenefit ===> " + salesBenefit.size());
 			for (int i = 0; i < salesBenefit.size(); i++) {

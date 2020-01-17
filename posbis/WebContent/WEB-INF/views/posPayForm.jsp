@@ -110,16 +110,16 @@
 		var sales_count = 1;
 		var levelNum= 0;
 		var flag=false;
+		
  
 		function goMenuNameForm() { 
 
 			if($("[name=tablelist] [name=perMenuList]").find("tr").eq(0).text()!="" && $(".sales_count").val()==""){
-
- 
 				$("[name=menu_name]").prop( "checked",false );
 				return;
 			};
 
+			
 			$.ajax({
 						url : "/posbis/posPerMenuProc.do",
 						type : "post",
@@ -127,6 +127,7 @@
 						success : function(data) {
 							if (data.length == 1) {
 								 	var menu_name=data[0].menu_name;
+								 	var menu_no=data[0].menu_no;
 									var menu_price=data[0].menu_price;
 									var category=data[0].menu_category_code;
 
@@ -151,14 +152,16 @@
 
 									if(flag==false){
 										var appendTr = "<tr><td>"+(++levelNum)
-										appendTr += "<td>"+menu_name
-										appendTr += "<td class=perPrice name='"+category+"'>"+menu_price
-										appendTr += "<td><input type='text' name='"+menu_name+"' value='1' class='sales_count' size=3 readonly>"
-										appendTr += "<td><input type=button class=count_update name=count_update value='수정' style='WIDTH: 50pt; HEIGHT: 20pt'><td><input type=button name=menu_deleteBtn class='"+menu_name+"' value='삭제' style='WIDTH: 50pt; HEIGHT: 20pt'></tr>"
+										appendTr += "<td>"+menu_name+"<input type='hidden' value='"+menu_name+"'name='menu_name'>" //메뉴이름
+										appendTr += "<td class=perPrice>"+menu_price+"<input type='hidden' value='"+menu_price+"'name='menu_price'>" //메뉴 가격 
+										appendTr += "<td><input type='text' name='"+menu_name+"' value="+sales_count+" class='sales_count' '"+menu_name+"' size=3 ><input type='hidden' name='sales_count' class='sales_countCNT' value="+sales_count+">"  //메뉴 개수
+								
+										appendTr += "<td><div style=float:left; ><input type=button class=count_updateButton1 name=count_update value='+'></div><div style=float:right;><input type=button class=count_updateButton2 name=count_update value='-'></div><td><input type=button name=menu_deleteBtn  value='삭제'></tr>"
 										$("[name=tablelist] [name=perMenuList]").append(appendTr)
 										
 				 
 								    	
+										
 										var perPrice=$("[name=tablelist] [name=perMenuList]").find("tr").eq(0).find("td").eq(2).text();
 										
 										if($(".allPrice").text()==""){
@@ -167,9 +170,10 @@
 											return;
 											} 		
 
+										
 										var total=0;	 
 										for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
-											/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
+ 
 											var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 											var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
 										
@@ -184,16 +188,31 @@
 											}
  
 										$("[name=menu_name]").prop( "checked",false );
+										
+										
 						
 									}else{
 										var menuN = "[name='"+menu_name+"']";
+						 
 										var toStr=$("[name=tablelist] [name=perMenuList]").find("tr").find(menuN).val();
+						 
 										var toStrfinal= parseInt(toStr, 10);
 										$("[name=tablelist] [name=perMenuList]").find("tr").find(menuN).val(toStrfinal+1);
-										$("[name=menu_name]").prop( "checked",false );
+										var toStrfinal=$("[name=tablelist] [name=perMenuList]").find("tr").find(menuN).val()
+										
+										
+										//////input hidden을 위한 업데이트
+										var toStr1CNT=$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_countCNT").val();
+										var toStrfinal1CNT= parseInt(toStr1CNT, 10);
+										$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_countCNT").val(toStrfinal1CNT+1);
 
-									 
-								    	
+										
+										$("[name=menu_name]").prop( "checked",false );
+										
+								
+																	 
+								    
+										
 										var total=0;	 
 										for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
 											/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
@@ -228,34 +247,151 @@
 						}
 
 					});
+			
+ 
 
 		}
  
+	 	//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		//+버튼 누를시
+			var total=0;
 		 
-		
- 	$(document).on('click','.count_update',function() {
-
- 		alert("수량을 수정하시겠습니까?");
- 		if($(this).parent().parent().find(".sales_count").text()==""){
-			alert("수량입력바랍니다");
-
- 	 	}
- 		$(this).parent().parent().find(".sales_count").removeAttr("readonly").focus();
- 		return;
+	 	$(document).on('click','.count_updateButton1',function() {
  
-	}); 
+	 		if($(this).parent().parent().find(".count_updateButton1").val()=="+"){
+	 			
+	 			var toStr1 =$(this).parent().parent().parent().find(".sales_count").val();
+				var toStrfinal1= parseInt(toStr1, 10);
+				$(this).parent().parent().parent().find(".sales_count").val(toStrfinal1+1);
+				
+ 
+				//////input hidden을 위한 업데이트
+				var toStr1CNT=$(this).parent().parent().parent().find(".sales_countCNT").val();
+				var toStrfinal1CNT= parseInt(toStr1CNT, 10);
+				$(this).parent().parent().parent().find(".sales_countCNT").val(toStrfinal1CNT+1);
+				
+ 
+	 		}
+	 		
+			var total=0;	
+			$(".allPrice").find("span").text(total);
+ 
+	 		
+			 //총합 계산
+			for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+				/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
+				var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
+				var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
+			
+					var perPriceCheck= parseInt(toStrperPriceCheck, 10);//가격
+					var perCntCheck= parseInt(toStrperCntCheck, 10); //개수 */
+					
+					var perPriceCnt=perPriceCheck*perCntCheck
+
+					
+				 total=total+perPriceCnt;
+					$(".allPrice").find("span").text(total);
+				}	
+			
+	 		 
+	 		
+		}); 
+		
+	 	//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+		
+	 	//-버튼 누를시
+	 	
+		$(document).on('click','.count_updateButton2',function() {
+
+ 
+	 		if($(this).parent().parent().find(".count_updateButton2").val()=="-"){
+	 			var toStr2 =$(this).parent().parent().parent().find(".sales_count").val();
+				var toStrfinal2= parseInt(toStr2, 10);
+				$(this).parent().parent().parent().find(".sales_count").val(toStrfinal2-1);
+			 
+				
+				//////input hidden을 위한 업데이트
+				var toStr2CNT=$(this).parent().parent().parent().find(".sales_countCNT").val();
+				var toStrfinal2CNT= parseInt(toStr2CNT, 10);
+				$(this).parent().parent().parent().find(".sales_countCNT").val(toStrfinal2CNT-1);
+	 
+ 
+	 	 	} 
+			
+			//0일때 삭제 안내후 총합
+			if($(this).parent().parent().parent().find(".sales_count").val()=="0"){
+ 
+				
+				$(this).parent().parent().parent().remove();
+				
+				var toStrperPrice=$(this).parent().parent().eq(0).find("td").eq(2).text()
+				var toStrperCnt= $(this).parent().parent().eq(0).find(".sales_count").val()
+				var perPrice= parseInt(toStrperPrice, 10);//가격
+				var perCnt= parseInt(toStrperCnt, 10); //개수
+
+				var toStrallPrice=$(".allPrice").find("span").text()
+				var allPrice= parseInt(toStrallPrice, 10);
+
+	 
+				
+				$(".allPrice").find("span").text(toStrallPrice-(perPrice*perCnt));
+
+
+				//순서번호 재 정렬
+				 for(var i=0; i<=$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){ 
+						var idx=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).index();
+						$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(0).text(idx+1);
+				 }
+
+				 
+				
+				
+				
+			}
+			
+			//총합 계산
+ 
+			var total=0;		
+			$(".allPrice").find("span").text(total);
+ 
+			
+			for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+				/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
+				var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
+				var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
+			
+					var perPriceCheck= parseInt(toStrperPriceCheck, 10);//가격
+					var perCntCheck= parseInt(toStrperCntCheck, 10); //개수 */
+					
+					var perPriceCnt=perPriceCheck*perCntCheck
+
+					
+				 total=total+perPriceCnt;
+					$(".allPrice").find("span").text(total);
+				}	
+			
+			
+			
+		}); 
+ 
+	 	
+	 	//////////////////////////////////////////////////////////////////////////////////////////////////
+	
 
  	$(document).on('change','.sales_count',function() {
-			alert("변경하시겠습니까");
+ 
 			if (is_valid_pattern($(this).parent().parent().find(".sales_count"),/^[0-9]{1,5}$/) == false) {							
 					alert("숫자입력해주세요");
 				 
 					$(this).parent().parent().find(".sales_count").val("").focus();
 				}else{
-					alert("변경이 완료 되었습니다.")
+				
 					var total=0;	 
+					
 					for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
-						/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
+  
 						var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 						var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
 					
@@ -267,13 +403,37 @@
 							
 						 total=total+perPriceCnt;
 							$(".allPrice").find("span").text(total);
+							
+							
+							
+					
+								var toStr1CNT=$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_count").val();
+								var toStrfinal1CNT= parseInt(toStr1CNT, 10);
+								$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_count").val(toStrfinal1CNT);
+								
+							//////input hidden을 위한 업데이트
+							
+								var toStrfinal1CNT=$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_count").val();
+								$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_countCNT").val(toStrfinal1CNT);
+						 
+								
+							 
 						}				
-		}
+				}
+			
+
  
  	});
+ 	
+ 	
+ 	
+ 	
+ 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
 		$(document).on("click","[name=menu_deleteBtn]",function(){
-			 $(this).parent().parent().remove(); 
+			 
+			
+			$(this).parent().parent().remove(); 
  
 
 			var toStrperPrice=$(this).parent().parent().eq(0).find("td").eq(2).text()
@@ -296,12 +456,52 @@
 			 }
 
 		});
+ 	
+ 	//////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//로그아웃 클릭시
-        function goPosLoginForm(){
-           
-           location.replace("/posbis/posLoginForm.do");
-        }
+	  var sales_count1=new Array();// 배열개수 선언 
+ 
+		function salesRegForm(){
+		  
+		  if(confirm("결제 할까요?") == true){
+		  
+			 	for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+			 		sales_count1[i]=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_countCNT").val(); 		
+			 		$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_countCNT").val(sales_count1[i])
+				};
+				 
+				
+				
+			 $.ajax({
+			
+				url : "/posbis/posSalesRegProc.do"
+					
+				, type : "post"
+				
+				, data : $('[name=posMenuForm]').serialize()
+				
+				, success : function(salesRegCnt){
+					
+					if(salesRegCnt>0){
+						alert("결제가 완료되었습니다.");
+						location.replace("/posbis/posPayForm.do");
+					}
+					else{
+						alert("결제 실패! 관리자에게 문의 바랍니다.");
+					}
+				}
+				, error : function(){
+					alert("서버 접속에 실패하였습니다.");
+				}
+			});  
+		  }else{
+			  
+			 alert("취소되었습니다"); 
+			 location.replace("/posbis/posPayForm.do");
+			 
+		  }
+			
+		} //function salesRegForm(){ 
 		
 </script>
 

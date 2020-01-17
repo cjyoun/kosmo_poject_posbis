@@ -82,11 +82,11 @@
 
 	</header><!-- #header -->
     
-    <!-- Page top Section end -->
+
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>회사소개</strong></h2>
-			
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>회사소개</strong></h2>
 		</div>
 	</section>
 	<!-- Page top Section end -->

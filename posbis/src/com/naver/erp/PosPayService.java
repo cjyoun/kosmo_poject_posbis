@@ -15,16 +15,16 @@ public interface PosPayService {
 	List<Map<String,String>> getPosMenuList(String business_no);
 	//====================================================
 
-
-	 /////////////////////////////////////////////////////////////
+ 
 	//메뉴 클릭시 정보 불러 오기
-	////////////////////////////////////////////////////////////
 	List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO);
 
 	
 	//가게이름 불러오기
 	String getBusiness_name(String business_no);
 
+	//매출 등록
+	int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO);
 
 	
 }

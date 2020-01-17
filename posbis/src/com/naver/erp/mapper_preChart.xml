@@ -40,7 +40,7 @@
 	
 <!-- ============== 나의 가게 월 매출 구하기 =========================================================================== -->
 	
-	<select id='getSalesMonthList' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getSalesMonthList' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">	
 		    select
 			    nvl(to_char(sum(m.menu_price * s.sales_count)),'0') as "sales_amount"
 			    , mon.month as "판매월"
@@ -63,7 +63,7 @@
 			     left outer join  business_info b on b.business_no=s.business_no
 			     left outer join menu m on s.menu_no=m.menu_no
 			     and b.business_no = #{changeBusinessNo}
-			     and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+			     and extract(year from s.sales_date) = #{changeYear}
 			    group by mon.month
 			    order by mon.month
 
@@ -73,7 +73,7 @@
 	
 <!-- ============== 같은 업종, 같은 동네 가게들 월평균 구하기 =========================================================================== -->
 	
-	<select id='getAllSalesMonthList' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getAllSalesMonthList' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">	
 		     select
 
 			    nvl(to_char(sum(m.menu_price * s.sales_count)/
@@ -106,7 +106,7 @@
 			     and b.business_no != #{changeBusinessNo}
 			     and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			     and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
-			     and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+			     and extract(year from s.sales_date) = #{changeYear}
 			    group by mon.month
 			    order by mon.month
 			
@@ -116,7 +116,7 @@
 <!-- ============== 나의 가게 인기메뉴 구하기 =========================================================================== -->
 <!-- rank로 순서를 정하고 sua(s.sales_count)를 문자형으로 고쳐서 List<Map<String,String>> 형태를 맞춰줌. -->
  	
-	<select id='getMyPopularityMenu' parameterType="String" resultType="java.util.HashMap">
+	<select id='getMyPopularityMenu' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">
 	<!-- <select id='getMyPopularityMenu' parameterType="String" resultType="String"> -->	
 		     select menu_name, sales_count from(
 			    select
@@ -125,7 +125,7 @@
 			        , sum(s.sales_count)||'' "SALES_COUNT"
 			        ,rank() over (order by sum(s.sales_count) desc) "RN"
 			    from sales s
-			      where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+			      where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear}
 			      group by s.menu_no
 			      )
 			where rn=1
@@ -135,7 +135,7 @@
 	
 <!-- ============== 다른 가게 인기메뉴 구하기 =========================================================================== -->
 	
-	<select id='getOthersPopularityMenu' parameterType="String" resultType="java.util.HashMap">
+	<select id='getOthersPopularityMenu' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">
 	<!-- <select id='getOthersPopularityMenu' parameterType="String" resultType="String">	 -->
 		     select menu_name, sales_count from(
 			    select
@@ -148,7 +148,7 @@
 			        and b.business_no != #{changeBusinessNo}
 			        and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
 			        and ( b.business_type_code = (select business_type_code from business_info where business_no=#{changeBusinessNo}) )
-			        and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+			        and extract(year from s.sales_date) = #{changeYear}
 			      group by s.menu_no
 			      order by 3 desc)
 			where rn=1 
@@ -158,7 +158,7 @@
 
 <!-- ============== 같은 업종, 같은 동네 가게들 수 구하기 =========================================================================== -->
 	
-	<select id='getStoreCount' parameterType="String" resultType="String">
+	<select id='getStoreCount' parameterType="com.naver.erp.PreChartParamDTO" resultType="String">
 		select count(*)||'' "store_count"  from business_info b
 		    where b.business_no != #{changeBusinessNo}
 		    and ( b.addr_no = (select addr_no from business_info where business_no=#{changeBusinessNo}) )
@@ -171,7 +171,7 @@
 	
 <!-- ============== 상품별 판매 횟수 구하기 =========================================================================== -->
 	
-	<select id='getMenuSalesCount' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getMenuSalesCount' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">	
 		    select menu_name, sales_count from(
 			    select
 				    s.menu_no "menu_no"
@@ -179,7 +179,7 @@
 				    , sum(s.sales_count)||'' "SALES_COUNT"
 				    ,rank() over (order by sum(s.sales_count) desc) "RN"
 				from sales s
-				  where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+				  where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear}
 				  group by s.menu_no
 			  )
 			
@@ -189,7 +189,7 @@
 		
 <!-- ============== 상품별 순이익 구하기 =========================================================================== -->
 	
-	<select id='getSalesBenefit' parameterType="String" resultType="java.util.HashMap">	
+	<select id='getSalesBenefit' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">	
 			select menu_name, sales_income from(
 				  select
 				      s.menu_no "menu_no"
@@ -197,7 +197,7 @@
 				      , sum(((m.menu_price * s.sales_count)-(m.menu_cost * s.sales_count)))||'' "SALES_INCOME"
 				      ,rank() over (order by sum(s.sales_count) desc) "RN"
 				  from sales s , menu m
-				    where s.menu_no=m.menu_no and s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = (extract(year from sysdate)-1)
+				    where s.menu_no=m.menu_no and s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear}
 				    group by s.menu_no
 			)
 			

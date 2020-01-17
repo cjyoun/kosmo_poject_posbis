@@ -264,7 +264,7 @@
         union select sysdate from dual
     ) dy on to_char(dy.day,'yyyy-mm-dd')=to_char(s.sales_date,'yyyy-mm-dd')
      and s.business_no in (select business_no from business_info where u_no = #{u_no})
-    group by s.sales_date, dy.day
+    group by to_char(s.sales_date,'yyyy-mm-dd'), dy.day
     order by dy.day
 	
    </select>

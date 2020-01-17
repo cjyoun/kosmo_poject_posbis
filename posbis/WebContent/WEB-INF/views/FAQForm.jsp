@@ -329,16 +329,16 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>FAQ</strong></h2>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>FAQ</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="far fa-comments"></i> 고객센터</span> &nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="ti-light-bulb"></i> FAQ</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="far fa-comments"></i> 고객센터 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="ti-light-bulb"></i> FAQ</span>
 	         </nav>
 			</div>
 		</div>
@@ -355,14 +355,14 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
    <section id="main-content">
    <section class="wrapper">
      <div class="row">
-           <div class="col-lg-10" align="center">
+           <div class="col-lg-11" align="center">
       <br><br>
             <section class="panel">
               <header class="panel-heading">
                       FAQ
               </header>
               <div class="panel-body">  
-                  <div class="col-sm-10" align="center">
+                  <div class="col-sm-10" align="center" style="margin:20 0 30 145">
       
               <table id="FAQ"class="table table-striped table-advance table-hover" style="cursor: pointer; margin:20 0 20 0; width:1340">
 		         <tr><td style="height: 40"><b>Q.[회원등급] 프리미엄 회원 정기 결제일은 언제인가요?
@@ -389,6 +389,7 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 </section>
  
 </main>
+<br><br>
 <!--==========================
     꼬리말
   ============================-->

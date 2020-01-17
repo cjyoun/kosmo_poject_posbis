@@ -2,7 +2,7 @@
 	
 /*-----------------------------------------------------------------------*/ 
 body,form,td,th,pre { 
-	font-size: 12pt; 
+	font-size: 15pt; 
 	color: black; 
 	line-height: 160%; 
 	font-family: 'Noto Sans KR', sans-serif;
@@ -10,7 +10,7 @@ body,form,td,th,pre {
 
 /*-----------------------------------------------------------------------*/ 
 input { 
-	font-size: 12pt; 
+	font-size: 15pt; 
 	color:black; 
 	font-family: 'Noto Sans KR', sans-serif;
 	height: 20px; 

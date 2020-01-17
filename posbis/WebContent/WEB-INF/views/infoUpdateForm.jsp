@@ -560,6 +560,23 @@
 		</div>
 	</section>
 	<!-- Page top Section end -->
+	
+		<!-- Page top Section end -->
+	<section class="page-top-section set-bg"
+		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>회원정보 수정</strong></h2>
+			<div style=" color:#fff; width:30%">
+			<nav class="site-breadcrumb">
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-user"></i> 마이페이지 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-settings"></i> 내정보보기 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-wrench"></i> 회원정보 수정 > </span>
+	         </nav>
+			</div>
+		</div>
+	</section>
+	<!-- Page top Section end -->
 
    <!--==========================
       회원가입 수정
@@ -738,9 +755,9 @@
 <br>
 
   	<div style="float:right">
-    	<button class="btn btn-info" type="button" value="저장" onClick="checkUserRegForm();" >저장 </button> 		
-		<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
-		<button class="btn btn-danger" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
+    	<button class="btn btn-default" type="button" value="저장" onClick="checkUserRegForm();" >저장 </button> 		
+		<button class="btn btn-default" type="reset" value="다시작성"  >다시작성 </button> 
+		<button class="btn btn-default" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
 	</div>
 
 </form>

@@ -139,10 +139,10 @@ Commom elements
 .site-btn {
 	display: inline-block;
 	border: none;
-	font-size: 14px;
+	font-size: 25px;
 	font-weight: 600;
 	min-width: 100%;
-	padding: 22px 35px;
+	padding: 18px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
 	background: #6993da;
@@ -155,10 +155,10 @@ Commom elements
 .site-btn2 {
 	display: inline-block;
 	border: none;
-	font-size: 14px;
+	font-size: 25px;
 	font-weight: 600;
 	min-width: 100%;
-	padding: 22px 35px;
+	padding: 18px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
 	background: #6993da;
@@ -171,10 +171,10 @@ Commom elements
 .site-btn3 {
 	display: inline-block;
 	border: none;
-	font-size: 14px;
+	font-size: 25px;
 	font-weight: 600;
-	min-width: 200px;
-	padding: 22px 35px;
+	min-width: 220px;
+	padding: 18px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
 	background: #8a8070;
@@ -190,6 +190,22 @@ Commom elements
 	font-size: 14px;
 	font-weight: 600;
 	min-width: 200px;
+	padding: 22px 35px;
+	border-radius: 50px;
+	text-transform: uppercase;
+	background: #6993da;
+	color: #fff;
+	line-height: normal;
+	cursor: pointer;
+	text-align: center;
+}
+
+.site-btn3-2 {
+	display: inline-block;
+	border: none;
+	font-size: 17px;
+	font-weight: 600;
+	min-width: 150px;
 	padding: 22px 35px;
 	border-radius: 50px;
 	text-transform: uppercase;
@@ -707,7 +723,7 @@ Hero section
 
 .hero-form .textColor {
 	color : #fff;
-	font-size:13px;
+	font-size:15px;
 }
 
 .hero-form .id-pwd {

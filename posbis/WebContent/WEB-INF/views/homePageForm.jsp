@@ -118,11 +118,11 @@
   position: absolute;
   top: 50%;
   width: auto;
-  padding: 16px;
-  margin-top: -22px;
+  padding: 10px;
+  margin-top: -60px;
   color: #6993da ;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 60px;
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
 }
@@ -266,9 +266,9 @@
 
 
 /******************************************************************김수민 차트**************************************************************/
-            google.charts.load('current', {packages: ['corechart']});     
-           google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
+         	google.charts.load('current', {packages: ['corechart']});     
+	        google.charts.setOnLoadCallback(drawChart);
+	   		function drawChart() {
             // Define the chart to be drawn.
            var data = google.visualization.arrayToDataTable([
                [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
@@ -277,11 +277,13 @@
                [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount},  'color: #74a2f2;',  ${salesNow[1].now_sales_amount} ],
                [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
             ]);
-
+           
            var options = {
+        		   fontSize : 18,
+			       width: "100%",
+			       height: "100%",
                    title: '[전월대비 당월 매출현황(원)]'
-                   , fontSize : 15
-                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+                   , tooltip:{textStyle : {fontSize:18}, showColorCode : true}
                    , legend: { position: "none" }
                     , bar: {groupWidth: "33%"}
                      , isStacked: false
@@ -290,16 +292,15 @@
                          duration: 3800,
                          easing: 'out' }
                    , annotations: {
-                    textStyle: {
-                       fontSize : 17
-                       , bold: true
-                       , italic: true
-                       , color: '#white'
-                       ,  auraColor: '#black'
-                       ,  opacity: 0.8
-
-
-                      }
+	                    textStyle: {
+	                       fontSize : 25
+	                       , bold: true
+	                       , italic: true
+	                       , color: '#white'
+	                       ,  auraColor: '#black'
+	                       ,  opacity: 0.8
+	                      }
+                   		,alwaysOutside: true
                       }    
                      
              }; 
@@ -309,41 +310,51 @@
             chart.draw(data, options);
          }
 
-   //***********************************************************김수민 차트2**************************************************************
-           google.charts.load('current', {'packages':['corechart']});
-           google.charts.setOnLoadCallback(drawChart2);
+//***********************************************************김수민 차트2**************************************************************
+	        google.charts.load('current', {'packages':['corechart']});
+	        google.charts.setOnLoadCallback(drawChart2);
 
-           function drawChart2() {
-             var data = google.visualization.arrayToDataTable([
-               ['판매일자', '매출액(원)'],
-               ['${salesWeek[0].sales_week}',${salesWeek[0].sales_amount_week}],
-               ['${salesWeek[1].sales_week}',${salesWeek[1].sales_amount_week}],
-               ['${salesWeek[2].sales_week}',${salesWeek[2].sales_amount_week}],
-               ['${salesWeek[3].sales_week}',${salesWeek[3].sales_amount_week}],
-               ['${salesWeek[4].sales_week}',${salesWeek[4].sales_amount_week}],
-               ['${salesWeek[5].sales_week}',${salesWeek[5].sales_amount_week}],
-               ['${salesWeek[6].sales_week}',${salesWeek[6].sales_amount_week}]
-             ]);
+	        function drawChart2() {
+	          var data = google.visualization.arrayToDataTable([
+	            ['판매일자', '매출액(원)'],
+	            ['${salesWeek[0].sales_week}',${salesWeek[0].sales_amount_week}],
+	            ['${salesWeek[1].sales_week}',${salesWeek[1].sales_amount_week}],
+	            ['${salesWeek[2].sales_week}',${salesWeek[2].sales_amount_week}],
+	            ['${salesWeek[3].sales_week}',${salesWeek[3].sales_amount_week}],
+	            ['${salesWeek[4].sales_week}',${salesWeek[4].sales_amount_week}],
+	            ['${salesWeek[5].sales_week}',${salesWeek[5].sales_amount_week}],
+	            ['${salesWeek[6].sales_week}',${salesWeek[6].sales_amount_week}]
+	          ]);
 
-                                                               
-             var options = {
-               title: '[최근 일주일 매출]',
-            fontSize : 15,
-               curveType: 'function',
-               legend: { position: 'bottom' },
-               height: 350
-                , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+																					
+	          var options = {
+	        	fontSize : 18,      
+	            title: '[최근 일주일 매출]',
+	            curveType: 'function',
+	            legend: { position: 'bottom' },
+		        width: "100%",
+		        height: "100%",
+                animation: { //차트가 뿌려질때 실행될 애니메이션 효과
                     startup: true,
                     duration: 4300,
                     easing: 'out' }
 
-             }; 
+	          }; 
 
-             var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
+	          var chart2 = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-             chart2.draw(data, options);
-           }
-          /******************************************************김수민 끝***************************************************************/	
+	          chart2.draw(data, options);
+	        }
+
+
+
+
+
+		    $(window).resize(function(){
+		    		drawChart();
+		    		drawChart2();
+			    });
+/******************************************************김수민 끝***************************************************************/
 			
 	     //--------------------------------------------------------
 	   	   //로고 클릭시
@@ -515,12 +526,12 @@
 <!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>홈페이지</strong></h2>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>홈페이지</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	         <i class="icon-info"></i> INFO</span> &nbsp; > &nbsp; <span class="sb-item active">
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-info"></i> INFO > </span><span class="sb-item active" style="font-size:20px">
 	         <i class="icon-home"></i> HOME</span>
 	         </nav>
 			</div>
@@ -536,20 +547,20 @@
     ============================-->
     <!-- Why Section end -->
 	<section class="why-section spad" style="background-color:#fff">
-		<div class="container" >
+		<div class="container" style="max-width:1500" >
 			<div class="text-center mb-5 pb-4">
-				<h2>내가 가진 가게 정보</h2>
+				<h1 style="font-size:50px">내가 가진 가게 정보</h1>
 			</div>
 			
 	
-				<table border=0 width="850" align="center">
-				<tr><td align = right style="font-size:20px">
+				<table border=0 width="1000" align="center">
+				<tr><td align = right style="font-size:25px">
 				[내 점포 수] : ${myStoreInfoAllCnt} 개
 				</table>
 				<br>
 				<br>
 				
-				<div class="homePage-slideshow">
+				<div class="homePage-slideshow" style="max-width:1000">
 					<c:forEach items="${myStoreInfoList}" var="myStoreInfo" varStatus="status">
 				 		<div class="myStoreSlides fadeSlide" onClick="goMyPageForm();" style="cursor:pointer;">	
 				 			<table  class="table table-bordered"   id="mystore">
@@ -558,22 +569,24 @@
 				            <%-- <c:if test="${status.index%3==0}">
 				                  <tr>
 				               </c:if> --%>
-				               <td align=center style="vertical-align:middle; " width=200>  
+				               <td align=center style="vertical-align:middle; " width=300 height=300>  
 				         		<img src="resources/business_type_img/${myStoreInfo.business_type_code}.jpg" class="img-fluid" alt=""  >   	
 				         		</td>	
 				         		
-				               <td style="padding:20 40 20 20; line-height:30px; font-size:16px;">상호명 : ${myStoreInfo.business_name} <br>
-				                     사업자 번호 : ${myStoreInfo.business_no} <br>
-				                     업종 : ${myStoreInfo.business_type_name1}&nbsp;>&nbsp;${myStoreInfo.business_type_name2}<br>
-				                     주소 : ${myStoreInfo.addr_gu}&nbsp;${myStoreInfo.addr_dong}&nbsp;${myStoreInfo.addr_detail}<br>
-				                     전화번호 : ${myStoreInfo.store_tel_num}   
+				               <td style="padding:20 50 20 35; line-height:47px; font-size:25px;">
+				               
+				               		 상&nbsp; &nbsp; 호 &nbsp;&nbsp; 명 : &nbsp;${myStoreInfo.business_name} <br>
+				                     사업자 번호 : &nbsp;${myStoreInfo.business_no} <br>
+				                     업&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 종 : &nbsp;${myStoreInfo.business_type_name1}&nbsp;>&nbsp;${myStoreInfo.business_type_name2}<br>
+				                     주&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 소 : &nbsp;${myStoreInfo.addr_gu}&nbsp;${myStoreInfo.addr_dong}&nbsp;${myStoreInfo.addr_detail}<br>
+				                     전&nbsp;화&nbsp; 번&nbsp;호 : &nbsp;${myStoreInfo.store_tel_num}   
 				            	</td>
 					    	</table>    
 					    </div>	
 				    </c:forEach>
 				    	
-				    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-					<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				    <a class="prev" onclick="plusSlides(-1)" style="margin:-60 0 0 -65">&#10094;</a>
+					<a class="next" onclick="plusSlides(1)" style="margin:-60 -65 0 0">&#10095;</a>
 				</div>
 
 
@@ -584,31 +597,29 @@
 	<!-- Why Section end -->
 
   
-  
-  
+
   <!-- Why Section2 end -->
 	<section class="why-section spad" style="background-color:#f8f9fa">
-      <div class="container" style="max-width:1700">
+      <div class="container" style="max-width:100%">
          <div class="text-center mb-5 pb-4" style="margin:-20 0 0 0">
-            <h2>내가 가진 가게 총매출 현황</h2>
-         </div>
-         <table align="center">   
-            <tr>
-               <td width="600px" height="350px" align="center" valign="middle">      
-                  <div id = "container" style = "width: 700px; height:350px; margin: 0 auto;"></div>
-               <td width="50px" height="350px" >&nbsp;
-               <td width="600px" height="350px" align="center" valign="middle">
-                    <div id="curve_chart" style="width: 700px; height:350px; margin: 0 auto"></div>
-           </table>
+            <h1 style="font-size:50px">내가 가진 가게 총매출 현황</h1>
+            <br>
       </div>
+         		<div style="display:inline; width:100%;">
+                  <div id = "container" style = "width: 45%; height:50%; margin: 0 0 0 65; display:inline; float:left " ></div>
+                  <div id="curve_chart" style="width: 45%; height:50%; margin: 0 65 0 0; display:inline; float:right "></div>
+                </div>
+      </div>
+      <br><br>
    </section>
 	<!-- Why Section2 end -->  
+
 
 <!-- Why Section3 end -->
 	<section class="why-section spad" style="background-color:#fff">
 		<div class="container" >
 			<div class="text-center mb-5 pb-4">
-				<h2>나의 문의 글 보기</h2>
+				<h1 style="font-size:50px">나의 문의 글 보기</h1>
 			</div>
 
 				<div class="panel-body" style = "height: 270px;"> 

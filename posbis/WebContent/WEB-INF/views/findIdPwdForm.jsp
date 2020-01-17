@@ -142,14 +142,11 @@
 
 	</header><!-- #header -->
     
-    <!-- Page top Section end -->
+
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>아이디/비밀번호 찾기</strong></h2>
-			<nav class="site-breadcrumb">
-				<a class="sb-item" href="#">Home</a>
-				<span class="sb-item active">About us</span>
-			</nav>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>아이디/비밀번호 찾기</strong></h2>
 		</div>
 	</section>
 	<!-- Page top Section end -->
@@ -208,8 +205,8 @@
                   </div>
                   
         			 <div style="margin:30 0 0 0">
-                   <button class="btn btn-primary" type="button" value="메인으로" onClick="findIdPwdStart();"  >아이디 비밀번호 찾기 </button>
- 				  <button class="btn btn-success" type="button" value="메인으로" onClick="goJoinForm();" >로그인 하기 </button>
+                   <button class="btn btn-default" type="button" value="메인으로" onClick="findIdPwdStart();"  >아이디 비밀번호 찾기 </button>
+ 				  <button class="btn btn-default" type="button" value="메인으로" onClick="goJoinForm();" >로그인 하기 </button>
  					</div>
  					
  					

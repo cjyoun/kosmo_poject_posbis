@@ -41,16 +41,11 @@ public class PosPayServiceImpl implements PosPayService{
 		//.out.println("Service//"+preResultList);
 		return posMenuList;
 	}
-	
-	
-
-	//--------------------------------------------------------------------------------------------------   
-	
-
+ 
 	
 	 /////////////////////////////////////////////////////////////
-		//메뉴 클릭시 정보 불러 오기
-		////////////////////////////////////////////////////////////
+	//메뉴 클릭시 정보 불러 오기
+	////////////////////////////////////////////////////////////
 		
 	public List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO){
 		System.out.println("posservice 시작");
@@ -65,5 +60,43 @@ public class PosPayServiceImpl implements PosPayService{
 	      
 	    return business_name;
 	}
+	
+	
+	
+	//매출 등록
+	public int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO) {
+		
+		
+		System.out.println("posservice insertPosSales 시작");
+
+		int salesRegCnt=0;
+		
+		for(int i=0; i<posMenuSalesDTO.getSales_count().length; i++) {
+			
+			posMenuSalesDTO.setMenu_name1(posMenuSalesDTO.getMenu_name()[i]);
+
+			posMenuSalesDTO.setSales_count1(posMenuSalesDTO.getSales_count()[i]);
+			
+			
+			
+		 salesRegCnt+=this.posPayDAO.updateSalesNo(posMenuSalesDTO);
+		}
+	 
+		
+		System.out.println("posservice insertPosSales 끝");
+		
+		if(posMenuSalesDTO.getSales_count().length!=salesRegCnt) {
+			return -1;
+		}
+		
+		return salesRegCnt;
+		
+	};
+	
+	
+	
+	
+	
+	
 
 }

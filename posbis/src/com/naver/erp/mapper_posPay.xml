@@ -46,9 +46,36 @@
 	<select id="getBusiness_name" parameterType="String" resultType="String">
 		select business_name from business_info where business_no=#{business_no}
 	</select>
-	
-<!-- 메뉴 결제시 매출 insert  --> 
+  	
+<!--   메뉴 결제시 매출 insert  -->
+<insert id="updateSalesNo" parameterType="com.naver.erp.PosMenuSalesDTO">
 
+insert into sales(
+            business_no
+            , business_type_code
+            , addr_no
+            , menu_no
+            , menu_name
+            , menu_category_code
+            , menu_price
+            , menu_cost
+            , sales_count
+            , sales_date
+    )values(
+            (select business_no from business_info where business_no=#{business_no})
+            ,(select business_type_code from business_info where business_no=#{business_no})
+            ,(select addr_no from business_info where business_no=#{business_no})
+            ,(select menu_no from menu where menu_name=#{menu_name1} and business_no=#{business_no})
+            ,(select menu_name from menu where menu_name=#{menu_name1} and business_no=#{business_no})
+            ,(select menu_category_code from menu where menu_name=#{menu_name1} and business_no=#{business_no})
+            ,(select menu_price from menu where menu_name=#{menu_name1} and business_no=#{business_no})
+            ,(select menu_cost from menu where menu_name=#{menu_name1} and business_no=#{business_no})
+            ,#{sales_count1}
+            ,sysdate
+       )
+          
+</insert> 
+	
 
 	
 </mapper>

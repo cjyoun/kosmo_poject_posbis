@@ -345,17 +345,19 @@
 	</header>
 	<!-- Header Section end -->
 	
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>회원탈퇴</strong></h2>
-			<div style=" color:#fff; width:30%">
+
+
+	
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>회원탈퇴</strong></h2>
+			<div style=" color:#fff; width:40%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="icon-user"></i> 마이페이지</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-settings"></i> 내정보보기</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-logout"></i> 회원탈퇴</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-user"></i> 마이페이지 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-settings"></i> 내정보 보기 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-logout"></i> 회원탈퇴</span>
 	         </nav>
 			</div>
 		</div>
@@ -370,7 +372,7 @@
      <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center" style="margin:0 0 0 320">
+       <div class="col-lg-7" align="center" style="margin:0 0 0 410">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">회원탈퇴</a>
@@ -381,19 +383,19 @@
                   <form name="withdrawalForm" class="form-validate form-horizontal" id="feedback_form"  >
                   
                   <div class="form-group"> 
-                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 80">아이디 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 100">아이디 <span class="required">*</span></label>
                     <div class="col-lg-6" style="margin:-4 0 0 -15">
                         <h4><strong>${user_id}</strong></h4>
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 80">비밀번호<span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 100">비밀번호<span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="password"  name="user_pwd" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 80">탈퇴사유 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 0 0 100">탈퇴사유 <span class="required">*</span></label>
                     <div class="col-lg-6">
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
@@ -413,8 +415,8 @@
         			<input type="hidden" name="u_no" value="${u_no}">
         			
         		  <div style="margin:30 0 20 0">	
-                    <button class="btn btn-primary" type="button" value="탈퇴" onClick="checkWithdrawal()"> 탈퇴 </button>&nbsp;&nbsp;
- 					<button class="btn btn-danger" type="button" value="최소" onClick="goMyPageForm()"> 취소 </button>
+                    <button class="btn btn-default" type="button" value="탈퇴" onClick="checkWithdrawal()"> 탈퇴 </button>&nbsp;&nbsp;
+ 					<button class="btn btn-default" type="button" value="최소" onClick="goMyPageForm()"> 취소 </button>
                 	</div>
                 </form>
 

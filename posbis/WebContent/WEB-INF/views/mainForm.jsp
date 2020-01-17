@@ -149,39 +149,41 @@ function gobeforeSignIntroForm(){
 
 	<!-- Hero Section end -->
 	<section class="hero-section">
-		<div class="container">
+		<div class="container" style="max-width:1400">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-6" style="margin:-60 0 0 0">
 					<div class="hs-text">
-						<h2>POSBIS</h2>
-						<p>서울특별시 소상공인 점포의 정보 원천으로 활용하시어 점포의 매출 증대와 이익 증대를 위해 함께 노력하는 동반자가 되어 드릴 것을 진심으로 기원하며, 소상공인들께 최상의 서비스를 추구할 것을 약속드립니다. 고객의 입장, 고객의 중심에서 생각하는 회사로 항상 노력하겠습니다.</p>
+						<h2 style="font-size:75">POSBIS</h2>
+						<p style="font-size:19; padding:15 0 30 0">서울특별시 소상공인 점포의 정보 원천으로 활용하시어 점포의 매출 증대와 이익 증대를 위해 함께 노력하는 동반자가 되어 드릴 것을 진심으로 기원하며, 소상공인들께 최상의 서비스를 추구할 것을 약속드립니다. 고객의 입장, 고객의 중심에서 생각하는 회사로 항상 노력하겠습니다.</p>
 						<button class="site-btn3 sb-dark" onClick="gobeforeSignIntroForm();" style="color:#fff">회사소개 바로가기</button>
 					</div>
 				</div>
 				<div class="col-lg-6" style="margin: 0 0 0 0">
-					<form class="hero-form" name="mainForm" style="width:400; margin: 0 0 0 100">
-						<div style="width:300; margin: 0 0 0 -65px">
-							<input type="text" placeholder="ID" name="user_id" class="id-pwd user_id">
-							<input type="password" placeholder="Password" name="user_pwd" class="id-pwd user_pwd">
+					<form class="hero-form" name="mainForm" style="width:480; margin: 0 0 0 100; ">
+						<div style="width:325; margin: 0 0 0 -40px">
+							<input type="text" placeholder="ID" name="user_id" class="id-pwd user_id" style="height:60">
+							<input type="password" placeholder="Password" name="user_pwd" class="id-pwd user_pwd" style="height:60">
 							<div class="textColor">
-								<input type="checkbox" value="remember-me" name="is_login" value="y"  style="float:left">&nbsp; 아이디/암호 기억하기
+								<input type="checkbox" value="remember-me" name="is_login" value="y"  style="float:left; ">&nbsp; 아이디/암호 기억하기
 	
 								
-								<span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0">아이디 암호 찾기</a></span><br>
+								<span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0; font-size:17">아이디 암호 찾기</a></span><br>
 			         	     </div>
 			         	     <br><br> 
 		
-							<button type="button" class="site-btn" onClick="goLoginForm();">Log in</button>
+							<button type="button" class="site-btn" onClick="goLoginForm();" style="margin:-10 0 -25 0">Log in</button>
 							<br>
 							<br>
 							<br>
 							<button type="button" class="site-btn2"  onClick="goJoinForm();">Sign up</button>
+							<br>
 						</div>
+						<br>
 					</form>
 					
 				</div>
 				
-						
+					<br>	
 			</div>
 		</div>
 		<div class="hero-slider owl-carousel">

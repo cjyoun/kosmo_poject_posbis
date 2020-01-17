@@ -412,16 +412,17 @@
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
+
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>Q&A</strong></h2>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>Q&A</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="far fa-comments"></i> 고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-pencil"></i> Q&A 수정</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="far fa-comments"></i> 고객센터 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-pencil"></i> Q&A 수정</span>
 	         </nav>
 			</div>
 		</div>
@@ -435,8 +436,8 @@
    <section id="main-content">
    <section class="wrapper">
      
-    <div class="col-lg-10" align="center">
-            <section class="panel" style="width:1000">
+    <div class="col-lg-11" align="center">
+            <section class="panel" style="width:1200">
               <header class="panel-heading">
                 	    <a href="">Q&A 게시판</a>
               </header>
@@ -470,31 +471,30 @@
       <input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
    <div class="row" align="center">
           <div class="col-sm-6">
-            <section class="panel" style="width:600; margin:20 0 0 153">
+            <section class="panel" style="width:700; margin:20 0 0 203">
               <header class="panel-heading no-border">
                문의사항 수정/삭제
               </header>
               <table class="table table-bordered">
                <tr>
                   <th>이름
-                  <td><form:input path="user_id" className="user_id" style="width:50%"/>
+                  <td><form:input path="user_id" className="user_id" style="width:50%; height:35"/>
                <tr>
                   <th>제목
-                  <td><form:input path="subject" className="subject" style="width:50%"/>
+                  <td><form:input path="subject" className="subject" style="width:50%; height:35"/>
                
                <tr>
                   <th>내용
                   <td><form:textarea path="content" className="content" rows="13" cols="40" style="width:100%"/>
                <tr>
                   <th>비밀번호
-                  <td><form:password path="qna_pwd" className="qna_pwd" style="width:50%"/>
+                  <td><form:password path="qna_pwd" className="qna_pwd" style="width:50%; height:35"/>
               </table>
             </section>
           </div>
    </div>  
    
-   <br><br>           
-          
+   <br>
     
           
       <!-- -------------------- -->
@@ -503,9 +503,9 @@
       <input type="hidden" name="upDel" value="up">
       <input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
       <!-- -------------------- -->
-      <button class="btn btn-info" type="button"value="수정"  onClick="checkQstnUpDelForm('up')">수정</button>
-       <button class="btn btn-danger" type="button" value="삭제" style="margin:0 30 0 30 "  onClick="checkQstnUpDelForm('del')">삭제</button>
-      <button class="btn btn-primary" type="button"v value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
+      <button class="btn btn-default" type="button"value="수정"  onClick="checkQstnUpDelForm('up')">수정</button>
+       <button class="btn btn-default" type="button" value="삭제" style="margin:0 30 0 30 "  onClick="checkQstnUpDelForm('del')">삭제</button>
+      <button class="btn btn-default" type="button"v value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
    </form> 
    
         </form:form>

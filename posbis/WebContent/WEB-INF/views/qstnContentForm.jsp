@@ -365,22 +365,23 @@
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
+
+
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>Q&A</strong></h2>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>Q&A</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="far fa-comments"></i> 고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fab fa-wpforms"></i> Q&A 상세보기</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="far fa-comments"></i> 고객센터 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fab fa-wpforms"></i> Q&A 상세보기</span>
 	         </nav>
 			</div>
 		</div>
 	</section>
 	<!-- Page top Section end -->
-
 
 
 	<!--==========================
@@ -391,7 +392,7 @@
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center" style="width:1000; margin:0 0 0 270;">
+       <div class="col-lg-11" align="center" style="width:1200; margin:0 0 0 350;">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">Q&A게시판</a>
@@ -407,10 +408,10 @@
 								action="/posbis/qstnRegForm.do">
 								<input type="hidden" name="qna_no" value="${qstnDTO.qna_no}">
 								<div class="row">
-									<div class="col-sm-6" style="margin:20 0 10 153;">
-										<section class="panel" style="width:600">
+									<div class="col-sm-6" style="margin:20 0 10 203;">
+										<section class="panel" style="width:700">
 											<header class="panel-heading no-border"> 글 상세보기 </header>
-											<table class="table table-bordered" align=>
+											<table class="table table-bordered" >
 												<tr align=center>
 													<th width=60>글번호</th>
 													<td width=150>${qstnDTO.qna_no}
@@ -446,7 +447,7 @@
 		                              <button class="btn btn-default" type="button" value="수정/삭제" onClick="goQstnUpDelForm();">수정/삭제</button>
 		                           </c:if>
 									<!-- onClick 시 함수 변경 성유진-->
-									<button class="btn btn-primary" type="button" value="목록보기"
+									<button class="btn btn-default" type="button" value="목록보기"
 										onClick="goListForm();">목록보기</button>
 										<!-- onClick 시 함수 변경 성유진 끝-->
 								</div>

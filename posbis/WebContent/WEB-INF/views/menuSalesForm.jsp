@@ -436,7 +436,7 @@ select::-ms-expand { display: none; }
                ]);
 
                var options = {
-                       fontSize : 17,
+                       fontSize : 22,
                       width: "100%",
                       height: "100%",
                       legend: { position: 'top', maxLines: 3 },
@@ -449,7 +449,7 @@ select::-ms-expand { display: none; }
                              easing: 'linear' }
                         ,annotations: {
                            textStyle: {
-                               fontSize : 17
+                               fontSize : 25
                                , color: 'none'
                                , bold: true
                                , italic: true
@@ -539,16 +539,16 @@ select::-ms-expand { display: none; }
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>매출관리</strong></h2>
+
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>매출관리</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-won-sign"></i> 메뉴별 매출관리</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-warehouse"></i> 매장관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-won-sign"></i> 메뉴별 매출관리</span>
 	         </nav>
 			</div>
 		</div>
@@ -561,14 +561,14 @@ select::-ms-expand { display: none; }
     <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a>메뉴별 매출관리</a>
               </header>
               
               <div class="panel-body">
-              <div class="container">
+              <div class="container" style="max-width:1400">
 				   	<form name="salesForm" method="post" action="/posbis/salesForm.do">
 					</form>
    <form name = "menuSalesForm" method="post" action="/posbis/menuSalesForm.do">
@@ -604,20 +604,20 @@ select::-ms-expand { display: none; }
 			<tr>
 				<td style="color:#330066">
 				   
-				[ 기간&nbsp;&nbsp;&nbsp;설정 ]&nbsp; : &nbsp;<input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();">
-				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();"></span>
+				[ 기간&nbsp;&nbsp;&nbsp;&nbsp;설정 ]&nbsp; : &nbsp;<input type="date" name="sales_date_t1" class="sales_date_t1" onchange="dateChange();" style="height:35; text-align:center">
+				 ~ <input type="date" name="sales_date_t2" class="sales_date_t2" onchange="dateChange();" style="height:35; text-align:center">
 				<br><br>
 			<tr>
 				<td>	
-								<span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
+								<span style="color:#330066">[ 기간&nbsp;&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
 				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
 				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br>
  				<br> 
 			<tr>
 				<td style="color:#330066">			      
-				             [ 키&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;드 ]&nbsp; : &nbsp;
-				             <input type = "text" name="keyword" class="keyword">&nbsp;
+				             [ 키&nbsp;&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;드 ]&nbsp; : &nbsp;
+				             <input type = "text" name="keyword" class="keyword" style="height:35">&nbsp;
 				             <!-- <input type="button" value="검   색" onClick="goSearch();">&nbsp;
               				 <input type="button" value="모두 검색" onClick="goSearchAll();"></span></span>&nbsp;&nbsp; -->
               				 <br><br>
@@ -644,11 +644,11 @@ select::-ms-expand { display: none; }
 					
 					
           <div class="col-sm-12" align="center">
-                   <div id="chart_div" style="width:50%; height:15%"></div>
+                   <div id="chart_div" style="width:60%; height:22%; padding:20 0 10 0"></div>
             <table class="table table-striped table-advance table-hover" id="select">
                 <thead>
          	<tr>
-                <td align=center  class="sumSales">
+                <td align=center  class="sumSales" style="padding:0 0 30 0">
                      [메뉴 수]: ${menuSalesListAllCnt}&nbsp;&nbsp;
                      [판매 수량] : ${menuSalesSum.sum_sales_count} &nbsp;&nbsp;
                      [총 매출] : ${menuSalesSum.sum_sales_amount}원&nbsp;&nbsp;
@@ -657,7 +657,7 @@ select::-ms-expand { display: none; }
             <!-- 행의 개수는 DB 연동시 아주 중요한 역할을 한다. -->
              <tr><br>     
                   <td align=right>
-			            <br> <select name="menuRowCntPerPage" style="width:50px;height:25px;">
+			            <br> <select name="menuRowCntPerPage" style="width:50px;height:30px;">
 			               	<option value="10">&nbsp;10&nbsp;
 							<option value="15">&nbsp;15&nbsp;
 							<option value="20">&nbsp;20&nbsp;

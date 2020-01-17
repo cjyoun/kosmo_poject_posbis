@@ -541,16 +541,17 @@ select::-ms-expand { display: none; }
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
+
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>Q&A</strong></h2>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>Q&A</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="far fa-comments"></i> 고객센터</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-question"></i> Q&A 목록보기</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="far fa-comments"></i> 고객센터 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-question"></i> Q&A 목록보기</span>
 	         </nav>
 			</div>
 		</div>
@@ -565,7 +566,7 @@ select::-ms-expand { display: none; }
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">Q&A 목록</a>
@@ -580,7 +581,7 @@ select::-ms-expand { display: none; }
                <!-------------------------------->
          <!-- 키워드 검색 입력 양식 표현 -->
          <!-------------------------------->
-         [키워드] : <input type="text" name="keyword1" class="keyword1">
+         [키워드] : <input type="text" name="keyword1" class="keyword1" style="height:35">
          
          <!-------------------------------->
          <!-------- 버튼 표현하기 --------->
@@ -622,7 +623,7 @@ select::-ms-expand { display: none; }
                <!--    한 페이지에서 보이는 행의 개수가 저장되는 입력양식 표현하기   -->
                <!--------- 행의 개수는 DB 연동시 아주 중요한 역할을 한다 -------------->
                <!---------------------------------------------------------------------->
-               <select name="rowCntPerPage" style="width:50px;height:25px;">
+               <select name="rowCntPerPage" style="width:50px;height:30px;">
                   	<option value="10">&nbsp;10&nbsp;
 					<option value="15">&nbsp;15&nbsp;
 					<option value="20">&nbsp;20&nbsp;

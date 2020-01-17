@@ -342,18 +342,20 @@
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
+
+	
+	<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>Q&A</strong></h2>
-			<div style=" color:#fff; width:30%"> 
-				<nav class="site-breadcrumb">
-				 <span class="sb-item active">
-	            <i class="far fa-comments"></i> 고객센터</span> &nbsp; > &nbsp; 
-	            <span class="sb-item active"> <i class="icon-pencil"></i> Q&A 등록</span>
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>Q&A</strong></h2>
+			<div style=" color:#fff; width:30%">
+			<nav class="site-breadcrumb">
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="far fa-comments"></i> 고객센터 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-pencil"></i> Q&A 등록</span>
 	         </nav>
-         	</div>
+			</div>
 		</div>
 	</section>
 	<!-- Page top Section end -->
@@ -372,7 +374,7 @@
 						<h2>Get in touch</h2>
 						<p>POSBIS는 늘 당신의 곁에 있습니다. 늘 당신의 말에 귀를 기울이고 있습니다. 남겨주신 말씀은 Q&A 게시판에 등록되어, 관리자의 답변은 답글로 받으실 수 있습니다. POSBIS를 향해 남겨주신 말씀 귀하게 쓰겠습니다. 당신과 우리의 찬란한 발전을 기원합니다.</p>
 						<ul>
-							<li><i class="flaticon-032-placeholder"></i>월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역</li>
+							<li style="width:400"><i class="flaticon-032-placeholder"></i>월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역</li>
 							<li><i class="flaticon-029-telephone-1"></i>+1 (603)535-4592</li>
 							<li><i class="flaticon-025-arroba"></i>hello@youremail.com</li>
 							<li><i class="flaticon-038-wall-clock"></i>Everyday: 06:00 -22:00</li>
@@ -383,7 +385,7 @@
 				<div class="col-lg-8">
 					<form class="contact-form" method="post" name="qstnRegForm" action="/posbis/qstnRegProc.do">
 						<div class="row">
-							<div class="col-sm-10" style="margin:0 0 0 50">
+							<div class="col-sm-10" style="margin:0 0 0 115">
 					            <section class="panel">
 					            <input type="hidden" name="qna_no" value="${(empty param.qna_no)?0:param.qna_no}"> 
 					              <c:if test="${empty param.qna_no}"> <!-- empty는 존재하지 않거나 null이거나 길이가 없으면 (사용할 만한 데이터가 아니면) 무조건 true 리턴-->
@@ -412,10 +414,10 @@
 					            </section>
 					          
 					        </div>
-							<div class="col-md-12" style="margin:0 0 0 55">
-								<button class="site-btn3-1" type="button" value="저장"  onClick="checkQstnRegForm()">저장</button>
-								<button class="site-btn3-1" type="reset"value="다시작성">다시 작성</button>
-								<button class="site-btn3-1" type="button" value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
+							<div class="col-md-12" style="margin:0 0 0 186">
+								<button class="site-btn3-2" type="button" value="저장"  onClick="checkQstnRegForm()">저장</button>
+								<button class="site-btn3-2" type="reset"value="다시작성" style="margin:0 15 0 15">다시 작성</button>
+								<button class="site-btn3-2" type="button" value="목록보기" onClick="location.replace('/posbis/qstnForm.do')">목록보기</button>
 							</div>
 						</div>
 					</form>

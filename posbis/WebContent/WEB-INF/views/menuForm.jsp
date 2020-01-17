@@ -477,16 +477,17 @@ select::-ms-expand { display: none; }
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>메뉴관리</strong></h2>
+
+	
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>메뉴관리</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-utensils"></i> 메뉴관리</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-warehouse"></i> 매장관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-utensils"></i> 메뉴관리</span>
 	         </nav>
 			</div>
 		</div>
@@ -498,27 +499,27 @@ select::-ms-expand { display: none; }
       메뉴관리
     ============================-->
   <main id="main">
-   <section id="main-content">
+   <section id="main-content" >
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">메뉴관리</a>
               </header>
          <div class="panel-body">
          
-      <div style="width:95%">
+      <div style="width:90%">
           
          <form name="menuForm" method="post" action="/posbis/menuForm.do">
          <!-- 메뉴관리 검색 조건 및 메뉴등록  -->
-         <div style="float:right"><a href = "javascript:goMenuRegForm();">[메뉴 등록]으로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br>
+         <div style="float:right"><a href = "javascript:goMenuRegForm();" style="font-size:20">[메뉴 등록]으로 이동 &nbsp;&nbsp;&nbsp;</a></div><br><br>
          <div style="border:1px solid #d2d2d2;"><br>
          <table>
             <tr>
                <td> 
                <!-- 2020-01-09 수정 -->
                <table><tr><td style="color:#330066">
-	               [ 사업자 번호 ]&nbsp; : &nbsp;
+	               [ 사업자&nbsp;&nbsp; 번호 ]&nbsp; : &nbsp;
 	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
 	               <tr><td>
 	            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
@@ -544,7 +545,7 @@ select::-ms-expand { display: none; }
             <br>  
             <tr>
                <td style="color:#330066"> [ 키&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;워&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;드 ]&nbsp;&nbsp;:&nbsp;&nbsp;
-                  <input type="text" name="keyword" class="keyword">
+                  <input type="text" name="keyword" class="keyword" style="height:35">
                   <!-- <input type="button" value="검    색" onClick="goSearch();">&nbsp;
 				  <input type="button" value="모두검색" onClick="goSearchAll();">&nbsp; -->
 				  <br><br>
@@ -564,7 +565,7 @@ select::-ms-expand { display: none; }
                   [메뉴 총 개수] : ${menuListAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
                   
                   <!-- 행보기 선택 select -->
-                  <select name="rowCntPerPage" style="width:50px;height:25px;">
+                  <select name="rowCntPerPage" style="width:50px;height:30px;">
                      	<option value="10">&nbsp;10&nbsp;
 						<option value="15">&nbsp;15&nbsp;
 						<option value="20">&nbsp;20&nbsp;
@@ -793,11 +794,11 @@ select::-ms-expand { display: none; }
             }
          </script>
  </div><!-- 메인 div 끝 -->
-         
+    <br>     
       </div><!-- 화면전에 div 끝 -->
- 
+ 	<br>
 </main>
-
+<br><br>
 
 <!--==========================
     꼬리말

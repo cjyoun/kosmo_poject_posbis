@@ -363,14 +363,14 @@
 							$(".menu3").remove();
 
 
-							if(myPopularityListDTO.othersPopularityMenu.length == 0){
+							if(myPopularityListDTO.myPopularityMenu.length == 0){
 								$('.myPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">없음</td>');
 							}
 							else{
 								// 우리가게 인기메뉴 가져와서 보여주기
 								for(var i=0; i<myPopularityListDTO.myPopularityMenu.length; i++){
 									myMenuName[i] = myPopularityListDTO.myPopularityMenu[i].MENU_NAME ;
-									//("myMenuName => " + myMenuName[i]);
+									//alert("myMenuName => " + myMenuName[i]);
 									myCount[i] = myPopularityListDTO.myPopularityMenu[i].SALES_COUNT ;
 									//alert("myCount => " + myCount[i]);
 									$('.myPopularityMenu').append('<tr class="menu2"><td align=center style="height:30">'+ myMenuName[i] +'</td>');
@@ -439,32 +439,43 @@
 					// myPopularityListDTO 안의 나의 가게 인기메뉴를 골라 class=myPopularityMenu안에 append로 입력.
 					, success : function(mySalesRatioDTO){
 						//alert(typeof(myPopularityListDTO));
-
+						$(".ct1").remove();
+						
 
 						if(mySalesRatioDTO != null){
 							//alert("성공3");
 							//alert(mySalesRatioDTO.menuSalesCount[0].MENU_NAME);
+							//alert(mySalesRatioDTO.menuSalesCount.length);
 
-							// 우리가게 상품별 판매 횟수, 이름 구하기
-							for(var i=0; i<mySalesRatioDTO.menuSalesCount.length; i++){
-								salesMenuName[i] = mySalesRatioDTO.menuSalesCount[i].MENU_NAME ;
-								//("myMenuName => " + myMenuName[i]);
-								salesMenuCount[i] = mySalesRatioDTO.menuSalesCount[i].SALES_COUNT ;
+							if(mySalesRatioDTO.menuSalesCount.length != 0){
+								// 우리가게 상품별 판매 횟수, 이름 구하기
+								for(var i=0; i<mySalesRatioDTO.menuSalesCount.length; i++){
+									salesMenuName[i] = mySalesRatioDTO.menuSalesCount[i].MENU_NAME ;
+									//("myMenuName => " + myMenuName[i]);
+									salesMenuCount[i] = mySalesRatioDTO.menuSalesCount[i].SALES_COUNT ;
+									
+								} 
+	
+	
+								// 우리가게 상품별 순이익, 이름 구하기
+								for(var i=0; i<mySalesRatioDTO.salesBenefit.length; i++){
+									benefitMenuName[i] = mySalesRatioDTO.salesBenefit[i].MENU_NAME ;
+									//("myMenuName => " + myMenuName[i]);
+									salesBenefitMenu[i] = mySalesRatioDTO.salesBenefit[i].SALES_INCOME ;
+									
+								} 
+								/* <td class="ct1"> */
+								$("[name=chart2]").append('<div class="ct1" id="chart_div2_1" style="display:inline; width: 50%; height: 50%; float:left"></div><div class="ct1" id="chart_div2_2" style="display:inline; width: 50%; height: 50%; float:right"></div>');
+								$("[name=chart3]").append('<div class="ct1" id="chart_div3" style=" width: 50%; height: 50%; float:left"></div>');
+								drawChart2();
+								drawChart3();
+							}
+							else{
 								
-							} 
+								$("[name=chart2]").append('<div align=center style="height:30" class="ct1">없음</div>');
+								$("[name=chart3]").append('<div align=center style="height:30" class="ct1">없음</div>');
 
-
-							// 우리가게 상품별 순이익, 이름 구하기
-							for(var i=0; i<mySalesRatioDTO.salesBenefit.length; i++){
-								benefitMenuName[i] = mySalesRatioDTO.salesBenefit[i].MENU_NAME ;
-								//("myMenuName => " + myMenuName[i]);
-								salesBenefitMenu[i] = mySalesRatioDTO.salesBenefit[i].SALES_INCOME ;
-								
-							} 
-
-							
-							drawChart2();
-							drawChart3();
+							}
 							
 						}
 						else if (mySalesRatioDTO == null){
@@ -543,7 +554,9 @@
 	
               var options4 = {
                   title: '[월 매출]'
-                 , fontSize : 17
+      		     , width: "100%"
+    		     , height: "100%"
+                 , fontSize : 20
                  , curveType : 'function'
                  , series: {
                          0: { lineWidth: 2, color: '#7966E3'   },
@@ -564,7 +577,11 @@
 
 	       
 	     }
+		
 
+	    $(window).resize(function(){
+    		drawChart4();
+	    });
 
 //------------ 내가게와 동일한 위치, 업종을 가진 가게들의 평균 월매출을 보여주는 그래프 ----------------------------     	
 			
@@ -608,8 +625,10 @@
 		
 			   var options1 = {
 		                  title: '[월 매출]'
+		           		 , width: "100%"
+		            	 , height: "100%"
 		                 , curveType : 'function'
-		                  , fontSize : 17
+		                 , fontSize : 20
 		                 , series: {
 		                         0: { lineWidth: 2, color: '#7966E3',  },
 		                         1: { lineWidth: 2, color: '#74A2F2', lineDashStyle: [4, 4] }
@@ -645,34 +664,38 @@
 			       var data2 = google.visualization.arrayToDataTable([
 			    	   ['메뉴',                 '개수(개)',       { role: 'style' },   { role: 'annotation' } ],
 	                     [salesMenuName[0],     salesMenuCount[0],  'color: #433886;',      salesMenuCount[0]   ],
-	                     [salesMenuName[1],     salesMenuCount[0],  'color: #6454c6;',      salesMenuCount[0]   ],
+	                     [salesMenuName[1],     salesMenuCount[1],  'color: #6454c6;',      salesMenuCount[1]   ],
 	                     [salesMenuName[2],     salesMenuCount[2],  'color: #7966e3;',      salesMenuCount[2]   ],
 	                     [salesMenuName[3],     salesMenuCount[3],  'color: #b2a9e7;',      salesMenuCount[3]   ],
 				        
 				       ]);
 			
 			       var options2_1 = {
-	                        title: '[상품별 매출(%)]'
-	                       , fontSize : 17
-	                         , colors: ['#7966E3', '#74A2F2', '#949FB1', '#4D5360']
+	                        title: '[상품별 매출(%) TOP4]'
+	                 	   , width: "100%"
+	                       , height: "100%"
+		                   , legend: { position: "right" }
+	                       , fontSize : 20
+	                       , colors: ['#7966E3', '#74A2F2', '#949FB1', '#4D5360']
 	                       , is3D: true 
-	                       , legend: { position: "top" }
 	                   };
 
 	                var options2_2 = {
-	                           title: '[상품별 매출(개수)]'
-	                         , fontSize : 17
-	                          , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-	                          , legend: { position: "none" }
-	                         , bar: {groupWidth: "33%"}
-	                          , isStacked: false
-	                          , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                          title: '[상품별 매출(개수) TOP4]'
+	                    	, width: "100%"
+	                        , height: "100%"
+	                        , fontSize : 20
+	                        , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
+	                        , legend: { position: "none" }
+	                        , bar: {groupWidth: "33%"}
+	                        , isStacked: false
+	                        , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
 	                                startup: true,
 	                                duration: 4000,
 	                                easing: 'out' }
-	                          , annotations: {
+	                         , annotations: {
 	                                       textStyle: {
-	                                                   fontSize : 17
+	                                                   fontSize : 25
 	                                                   , bold: true
 	                                                   , italic: true
 	                                                   , color: '#white'
@@ -718,7 +741,7 @@
 					//alert(sum);
 
 			       var data3 = google.visualization.arrayToDataTable([
-			    	   ['메뉴',             '총이익 (원)', { role: 'annotation' },     '순이익 (원)',       { role: 'style' },  { role: 'annotation' }  ],
+			    	   ['메뉴',             '총매출 (원)', { role: 'annotation' },     '메뉴별 매출 (원)',       { role: 'style' },  { role: 'annotation' }  ],
 	                     [benefitMenuName[0],     sum,             sum,              salesBenefitMenu[0],     'opacity: 0.5',      salesBenefitMenu[0]   ],
 	                     [benefitMenuName[1],     sum,             sum,              salesBenefitMenu[1],     'opacity: 0.5',      salesBenefitMenu[1]   ],
 	                     [benefitMenuName[2],     sum,             sum,              salesBenefitMenu[2],     'opacity: 0.5',      salesBenefitMenu[2]   ],
@@ -726,15 +749,18 @@
 				       ]);
 			
 			       var options3 = {
-	                     title: '[상품별 순이익]'
+	                     title: '[상품별 매출]'
+	              		, width: "100%"
+	                	, height: "100%"
 	                    , legend: { position: 'top' }
-	                      , fontSize : 17
-	                     , colors: ['#7966E3', '#74A2F2']
-	                      , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                    , fontSize : 20
+	                    , colors: ['#7966E3', '#74A2F2']
+	                    , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
 	                          startup: true,
 	                          duration: 3000,
-	                          easing: 'out' 
-	                      }
+	                          easing: 'out', 
+		                          
+	                     }
 	                 
 	                };
 			       
@@ -742,7 +768,11 @@
 			       chart3.draw(data3, options3);
 		     }
 
-
+			    $(window).resize(function(){
+		    		drawChart1();
+		    		drawChart2();
+		    		drawChart3();
+			    });
 
 
 	
@@ -945,7 +975,7 @@
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">비교차트</a>
@@ -954,7 +984,7 @@
               <div class="panel-body">
  
 
-      <div class="container">
+      <div class="container" style="max-width:85%">
       
  		<!-- 모든 사업자번호 뽑아서 보낼 form 태그 -->
           <form name="allBusinessNumber" method="post" action="/posbis/preChartForm.do"> 
@@ -971,10 +1001,10 @@
 	            	<form name="preChartForm" method="post" action="/posbis/preChartForm.do"> 
 	
 						<table border=0 width=1000  >
-							<tr>
-								<td align=right>
+							<tr >
+								<div align=right style="padding:0 0 15 0">
 									사업자번호 : &nbsp;
-									<select name="changeBusinessNo" style="width:200px;height:25px; text-align-last: center">	<!-- 중요! -->
+									<select name="changeBusinessNo" style="width:200px;height:35px; text-align-last: center">	<!-- 중요! -->
 										<!-- ************************************************************************************** -->
 										<!-- 사용자 정의 태그인 JSTL C코어 태그 중 <forEach> 태그를 사용하여 ModelAndView 객체에    -->
 										<!-- "boardList" 라는 키값으로 저장된 List<Mpa<Stirng,String>> 객체의 데이터를 출력하기.    -->
@@ -1003,15 +1033,16 @@
 										
 									</select> 
 									
-								<tr><td>
+								<tr><div>
 									
 								<tr>
-								<td align=right>
+								<div align=right>
 									연&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;도&nbsp;&nbsp; : &nbsp;
-									<select name="changeYear" style="width:200px;height:25px; text-align-last: center">	
-										<option value="2019" selected>2019
-										<option value="2020">2020
+									<select name="changeYear" style="width:200px;height:35px; text-align-last: center;">	
+										<option value="2019" selected>2019 년
+										<option value="2020">2020 년
 									</select>
+									
 							</table>
 						</form>
 		
@@ -1019,18 +1050,16 @@
 
 				
 				</div>
-				<br>
+
 				<c:set var="changeBusinessNo" value="${all}" />
 					<%-- <c:if test="${changeBusinessNo eq 'all'}"> --%>
 					<!-- <div class="panel-body"> -->
-			 			<div class="allBusinessNoChart">
+			 			<div class="allBusinessNoChart" style="display:inline; width:100%;">
 
-				          <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
-				         <br>
-				         [가게별 월매출]<br>
+				         <h1>[가게별 월 매출]</h1><br>
 				        <%--  ${changeBusinessNo} --%>
 
-				         <div id="allChart_div" name="allChart_div" style="width: 1000px; height: 500px;"></div>
+				         <div id="allChart_div" name="allChart_div" style="width: 90%; height: 60%; margin: 0 auto;"></div>
 		
 		
 				 		<br>    
@@ -1039,15 +1068,14 @@
 					
 					<%-- <c:if test="${changeBusinessNo ne 'all'}"> --%>
 					<!--  <div class="panel-body"> -->
-					<div class="BusinessNoChart">
+					<div class="BusinessNoChart" style="display:inline; width:100%;">
 
-				          <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
-				         <br>
-				         [월매출]<br>
+
+				         <h1>[월 매출]</h1><br>
 				        <%--  ${changeBusinessNo} --%>
 
 				        <!--  <div id="chart_div1" style="width: 900px; height: 500px;"></div> -->
-						<div id="chart_div1" style="width: 1000px; height: 500px;  left: 0px; top: 235px;"></div>
+						<div id="chart_div1" style="width: 90%; height: 60%; margin: 0 auto;"></div>
 		
 				 		<br>    
 				         
@@ -1058,7 +1086,7 @@
 						         우리가게 인기메뉴<br>
 						         </td>
 						         				         
-						         <td style="padding:0 35 0 35; height:40">
+						         <td style="padding:0 45 0 45; height:40">
 						         다른 가게 인기메뉴<br>
 						         </td>
 						         
@@ -1067,12 +1095,12 @@
 						         </td>
 					         </tr>
 					         
-					         <tr>
+					         <tr style="text-align:center">
 					         	<td>
 					         	<table border=1 width=200 class="myPopularityMenu"  ></table>
 					         	</td>
 					         	
-					         	<td style="padding:0 35 0 35">
+					         	<td style="padding:0 45 0 45">
 					         	<table border=1 width=200 class="othersPopularityMenu" ></table>
 					         	</td>
 					         	
@@ -1096,46 +1124,21 @@
 
 
 				         <br><br><br>
-				          <!-- <script>var today = new Date(); document.write( today.getFullYear()-1 + "년 분석현황" ) </script> 
-				         <br>
-				         [월매출]<br> -->
-				         <!-- [이번 달 상품 매출] -->
 
-				         
-				         
-				         <!-- <table class="columns">
-					      <tr>
-					        <td><div id="chart_div2_1" style="width: 700px; height: 500px;"></div><br></td>
-					       </tr>
-					       <tr>
-					        <td><div id="chart_div2_2" style="width: 700px; height: 500px;"></div><br></td>
-					      </tr>
-					       <tr>
-					        <td><div id="chart_div3" style="width: 700px; height: 500px;"></div><br></td>
-					      </tr>
-					    </table> -->
 					    
-					    <table class="columns">
+					    
+					    <!-- <table class="columns"> -->
 	                     
-	                     <tr>
-                            <td><div id="chart_div2_1" style="width: 600px; height: 350px;"></div></td>
-                            <td><div id="chart_div2_2" style="width: 600px; height: 350px;"></div></td>
-                        </tr>
-                        <tr>
-                            <td><div id="chart_div3" style="width: 700px; height: 350px;"></div></td>
-                        </tr>
+	                     <div name="chart2" style="display:inline; width:95%;">
+                            <!-- <td><div id="chart_div2_1" style="width: 600px; height: 350px;"></div></td>
+                            <td><div id="chart_div2_2" style="width: 600px; height: 350px;"></div></td> -->
+                        </div>
+                        <table><tr><td>&nbsp;</table>
+                        <div name="chart3" style=" width:90%;">
+                            <!-- <td><div id="chart_div3" style="width: 700px; height: 350px;"></div></td> -->
+                        </div>
 
-	                     
-	                   </table>
-			 
-				        <!--  <br><br>
-				         우리가게 인기메뉴<br>
-				    	 <div id="chart_div2" style="width: 300px; height: 200px;"></div> -->
-				    <!-- 	 
-				    	 <button class="btn btn-info" type="button" value="검색페이지로가기" style="width=130" onClick="goPreSearchForm();">검색페이지로가기</button>&nbsp;&nbsp;
-				      <button class="btn btn-primary" type="button" value="마이페이지로가기" style="width=130" onClick="location.replace('/posbis/myPageForm.do')">마이페이지로가기</button>&nbsp;&nbsp;
-				      <button class="btn btn-success"  value="q&a로가기" style="width=130" onClick="location.replace('/posbis/qstnForm.do')">q&a로가기</button>
-	         	         -->
+
 	          		<br>
 	          		<br>
 	   				</div>

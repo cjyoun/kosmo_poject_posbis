@@ -44,12 +44,8 @@ public class PosPayDAOImpl implements PosPayDAO{
 	}
 	//-------------------------------------------------------------------------------------------------- 
 	
-
-		 /////////////////////////////////////////////////////////////
-		//메뉴 클릭시 정보 불러 오기
-		////////////////////////////////////////////////////////////
-			
-		public List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO){
+	//메뉴 클릭시 정보 불러 오기	
+	public List<Map<String,String>> getPosPerMenuList(PosMenuDTO posMenuDTO){
 		
 		System.out.println("podao 시작");
 		
@@ -72,5 +68,24 @@ public class PosPayDAOImpl implements PosPayDAO{
 		
 		return business_name;
 	}
+	
+
+	//매출 등록
+	public int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO) {
+		
+		
+		System.out.println("dao updateSalesNo 시작");
+		
+ 
+		int salesRegCnt = this.sqlSession.insert(
+				"com.naver.erp.PosPayDAO.updateSalesNo"    // 실행할 SQL 구문의 위치 지정
+				,posMenuSalesDTO								// 실행할 SQL 구문에서 사용할 데이터 지정	
+		);		
+		System.out.println("dao updateSalesNo 끝");
+		return salesRegCnt;
+	};
+	
+ 
+		
 	
 }

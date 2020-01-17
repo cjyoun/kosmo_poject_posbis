@@ -16,8 +16,7 @@ public class PosPayController {
 
 	@Autowired
 	private PosPayService posPayService;
-	@Autowired
-	private SalesService salesService;
+ 
 	
 	
 	@RequestMapping(value ="/posPayForm.do")
@@ -37,28 +36,28 @@ public class PosPayController {
 
 			System.out.println("!11");
 			
-			// 가게 이름 얻기
+			// 媛�寃� �씠由� �뼸湲�
 			String business_name = this.posPayService.getBusiness_name(business_no);
 			mav.addObject("business_name", business_name);
 			System.out.println(business_name);
 
-//	      		 //================[메뉴 총 개수] 얻기=====================
+//	      		 //================[硫붾돱 珥� 媛쒖닔] �뼸湲�=====================
 //				int posMenuAllCnt = this.posPayService.getPosMenuAllCnt(business_no);
 //				mav.addObject("posMenuAllCnt", posMenuAllCnt);
-//				//================끝  [메뉴 총 개수] 얻기=====================
+//				//================�걹  [硫붾돱 珥� 媛쒖닔] �뼸湲�=====================
 //
 
-				//=====================[메뉴 목록] 얻기===========================
+				//=====================[硫붾돱 紐⑸줉] �뼸湲�===========================
 				List<Map<String,String>> posMenuList = this.posPayService.getPosMenuList(business_no);
 				mav.addObject("posMenuList", posMenuList);  
 				System.out.println(posMenuList);
-				//===================끝  [메뉴 목록] 얻기===========================
+				//===================�걹  [硫붾돱 紐⑸줉] �뼸湲�===========================
 					
 
 			
 		}
 		catch(Exception e) {
-			System.out.println("preResultList <에러발생>");
+			System.out.println("preResultList <�뿉�윭諛쒖깮>");
 			System.out.println(e.getMessage());
 		}
 		
@@ -69,7 +68,7 @@ public class PosPayController {
 	//--------------------------------------------------------------------------------------------------------
 	
  /////////////////////////////////////////////////////////////
-//메뉴 클릭시 정보 불러 오기
+//硫붾돱 �겢由��떆 �젙蹂� 遺덈윭 �삤湲�
 ////////////////////////////////////////////////////////////
 
 	@RequestMapping(value = "/posPerMenuProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")
@@ -94,12 +93,12 @@ public class PosPayController {
 		 
 			
 			/*
-			 * set 메소드로 답기- preChart cont -> 리턴 ajax-> dto.이름
+			 * set 硫붿냼�뱶濡� �떟湲�- preChart cont -> 由ы꽩 ajax-> dto.�씠由�
 			 */
 		 
 		} catch (Exception e) {
 			
-			System.out.println("<posPerMenuList 에러발생>");
+			System.out.println("<posPerMenuList �뿉�윭諛쒖깮>");
 			System.out.println(e.getMessage());
 		}
 
@@ -107,6 +106,8 @@ public class PosPayController {
 		return posPerMenuList;
 
 	}
+	
+	//매출 등록
 	
 	//---------------------------------------------
 	// 가상주소 /posbis/posSalesRegProc.do 로 접근하면 호출되는 메소드 선언.
@@ -117,16 +118,34 @@ public class PosPayController {
 			,produces="application/json;charset=UTF-8"	// 응답할 데이터 종류 설정
 	)
 	@ResponseBody
-	public int insertSales(
-			SalesDTO salesDTO			
+	// 비동기 방식으로 접속에 대한 응답
+	public int updateSalesNo(
+			//-------------------------------------------
+			// 파라미터값을 저장할 [BoardDTO 객체]를 매개변수로 선언
+			//-------------------------------------------
+			PosMenuSalesDTO posMenuSalesDTO
+	,HttpSession session 
 	) {
-		//[게시판 입력 적용행의 개수]저장할 변수 선언
+		//개수저장할 변수 선언
 		int salesRegCnt = 0;
-	
-	try {
 		
-			
-		salesRegCnt = this.salesService.insertSales(salesDTO);
+		  for(int i=0; i<posMenuSalesDTO.getSales_count().length; i++) {
+		  System.out.println("getSales_count ===> " +
+		  posMenuSalesDTO.getSales_count()[i]); } for(int i=0;
+		  i<posMenuSalesDTO.getMenu_name().length; i++) {
+		  System.out.println("getMenu_name ===> " + posMenuSalesDTO.getMenu_name()[i]);
+		 }
+		 
+		String business_no = (String)session.getAttribute("pos_business_no");
+		posMenuSalesDTO.setBusiness_no(business_no);
+		
+ 
+		
+	try {
+			/* String business_no = (String)session.getAttribute("pos_business_no"); */
+		  salesRegCnt = this.posPayService.updateSalesNo(posMenuSalesDTO); 
+		
+		
 		}catch(Exception e) {
 			System.out.println("<에러발생>");
 			System.out.println(e.getMessage());
@@ -136,4 +155,12 @@ public class PosPayController {
 		return salesRegCnt;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+
 }

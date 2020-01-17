@@ -2,7 +2,7 @@ package com.naver.erp;
 
 
 
-public class PreChartParmDTO {
+public class PreChartParamDTO {
 
 	private String changeBusinessNo;
 	private String changeYear;

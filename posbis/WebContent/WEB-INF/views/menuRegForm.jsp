@@ -400,17 +400,17 @@ $(document).ready(function(){
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>메뉴등록</strong></h2>
-			<div style=" color:#fff; width:30%">
+
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>메뉴등록</strong></h2>
+			<div style=" color:#fff; width:35%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="fas fa-warehouse"></i> 매장관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-utensils"></i> 메뉴관리</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-edit"></i> 메뉴등록</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-warehouse"></i> 매장관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-utensils"></i> 메뉴관리 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-edit"></i> 메뉴등록</span>
 	         </nav>
 			</div>
 		</div>
@@ -426,7 +426,7 @@ $(document).ready(function(){
    <section class="wrapper">
          <div class="row">
    
-       <div class="col-lg-8" align="center" style="margin:0 0 0 200">
+       <div class="col-lg-8" align="center" style="margin:0 0 0 330">
             <section class="panel">
               <header class="panel-heading" style="text-align:center;">
                 	   [메뉴등록]

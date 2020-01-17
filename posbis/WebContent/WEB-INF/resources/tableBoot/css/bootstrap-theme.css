@@ -1167,6 +1167,7 @@ pre code {
   }
   .col-lg-11 {
     width: 91.66666666666666%;
+    margin: 0 0 0 85px;
   }
   .col-lg-12 {
     width: 100%;
@@ -1558,9 +1559,9 @@ input[type="number"]::-webkit-inner-spin-button {
 .form-control {
   display: block;
   width: 100%;
-  height: 34px;
+  height: 38px;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.428571429;
   color: #8e8e93;
   vertical-align: middle;
@@ -1804,7 +1805,7 @@ textarea.input-lg {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: normal;
   line-height: 1.428571429;
   text-align: center;

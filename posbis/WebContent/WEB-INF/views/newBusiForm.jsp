@@ -512,17 +512,17 @@
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>가게등록</strong></h2>
-			<div style=" color:#fff; width:30%">
+
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>가게등록</strong></h2>
+			<div style=" color:#fff; width:40%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="icon-user"></i> 마이페이지</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-settings"></i> 내정보 보기</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-plus-circle"></i> 가게등록</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-user"></i>마이페이지 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-settings"></i>내정보 보기 ></span><span class="sb-item active" style="font-size:20px">
+	         <i class="fas fa-plus-circle"></i>가게등록</span>
 	         </nav>
 			</div>
 		</div>
@@ -537,7 +537,7 @@
    <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center" style="margin:0 0 0 340; ">
+       <div class="col-lg-7" align="center" style="margin:0 0 0 410; ">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">사업자 번호 추가</a>
@@ -630,9 +630,9 @@
          <div style="height: 20;"></div>
 
 		<div style="float:right">
-		<button class="btn btn-info" type="button" value="저장" onClick="checkNewBusiForm();" >저장 </button> 
- 	 	<button class="btn btn-primary" type="reset" value="다시작성"  >다시작성 </button> 
-	 	<button class="btn btn-danger" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
+		<button class="btn btn-default" type="button" value="저장" onClick="checkNewBusiForm();" >저장 </button> 
+ 	 	<button class="btn btn-default" type="reset" value="다시작성"  >다시작성 </button> 
+	 	<button class="btn btn-default" type="button" value="취소" onClick="goMyPageForm();" >취소 </button>
  
             </div>
          <!--  <input type="hidden" name=u_no value=""> -->
