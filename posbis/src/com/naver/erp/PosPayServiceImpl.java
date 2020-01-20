@@ -65,38 +65,76 @@ public class PosPayServiceImpl implements PosPayService{
 	
 	//매출 등록
 	public int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO) {
-		
-		
 		System.out.println("posservice insertPosSales 시작");
-
 		int salesRegCnt=0;
-		
-		for(int i=0; i<posMenuSalesDTO.getSales_count().length; i++) {
-			
+	
+		for(int i=0; i<posMenuSalesDTO.getSales_count().length; i++) {	
 			posMenuSalesDTO.setMenu_name1(posMenuSalesDTO.getMenu_name()[i]);
-
-			posMenuSalesDTO.setSales_count1(posMenuSalesDTO.getSales_count()[i]);
-			
-			
-			
+			posMenuSalesDTO.setSales_count1(posMenuSalesDTO.getSales_count()[i]);		
 		 salesRegCnt+=this.posPayDAO.updateSalesNo(posMenuSalesDTO);
 		}
 	 
 		
-		System.out.println("posservice insertPosSales 끝");
-		
+		System.out.println("posservice insertPosSales 끝");	
 		if(posMenuSalesDTO.getSales_count().length!=salesRegCnt) {
 			return -1;
 		}
-		
 		return salesRegCnt;
-		
 	};
 	
 	
+	//매출메뉴 리스트
+	public List<Map<String, String>> getPosSalesList(PosSearchDTO posSearchDTO) {
+		List<Map<String, String>> posSalesList = this.posPayDAO.getPosSalesList(posSearchDTO);
+		return posSalesList;
+	}
+	//매출메뉴 리스트 총개수
+	public int getPosSalesAllCnt(PosSearchDTO posSearchDTO) {
+		int posSalesAllCnt = this.posPayDAO.getPosSalesAllCnt(posSearchDTO);
+		return posSalesAllCnt;
+	}
+	
+	//메뉴상세리스트
+	public List<Map<String, String>> getPosDetailList(Map<String, String> busi_no_date) {
+		
+		System.out.println(" 서비스 getPosDetailList 시작");
+		List<Map<String, String>> posDetailList = this.posPayDAO.getPosDetailList(busi_no_date);
+		
+		/* System.out.println(" 서비스 getPosDetailList 끝"); */
+		return posDetailList;
+	}
+	
+	//메뉴삭제
+	public int getDeleteCnt(PosMenuListDTO posMenuListDTO) {
+		System.out.println(" 서비스 getDeleteCnt 시작");
+		
+		//sales 메뉴 삭제 리턴
+		int deleteCnt=0;
+				
+		for(int i=0; i<posMenuListDTO.getSales_count().length; i++) {	
+			posMenuListDTO.setSales_count1(posMenuListDTO.getSales_count()[i]);
+			posMenuListDTO.setBusiness_no1(posMenuListDTO.getBusiness_no()[i]);
+			posMenuListDTO.setSales_date1(posMenuListDTO.getSales_date()[i]);
+			
+			System.out.println(posMenuListDTO.getBusiness_no1());
+			System.out.println(posMenuListDTO.getSales_date1());
+			System.out.println(posMenuListDTO.getSales_count1());
+			
+			deleteCnt+=this.posPayDAO.getDeleteCnt(posMenuListDTO);
+			
+			
+		}
+		
+		System.out.println("서비스 getDeleteCnt  끝");	
+		if(posMenuListDTO.getSales_count().length!=deleteCnt) {
+			return -1;
+		}
+		
+		
+		return deleteCnt;
+	};
 	
 	
-	
-	
+ 
 
 }

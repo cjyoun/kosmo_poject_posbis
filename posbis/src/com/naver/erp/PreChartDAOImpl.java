@@ -228,6 +228,23 @@ public class PreChartDAOImpl implements PreChartDAO{
 		System.out.println("DAO : getAllBusinessNoSalesMonthList 끝");
 		
 		return allBusinessNoSalesMonthList;
+	}
+
+	
+	
+	// 시간대별 판매 개수 구하기 (상품별 구분)
+	@Override
+	public List<Map<String, String>> getHourSalesCount(PreChartParamDTO preChartParamDTO) {
+		
+		System.out.println("DAO : getHourSalesCount 시작");
+		System.out.println("changeBusinessNo : " + preChartParamDTO.getChangeBusinessNo());
+		List<Map<String,String>> hourSalesCount = this.sqlSession.selectList(
+				 "com.naver.erp.PreChartDAO.getHourSalesCount"		// 실행할 SQL 구문의 위치 지정 
+				, preChartParamDTO 							// 실행할 SQL 구문에서 사용할 데이터 지정
+		);
+		System.out.println("DAO : getHourSalesCount 끝");
+		
+		return hourSalesCount;
 	}	
 	
 	

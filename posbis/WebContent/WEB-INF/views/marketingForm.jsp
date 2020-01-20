@@ -1,0 +1,632 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="common.jsp"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>마케팅 전략</title>
+  <meta charset="UTF-8">
+<meta name="description" content="loans HTML Template">
+<meta name="keywords" content="loans, html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Favicon -->
+<link href="resources/bootstrap/img/favicon.ico" rel="shortcut icon" />
+
+<!-- Google font -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap"
+	rel="stylesheet">
+
+<!-- Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="resources/bootstrap/css/owl.carousel.min.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/flaticon.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/slicknav.min.css" />
+
+<!-- Main Stylesheets -->
+<link rel="stylesheet" href="resources/bootstrap/css/style.css" />
+
+<!-- ------------------------------------------------------------------------------- -->
+
+
+<!-- 	<link rel="shortcut icon" href="img/favicon.png">
+ -->
+<!-- Bootstrap CSS -->
+<link href="resources/tableBoot/css/bootstrap.min.css" rel="stylesheet">
+<!-- bootstrap theme -->
+<link href="resources/tableBoot/css/bootstrap-theme.css"
+	rel="stylesheet">
+<!--external css-->
+<!-- font icon -->
+<link href="resources/tableBoot/css/elegant-icons-style.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/daterangepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-datepicker.css"
+	rel="stylesheet" />
+<link href="resources/tableBoot/css/bootstrap-colorpicker.css"
+	rel="stylesheet" />
+<!-- date picker -->
+
+<!-- color picker -->
+
+<!-- Custom styles -->
+<link href="resources/tableBoot/css/style.css" rel="stylesheet">
+<link href="resources/tableBoot/css/style-responsive.css"
+	rel="stylesheet" />
+
+<!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+  
+<!-- 아이콘 -->   
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/themify-icons/themify-icons.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
+
+  
+  <style>
+
+
+  
+  </style>
+  
+</head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>      
+   <script>  
+   
+	   $(document).ready(function(){
+
+		inputData("[name=changeBusinessNo]","${marketingDTO.changeBusinessNo}");
+		   
+ 		   if($("[name=changeBusinessNo]").val() ==""){
+				$("[name=changeBusinessNo]").find('option:eq(1)').attr("selected","selected");
+		 		document.marketingForm.submit();
+				marketingDTO.setChangeBusinessNo($("[name=marketingForm] [name=changeBusinessNo]").val());
+			}  
+
+					google.charts.load('current', {'packages':['corechart']});
+					google.charts.setOnLoadCallback(drawChart);
+					
+					function drawChart() {
+						
+					  var data = google.visualization.arrayToDataTable([
+					        ['세트메뉴', '판매건수']
+					        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+					   			,['${setMenuList[loopTagStatus.index].SET_MENU}',${setMenuList[loopTagStatus.index].SALES_CNT}]
+					  		</c:forEach>
+					      ]);
+
+					var sliceCo = 0 
+							
+					  var options = {
+					    title: '세트메뉴 추천 TOP 10'
+			   			,titleTextStyle: {
+			    	        fontSize: 17,
+			    	        bold: true
+			    	    }
+						,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+	                    ,width: "100%"
+	                    ,height: "100%"
+					  };
+					
+					  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+					
+					  chart.draw(data, options);
+					}
+
+		   $('[name=changeBusinessNo]').change(function(){		
+				//document.marketingForm.submit();
+			
+				$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
+
+				
+				$.ajax({
+					// 서버 쪽 호출 URL 주소 지정
+					url : "/posbis/marketingProc.do"
+					
+					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+					, type : "post"
+
+					// 서버로 보낼 파라미터명과 파라미터 값을 설정
+					, data : $("[name=marketingForm]").serialize()	
+					
+					//비동기 방식으로 차트 재실행
+					, success : function(setMenuDTO){
+						if(setMenuDTO != null){
+							//alert("성공");
+							$("#piechart").remove();
+							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 300px;"></div>');
+							
+								google.charts.load('current', {'packages':['corechart']});
+								google.charts.setOnLoadCallback(drawChart);
+								
+								function drawChart() {
+
+								var setMenuName = new Array() ;
+								var setMenuCnt = new Array();
+								//var rows = new Array();
+
+									for(var i=0; i<setMenuDTO.setMenuList.length; i++){
+										setMenuName[i] = setMenuDTO.setMenuList[i].SET_MENU ;
+										setMenuCnt[i] = setMenuDTO.setMenuList[i].SALES_CNT ;
+										//rows.push(setMenuName[i],setMenuCnt[i]);
+									}
+
+								  var data = google.visualization.arrayToDataTable([]);
+								        
+							        data.addColumn('string', '세트메뉴');
+							        data.addColumn('number', '판매건수');
+
+								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+										data.addRows(1);
+										data.setCell(j,0,setMenuName[j]);
+										data.setCell(j,1,setMenuCnt[j]);
+									}
+										
+								  var options = {
+								    title: '세트메뉴 추천 TOP 10'
+						   			,titleTextStyle: {
+						    	        fontSize: 17,
+						    	        bold: true
+						    	    }
+									,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+				                    ,width: "100%"
+				                    ,height: "100%"
+								  };
+								
+								  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+								
+								  chart.draw(data, options);
+								}
+							
+						}
+						else if (setMenuDTO == null){
+							alert("실패 !");
+						}
+						else {
+							alert("서버 오류 발생. 관리자에게 문의 바람");
+						} 
+					}
+					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+					, error : function(request, error){
+						alert("서버 접속 실패");
+						alert($("[name=marketingForm]").serialize());
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
+					}
+					
+				});  
+
+									
+			});
+			
+		    $(window).resize(function(){
+	    		drawChart();
+		    });
+		   
+	});
+
+
+	     //--------------------------------------------------------
+	   	   //로고 클릭시
+	   	     function goMainForm(){
+	   	        //alert("메인으로 이동");
+	   	        location.replace("/posbis/mainForm.do");
+	   	     }
+	   		
+	   		//회사소개-pobis 클릭시
+	   		
+	   		function goIntroForm(){
+	   	        //alert("회사소개로 이동");
+	   	        location.replace("/posbis/introForm.do");
+	   	     }
+	   		
+	   		//마이페이지-매출관리
+	   	    function goSalesForm(){
+	   	        //alert("매출관리로 이동");
+	   	        location.replace("/posbis/salesForm.do");
+	   	     } 
+	   		//마이페이지-메뉴관리
+	   		function goMenuForm(){
+	   	        //alert("메뉴관리로 이동");
+	   	        location.replace("/posbis/menuForm.do");
+	   	     }
+	   	     
+	   		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+	   		function goPreSearchForm(){
+	   	        //alert("검색관리로 이동");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		        	 location.replace("/posbis/preSearchForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	   	        
+	   	     }
+	   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+	   		function goPreChartForm(){
+	   	        //alert("차트관리로 이동");
+	   			var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/preChartForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	   	     }
+	   		//내정보관리-내정보 보기
+	   		function goMyPageForm(){
+	   	        //alert("내정보 보기으로 이동");
+	   	        location.replace("/posbis/myPageForm.do");
+	   	     }
+
+	   		//qna 게시판- 질문하기
+	   		function goqstnRegForm(){
+	   	        //alert("질문하기으로 이동");
+	   	        location.replace("/posbis/qstnRegForm.do");
+	   	     }
+	   		//qna 게시판- 내글보기
+			 function goMyQstnForm(){
+		        //alert("내글보기으로 이동");
+		        location.replace("/posbis/myQstn.do");
+		     }
+			//qna 게시판- 전체 질문보기
+			 function goQstnForm(){
+		        //alert("전체 질문보기으로 이동");
+		        location.replace("/posbis/qstnForm.do");
+		     }
+			//qna 게시판- 자주 묻는 질문
+			 function goFAQForm(){
+			        //alert("전체 질문보기으로 이동");
+			        location.replace("/posbis/FAQForm.do");
+			     }
+	   		//통합 관리
+	   		 function goHomePageForm(){
+	   		    //alert("통합 관리으로 이동");
+	   		    location.replace("/posbis/homePageForm.do");
+	   		 }
+	   		//--------------------------------------------------------
+
+	       </script>
+ 
+   <body>
+ <!-- Header Section -->
+	<header class="header-section">
+		<a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
+			<img src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+		</a>
+		<nav class="header-nav" style="height:98;">
+			<ul class="main-menu">
+				<li>
+
+					<a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+
+					<ul class="sub-menu" style="cursor:pointer; ">
+						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
+						<li><a onClick="goHomePageForm();">Home 화면</a></li>
+					</ul>
+				</li>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">마이페이지</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMyPageForm();">내정보보기</a></li>
+						<li><a onClick="goMyQstnForm();">문의내역확인</a></li>
+					</ul>
+				</li>
+				
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">매장관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goMenuForm();">메뉴 관리</a></li>
+						<li><a onClick="goSalesForm();">매출 관리</a></li>
+					</ul>
+				</li>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goPreSearchForm();">시장분석</a></li>
+						<li><a onClick="goPreChartForm();">비교차트</a></li>
+					</ul>
+				</li>
+				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goQstnForm();">Q&A 목록보기</a></li>
+						<li><a onClick="goFAQForm();">자주 묻는 질문</a></li>
+						<li><a onClick="goqstnRegForm();">문의하기</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="header-right">
+
+				<div class="hr-text" style="margin:-17 0 -15 0">
+				<c:if test = "${rank_code eq '1'}">
+	               <i class="ti-user">&nbsp;</i>
+	            </c:if>
+	               
+	            <c:if test = "${rank_code eq '2'}">
+	               <i class="ti-crown">&nbsp;</i>
+	            </c:if>
+	            
+	            <b>${user_id}</b> 님 반갑습니다
+                	
+					<br>
+                     <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
+                    &nbsp;
+                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+				</div>
+				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
+				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
+
+			</div>
+		</nav>
+	</header>
+	<!-- Header Section end -->
+
+
+<!-- Page top Section end -->
+	<section class="page-top-section set-bg"
+		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container">
+			<h2><strong>마케팅전략</strong></h2>
+			<div style=" color:#fff; width:30%">
+			<nav class="site-breadcrumb">
+	            <span class="sb-item active">
+	         <i class="icon-location-pin"></i> 업계동향</span> &nbsp; > &nbsp; <span class="sb-item active">
+	         <i class="icon-eyeglass"></i> 마케팅전략</span>
+	         </nav>
+			</div>
+		</div>
+	</section>
+	<!-- Page top Section end -->
+
+   <main id="main">
+   <section id="main-content">
+   <section class="wrapper">
+       <div class="col-lg-10" align="center">
+            <section class="panel">
+              <header class="panel-heading">
+                	   <a href="">세트 메뉴 추천</a>
+              </header>
+              
+               
+			<div class="panel-body"> 
+			<div class="container">
+			
+
+            	 
+          	<form name="marketingForm" method="post" action="/posbis/marketingForm.do"> 
+						<input type="hidden" name="user_id" value="${user_id}">  
+			<table border=0 width=1000  >
+				<tr>
+					<td align=right>
+						사업자번호 : &nbsp;
+						<select name="changeBusinessNo" style="width:200px; height:25px; text-align-last:center">	<!-- 중요! -->
+									<option value="" style="display:none""></option>
+					 		<c:forEach items="${businessNoList}" var="businessNoList">
+									<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
+									</option>
+							</c:forEach>
+							
+						</select> 
+					</table>
+				</form>
+	<br>
+	
+		<input type="hidden" name="user_id" value="${user_id}">  
+
+			<table id="menuSet" align="center" width="100%";" >
+			
+			<c:if test="${!empty setMenuList}">
+				<tr>
+					<td colsqan="5">
+						<table><tr><td>
+						<img src="resources/business_type_img/${setMenuList[0].BUSI_CODE}.jpg" class="img-fluid" alt="" width="100%" height="100%">
+						<td valign="bottom">
+						<h4><strong style="font-size:20">${setMenuList[0].BUSI_TYPE1} > ${setMenuList[0].BUSI_TYPE2}</strong></h4>
+						</table>
+				<tr style="text-align:center; height:10px">
+	         	<tr style="text-align:center; height:40px" >
+		         	<td valign= "bottom" style="background-color:#f8f9fa; width:32%;">
+                        <strong style="font-size:17">1위</strong>
+			         <td style="width:2% ;">
+						<!-- 여백 -->
+					</td>
+			         <td valign= "bottom" style="background-color:#f8f9fa; width:32%">
+			         	<strong style="font-size:17">2위</strong>    
+			         <td style="width:2% ;">
+			       		<!-- 여백 -->
+			         </td>
+			         <td valign= "bottom" style="background-color:#f8f9fa; width:32%">
+			         	<strong style="font-size:17">3위</strong>
+	         	<tr style="text-align:center; height:200px" >
+	         		<c:set var="rank1" value="0"></c:set>
+		         	<td style="background-color:#f8f9fa; width:32%;">
+                          <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+                             <c:if test="${setMenu.RANKING==1}">   
+                             <c:set var="rank1" value="${rank1 + 1}" />   
+                              <h5>
+                              <strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                             </h5>
+                             </c:if>
+                          </c:forEach>
+                          <c:if test="${rank1==0}">
+                             <h5>
+                             	<strong style="font-size:17"> 없음</strong>
+                             </h5>
+                          </c:if>
+			         </td>         
+			         <td style="width:2% ;">
+						<!-- 여백 -->
+			         </td>  
+			         <c:set var="rank2" value="0"></c:set>
+			         <td style="background-color:#f8f9fa; width:32%">
+			         		
+                          <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+                             <c:if test="${setMenu.RANKING==2}">  
+                             <c:set var="rank2" value="${rank2 + 1}" />   
+                              <h5>
+                              <strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                             </h5>
+                             </c:if>
+                          </c:forEach>
+                          <c:if test="${rank2==0}">
+                             <h5>
+                             	<strong style="font-size:17"> 없음</strong>
+                             </h5>
+                          </c:if>
+			         </td>	         
+			         <td style="width:2% ;">
+			       		<!-- 여백 -->
+			         </td>
+			         <c:set var="rank3" value="0"></c:set>
+			         <td style="background-color:#f8f9fa; width:32%">
+			         		
+                          <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus">
+                             <c:if test="${setMenu.RANKING==3}">  
+                             <c:set var="rank3" value="${rank3 + 1}" /> 
+                              <h5>
+                              	<strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                             </h5>
+                             </c:if>
+                          </c:forEach>
+                          <c:if test="${rank3==0}">
+                             <h5>
+                             	<strong style="font-size:17"> 없음</strong>
+                             </h5>
+                          </c:if>
+			         </td>
+		         </tr>
+		    
+		         </c:if>
+		       
+			<c:if test="${empty setMenuList}">
+				<tr><td>
+				선택하신 업종은 세트메뉴 추천 데이터가 없습니다.
+				</c:if>
+		     </table>
+			<table>
+			
+		    <!-- 여백용 테이블 --> 
+			<table><tr><td height="30px"></table>
+			
+		     <div id="reDraw"> <div id="piechart" style="width: 100%; height: 300px;"></div> </div>
+		     </table>
+		    <!-- 여백용 테이블 --> 
+			<table><tr><td height="100px"></table>
+
+		</div>
+		</div>
+</section>
+</section>
+ 
+</main>
+
+	<!-- Why Section2 end -->  
+
+
+<!--==========================
+    꼬리말
+  ============================-->
+	<footer class="footer-section">
+		<div class="container">
+
+			<img class="footer-logo" src="resources/bootstrap/img/POSBIS_logo.png" alt="">
+
+			<div class="row">
+
+				<div class="footer-widget">
+
+					<p>POSBIS는 항상 도전하는 정신으로 고객 편의성 증대를 위하여 혁신 기술을 도입하고, 세련된 디자인과 높은 성능으로 국내의 POS 통계 분석 업계 표준을 설정 및 유지해 나가고 있습니다. 항상 행복과 고객님의 사업이 번창하시기를 기원합니다.</p>
+					<p>
+						월드메르디앙벤쳐 2차 Korea, Seoul 가산디지털단지역<br> <strong>Phone:</strong>
+						+1 5589 55488 55<br> <strong>Email:</strong> info@example.com<br>
+					</p>
+				</div>
+
+
+			</div>
+			<div class="copyright">
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+				Copyright &copy;
+				2020
+				All rights reserved | This template is made with <i
+					class="fa fa-heart-o" aria-hidden="true"></i> by <a
+					href="https://colorlib.com" target="_blank">Colorlib</a>
+				Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+			</div>
+		</div>
+	</footer>
+	<!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <!-- Uncomment below i you want to use a preloader -->
+  <!-- <div id="preloader"></div> -->
+
+  <!--====== Javascripts & Jquery ======-->
+	<script src="resources/bootstrap/js/jquery-3.2.1.min.js"></script>
+	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/bootstrap/js/jquery.slicknav.min.js"></script>
+	<script src="resources/bootstrap/js/owl.carousel.min.js"></script>
+	<script src="resources/bootstrap/js/jquery-ui.min.js"></script>
+	<script src="resources/bootstrap/js/main.js"></script>
+	<!-- ---------------------------------------------------------------------- -->
+
+	<!-- javascripts -->
+	<script src="resources/tableBoot/js/jquery.js"></script>
+	<!-- nice scroll -->
+	<script src="resources/tableBoot/js/jquery.scrollTo.min.js"></script>
+	<script src="resources/tableBoot/js/jquery.nicescroll.js"
+		type="text/javascript"></script>
+
+	<!-- jquery ui -->
+	<script src="resources/tableBoot/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<!--custom checkbox & radio-->
+	<script type="text/javascript" src="resources/tableBoot/js/ga.js"></script>
+	<!--custom switch-->
+	<script src="resources/tableBoot/js/bootstrap-switch.js"></script>
+	<!--custom tagsinput-->
+	<script src="resources/tableBoot/js/jquery.tagsinput.js"></script>
+
+	<!-- colorpicker -->
+
+	<!-- bootstrap-wysiwyg -->
+	<script src="resources/tableBoot/js/jquery.hotkeys.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-wysiwyg-custom.js"></script>
+	<script src="resources/tableBoot/js/moment.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-colorpicker.js"></script>
+	<script src="resources/tableBoot/js/daterangepicker.js"></script>
+	<script src="resources/tableBoot/js/bootstrap-datepicker.js"></script>
+	<!-- ck editor -->
+	<script type="text/javascript"
+		src="resources/tableBoot/assets/ckeditor/ckeditor.js"></script>
+	<!-- custom form component script for this page-->
+	<script src="resources/tableBoot/js/form-component.js"></script>
+	<!-- custome script for all page -->
+	<script src="resources/tableBoot/js/scripts.js"></script>
+  
+  
+  
+
+</body>
+</html>
+ 

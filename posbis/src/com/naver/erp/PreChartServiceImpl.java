@@ -161,6 +161,17 @@ public class PreChartServiceImpl implements PreChartService{
 		return allBusinessNoSalesMonthList;
 	}
 
+	
+//--------------------------------------------------------------------------------------------------   
+	// 시간대별 판매 개수 구하기 (상품별 구분)
+	@Override
+	public List<Map<String, String>> getHourSalesCount(PreChartParamDTO preChartParamDTO) {
+
+		List<Map<String, String>> hourSalesCount = this.preChartDAO.getHourSalesCount(preChartParamDTO);
+
+		return hourSalesCount;
+	}
+
 
 
    

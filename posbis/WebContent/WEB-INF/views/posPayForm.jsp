@@ -47,6 +47,12 @@
 		}
 
 	
+	//콤마풀기
+	function uncomma(str) {
+	    var str = String(str);
+	    return str.replace(/[^\d]+/g, '');
+	}
+	
 	//=====  오늘 날짜 시간 출력 ==============================================================================================
 	//------------------------------------
 	function showTime() {
@@ -113,6 +119,10 @@
 		
  
 		function goMenuNameForm() { 
+			
+			 var unnum = $(".allPrice").find("span").text();
+	         var uncommaNum = uncomma(unnum);
+	         $(".allPrice").find("span").text(uncommaNum);
 
 			if($("[name=tablelist] [name=perMenuList]").find("tr").eq(0).text()!="" && $(".sales_count").val()==""){
 				$("[name=menu_name]").prop( "checked",false );
@@ -126,6 +136,7 @@
 						data : $("[name=menuNameform]").serialize(),
 						success : function(data) {
 							if (data.length == 1) {
+						 
 								 	var menu_name=data[0].menu_name;
 								 	var menu_no=data[0].menu_no;
 									var menu_price=data[0].menu_price;
@@ -166,6 +177,10 @@
 										
 										if($(".allPrice").text()==""){
 											$(".allPrice").append("<span name='"+category+"'>"+perPrice+"<span>");
+											
+											 var num = $(".allPrice").find("span").text();
+									         var commaNum = numberWithCommas(num);
+									         $(".allPrice").find("span").text(commaNum);  
  
 											return;
 											} 		
@@ -186,6 +201,13 @@
  
 											 
 											}
+										
+										//콤마넣기
+										  var num = $(".allPrice").find("span").text();
+								         var commaNum = numberWithCommas(num);
+								         $(".allPrice").find("span").text(commaNum);
+								 	 
+									 
  
 										$("[name=menu_name]").prop( "checked",false );
 										
@@ -227,8 +249,11 @@
   											
 											 total=total+perPriceCnt;
   											$(".allPrice").find("span").text(total);
-
-  											 var allprice = $(".allPrice").find("span").text();
+ 
+  											//콤마넣기
+  											  var num = $(".allPrice").find("span").text();
+  									         var commaNum = numberWithCommas(num);
+  									         $(".allPrice").find("span").text(commaNum);
 									    
 											 
 											}
@@ -258,6 +283,12 @@
 			var total=0;
 		 
 	 	$(document).on('click','.count_updateButton1',function() {
+	 		
+	 		var unnum = $(".allPrice").find("span").text();
+	         var uncommaNum = uncomma(unnum);
+	         $(".allPrice").find("span").text(uncommaNum);
+	         
+	         
  
 	 		if($(this).parent().parent().find(".count_updateButton1").val()=="+"){
 	 			
@@ -293,6 +324,11 @@
 				 total=total+perPriceCnt;
 					$(".allPrice").find("span").text(total);
 				}	
+			 
+			//콤마넣기
+			  var num = $(".allPrice").find("span").text();
+	         var commaNum = numberWithCommas(num);
+	         $(".allPrice").find("span").text(commaNum);
 			
 	 		 
 	 		
@@ -304,6 +340,12 @@
 	 	//-버튼 누를시
 	 	
 		$(document).on('click','.count_updateButton2',function() {
+			
+			var unnum = $(".allPrice").find("span").text();
+	         var uncommaNum = uncomma(unnum);
+	         $(".allPrice").find("span").text(uncommaNum);
+	         
+	         
 
  
 	 		if($(this).parent().parent().find(".count_updateButton2").val()=="-"){
@@ -337,6 +379,11 @@
 	 
 				
 				$(".allPrice").find("span").text(toStrallPrice-(perPrice*perCnt));
+				
+				//콤마넣기
+				  var num = $(".allPrice").find("span").text();
+		         var commaNum = numberWithCommas(num);
+		         $(".allPrice").find("span").text(commaNum);
 
 
 				//순서번호 재 정렬
@@ -372,6 +419,11 @@
 					$(".allPrice").find("span").text(total);
 				}	
 			
+			//콤마넣기
+			  var num = $(".allPrice").find("span").text();
+	         var commaNum = numberWithCommas(num);
+	         $(".allPrice").find("span").text(commaNum);
+			
 			
 			
 		}); 
@@ -389,7 +441,6 @@
 				}else{
 				
 					var total=0;	 
-					
 					for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
   
 						var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
@@ -403,10 +454,6 @@
 							
 						 total=total+perPriceCnt;
 							$(".allPrice").find("span").text(total);
-							
-							
-							
-					
 								var toStr1CNT=$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_count").val();
 								var toStrfinal1CNT= parseInt(toStr1CNT, 10);
 								$("[name=tablelist] [name=perMenuList]").find("tr").find(".sales_count").val(toStrfinal1CNT);
@@ -476,12 +523,9 @@
 			
 				url : "/posbis/posSalesRegProc.do"
 					
-				, type : "post"
-				
-				, data : $('[name=posMenuForm]').serialize()
-				
-				, success : function(salesRegCnt){
-					
+				, type : "post"				
+				, data : $('[name=posMenuForm]').serialize()				
+				, success : function(salesRegCnt){			
 					if(salesRegCnt>0){
 						alert("결제가 완료되었습니다.");
 						location.replace("/posbis/posPayForm.do");
@@ -497,11 +541,27 @@
 		  }else{
 			  
 			 alert("취소되었습니다"); 
-			 location.replace("/posbis/posPayForm.do");
-			 
+			 location.replace("/posbis/posPayForm.do"); 
 		  }
 			
 		} //function salesRegForm(){ 
+			
+			
+		 
+		function goposRefundForm(){
+			
+			alert("매출로 이동");
+			location.replace("/posbis/posRefundForm.do");
+		
+		}
+
+		
+		function goposPayForm(){
+			
+			alert("결제로 이동");
+			location.replace("/posbis/posPayForm.do");
+		
+		}
 		
 </script>
 
@@ -568,10 +628,11 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i>결제하기
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposPayForm();" style="cursor:pointer">결제관리</span>
                 				<span class="badge badge-success">6</span></a>
-                                <div id="submenu-1" class="collapse submenu">
-                                </div>
+                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposRefundForm();" style="cursor:pointer">매출관리</span>
+                				<span class="badge badge-success">6</span></a>
                             </li>
                         </ul>
                     </div>

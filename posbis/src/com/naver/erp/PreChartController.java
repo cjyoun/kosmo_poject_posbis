@@ -362,13 +362,66 @@ public class PreChartController {
 		} catch (Exception e) {
 			// try 구문에서 예외가 발생하면 실행할 구문 설정
 			System.out.println("e.getMessage()" + e.getMessage());
-			System.out.println("preChartProc2 <에러발생>");
+			System.out.println("preChartProc3 <에러발생>");
 		}
 
 		System.out.println("myPopularityListDTO 리턴한다~~~~");
 		return mySalesRatioDTO;
 
 	}
+	
+	
+	
+	
+
+	
+	//-----------------------------------------------------------------------------------------------------------------------------
+	// 시간대별 판매 갯수 구하기 (상품 별)
+		
+		// -------------------------------------------------------------------------------
+		// /preChartProc3.do 로 접근하면 호출되는 메소드 선언.
+		// -------------------------------------------------------------------------------
+		@RequestMapping(value = "/preChartProc4.do" // 접속하는 클라이언트의 URL주소 설정
+		// , method=RequestMethod.POST // 접속하는 클라이언트의 파라미터값 전송.
+				, produces = "application/json;charset=UTF-8" // 응답할 데이터 종류는 json으로 설정.
+		)
+		@ResponseBody
+		public PreChartHourSalesDTO preChartProc4(
+
+				//@RequestParam(value = "changeBusinessNo") String changeBusinessNo
+				PreChartParamDTO preChartParamDTO
+				, PreChartHourSalesDTO preChartHourSalesDTO
+				
+
+		) {
+
+			
+			System.out.println("==================================================");
+			System.out.println("시간대별 판매 개수 구하기 (상품별 구분)");
+
+			List<Map<String,String>> hourSalesCount = new ArrayList<Map<String,String>>();
+
+			try {
+				
+	
+				hourSalesCount = this.preChartService.getHourSalesCount(preChartParamDTO);
+				
+				System.out.println("hourSalesCount.size() ===> " + hourSalesCount.size());
+				for (int i = 0; i < hourSalesCount.size(); i++) {
+					System.out.println("hourSalesCount.get(\"hourSalesCount\")=>" + hourSalesCount.get(i));
+				}
+
+				preChartHourSalesDTO.setHourSalesCount(hourSalesCount);
+
+			} catch (Exception e) {
+				// try 구문에서 예외가 발생하면 실행할 구문 설정
+				System.out.println("e.getMessage()" + e.getMessage());
+				System.out.println("preChartProc4 <에러발생>");
+			}
+
+			return preChartHourSalesDTO;
+
+		}	
 
 	
 	

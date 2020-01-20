@@ -25,6 +25,21 @@ public interface PosPayService {
 
 	//매출 등록
 	int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO);
+	
+	//메뉴 리스트 
+	List<Map<String,String>> getPosSalesList(PosSearchDTO posSearchDTO);
+ 
+	
+	//메뉴 총 개수 
+	int getPosSalesAllCnt(PosSearchDTO posSearchDTO);
+ 
+	
+	//메뉴 상세리스트
+	List<Map<String,String>> getPosDetailList(Map<String, String> busi_no_date);
+	
+	//메뉴 삭제
+	int getDeleteCnt(PosMenuListDTO posMenuListDTO);
+	
 
 	
 }

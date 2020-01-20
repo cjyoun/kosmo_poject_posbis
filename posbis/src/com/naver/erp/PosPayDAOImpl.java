@@ -71,12 +71,8 @@ public class PosPayDAOImpl implements PosPayDAO{
 	
 
 	//매출 등록
-	public int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO) {
-		
-		
+	public int updateSalesNo(PosMenuSalesDTO posMenuSalesDTO) {		
 		System.out.println("dao updateSalesNo 시작");
-		
- 
 		int salesRegCnt = this.sqlSession.insert(
 				"com.naver.erp.PosPayDAO.updateSalesNo"    // 실행할 SQL 구문의 위치 지정
 				,posMenuSalesDTO								// 실행할 SQL 구문에서 사용할 데이터 지정	
@@ -85,7 +81,59 @@ public class PosPayDAOImpl implements PosPayDAO{
 		return salesRegCnt;
 	};
 	
- 
+	//매출 메뉴 리스트
+	public List<Map<String,String>> getPosSalesList(PosSearchDTO posSearchDTO){
 		
+		List<Map<String,String>> posSalesList = this.sqlSession.selectList(
+				"com.naver.erp.PosPayDAO.getPosSalesList" 
+				,posSearchDTO
+		);	
+		
+		return posSalesList;
+	};
+	
+	//메뉴 총 개수 
+	public int getPosSalesAllCnt(PosSearchDTO posSearchDTO) {
+		
+		int posSalesAllCnt=this.sqlSession.selectOne(
+				"com.naver.erp.PosPayDAO.getPosSalesAllCnt"
+				,posSearchDTO
+		);
+		return posSalesAllCnt;
+	};
+		
+ 
+	
+	//메뉴 상세리스트
+	public List<Map<String,String>> getPosDetailList(Map<String, String> busi_no_date){
+		
+		System.out.println(" DAO getPosDetailList 시작");
+		List<Map<String,String>> posDetailList = this.sqlSession.selectList(
+				"com.naver.erp.PosPayDAO.getPosDetailList" 
+				,busi_no_date
+		);	
+		System.out.println(" DAO getPosDetailList 끝");
+		return posDetailList;
+	};
+	
+	
+	
+	
+	//메뉴 삭제 
+	public int getDeleteCnt(PosMenuListDTO posMenuListDTO) {
+		
+		System.out.println(" DAO getDeleteCnt 시작");
+		int deleteCnt=this.sqlSession.delete(
+				"com.naver.erp.PosPayDAO.getDeleteCnt" 
+				,posMenuListDTO	
+		);
+		System.out.println(" DAO getPosDetailList 끝");
+		return deleteCnt;
+		
+	};
+	
+	
+	
+	
 	
 }

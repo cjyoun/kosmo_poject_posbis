@@ -157,10 +157,151 @@ public class PosPayController {
 	
 	
 	
+	//포스 매출리스트 가져오기 이동
+	@RequestMapping(value ="/posRefundForm.do")
+	public ModelAndView posReFundForm(
+			PosSearchDTO posSearchDTO,
+			HttpSession session 
+	) {
+		System.out.println("posRefundForm");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("posRefundForm.jsp");
+ 
+	    	  
+		
+		
+		String business_no = (String)session.getAttribute("pos_business_no");
+		
+		
+		try {
+		 
+			
+			posSearchDTO.setBusiness_no(business_no);
+	 
+		 
+			 
+			List<Map<String,String>> posSalesList = this.posPayService.getPosSalesList(posSearchDTO);
+			int posSalesAllCnt = this.posPayService.getPosSalesAllCnt(posSearchDTO);
+			
+
+	    	 if( posSalesAllCnt>0 ) {
+	    		 // 선택한 페이지 번호 구하기
+		         int selectPageNo = posSearchDTO.getSelectPageNo();
+		         // 한 화면에 보여지는 행의 개수 구하기
+		         int rowCntPerPage = posSearchDTO.getRowCntPerPage();
+		         // 검색할 시작행 번호 구하기
+		         int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
+		         // 검색한 총 갯수보다 검색할 시작행의 번호가 크면
+				 if(beginRowNo>posSalesAllCnt ) {
+					 // 선택한 페이지 번호를 '1'로 초기화 해줌.
+					 posSearchDTO.setSelectPageNo(1);
+				 }
+	    	 }
+			mav.addObject("posSalesList", posSalesList); 
+			mav.addObject("posSalesAllCnt", posSalesAllCnt); 
+			mav.addObject("business_no", business_no);
+			mav.addObject("qstnSearchDTO", posSearchDTO);
+ 
+			
+		}catch(Exception e){
+			System.out.println("<posReFundForm 에러발생>");
+			System.out.println(e.getMessage());
+			
+		}
+		
+		return mav;
+	}
 	
 	
 	
+	//상세 내역
+	//---------------------------------------------
+	// 가상주소 /posbis/posDetailRegProc.do 로 접근하면 호출되는 메소드 선언.
+	//---------------------------------------------
+	@RequestMapping(
+			value="/posDetailRegProc.do"			// 접속하는 클래스의 URL 주소 설정
+			,method=RequestMethod.POST		// 접속하는 클래스의 파마리터값 전송 방법
+			,produces="application/json;charset=UTF-8"	// 응답할 데이터 종류 설정
+	)
+	@ResponseBody
+	public List<Map<String,String>> posDetailList(
+			//-------------------------------------------
+			// 파라미터값을 저장할 [BoardDTO 객체]를 매개변수로 선언
+			//-------------------------------------------
+			@RequestParam(value = "business_no") String business_no
+			,@RequestParam(value = "sales_date") String sales_date
+			,HttpSession session 
+	) {
+		
+		//메뉴리스트 선언
+ 
+		System.out.println("business_no = " + business_no);
+		System.out.println("sales_date = " + sales_date);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("business_no", business_no);
+		map.put("sales_date", sales_date);
+		
+		List<Map<String,String>> posDetailList = new ArrayList<Map<String,String>>();
+		
+	
+	try {
+		
+		posDetailList = this.posPayService.getPosDetailList(map);
+		System.out.println("posDetailList.size() : " + posDetailList.size());
+	
+		}catch(Exception e) {
+			System.out.println("<에러발생>");
+			System.out.println(e.getMessage());
+ 
+		}
+		 
+	System.out.println("posDetailList: " + posDetailList);
+		return posDetailList;
+	
+	}
 	
 	
+	//삭제하기
+	//---------------------------------------------
+	// 가상주소 /posbis/posDeleteRegProc.do 로 접근하면 호출되는 메소드 선언.
+	//---------------------------------------------
+	@RequestMapping(
+			value="/posDeleteRegProc.do"			// 접속하는 클래스의 URL 주소 설정
+			,method=RequestMethod.POST		// 접속하는 클래스의 파마리터값 전송 방법
+			,produces="application/json;charset=UTF-8"	// 응답할 데이터 종류 설정
+	)
+	@ResponseBody
+	public int posDeleteCnt(
+			PosMenuListDTO posMenuListDTO
+	){
+			
+		
+		System.out.println("getDeleteCnt 시작");
+			int deleteCnt=0;
+			for(int i=0; i<posMenuListDTO.getSales_count().length; i++) {System.out.println("getSales_count ===> " +posMenuListDTO.getSales_count()[i]); } 
+			for(int i=0; i<posMenuListDTO.getSales_count().length; i++) {System.out.println("getBusiness_no ===> " +posMenuListDTO.getBusiness_no()[i]); }
+			for(int i=0; i<posMenuListDTO.getSales_count().length; i++) {System.out.println("getSales_date ===> " +posMenuListDTO.getSales_date()[i]); }
+
+		try {
+			
+			deleteCnt = this.posPayService.getDeleteCnt(posMenuListDTO);
+		 
+			
+		
+		}catch(Exception e) {
+				System.out.println("<에러발생>");
+				System.out.println(e.getMessage());
+				
+				deleteCnt=-1;
+		 
+		}
+		  
+			  
+	return deleteCnt;
+	
+	
+	}
+			
 
 }

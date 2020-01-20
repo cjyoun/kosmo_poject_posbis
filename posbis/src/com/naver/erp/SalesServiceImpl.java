@@ -113,4 +113,14 @@ public class SalesServiceImpl implements SalesService{
 		return salesRegCnt;
 	}
 	// 성유진 끝
+	
+	
+	// 마케팅폼!! 새로한거 !!!!!!!
+	// 세트메뉴 리스트 리턴하는 메소드 선언
+	public List<Map<String,String>> getSetMenuList(MarketingDTO marketingDTO){
+			List<Map<String,String>> setMenuList = this.salesDAO.getSetMenuList(marketingDTO);
+			
+			return setMenuList;
+	}	
+	
 }

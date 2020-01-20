@@ -297,6 +297,53 @@
 	</insert>
 	
 	
+	
+	<!-- 마케팅폼!! 새로한거 !!!!!!! -->
+	
+	<!--**************************************************************************-->
+	<!-- 세트메뉴 추천 리스트 구하는 select 태그 -->
+	<!--**************************************************************************-->
+	   <select id="getSetMenuList" parameterType="com.naver.erp.MarketingDTO" resultType="java.util.HashMap">
+		select * from (
+		    select
+		    	busi_type_code							"BUSI_CODE"
+		        ,busi_type_name1                        "BUSI_TYPE1"
+		        ,busi_type_name2                        "BUSI_TYPE2"
+		        ,menu_name1||' &amp; '||menu_name2      "SET_MENU"
+		        ,sum(sales_count)||''   					"SALES_CNT"
+		        ,to_char(  DENSE_RANK() OVER (PARTITION BY BUSI_TYPE_CODE ORDER BY sum(sales_count) desc)  ) "RANKING"
+		from(
+		        select
+		        	c.business_type_code						"BUSI_TYPE_CODE"
+		            ,c.business_type_name1                     "BUSI_TYPE_NAME1"
+		            ,c.business_type_name2                     "BUSI_TYPE_NAME2"
+		            ,s1.menu_name                              "MENU_NAME1"
+		            ,s2.menu_name                              "MENU_NAME2"
+		            ,count(*)   								"SALES_COUNT"
+		            ,s1.sales_date      						"SALES_DATE"
+		        from sales s1, sales s2, business_info b, code_business_type c, user_info u
+		        where
+		            s1.sales_date = s2.sales_date
+		            and (s1.menu_name>s2.menu_name)
+		            and s1.business_no = s2.business_no
+		            and b.business_no = s1.business_no
+		            and b.business_type_code = c.business_type_code
+		            and u.user_id=#{user_id,jdbcType=VARCHAR}
+		          <!--   and b.business_type_code in (select business_type_code from business_info where business_no in 
+		            (select b.business_no from business_info b where u_no=#{u_no})) -->
+		            <if test="changeBusinessNo!=null">
+		            and b.business_type_code = (select business_type_code from business_info where business_no = #{changeBusinessNo})
+		            </if>
+		        group by c.business_type_code, c.business_type_name1, c.business_type_name2, s1.menu_name, s2.menu_name, s1.sales_date
+		    )
+		    group by busi_type_code, busi_type_name1, busi_type_name2, menu_name1||' &amp; '||menu_name2
+		    order by sum(sales_count) desc)
+		where ranking&lt;=10
+   </select>
+   
+   
+	
+	
 </mapper>	
 
 	

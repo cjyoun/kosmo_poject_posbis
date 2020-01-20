@@ -267,6 +267,146 @@
 				order by  1 , 3 
 	</select>		
 		
+		
+		
+		
+
+<!-- ==============시간대 별 판매 개수 구하기 (상품별 구분)  =========================================================================== -->
+	
+	<select id='getHourSalesCount' parameterType="com.naver.erp.PreChartParamDTO" resultType="java.util.HashMap">	
+			select 
+			    (select m.menu_name from menu m where m.menu_no = mv.menu_no) "hour_menu_name"
+			    , nvl(mv2.sales_count,'0') "hour00" 
+			    , nvl(mv3.sales_count,'0') "hour01"
+			    , nvl(mv4.sales_count,'0') "hour02"
+			    , nvl(mv5.sales_count,'0') "hour03"    
+			    , nvl(mv6.sales_count,'0') "hour04"
+			    , nvl(mv7.sales_count,'0') "hour05"
+			    , nvl(mv8.sales_count,'0') "hour06"
+			    , nvl(mv9.sales_count,'0') "hour07" 
+			    , nvl(mv10.sales_count,'0') "hour08"
+			    , nvl(mv11.sales_count,'0') "hour09" 
+			    , nvl(mv12.sales_count,'0') "hour10"
+			    , nvl(mv13.sales_count,'0') "hour11"
+			    , nvl(mv14.sales_count,'0') "hour12"
+			    , nvl(mv15.sales_count,'0') "hour13"
+			    , nvl(mv16.sales_count,'0') "hour14"
+			    , nvl(mv17.sales_count,'0') "hour15"
+			    , nvl(mv18.sales_count,'0') "hour16"
+			    , nvl(mv19.sales_count,'0') "hour17"
+			    , nvl(mv20.sales_count,'0') "hour18"
+			    , nvl(mv21.sales_count,'0') "hour19"
+			    , nvl(mv22.sales_count,'0') "hour20"
+			    , nvl(mv23.sales_count,'0') "hour21"   
+			    , nvl(mv24.sales_count,'0') "hour22"
+			    , nvl(mv25.sales_count,'0') "hour23"
+			     from (   
+			      (select m.menu_no "MENU_NO", m.business_no "BUSINESS_NO" from menu m where m.business_no=#{changeBusinessNo} order by m.menu_no) mv 
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '00' group by s.menu_no ) mv2 
+			      on  mv.menu_no = mv2.menu_no 
+			        
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '01' group by s.menu_no ) mv3 
+			      on mv.menu_no = mv3.menu_no        
+			
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '02' group by s.menu_no ) mv4 
+			      on mv.menu_no = mv4.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '03' group by s.menu_no ) mv5 
+			      on mv.menu_no = mv5.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '04' group by s.menu_no ) mv6 
+			      on mv.menu_no = mv6.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '05' group by s.menu_no ) mv7 
+			      on mv.menu_no = mv7.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '06' group by s.menu_no ) mv8 
+			      on mv.menu_no = mv8.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '07' group by s.menu_no ) mv9 
+			      on mv.menu_no = mv9.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '08' group by s.menu_no ) mv10 
+			      on mv.menu_no = mv10.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '09' group by s.menu_no ) mv11
+			      on mv.menu_no = mv11.menu_no
+			      
+			      left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '10' group by s.menu_no ) mv12
+			      on mv.menu_no = mv12.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '11' group by s.menu_no ) mv13
+			      on mv.menu_no = mv13.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '12' group by s.menu_no ) mv14
+			      on mv.menu_no = mv14.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '13' group by s.menu_no ) mv15
+			      on mv.menu_no = mv15.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '14' group by s.menu_no ) mv16
+			      on mv.menu_no = mv16.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '15' group by s.menu_no ) mv17
+			      on mv.menu_no = mv17.menu_no
+			      
+			       left outer join                                                                                                                                                                     
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '16' group by s.menu_no ) mv18
+			      on mv.menu_no = mv18.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '17' group by s.menu_no ) mv19
+			      on mv.menu_no = mv19.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '18' group by s.menu_no ) mv20
+			      on mv.menu_no = mv20.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '19' group by s.menu_no ) mv21
+			      on mv.menu_no = mv21.menu_no
+			        
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '20' group by s.menu_no ) mv22
+			      on mv.menu_no = mv22.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '21' group by s.menu_no ) mv23
+			      on mv.menu_no = mv23.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '22' group by s.menu_no ) mv24
+			      on mv.menu_no = mv24.menu_no
+			      
+			       left outer join
+			      (select s.menu_no "MENU_NO" , sum(s.sales_count)||'' "SALES_COUNT" from sales s where s.business_no=#{changeBusinessNo} and extract(year from s.sales_date) = #{changeYear} and to_char(s.sales_date, 'HH24') = '23' group by s.menu_no ) mv25
+			      on mv.menu_no = mv25.menu_no
+			      
+			    )    
+	
+			
+	</select>
+		
+		
+		
+		
 	
 </mapper>
 	

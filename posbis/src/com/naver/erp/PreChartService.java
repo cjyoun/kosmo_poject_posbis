@@ -53,6 +53,10 @@ public interface PreChartService {
 
 	// business_no 여러개를 가지고 내가 가진 가게들의 각각의ㅏ 월매출 구하기
 	List<Map<String, String>> getAllBusinessNoSalesMonthList(AllBusinessNoDTO allBusinessNoDTO);
+
+
+	// 시간대별 판매 개수 구하기 (상품별 구분)
+	List<Map<String, String>> getHourSalesCount(PreChartParamDTO preChartParamDTO);
 	
 	
 	

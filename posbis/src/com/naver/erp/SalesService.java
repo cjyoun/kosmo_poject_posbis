@@ -36,4 +36,9 @@ public interface SalesService {
 	
 	// [메뉴 등록 후 입력 적용 행의 개수] 리턴하는 메소드 선언
 	int insertSales(SalesDTO salesDTO);
+	
+	
+	// 마케팅폼!! 새로한거 !!!!!!!
+	// 세트메뉴 리스트 리턴하는 메소드 선언
+	List<Map<String,String>> getSetMenuList(MarketingDTO marketingDTO);
 }

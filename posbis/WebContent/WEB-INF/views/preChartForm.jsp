@@ -115,16 +115,20 @@
 <!-- 	<script src="https://code.jquery.com/jquery.min.js"></script> -->
 
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<!--       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+	  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-     <script>
+<script>
 
 	 	google.load("visualization", "1", {"packages":["corechart"]});
-	 	//google.charts.load('current', {'packages':['corechart']});
+	 	google.charts.load('current', {'packages':['corechart']});
    	    google.setOnLoadCallback(drawChart1);
    		google.setOnLoadCallback(drawChart2);
    		google.setOnLoadCallback(drawChart3);
    		google.setOnLoadCallback(drawChart4);
+   		google.charts.setOnLoadCallback(drawChart5);
+
+
+   		
 	  	
    		$(document).ready(function(){	
 //	    	 checkBusinessNoForm();
@@ -163,8 +167,6 @@
 
 		// Controller에서 받아온 나의 가게 월별 매출을 담을 변수 선언.
 		 var jjj = new Array();
-	     
-
 		// Controller에서 받아온 같은 동네, 같은 업종의 다른 가게들 평균 월별 매출을 담을 변수 선언.
 	     var kkk = new Array();
 
@@ -189,6 +191,10 @@
 		var allBusinessNoSales;
 		// 가게 이름을 담을 배열 변수
 	    var allBusinessNoName = [];
+
+	    var hourSalesMenuName = new Array();
+		var hourSalesMenuCount ;
+	    
 	    
 	     
      	function checkBusinessNoForm(){
@@ -465,8 +471,8 @@
 									
 								} 
 								/* <td class="ct1"> */
-								$("[name=chart2]").append('<div class="ct1" id="chart_div2_1" style="display:inline; width: 50%; height: 50%; float:left"></div><div class="ct1" id="chart_div2_2" style="display:inline; width: 50%; height: 50%; float:right"></div>');
-								$("[name=chart3]").append('<div class="ct1" id="chart_div3" style=" width: 50%; height: 50%; float:left"></div>');
+								$("[name=chart2]").append('<div class="ct1" id="chart_div2_1" style="display:inline; width: 50%; height: 60%; float:left"></div><div class="ct1" id="chart_div2_2" style="display:inline; width: 50%; height: 60%; float:right"></div>');
+								$("[name=chart3]").append('<div class="ct1" id="chart_div3" style=" width: 70%; height: 60%;"></div>');
 								drawChart2();
 								drawChart3();
 							}
@@ -496,6 +502,108 @@
 
 
 
+  			//-----------------------------------------------------------------
+				// 네번째 ajax : 시간대별 판매 개수 구하기 (상품별 구분)
+  				
+  				
+	
+
+  				$.ajax({
+					// 서버 쪽 호출 URL 주소 지정
+					url : "/posbis/preChartProc4.do"
+					
+					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+					, type : "post"
+
+					, async : false
+					// 서버로 보낼 파라미터명과 파라미터 값을 설정
+					, data : $("[name=preChartForm]").serialize()				
+					
+					, success : function(preChartHourSalesDTO){
+
+						var hourlength = preChartHourSalesDTO.hourSalesCount.length;
+
+						hourSalesMenuName.length = 0;
+												
+						$(".ct2").remove();					
+
+						if(preChartHourSalesDTO != null){
+
+							if(hourlength != 0){								
+								//alert(preChartHourSalesDTO.hourSalesCount.length);
+								
+								// 다차원 배열로 가게의 갯수만큼 배열 생성
+								hourSalesMenuCount = Array.from(Array(hourlength), () => Array());
+
+								//alert("시간대별 시작");
+								for(var i=0; i<preChartHourSalesDTO.hourSalesCount.length; i++){
+									hourSalesMenuName[i] = preChartHourSalesDTO.hourSalesCount[i].hour_menu_name;
+									//alert(hourSalesMenuName[i] + " == " +preChartHourSalesDTO.hourSalesCount[i].hour15);
+								}
+
+								// 하나의 select로 다 모았기 때문에 0부터 12까지가 아닌 12*x 개의 행이 저장되므로 i를 저렇게 저장.
+								for(var i=0; i<hourlength; i++){
+									//alert("dkdkdkdkdkdk");
+									for(var j=0; j<24; j++){
+										//alert("dkdkdkdkdkdk2");
+										if(j==0){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour00; }
+										else if(j==1){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour01 }
+										else if(j==2){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour02 }
+										else if(j==3){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour03 }
+										else if(j==4){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour04 }
+										else if(j==5){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour05 }
+										else if(j==6){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour06 }
+										else if(j==7){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour07 }
+										else if(j==8){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour08 }
+										else if(j==9){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour09 }
+										else if(j==10){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour10 }
+										else if(j==11){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour11 }
+										else if(j==12){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour12 }
+										else if(j==13){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour13 }
+										else if(j==14){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour14 }
+										else if(j==15){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour15 }
+										else if(j==16){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour16 }
+										else if(j==17){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour17 }
+										else if(j==18){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour18 }
+										else if(j==19){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour19 }
+										else if(j==20){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour20 }
+										else if(j==21){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour21 }
+										else if(j==22){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour22 }
+										else if(j==23){ hourSalesMenuCount[i][j] = preChartHourSalesDTO.hourSalesCount[i].hour23 }
+
+										//alert("j== " + j + " ==== " + hourSalesMenuCount[i][j])
+										
+									}
+									
+								}
+								
+
+								$("[name=chart5]").append('<div class="ct2" id="chart_div5" style=" width: 100%; height: 100%;"></div>');
+								drawChart5();
+
+							}
+							else{								
+								$("[name=chart5]").append('<div align=center style="height:30" class="ct2">없음</div>');
+							}
+							
+						}
+						
+						else if (mySalesRatioDTO == null){
+							alert("실패3");
+						}
+						else {
+							alert("서버 오류 발생. 관리자에게 문의 바람");
+						} 
+					}
+					
+					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+					, error : function(request, error){
+						alert("서버 접속 실패3");
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
+					}
+					
+				});		
+
 					
 				
 				
@@ -505,83 +613,6 @@
 
 
 
-//------------ 내가 가진 가게들 전부의 월 매출을 보여주는 그래프 ----------------------------     	
-
- 		function drawChart4() {
- 		
-			//alert(allBusinessNoName.length);
-			//alert(allBusinessNoSales[0].length);
-
-			for(var i=0; i<allBusinessNoName.length; i++){
-				for(var j=(12*i); j<(12*(i+1)); j++ ){
-					allBusinessNoSales[i][j] *=1;
-					//alert(allBusinessNoName[i] +' = ' + allBusinessNoSales[i][j]);
-				}
-			} 
-
-
-		// 구글 차트 데이터 입력
-
-		   var data4 = new google.visualization.DataTable();
-
-
-			data4.addColumn('string', 'Month');
-		    for(var i=0; i<allBusinessNoName.length; i++){
-				
-				data4.addColumn('number' , allBusinessNoName[i]);
-				//alert(allBusinessNoName[i]);
-			}
-
-		    
-				for(var j=0; j<12; j++ ){
-					data4.addRows(1);
-					var k = 0;
-					//var sales[j] = allBusinessNoSales[i][j];
-					//alert(allBusinessNoSales[i][j]);
-					data4.setCell(j,k,(j+1)+'월');
-					//alert((j+1)+'월')			
-					for(var t=0; t<allBusinessNoName.length; t++){
-						k++;
-						data4.setCell(j,k,allBusinessNoSales[t][j+(12*t)]);
-						
-					}
-					
-					
-				}
-				//alert("나와라 좀!");
-
-				 
-	
-              var options4 = {
-                  title: '[월 매출]'
-      		     , width: "100%"
-    		     , height: "100%"
-                 , fontSize : 20
-                 , curveType : 'function'
-                 , series: {
-                         0: { lineWidth: 2, color: '#7966E3'   },
-                         1: { lineWidth: 2, color: '#74A2F2'   }
-                      }
-                   , pointSize: 6
-                   , dataOpacity: 0.3
-                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-                       startup: true,
-                       duration: 1500,
-                       easing: 'out' }
-              
-                   };
-	
-	
-	       var chart4 = new google.visualization.LineChart(document.getElementById('allChart_div'));
-	       chart4.draw(data4, options4);
-
-	       
-	     }
-		
-
-	    $(window).resize(function(){
-    		drawChart4();
-	    });
 
 //------------ 내가게와 동일한 위치, 업종을 가진 가게들의 평균 월매출을 보여주는 그래프 ----------------------------     	
 			
@@ -749,7 +780,7 @@
 				       ]);
 			
 			       var options3 = {
-	                     title: '[상품별 매출]'
+	                     title: '[상품별 매출 TOP4]'
 	              		, width: "100%"
 	                	, height: "100%"
 	                    , legend: { position: 'top' }
@@ -775,6 +806,163 @@
 			    });
 
 
+
+			  //------------ 내가 가진 가게들 전부의 월 매출을 보여주는 그래프 ----------------------------     	
+
+		 		function drawChart4() {
+		 		
+					//alert(allBusinessNoName.length);
+					//alert(allBusinessNoSales[0].length);
+
+					for(var i=0; i<allBusinessNoName.length; i++){
+						for(var j=(12*i); j<(12*(i+1)); j++ ){
+							allBusinessNoSales[i][j] *=1;
+							//alert(allBusinessNoName[i] +' = ' + allBusinessNoSales[i][j]);
+						}
+					} 
+
+
+				// 구글 차트 데이터 입력
+
+				   var data4 = new google.visualization.DataTable();
+
+
+					data4.addColumn('string', 'Month');
+				    for(var i=0; i<allBusinessNoName.length; i++){
+						
+						data4.addColumn('number' , allBusinessNoName[i]);
+						//alert(allBusinessNoName[i]);
+					}
+
+				    
+						for(var j=0; j<12; j++ ){
+							data4.addRows(1);
+							var k = 0;
+							//var sales[j] = allBusinessNoSales[i][j];
+							//alert(allBusinessNoSales[i][j]);
+							data4.setCell(j,k,(j+1)+'월');
+							//alert((j+1)+'월')			
+							for(var t=0; t<allBusinessNoName.length; t++){
+								k++;
+								data4.setCell(j,k,allBusinessNoSales[t][j+(12*t)]);
+								
+							}
+							
+							
+						}
+						//alert("나와라 좀!");
+
+						 
+			
+		              var options4 = {
+		                  title: '[월 매출]'
+		      		     , width: "100%"
+		    		     , height: "100%"
+		                 , fontSize : 20
+		                 , curveType : 'function'
+		                 , series: {
+		                         0: { lineWidth: 2, color: '#7966E3'   },
+		                         1: { lineWidth: 2, color: '#74A2F2'   }
+		                      }
+		                   , pointSize: 6
+		                   , dataOpacity: 0.3
+		                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+		                       startup: true,
+		                       duration: 1500,
+		                       easing: 'out' }
+		              
+		                   };
+			
+			
+			       var chart4 = new google.visualization.LineChart(document.getElementById('allChart_div'));
+			       chart4.draw(data4, options4);
+
+			       
+			     }
+				
+
+			    $(window).resize(function(){
+		    		drawChart4();
+			    });
+
+
+
+
+			    
+
+			  //------------ 가게별 시간대별 판매 개수 차트 (상품 별) ----------------------------     	
+
+		 		function drawChart5() {
+		 		
+					//alert(hourSalesMenuName.length);
+					//alert(allBusinessNoSales[0].length);
+
+					for(var i=0; i<hourSalesMenuName.length; i++){
+						for(var j=0; j<23; j++ ){
+							hourSalesMenuCount[i][j] *=1;
+							//alert(hourSalesMenuName[i] +' = ' + hourSalesMenuCount[i][j]);
+						}
+					} 
+
+
+				// 구글 차트 데이터 입력
+
+				   var data5 = new google.visualization.DataTable();
+
+
+					data5.addColumn('string', 'Hours');
+				    for(var i=0; i<hourSalesMenuName.length; i++){
+						
+						data5.addColumn('number' , hourSalesMenuName[i]);
+						//alert(allBusinessNoName[i]);
+					}
+
+				    
+						for(var j=0; j<24; j++ ){
+							data5.addRows(1);
+							var k = 0;
+							//var sales[j] = allBusinessNoSales[i][j];
+							//alert(allBusinessNoSales[i][j]);
+							data5.setCell(j,k,(j)+'시');
+							//alert((j+1)+'월')			
+							for(var t=0; t<hourSalesMenuName.length; t++){
+								k++;
+								data5.setCell(j,k,hourSalesMenuCount[t][j]);
+								
+							}
+							
+							
+						}
+						//alert("나와라 좀!");
+
+						 
+			
+		              var options5 = {
+		                  title: '시간대별 판매 개수'
+		      		     , width: "100%"
+		    		     , height: "100%"
+		                 , fontSize : 18
+		                 , isStacked: true
+		                 
+		              
+		                   };
+			
+			
+			       var chart5 = new google.visualization.SteppedAreaChart(document.getElementById('chart_div5'));
+			       chart5.draw(data5, options5);
+
+			       
+			     }
+				
+
+			    $(window).resize(function(){
+		    		drawChart5();
+			    });
+					    
+
+
+
+			    
 	
 	    //--------------------------------------------------------
 		   //로고 클릭시
@@ -949,16 +1137,15 @@
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>비교차트</strong></h2>
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>비교차트</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="icon-location-pin"></i> 업계동향</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="ti-stats-up"></i> 비교차트</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-location-pin"></i> 업계동향 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="ti-stats-up"></i> 비교차트</span>
 	         </nav>
 			</div>
 		</div>
@@ -1134,8 +1321,17 @@
                             <td><div id="chart_div2_2" style="width: 600px; height: 350px;"></div></td> -->
                         </div>
                         <table><tr><td>&nbsp;</table>
-                        <div name="chart3" style=" width:90%;">
+                        <br>
+                        <div name="chart3" style=" width:90%; margin:0 -90 0 0">
                             <!-- <td><div id="chart_div3" style="width: 700px; height: 350px;"></div></td> -->
+                        </div>
+                        
+                        <br>
+                        
+                        <table><tr><td>&nbsp;</table>
+                        
+                        <div name="chart5" style=" width:100%; height:500; margin:0 0 0 -31">
+                            <!-- <div id="chart_div5" style="width: 110%; height: 500px;"></div> -->
                         </div>
 
 
