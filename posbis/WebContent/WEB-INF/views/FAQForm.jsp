@@ -224,6 +224,12 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 	          //alert("qna 게시판 목록 보기으로 이동");
 	          location.replace("/posbis/qstnForm.do");
 	       }
+
+	    // 마케팅 전략
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          location.replace("/posbis/marketingForm.do");
+	       }   
 	      
 	      
       
