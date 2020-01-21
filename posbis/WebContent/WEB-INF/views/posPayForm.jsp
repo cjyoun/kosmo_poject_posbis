@@ -548,7 +548,7 @@
 			
 			
 		 
-		function goposRefundForm(){
+		function goPosRefundForm(){
 			
 			//alert("매출로 이동");
 			location.replace("/posbis/posRefundForm.do");
@@ -556,10 +556,17 @@
 		}
 
 		
-		function goposPayForm(){
+		function goPosPayForm(){
 			
 			//alert("결제로 이동");
 			location.replace("/posbis/posPayForm.do");
+		
+		}
+
+		function goPosLoginForm(){
+			
+			//alert("로그인 페이지로 이동");
+			location.replace("/posbis/posLoginForm.do");
 		
 		}
 		
@@ -628,10 +635,10 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposPayForm();" style="cursor:pointer">결제관리</span>
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosPayForm();" style="cursor:pointer">결제관리</span>
                 				<span class="badge badge-success">6</span></a>
                                 <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposRefundForm();" style="cursor:pointer">매출관리</span>
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosRefundForm();" style="cursor:pointer">매출관리</span>
                 				<span class="badge badge-success">6</span></a>
                             </li>
                         </ul>

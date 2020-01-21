@@ -82,375 +82,87 @@
   </style>
   
 </head>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>      
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>      
    <script>  
    
 	   $(document).ready(function(){
-		   
+			//클라이언트가 보낸 검색 조건을 입력 양식에 넣어주기
 			inputData("[name=changeBusinessNo]","${marketingDTO.changeBusinessNo}");
 			inputData("[name=dataArea]","${marketingDTO.dataArea}");
-		   
- 		   if($("[name=changeBusinessNo]").val() ==""){ 
+
+			//처음 페이지 로딩 시 제일 처음으로 나오는 사업자번호 자동 선택
+			//폼으로 접속하고 DTO에 값 세팅
+		   if($("[name=changeBusinessNo]").val() ==""){ 
 				$("[name=changeBusinessNo]").find('option:eq(1)').prop("selected",true);
 				//$("#dataAreaType").prop("checked",true);
-		 		document.marketingForm.submit();
+				document.marketingForm.submit();
 				marketingDTO.setChangeBusinessNo($("[name=marketingForm] [name=changeBusinessNo]").val());
 				marketingDTO.setDataArea($("[name=marketingForm] [name=dataArea]").val());
 			}
- 		  
-					google.charts.load('current', {'packages':['corechart']});
-					google.charts.setOnLoadCallback(drawChart);
-					
-					function drawChart() {
-				             
-						if($("[name=marketingForm] [name=dataArea]:checked").val()=="allStore"){      
-							  var data = google.visualization.arrayToDataTable([
-							        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
-							        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-							   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}']
-							  		</c:forEach>
-							      ]);
-						}
-						if($("[name=marketingForm] [name=dataArea]:checked").val()=="myStore"){      
-							  var data = google.visualization.arrayToDataTable([
-							        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
-							        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-							   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}'+' '+'${setMenu.SALES_CNT}'+'건']
-							  		</c:forEach>
-							      ]);
-						}
 
-					  var options = {
-					    title: '세트메뉴 추천 TOP 10 \n\n'
-			   			,titleTextStyle: {
-			    	        fontSize: 25,
-			    	        bold: true
-			    	        
-			    	    }
-					    ,fontSize : 22
-						,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-	                    ,width: "100%"
-	                    ,height: "100%"
-                        ,pieSliceText: 'percentage'          
-                        ,legend: 'labeled'
-					  };
-					
-					  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-					
-					  chart.draw(data, options);
-					}
-
-		   $('[name=changeBusinessNo]').change(function(){		
-				//document.marketingForm.submit();
-			
-				$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
-
+ 		  //중복포함 10위까지 세트메뉴 추천해주는 파이차트
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
 				
-				$.ajax({
-					// 서버 쪽 호출 URL 주소 지정
-					url : "/posbis/marketingProc.do"
-					
-					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
-					, type : "post"
-
-					// 서버로 보낼 파라미터명과 파라미터 값을 설정
-					, data : $("[name=marketingForm]").serialize()	
-					
-					//비동기 방식으로 차트 재실행
-					, success : function(setMenuDTO){
-					//	alert($("[name=marketingForm]").serialize());
-					//	alert("${param.dataArea}");
-					//	alert( "${paramValues.setMenuDTO.dataArea}" );
-							//alert("성공");
-							$("#piechart").remove();
-							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 60%;"></div>');
-							
-				if(setMenuDTO != null){
-					if(setMenuDTO.setMenuList.length == 0){
-					    $("#piechart").append("<h3>선택하신 조건에 적합한 세트메뉴 추천 데이터가 없습니다.</h3>")
-					}else{
-								google.charts.load('current', {'packages':['corechart']});
-								google.charts.setOnLoadCallback(drawChart);
-								
-								function drawChart() {
-
-								var setMenuName = new Array() ;
-								var setMenuCnt = new Array();
-								//var rows = new Array();
-
-									for(var i=0; i<setMenuDTO.setMenuList.length; i++){
-										setMenuName[i] = setMenuDTO.setMenuList[i].SET_MENU ;
-										setMenuCnt[i] = setMenuDTO.setMenuList[i].SALES_CNT ;
-										//rows.push(setMenuName[i],setMenuCnt[i]);
-									}
-
-								  var data = google.visualization.arrayToDataTable([]);
-								        
-							        data.addColumn('string', '세트메뉴');
-							        data.addColumn('number', '판매건수');
-							        data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
-
-								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-										data.addRows(1);
-										data.setCell(j,0,setMenuName[j]);
-										data.setCell(j,1,setMenuCnt[j]);
-									}
-										
-									
-			                    	
-					                  if(setMenuDTO.dataArea=="allStore"){
-					                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-												data.setCell(j,2,setMenuName[j]);
-											}
-				                		
-										  var options = {
-											    title: '세트메뉴 추천 TOP 10 \n\n'
-									   			,titleTextStyle: {
-									    	        fontSize: 25,
-									    	        bold: true
-									    	    }
-										  		,fontSize : 22
-												,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-							                    ,width: "100%"
-							                    ,height: "100%"
-						                        ,pieSliceText: 'percentage'          
-							                    ,legend: 'labeled'
-												};
-											
-					                  }
-				                      
-					                  if(setMenuDTO.dataArea=="myStore"){
-					                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-												data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
-											}
-
-										  var options = {
-											    title: '세트메뉴 추천 TOP 10 \n\n'
-									   			,titleTextStyle: {
-									    	        fontSize: 25,
-									    	        bold: true
-									    	    }
-										 		 ,fontSize : 22
-												,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-							                    ,width: "100%"
-							                    ,height: "100%"
-						                        ,pieSliceText: 'percentage'          
-							                    ,legend: 'labeled'
-												};
-											
-					                  }
-								
-								  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-								
-								  chart.draw(data, options);
-								}
-							}
-							
-						}
-						else if (setMenuDTO == null){
-							alert("실패 !");
-						}
-						else {
-							alert("서버 오류 발생. 관리자에게 문의 바람");
-						} 
+				function drawChart() {
+			             
+					if($("[name=marketingForm] [name=dataArea]:checked").val()=="allStore"){      
+						  var data = google.visualization.arrayToDataTable([
+						        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
+						        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+						   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}']
+						  		</c:forEach>
+						      ]);
 					}
-					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-					, error : function(request, error){
-						alert("서버 접속 실패");
-						alert($("[name=marketingForm]").serialize());
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
+					if($("[name=marketingForm] [name=dataArea]:checked").val()=="myStore"){      
+						  var data = google.visualization.arrayToDataTable([
+						        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
+						        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+						   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}'+' '+'${setMenu.SALES_CNT}'+'건']
+						  		</c:forEach>
+						      ]);
 					}
-					
-				});  
 
+				  var options = {
+				    title: '세트메뉴 추천 TOP 10 \n\n'
+		   			,titleTextStyle: {
+		    	        fontSize: 25,
+		    	        bold: true
+		    	        
+		    	    }
+				    ,fontSize : 22
+					,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+                    ,width: "100%"
+                    ,height: "100%"
+                       ,pieSliceText: 'percentage'          
+                       ,legend: 'labeled'
+				  };
+				
+				  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				
+				  chart.draw(data, options);
+				}
+
+			//사업자번호 셀렉트 박스에 change 이벤트 발생 시 실행할 함수
+		   $('[name=changeBusinessNo]').change(function(){		
+
+			   reSearch();
 									
 			});
 
-
+			//검색영역 라디오 버튼에 change 이벤트 발생 시 실행할 함수
 		   $('[name=dataArea]').change(function(){		
 			   
-				//alert($("[name=marketingForm]").serialize());
-				//alert($("[name=marketingForm] [name=dataArea]").val()  );
-			
-				$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
-				
-				$.ajax({
-					// 서버 쪽 호출 URL 주소 지정
-					url : "/posbis/marketingProc.do"
-					
-					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
-					, type : "post"
-
-					// 서버로 보낼 파라미터명과 파라미터 값을 설정
-					, data : $("[name=marketingForm]").serialize()	
-					
-					//비동기 방식으로 차트 재실행
-					, success : function(setMenuDTO){
-						//alert($("[name=marketingForm]").serialize());
-						//alert("${param.dataArea}");
-						//alert( setMenuDTO.dataArea );
-							//alert("성공");
-							$("#piechart").remove();
-							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 60%;"></div>');
-							
-						if(setMenuDTO != null){
-							if(setMenuDTO.setMenuList.length == 0){
-							    $("#piechart").append("<h3>선택하신 조건에 적합한 세트메뉴 추천 데이터가 없습니다.</h3>")
-							}else{
-								google.charts.load('current', {'packages':['corechart']});
-								google.charts.setOnLoadCallback(drawChart);
-								
-								function drawChart() {
-
-								var setMenuName = new Array() ;
-								var setMenuCnt = new Array();
-								var tooltipText = new Array();
-
-									for(var i=0; i<setMenuDTO.setMenuList.length; i++){
-										setMenuName[i] = setMenuDTO.setMenuList[i].SET_MENU ;
-										setMenuCnt[i] = setMenuDTO.setMenuList[i].SALES_CNT ;
-									}
-
-								  var data = google.visualization.arrayToDataTable([]);
-								        
-							        data.addColumn('string', '세트메뉴');
-							        data.addColumn('number', '판매건수');
-							        data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
-							        
-							    //    data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
-
-								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-										data.addRows(1);
-										data.setCell(j,0,setMenuName[j]);
-										data.setCell(j,1,setMenuCnt[j]);
-								//		data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
-									}
-									
-				                    	
-				                  if(setMenuDTO.dataArea=="allStore"){
-				                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-											data.setCell(j,2,setMenuName[j]);
-										}
-			                		
-									  var options = {
-										    title: '세트메뉴 추천 TOP 10 \n\n'
-								   			,titleTextStyle: {
-								    	        fontSize: 25,
-								    	        bold: true
-								    	        
-								    	    }
-									 		 ,fontSize : 22
-											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-						                    ,width: "100%"
-						                    ,height: "100%"
-					                        ,pieSliceText: 'percentage'          
-						                    ,legend: 'labeled'
-							                
-											};
-										
-				                  }
-			                      
-				                  if(setMenuDTO.dataArea=="myStore"){
-				                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-											data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
-										}
-
-									  var options = {
-										    title: '세트메뉴 추천 TOP 10 \n\n'
-								   			,titleTextStyle: {
-								    	        fontSize: 25,
-								    	        bold: true
-								    	    }
-									  		,fontSize : 22
-											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-						                    ,width: "100%"
-						                    ,height: "100%"
-					                        ,pieSliceText: 'percentage'          
-						                    ,legend: 'labeled'
-											};
-										
-				                  }
-			                      
-								
-								  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-								
-								  chart.draw(data, options);
-								}
-							}
-						}
-						else if (setMenuDTO == null){
-							alert("실패 !");
-						}
-						else {
-							alert("서버 오류 발생. 관리자에게 문의 바람");
-						} 
-					}
-					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-					, error : function(request, error){
-						alert("서버 접속 실패");
-						alert($("[name=marketingForm]").serialize());
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
-					}
-					
-				});
-
+			   reSearch();
 									
 			});
-			
+
+			//창 크기 조절 시 차트그리기 재실행
 		    $(window).resize(function(){
 	    		drawChart();
 		    });
 		   
 	});
-
-
-		 //----------- 추천메뉴 여러개 일 때 생략된 것들 alert로 보여주는 부분 (랭킹 1 2 3위) --------------
-		 		
-		 	  function allSet1(){
-		 	         var result="";
-		 	      
-		 	         <c:forEach items="${setMenuList}" var="setMenu">
-		 	            if("${setMenu.RANKING}"==1 ){
-		 	               result= result+", "+"${setMenu.SET_MENU}"
-		 	            }
-		 	         </c:forEach>
-		 	            while( result.charAt(0) == "," && result.length>1){
-		 	               result = result.substring(1);
-		 	             }
-		 	         alert(result);
-		 	   }
-
-		 	  function allSet2(){
-		 	         var result="";
-		 	      
-		 	         <c:forEach items="${setMenuList}" var="setMenu">
-		 	            if("${setMenu.RANKING}"==2 ){
-		 	               result= result+", "+"${setMenu.SET_MENU}"
-		 	            }
-		 	         </c:forEach>
-		 	            while( result.charAt(0) == "," && result.length>1){
-		 	               result = result.substring(1);
-		 	             }
-		 	         alert(result);
-		 	   }
-
-		 	  function allSet3(){
-		 	         var result="";
-		 	      
-		 	         <c:forEach items="${setMenuList}" var="setMenu">
-		 	            if("${setMenu.RANKING}"==3 ){
-		 	               result= result+", "+"${setMenu.SET_MENU}"
-		 	            }
-		 	         </c:forEach>
-		 	            while( result.charAt(0) == "," && result.length>1){
-		 	               result = result.substring(1);
-		 	             }
-		 	         alert(result);
-		 	   }
-		 	
-		 //--------------------------------------------------------------------------------------	
-
-
 	     //--------------------------------------------------------
 	   	   //로고 클릭시
 	   	     function goMainForm(){
@@ -553,6 +265,116 @@
 		        //alert("예약관리로 이동");
 		        location.replace("/posbis/resManagerForm.do");
 		     }
+
+	      	//검색조건에 change 이벤트가 일어나면 실행되는 함수
+	      	//베스트 3위 테이블에 load 메소드를 사용하여 재로딩
+	      	//ajax로 proc에 접속해서 차트 다시 띄우기
+		     function reSearch(){
+					//alert($("[name=marketingForm]").serialize());
+					//alert($("[name=marketingForm] [name=dataArea]").val()  );
+				
+					$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
+					
+					$.ajax({
+						// 서버 쪽 호출 URL 주소 지정
+						url : "/posbis/marketingProc.do"
+						
+						// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+						, type : "post"
+
+						// 서버로 보낼 파라미터명과 파라미터 값을 설정
+						, data : $("[name=marketingForm]").serialize()	
+						
+						//비동기 방식으로 차트 재실행
+						, success : function(setMenuDTO){
+							//alert($("[name=marketingForm]").serialize());
+								//alert("성공");
+								$("#piechart").remove();
+								$("#reDraw").append('<div id="piechart" style="width: 100%; height: 60%;"></div>');
+								
+							if(setMenuDTO != null){
+								if(setMenuDTO.setMenuList.length == 0){
+								    $("#piechart").append("<h3>선택하신 조건에 적합한 세트메뉴 추천 데이터가 없습니다.</h3>")
+								}else{
+									google.charts.load('current', {'packages':['corechart']});
+									google.charts.setOnLoadCallback(drawChart);
+									
+							function drawChart() {
+
+									var setMenuName = new Array() ;
+									var setMenuCnt = new Array();
+
+										for(var i=0; i<setMenuDTO.setMenuList.length; i++){
+											setMenuName[i] = setMenuDTO.setMenuList[i].SET_MENU ;
+											setMenuCnt[i] = setMenuDTO.setMenuList[i].SALES_CNT ;
+										}
+
+									  var data = google.visualization.arrayToDataTable([]);
+									        
+								        data.addColumn('string', '세트메뉴');
+								        data.addColumn('number', '판매건수');
+								        data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
+								        
+									   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+											data.addRows(1);
+											data.setCell(j,0,setMenuName[j]);
+											data.setCell(j,1,setMenuCnt[j]);
+										}
+
+									//선택한 조건이 동일 업종일 때
+									//tooltip으로 메뉴이름 보여주기	
+					                  if(setMenuDTO.dataArea=="allStore"){
+					                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+												data.setCell(j,2,setMenuName[j]);
+											}
+					                  }
+
+									//선택한 조건이 우리 가게일 때
+									//tooltip으로 메뉴이름, 판매건수 보여주기	
+					                  if(setMenuDTO.dataArea=="myStore"){
+					                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+												data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
+											}
+					                  }
+					                  
+									  var options = {
+										    title: '세트메뉴 추천 TOP 10 \n\n'
+								   			,titleTextStyle: {
+								    	        fontSize: 25,
+								    	        bold: true
+								    	        
+								    	    }
+									 		,fontSize : 22
+											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+						                    ,width: "100%"
+						                    ,height: "100%"
+					                        ,pieSliceText: 'percentage'          
+						                    ,legend: 'labeled'
+										};
+					                  
+									  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+									
+									  chart.draw(data, options);
+									}
+								}
+							}
+							else if (setMenuDTO == null){
+								alert("실패 !");
+							}
+							else {
+								alert("서버 오류 발생. 관리자에게 문의 바람");
+							} 
+						}
+						// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+						, error : function(request, error){
+							alert("서버 접속 실패");
+							alert($("[name=marketingForm]").serialize());
+							alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
+						}
+						
+					});
+
+			 }
 	   		
 	       </script>
  
@@ -566,7 +388,7 @@
 			<ul class="main-menu">
 				<li>
 
-					<a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">INFO</a>
 
 					<ul class="sub-menu" style="cursor:pointer; ">
 						<li><a onClick="goIntroForm();">POSBIS 소개</a></li>
@@ -586,7 +408,7 @@
 						<li><a onClick="goSalesForm();">매출 관리</a></li>
 					</ul>
 				</li>
-				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
+				<li><a class="active" style="cursor:pointer; font-size:20; margin:-3 80 4 0">업계동향</a>
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
@@ -594,7 +416,10 @@
 					</ul>
 				</li>
 				<li>
-					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">예약관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goResManagerForm();">예약목록</a></li>
+					</ul>				
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
@@ -712,10 +537,17 @@
 	         	<tr style="text-align:center; height:220px" >
 	         		<c:set var="rank1" value="0"></c:set>
 		         	<td style="background-color:#f8f9fa; width:32%;">
-                          
+                         <!-- ========================================================================== -->
+		 	      	<c:set var="result1" value=""></c:set>
+	 	 	         <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+		 	            <c:if test="${setMenu.RANKING==1}">  
+		 	            	<c:set var="result1" value="${result1}\n${setMenu.SET_MENU}"/>
+		 	             </c:if>
+		 	         </c:forEach>
+	         		<!-- ========================================================================== -->   
 		         		<c:set var="loop_index" value="0"></c:set>
                           <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-                          	<a onClick="allSet1();" style="cursor:pointer;">
+                          	<a href="javascript:;" onclick="alert('${result1}')" >
                           		
                              <c:if test="${setMenu.RANKING!=1}">
                                 <c:set var="loop_index" value="${loop_index + 1}" />
@@ -745,9 +577,17 @@
 			         </td>  
 			         <c:set var="rank2" value="0"></c:set>
 			         <td style="background-color:#f8f9fa; width:32%">
+			         <!-- ========================================================================== -->
+			 	      	<c:set var="result2" value=""></c:set>
+		 	 	         <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+			 	            <c:if test="${setMenu.RANKING==2}">  
+			 	            	<c:set var="result2" value="${result2}\n${setMenu.SET_MENU}"/>
+			 	             </c:if>
+			 	         </c:forEach>
+		         		<!-- ========================================================================== -->
                          <c:set var="loop_index" value="0"></c:set>
                           <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-                          	<a onClick="allSet2();" style="cursor:pointer;">
+                          	<a href="javascript:;" onclick="alert('${result2}')" >
                              <c:if test="${setMenu.RANKING!=2}">
                                 <c:set var="loop_index" value="${loop_index + 1}" />
                              </c:if>
@@ -775,11 +615,18 @@
 			         </td>
 			         <c:set var="rank3" value="0"></c:set>
 			         <td style="background-color:#f8f9fa; width:32%">
-			         		
+			         	<!-- ========================================================================== -->
+			 	      	<c:set var="result3" value=""></c:set>
+		 	 	         <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+			 	            <c:if test="${setMenu.RANKING==3}">  
+			 	            	<c:set var="result3" value="${result3}\n${setMenu.SET_MENU}"/>
+			 	             </c:if>
+			 	         </c:forEach>
+		         		<!-- ========================================================================== -->	
  
 						<c:set var="loop_index" value="0"></c:set>
                           <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-                          	<a onClick="allSet3();" style="cursor:pointer;">
+                          	<a href="javascript:;" onclick="alert('${result3}')" >
                              <c:if test="${setMenu.RANKING!=3}">
                                 <c:set var="loop_index" value="${loop_index + 1}" />
                              </c:if>

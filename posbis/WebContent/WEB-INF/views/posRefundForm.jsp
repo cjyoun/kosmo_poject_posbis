@@ -17,6 +17,7 @@
     <link href="resources/pos/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="resources/pos/assets/libs/css/style.css">
     <link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+	<link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">  
 
 
 
@@ -262,7 +263,7 @@ function startTime() {
 	});
 			
  
-	function goposRefundForm(){
+	function goPosRefundForm(){
 		
 		//alert("매출로 이동");
 		location.replace("/posbis/posRefundForm.do");
@@ -270,10 +271,17 @@ function startTime() {
 	}
 
 	
-	function goposPayForm(){
+	function goPosPayForm(){
 		
 		//alert("결제로 이동");
 		location.replace("/posbis/posPayForm.do");
+	
+	}
+
+	function goPosLoginForm(){
+		
+		//alert("로그인 페이지로 이동");
+		location.replace("/posbis/posLoginForm.do");
 	
 	}
 	
@@ -306,6 +314,10 @@ function startTime() {
                         <li class="nav-item dropdown connection">
                             <a class="nav-link"><div id="nowTime" align="right" padding="0" style=line-height:1.5>nowDate</div></a>
                         </li>
+                        <!-- 로그아웃 -->
+                        <li class="nav-item dropdown connection">
+                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLoginForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -333,10 +345,10 @@ function startTime() {
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposPayForm();" style="cursor:pointer">결제관리</span>
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosPayForm();" style="cursor:pointer">결제관리</span>
                 				<span class="badge badge-success">6</span></a>
                                 <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goposRefundForm();" style="cursor:pointer">매출관리</span>
+                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosRefundForm();" style="cursor:pointer">매출관리</span>
                 				<span class="badge badge-success">6</span></a>
                             </li>
                         </ul>
@@ -375,7 +387,7 @@ function startTime() {
                     <!-- ================ 메뉴 ======================================== -->
                     <!-- ============================================================== -->
                     <div class="row">
-					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" style="height:800; max-width: 980">
+					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" style=" max-width: 60%">
 					    <div class="card"  style="height:100%;">
 	                          <h5 class="card-header">판매 LIST</h5>
 	                          	<div class="sidebar-nav-fixed" >
@@ -416,7 +428,7 @@ function startTime() {
 	                              		<td align=center >${posSales.RNUM}<input type='hidden' name='no' value='${posSales.RNUM}'>
 	                              		<td align=center class="sales_date" >${posSales.sales_date}<input type='hidden' name='sales_date' value='${posSales.sales_date}'>
 	                              		<td align=center >${posSales.sales_count}<input type='hidden' name='sales_count' value='${posSales.sales_count}'>
-	                              		<td align=center ><input type='button' class='detailbutton'  value='상세보기' >
+	                              		<td align=center ><input type='button' class='detailbutton'  value='상세보기' style='height:35'>
 	                              		</tr>
 	                              		</c:forEach>
 										</tbody>
@@ -425,7 +437,10 @@ function startTime() {
                          		<c:if test="${empty posSalesList}">
 									검색 결과가 없습니다.
 								</c:if>  
-                         			<div align="center">&nbsp;<span class="pagingNumber"></span>&nbsp;</div>
+								<br>
+                         			<div align="center">&nbsp;<span class="pagingNumber" style="font-size:20"></span>&nbsp;</div>
+                         			<br>
+                         			
 	                         	</div>
 	                      		</div>
 	                  	</div> 
@@ -438,7 +453,7 @@ function startTime() {
                     <!-- ============================================================== -->
                     <!-- 결제목록 -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" style="height:800; min-width:629">                    
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" style="height:868; min-width:40%">                    
 						<div class="card" style="height:76%">
                   			<h5 class="card-header">결제 목록</h5>
                   				<div class="card-body">
@@ -467,8 +482,8 @@ function startTime() {
 	                	<!-- ============================================================== -->
 						<div class="card border-3 border-top border-top-primary" style="height:20%">
 	                        <div class="card-body allPrice">
-	                            <h2>TOTAL</h2>
-	                            <h1><span class=allPriceDetail style="float:left"></span></h1>
+	                            <h2 style="font-size:35">TOTAL</h2>
+	                            <h1><span class=allPriceDetail style="float:left;font-size:35;margint:5 0 0 35"></span></h1>
 	                            <div><input type="button" value="결제취소" style="WIDTH: 110; HEIGHT: 60pt; float:right; font-size:25" class='refundButton'></div>
 	                            <div class="metric-value d-inline-block">
 	                            </div>

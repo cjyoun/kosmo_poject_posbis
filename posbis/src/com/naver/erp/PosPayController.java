@@ -172,6 +172,9 @@ public class PosPayController {
 		
 		String business_no = (String)session.getAttribute("pos_business_no");
 		
+		String business_name = this.posPayService.getBusiness_name(business_no);
+		mav.addObject("business_name", business_name);
+		
 		
 		try {
 		 

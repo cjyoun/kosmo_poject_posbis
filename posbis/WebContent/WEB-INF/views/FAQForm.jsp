@@ -306,7 +306,10 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 					</ul>
 				</li>
 				<li>
-					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">예약관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goResManagerForm();">예약목록</a></li>
+					</ul>
 				</li>
 				<li><a class="active" style=" cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">

@@ -114,8 +114,8 @@
   
 <!-- 	<script src="https://code.jquery.com/jquery.min.js"></script> -->
 
-      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!--       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ -->	  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
 
@@ -136,13 +136,14 @@
 				$('[name=changeBusinessNo]').change(function(){	
 					changeChart();
 					checkBusinessNoForm();
+					searchHourSales();
 
-					if($('[name=changeBusinessNo]').val()!='all'){
+		/* 			if($('[name=changeBusinessNo]').val()!='all'){
 						changeChart();
 						checkBusinessNoForm();
 						searchHourSales();
 					}	
-					
+		 */			
 					
 
 				});	
@@ -1178,7 +1179,10 @@
 					</ul>
 				</li>
 				<li>
-					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">예약관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goResManagerForm();">예약목록</a></li>
+					</ul>				
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">

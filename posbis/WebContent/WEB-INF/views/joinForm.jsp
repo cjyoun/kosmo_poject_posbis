@@ -523,13 +523,30 @@
 	
 
 	
-	function checkBusinessTime(){   
+    
+	 //영업시간 유효성 검사 함수==================================================      
+	  function checkBusinessTime(){   
 	     if(is_empty("[name=business_open]") || is_empty("[name=business_close]")){
-	        alert("Open시간 또는 Close시간 입력 바랍니다.")
+	        alert("Open시간 또는 Close시간 확인 바랍니다.")
+	        $("[name=business_open] option:eq(0)").attr("selected","selected");
+	        $("[name=business_close] option:eq(0)").attr("selected","selected");
 	        return;
 	     }
 	 
 	   }
+	  //영업시간 유효성 검사 함수  끝==================================================   
+	     
+	     
+	   //동일 시간 체크 유효성 검사 함수==============================================ㄴ====
+	  function overLapTime(){
+	     if($("[name=business_open]").find("option:selected").val()==$("[name=business_close]").find("option:selected").val()){
+	        alert("동일한 시간을 입력하셨습니다. 재입력 바랍니다.");
+	 
+	        $("[name=business_open] option:eq(0)").attr("selected","selected");
+	        $("[name=business_close] option:eq(0)").attr("selected","selected");
+
+	     }
+	  }
 	
 	
 	
