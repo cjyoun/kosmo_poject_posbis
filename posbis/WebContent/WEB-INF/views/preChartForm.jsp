@@ -935,7 +935,7 @@
 				    salesOpenTime = salesOpenTime*1;
 					salesCloseTime = salesCloseTime*1;
 
-					alert(salesOpenTime +" ===== " + salesCloseTime);
+					//alert(salesOpenTime +" ===== " + salesCloseTime);
 				    
 					if(salesCloseTime > salesOpenTime){
 						  var jero = 0;
@@ -1121,7 +1121,13 @@
 	        //alert("마케팅 전략 으로 이동");
 	        location.replace("/posbis/marketingForm.do");
 	     }
-				
+
+
+	  //예약관리
+	 	function goResManagerForm(){
+	        //alert("예약관리로 이동");
+	        location.replace("/posbis/resManagerForm.do");
+	     }
 	      
       
      </script>
@@ -1163,6 +1169,9 @@
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 						<li><a onClick="goMarketingForm();">마케팅 전략</a></li>
 					</ul>
+				</li>
+				<li>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">

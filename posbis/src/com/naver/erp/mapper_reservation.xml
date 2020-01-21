@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+<!-- mapper 태그 선언 -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+   <!-- namespace 속성값으로 [DAO 인터페이스명]이 오며 -->
+   <!-- [DAO 인터페이스] 메소드명과 동일한 id 값을 소유한 태그를 내포하고 있다. -->
+<!--mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm-->
+
+<mapper namespace="com.naver.erp.ResManagerDAO">
+
+
+<!-- 메뉴 목록 구하는 조건문 설정 -->
+<!-- sql태그 안에 있는 id는 마음대로 지정해도된다. -->
+<sql id="resWhere">
+
+	<if test="chooseBusinessNo!=null and chooseBusinessNo.length>0">
+		and b.business_no in
+			<foreach collection="chooseBusinessNo" item="chooseBusinessNo" open="(" close=")"  separator=",">
+				#{chooseBusinessNo}
+			</foreach>
+	</if>
+	
+</sql> 
+
+
+	<select id="getResList" parameterType="com.naver.erp.ResManagerDTO" resultType="java.util.HashMap">
+		select
+		    rs.r_no                                        "r_no"
+		    , b.business_no                             "business_no"
+		    , rs.res_name                               "res_name"
+		    , to_char(rs.res_date,'yyyy-mm-dd (dy)')    "res_date"
+		    , to_char(rs.res_time,'PM HH:MI')           "res_time"
+		    , rs.res_guest                              "res_guest"
+		    , rs.res_phone                              "res_phone"
+		    , rs.res_text                               "res_text"
+		from business_info b, reservation rs, user_info u
+		where u.u_no=b.u_no and b.business_no=rs.business_no
+        		and u.user_id=#{user_id}
+
+	</select>
+
+	<select id="getResListAllCnt" parameterType="com.naver.erp.ResManagerDTO" resultType="int">
+
+	select 
+	  count(*)
+	from business_info b, reservation rs, user_info u
+	where u.u_no=b.u_no and b.business_no=rs.business_no
+        		and u.user_id=#{user_id}
+	        
+	</select>
+
+
+	<!-- 사업자 번호 가져오기 -->
+	<select id='getBusinessNoList' parameterType="int" resultType="java.util.HashMap">
+	   select 
+	      business_no as "business_no" 
+	      , business_name as "business_name"
+	      
+	   from business_info 
+	      where 
+	         1=1 
+	         and u_no=#{u_no}
+	</select>
+
+	<!-- user_id 로  u_no 가져오기 -->
+	<select id='getUserNo' parameterType="String" resultType="int">   
+		select u_no from user_info where user_id=#{user_id}
+	</select>
+	
+	<insert id="insertReservation" parameterType="com.naver.erp.ReservationDTO">
+		insert into reservation(
+            r_no
+            , business_no
+            , res_name
+            , res_date
+            , res_time
+            , res_guest
+            , res_phone
+            , res_text
+    	)values(
+            (select nvl(max(r_no),0)+1 from reservation)
+            , (select business_no from business_info where 1=1 and business_no=#{business_no})
+            , #{res_name}
+            , to_date(#{res_date}, 'yyyy-mm-dd')
+            , to_date(#{res_time}, 'yyyy-mm-dd hh24:mi')
+            , #{res_guest}
+            , #{res_phone}
+            , #{res_text}
+		)
+	</insert>
+	
+	<select id="getResCntList" parameterType="com.naver.erp.ReservationDTO" resultType="java.util.HashMap">
+		SELECT
+		    rs.business_no							"business_no"
+		    ,TO_CHAR(rs.res_date, 'yyyy-mm-dd')     "start"
+		    ,COUNT(*)                               "title"
+		from business_info b, reservation rs, user_info u
+		WHERE rs.business_no=#{business_no} and u.u_no=b.u_no and u.user_id=#{user_id}
+				and b.business_no=rs.business_no and extract(month from rs.res_date)=${month}
+		GROUP BY TO_CHAR(rs.res_date, 'yyyy-mm-dd') , rs.business_no
+	</select>
+	
+	<select id="getResCntList2" parameterType="com.naver.erp.ResCntDTO" resultType="java.util.HashMap">
+		SELECT
+		    to_char(rs.res_date, 'yyyy-mm-dd')     "start"
+		    ,count(*)                               "title"
+		from business_info b, reservation rs, user_info u
+		WHERE rs.business_no=#{business_no} and u.u_no=b.u_no and u.user_id=#{user_id}
+				and b.business_no=rs.business_no and extract(month from rs.res_date)=${month}
+		GROUP BY TO_CHAR(rs.res_date, 'yyyy-mm-dd') , rs.business_no
+	</select>
+
+</mapper>

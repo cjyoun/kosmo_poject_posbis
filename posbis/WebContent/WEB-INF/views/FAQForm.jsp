@@ -231,7 +231,11 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 	          location.replace("/posbis/marketingForm.do");
 	       }   
 	      
-	      
+	    //예약관리
+	 	function goResManagerForm(){
+	        //alert("예약관리로 이동");
+	        location.replace("/posbis/resManagerForm.do");
+	     }
       
    </script>
    
@@ -300,6 +304,9 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
 						<li><a onClick="goMarketingForm();">마케팅 전략</a></li>
 					</ul>
+				</li>
+				<li>
+					<a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
 				</li>
 				<li><a class="active" style=" cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
 					<ul class="sub-menu" style="cursor:pointer;">
