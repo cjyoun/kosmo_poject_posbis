@@ -64,6 +64,9 @@ function goSearch(){
  
 //=====  오늘 날짜 시간 출력 ==============================================================================================
 //------------------------------------
+
+
+
 function showTime() {
 	var today = new Date();
 	//----------------------------
@@ -122,7 +125,12 @@ function startTime() {
 //===== / 오늘 날짜 시간 출력 끝==============================================================================================
  
 	
- 
+ //월매출 콤마 넣기 함수
+	function numberWithCommas(number) {
+	    var parts = number.toString().split(".");
+	    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	    return parts.join(".");
+	}
 
 	var levelNum= 0;
 	
@@ -173,6 +181,10 @@ function startTime() {
 					  		var perPriceCnt=price*cnt
 					  		total+=perPriceCnt
 					  		$(".allPriceDetail").text(total); 	
+
+					  		var num = $(".allPriceDetail").text();
+					  		var commaNum = numberWithCommas(num);
+					  		$(".allPriceDetail").text(commaNum);  
 						}
 			 
 					}else{
@@ -252,7 +264,7 @@ function startTime() {
  
 	function goposRefundForm(){
 		
-		alert("매출로 이동");
+		//alert("매출로 이동");
 		location.replace("/posbis/posRefundForm.do");
 	
 	}
@@ -260,7 +272,7 @@ function startTime() {
 	
 	function goposPayForm(){
 		
-		alert("결제로 이동");
+		//alert("결제로 이동");
 		location.replace("/posbis/posPayForm.do");
 	
 	}

@@ -465,12 +465,12 @@ select::-ms-expand { display: none; }
    <div class="col-sm-10-1" align="center">
       
         <table class="table table-striped table-advance table-hover">
-            <tr>
-              <th align=center>번호</th>
-              <th>제목</th>
-              <th>글쓴이</th>
-              <th>등록일</th>
-              <th>조회수</th>
+            <tr >
+              <th align=center style="background-color:#d2d2d4;"><font color="#656565">번호</th>
+              <th style="background-color:#d2d2d4;"><font color="#656565">제목</font></th>
+              <th style="background-color:#d2d2d4;"><font color="#656565">글쓴이</font></th>
+              <th style="background-color:#d2d2d4;"><font color="#656565">등록일</font></th>
+              <th style="background-color:#d2d2d4;"><font color="#656565">조회수</font></th>
               <c:forEach items="${myQstnList2}" var="myQstn" varStatus="loopTagStatus">
                <tr style="cursor:pointer" 
                onClick="goQstnContentForm(${myQstn.qna_no});">

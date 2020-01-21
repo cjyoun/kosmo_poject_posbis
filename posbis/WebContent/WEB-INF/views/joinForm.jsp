@@ -244,9 +244,17 @@
                     }
              }); /*  $.ajax({  */
            
-           
+             
            
         });   /* $("[name=business_type_name1]").change(function(){ */
+
+
+		//--------------------------------------------------open close 시간===========================
+        $("[name=business_open]").change(function(){
+            //alert($("[name=business_open]").find("option:selected").index());
+            k=$("[name=business_open]").find("option:selected").index();
+       	 	$("[name=business_close] option:eq("+k+")").remove();
+        });
            
          
       });/*  $(document).ready(function() { */ 
@@ -978,6 +986,81 @@
 
 									</div>
 								</div>
+								
+								<div class="form-group">
+									<label class="col-lg-2 control-label" style="margin:0 0 0 100">OPEN시간</label>
+									<div class="col-lg-6">
+										<select class="form-control m-bot15 question_code"
+											name="business_open">
+											<option value=''>---OPEN시간을 선택해주세요---</option>
+											<option value="00">00 시</option>
+											<option value="01">01 시</option>
+											<option value="02">02 시</option>
+											<option value="03">03 시</option>
+											<option value="04">04 시</option>
+											<option value="05">05 시</option>
+											<option value="06">06 시</option>
+											<option value="07">07 시</option>
+											<option value="08">08 시</option>
+											<option value="09">09 시</option>
+											<option value="10">10 시</option>
+											<option value="11">11 시</option>
+											<option value="12">12 시</option>
+											<option value="13">13 시</option>
+											<option value="14">14 시</option>
+											<option value="15">15 시</option>
+											<option value="16">16 시</option>
+											<option value="17">17 시</option>
+											<option value="18">18 시</option>
+											<option value="19">19 시</option>
+											<option value="20">20 시</option>
+											<option value="21">21 시</option>
+											<option value="22">22 시</option>
+											<option value="23">23 시</option>
+										</select> 
+										<font name="checkQuestion" size="2" color="red" style="float:left; margin:-10 0 0 0"></font>
+
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-lg-2 control-label" style="margin:0 0 0 100">CLOSE시간</label>
+									<div class="col-lg-6">
+										<select class="form-control m-bot15 question_code"
+											name="business_close">
+											<option value=''>---CLOSE시간을 선택해주세요---</option>
+											<option value="00">00 시</option>
+											<option value="01">01 시</option>
+											<option value="02">02 시</option>
+											<option value="03">03 시</option>
+											<option value="04">04 시</option>
+											<option value="05">05 시</option>
+											<option value="06">06 시</option>
+											<option value="07">07 시</option>
+											<option value="08">08 시</option>
+											<option value="09">09 시</option>
+											<option value="10">10 시</option>
+											<option value="11">11 시</option>
+											<option value="12">12 시</option>
+											<option value="13">13 시</option>
+											<option value="14">14 시</option>
+											<option value="15">15 시</option>
+											<option value="16">16 시</option>
+											<option value="17">17 시</option>
+											<option value="18">18 시</option>
+											<option value="19">19 시</option>
+											<option value="20">20 시</option>
+											<option value="21">21 시</option>
+											<option value="22">22 시</option>
+											<option value="23">23 시</option>
+										</select> 
+										<font name="checkQuestion" size="2" color="red" style="float:left; margin:-10 0 0 0"></font>
+
+									</div>
+								</div>
+								
+								
+								
 								<div class="form-group">
 									<label class="col-sm-2 control-label" style="margin:0 0 0 100">매장전화번호</label>
 									<div class="col-sm-6">

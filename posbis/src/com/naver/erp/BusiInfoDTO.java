@@ -26,6 +26,10 @@ public class BusiInfoDTO {
 		private String business_type_name2;
 		
 		
+		private String business_open;
+		private String business_close;
+		
+		
 		public int getU_no() {
 			return u_no;
 		}
@@ -103,6 +107,18 @@ public class BusiInfoDTO {
 		}
 		public void setBusiness_type_name2(String business_type_name2) {
 			this.business_type_name2 = business_type_name2;
+		}
+		public String getBusiness_open() {
+			return business_open;
+		}
+		public void setBusiness_open(String business_open) {
+			this.business_open = business_open;
+		}
+		public String getBusiness_close() {
+			return business_close;
+		}
+		public void setBusiness_close(String business_close) {
+			this.business_close = business_close;
 		}
 		
 

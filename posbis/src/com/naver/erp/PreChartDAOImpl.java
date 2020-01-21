@@ -245,6 +245,27 @@ public class PreChartDAOImpl implements PreChartDAO{
 		System.out.println("DAO : getHourSalesCount 끝");
 		
 		return hourSalesCount;
+	}
+
+	
+	// open 시간 구하기
+	@Override
+	public String getSalesOpenTime(String business_no) {
+		String salesOpenTime = this.sqlSession.selectOne(
+				"com.naver.erp.PreChartDAO.getSalesOpenTime"		// 실행할 SQL 구문의 위치 지정
+				, business_no 	
+		);
+		return salesOpenTime;
+	}
+
+	// colose 시간 구하기
+	@Override
+	public String getSalesCloseTime(String business_no) {
+		String salesCloseTime = this.sqlSession.selectOne(
+				"com.naver.erp.PreChartDAO.getSalesCloseTime"		// 실행할 SQL 구문의 위치 지정
+				, business_no 	
+		);
+		return salesCloseTime;
 	}	
 	
 	

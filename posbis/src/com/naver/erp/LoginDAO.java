@@ -26,6 +26,8 @@ public interface LoginDAO {
 	int insertJoinUser(JoinDTO joinDTO);	
 	//회원가입 등록 사업장 정보---------------------------------------------------------------------------------
 	int insertJoinBusinessInfo(JoinDTO joinDTO);
+	//회원가입 운영시간 정보
+	int insertJoinSalesTime(JoinDTO joinDTO);
 	
 	//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
 	// 성유진DAO
@@ -91,6 +93,10 @@ public interface LoginDAO {
 
 		int getPwdCnt2(Map<String, String> DeleteBusi);
 		int deleteBusi(Map<String, String> DeleteBusi);
+
+		int insertNewSalesTime(BusiInfoDTO busiInfoDTO);
+
+		
 		
 	//========================================================================================	
 		

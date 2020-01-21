@@ -156,6 +156,8 @@ function goInfoUpdateForm(){
 						$(".addr").empty();
 						$(".businessType").empty();
 						$(".storeNum").empty();
+						$(".businessOpen").empty();
+						$(".businessClose").empty();
 						business_no = myPageDTO.myInfo[0].business_no;
 
 					if(myPageDTO != null){
@@ -168,7 +170,9 @@ function goInfoUpdateForm(){
 						$('.businessNo').append(info.business_no);
 						$('.businessName').append(info.business_name);
 						$('.addr').append(info.store_addr);						
-						$('.businessType').append(info.business_type);
+						$('.businessType').append(info.business_type );
+						$('.businessOpen').append(info.business_open + " 시");
+						$('.businessClose').append(info.business_close + " 시");
 						$('.storeNum').append(info.store_tel_num);
 						
 						
@@ -467,7 +471,7 @@ function goInfoUpdateForm(){
          
   <!-- page start-->
    
-          <div class="col-sm-6" style="margin:0 0 0 145">
+          <div class="col-sm-6" style="margin:20 0 0 145">
             <section class="panel" >
               <header class="panel-heading">
                 	개인정보
@@ -504,6 +508,14 @@ function goInfoUpdateForm(){
                        <tr >
                          <th> 업종
                         <td name=businessType class=businessType>
+                        
+                        <tr >
+                         <th> OPEN시간
+                        <td name=businessOpen class=businessOpen>
+                        
+                        <tr >
+                         <th> CLOSE시간
+                        <td name=businessClose class=businessClose>
  
                        <tr >
                          <th>  매장번호
@@ -521,7 +533,7 @@ function goInfoUpdateForm(){
           
  			<div >
 	            <div>
-					<img src="resources/bootstrap/img/myinfo.png" class="img-fluid" alt="" style="width:400; height:400">
+					<img src="resources/bootstrap/img/myinfo.png" class="img-fluid" alt="" style="width:450; height:500">
               	</div>
             </div>
             
@@ -529,11 +541,18 @@ function goInfoUpdateForm(){
             <br>
             <br>
             <br>
+            <br>
+            <br>
+
             
           </div>
          
                
                    </section>
+
+            <br>
+            <br>
+            <br>
   
  </main>        
  

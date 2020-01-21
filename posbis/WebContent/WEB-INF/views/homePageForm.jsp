@@ -629,11 +629,11 @@
 
 							<table class="table table-striped table-advance table-hover"> 
 								<thead>
-								<tr>
-									<th align=center>번호
-									<th align=center>글제목
-									<th align=center>등록일
-									<th align=center>댓글수
+								<tr style="background-color:#d2d2d4;">
+									<th align=center><font color="#656565">번호</font>
+									<th align=center><font color="#656565">글제목</font>
+									<th align=center><font color="#656565">등록일</font>
+									<th align=center><font color="#656565">댓글수</font>
 									
 								<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
 								 
@@ -661,6 +661,7 @@
 
 			
 		</div>
+		<br><br><br><br><br><br>
 	</section>
 	<!-- Why Section3 end -->
 

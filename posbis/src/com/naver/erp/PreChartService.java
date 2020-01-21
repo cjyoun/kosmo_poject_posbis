@@ -57,6 +57,13 @@ public interface PreChartService {
 
 	// 시간대별 판매 개수 구하기 (상품별 구분)
 	List<Map<String, String>> getHourSalesCount(PreChartParamDTO preChartParamDTO);
+
+
+	// open 시간 구하기
+	String getSalesOpenTime(String business_no);
+
+	// close 시간 구하기
+	String getSalesCloseTime(String business_no);
 	
 	
 	

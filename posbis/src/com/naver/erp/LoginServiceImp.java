@@ -72,16 +72,18 @@ public class LoginServiceImp implements LoginService {
    
 		
 		//---------------------------------------------------------------------------------
-		//회원가입 등록 대표자 정보----------------------------------------------------------------------------------
+		//회원가입 등록 대표자, 사업장, 운영시간 정보----------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------
 		public int insertJoinUser(JoinDTO joinDTO) {
 
-			//회원가입 등록 사업장 정보----------------------------------------------------------------------------------
-
+			//회원가입 등록 유저 정보
 			int insertJoinCnt = this.loginDAO.insertJoinUser(joinDTO);
-			
+			//회원가입 등록 사업장 정보
 			System.out.println("Service insertJoinBusinessInfoCnt");
 			int insertJoinBusinessInfoCnt=this.loginDAO.insertJoinBusinessInfo(joinDTO);
+			//회원가입 등록 운영시간 정보
+			int insertJoinSalesTime=this.loginDAO.insertJoinSalesTime(joinDTO);
+			
 
 			System.out.println("Service insertJoinBusinessInfoCnt========" + insertJoinBusinessInfoCnt);
 			if(insertJoinBusinessInfoCnt==0) return -1;
@@ -264,6 +266,11 @@ public class LoginServiceImp implements LoginService {
 			if(pwdCnt==0) {return -1;}
 
 			int insertBusiCnt = this.loginDAO.insertBusi(busiInfoDTO);
+			
+			
+			//회원가입 등록 운영시간 정보
+			int insertNewSalesTime=this.loginDAO.insertNewSalesTime(busiInfoDTO);
+			
 			return insertBusiCnt;
 		};
 		

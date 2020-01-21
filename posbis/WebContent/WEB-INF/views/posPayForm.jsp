@@ -550,7 +550,7 @@
 		 
 		function goposRefundForm(){
 			
-			alert("매출로 이동");
+			//alert("매출로 이동");
 			location.replace("/posbis/posRefundForm.do");
 		
 		}
@@ -558,7 +558,7 @@
 		
 		function goposPayForm(){
 			
-			alert("결제로 이동");
+			//alert("결제로 이동");
 			location.replace("/posbis/posPayForm.do");
 		
 		}

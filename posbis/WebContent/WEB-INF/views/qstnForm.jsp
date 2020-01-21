@@ -645,12 +645,12 @@ select::-ms-expand { display: none; }
       
               <table class="table table-striped table-advance table-hover">
                 
-                  <tr>
-                    <th align=center>번호</th>
-                    <th>제목</th>
-                    <th>글쓴이</th>
-                    <th>등록일</th>
-                    <th>조회수</th>
+                  <tr >
+                    <th align=center style="background-color:#d2d2d4;"><font color="#656565">번호</font></th>
+                    <th style="background-color:#d2d2d4;"><font color="#656565">제목</font></th>
+                    <th style="background-color:#d2d2d4;"><font color="#656565">글쓴이</font></th>
+                    <th style="background-color:#d2d2d4;"><font color="#656565">등록일</font></th>
+                    <th style="background-color:#d2d2d4;"><font color="#656565">조회수</font></th>
                     <c:forEach items="${qstn}" var="qstn" varStatus="loopTagStatus">
                     <tr style="cursor:pointer" 
                onClick="goQstnContentForm(${qstn.qna_no}, '${qstn.user_id}',${qstn.print_level},${qstn.group_no});">

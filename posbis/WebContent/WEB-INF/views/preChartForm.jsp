@@ -136,15 +136,23 @@
 				$('[name=changeBusinessNo]').change(function(){		
 					changeChart();
 					checkBusinessNoForm();
+					searchHourSales();
 
 				});	
 
 				$('[name=changeYear]').change(function(){		
 					changeChart();
 					checkBusinessNoForm();
+					searchHourSales();
 
 				});	
 
+
+				$('[name=changeMonth]').change(function(){		
+					searchHourSales();
+
+				});	
+				
 				$('[name=changeBusinessNo]').change();
 							
 				
@@ -192,9 +200,13 @@
 		// 가게 이름을 담을 배열 변수
 	    var allBusinessNoName = [];
 
+		// 시간별 판매 개수 및 이름
 	    var hourSalesMenuName = new Array();
 		var hourSalesMenuCount ;
-	    
+
+	    // 가게 open , close 시간
+	    var salesOpenTime = null;
+	    var salesCloseTime = null;
 	    
 	     
      	function checkBusinessNoForm(){
@@ -500,14 +512,15 @@
 					
 				});		
 
+				
+			}	
 
 
-  			//-----------------------------------------------------------------
+			function searchHourSales(){
+
+				//-----------------------------------------------------------------
 				// 네번째 ajax : 시간대별 판매 개수 구하기 (상품별 구분)
   				
-  				
-	
-
   				$.ajax({
 					// 서버 쪽 호출 URL 주소 지정
 					url : "/posbis/preChartProc4.do"
@@ -517,11 +530,14 @@
 
 					, async : false
 					// 서버로 보낼 파라미터명과 파라미터 값을 설정
-					, data : $("[name=preChartForm]").serialize()				
+					, data : $("[name=preChartForm]").serialize()+"&changeMonth="+$("[name=changeMonth]").val()				
 					
 					, success : function(preChartHourSalesDTO){
 
 						var hourlength = preChartHourSalesDTO.hourSalesCount.length;
+
+						//alert(preChartHourSalesDTO.salesOpenTime);
+						//alert(preChartHourSalesDTO.salesCloseTime);
 
 						hourSalesMenuName.length = 0;
 												
@@ -531,6 +547,11 @@
 
 							if(hourlength != 0){								
 								//alert(preChartHourSalesDTO.hourSalesCount.length);
+								
+								salesOpenTime = preChartHourSalesDTO.salesOpenTime;
+								salesCloseTime = preChartHourSalesDTO.salesCloseTime;
+								//alert(salesOpenTime);
+								//alert(salesCloseTime);
 								
 								// 다차원 배열로 가게의 갯수만큼 배열 생성
 								hourSalesMenuCount = Array.from(Array(hourlength), () => Array());
@@ -578,7 +599,7 @@
 								}
 								
 
-								$("[name=chart5]").append('<div class="ct2" id="chart_div5" style=" width: 100%; height: 100%;"></div>');
+								$("[name=chart5]").append('<div class="ct2" id="chart_div5" style=" width: 100%; height: 100%; position:relative; z-indx:1"></div>');
 								drawChart5();
 
 							}
@@ -604,13 +625,7 @@
 					
 				});		
 
-					
-				
-				
-			}	
-
-
-
+			}
 
 
 
@@ -890,7 +905,7 @@
 
 			    
 
-			  //------------ 가게별 시간대별 판매 개수 차트 (상품 별) ----------------------------     	
+			  //------------ 월별 시간대별 판매 개수 차트 (상품 별) ----------------------------     	
 
 		 		function drawChart5() {
 		 		
@@ -917,28 +932,70 @@
 						//alert(allBusinessNoName[i]);
 					}
 
+				    salesOpenTime = salesOpenTime*1;
+					salesCloseTime = salesCloseTime*1;
+
+					alert(salesOpenTime +" ===== " + salesCloseTime);
 				    
-						for(var j=0; j<24; j++ ){
-							data5.addRows(1);
-							var k = 0;
-							//var sales[j] = allBusinessNoSales[i][j];
-							//alert(allBusinessNoSales[i][j]);
-							data5.setCell(j,k,(j)+'시');
-							//alert((j+1)+'월')			
-							for(var t=0; t<hourSalesMenuName.length; t++){
-								k++;
-								data5.setCell(j,k,hourSalesMenuCount[t][j]);
+					if(salesCloseTime > salesOpenTime){
+						  var jero = 0;
+							for(var j=salesOpenTime; j<salesCloseTime+1; j++ ){
+								data5.addRows(1);
+								
+								var k = 0;
+								//var sales[j] = allBusinessNoSales[i][j];
+								//alert(allBusinessNoSales[i][j]);
+								data5.setCell(jero,k,(j)+'시');
+								//alert((j+1)+'월')			
+								for(var t=0; t<hourSalesMenuName.length; t++){
+									k++;
+									data5.setCell(jero,k,hourSalesMenuCount[t][j]);
+									
+								}
+								jero++;
+								
 								
 							}
-							
-							
-						}
-						//alert("나와라 좀!");
+					    } else {
+					    	var jero = 0;
+					    	for(var j=salesOpenTime; j<24; j++ ){
+								data5.addRows(1);
+								var k = 0;
+								//var sales[j] = allBusinessNoSales[i][j];
+								//alert(allBusinessNoSales[i][j]);
+								data5.setCell(jero,k,(j)+'시');
+								//alert((j+1)+'월')			
+								for(var t=0; t<hourSalesMenuName.length; t++){
+									k++;
+									data5.setCell(jero,k,hourSalesMenuCount[t][j]);								
+								}
+								jero++;
+							}
+					    	for(var j=0; j<salesCloseTime+1; j++ ){
+								data5.addRows(1);
+								var k = 0;
+								//var sales[j] = allBusinessNoSales[i][j];
+								//alert(allBusinessNoSales[i][j]);
+								data5.setCell(jero,k,(j)+'시');
+								//alert((j+1)+'월')			
+								for(var t=0; t<hourSalesMenuName.length; t++){
+									k++;
+									data5.setCell(jero,k,hourSalesMenuCount[t][j]);								
+								}
+								jero++;
+							}
+					    	
+
+					    		
+						}	
+
+
+						
 
 						 
 			
 		              var options5 = {
-		                  title: '시간대별 판매 개수'
+		                  title: '(월별) 시간대 판매 개수 (개)'
 		      		     , width: "100%"
 		    		     , height: "100%"
 		                 , fontSize : 18
@@ -1230,6 +1287,7 @@
 										<option value="2020">2020 년
 									</select>
 									
+									
 							</table>
 						</form>
 		
@@ -1326,9 +1384,28 @@
                             <!-- <td><div id="chart_div3" style="width: 700px; height: 350px;"></div></td> -->
                         </div>
                         
-                        <br>
+                        <br><br>
                         
-                        <table><tr><td>&nbsp;</table>
+                        
+                        <table style="margin: 0 0 -1px 1020px;"><tr><td>
+
+							<select name="changeMonth" style="width:200px;height:35px; text-align-last: center; float:right">	
+								<option value="01" selected>01 월
+								<option value="02" >02 월
+								<option value="03" >03 월
+								<option value="04" >04 월
+								<option value="05" >05 월
+								<option value="06" >06 월
+								<option value="07" >07 월
+								<option value="08" >08 월
+								<option value="09" >09 월
+								<option value="10" >10 월
+								<option value="11" >11 월
+								<option value="12" >12 월
+							</select>
+
+						</table>
+						
                         
                         <div name="chart5" style=" width:100%; height:500; margin:0 0 0 -31">
                             <!-- <div id="chart_div5" style="width: 110%; height: 500px;"></div> -->

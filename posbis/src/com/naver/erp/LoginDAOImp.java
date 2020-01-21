@@ -127,6 +127,21 @@ public class LoginDAOImp implements LoginDAO{
 	};
 	
 	//---------------------------------------------------------------------------------
+	//회원가입 등록 운영시간 정보----------------------------------------------------------------------------------
+	//---------------------------------------------------------------------------------
+
+	public int insertJoinSalesTime(JoinDTO joinDTO){
+		
+		System.out.println("운영시간 저장 전"); 
+		int insertJoinSalesTime = this.sqlSession.insert(
+			"com.naver.erp.LoginDAO.insertJoinSalesTime" // 실행할 SQL 구문의 위치 지정
+			,joinDTO	
+	);
+	System.out.println("DAO / insertJoinSalesTime = " + insertJoinSalesTime);
+	return insertJoinSalesTime;
+	};
+	
+	//---------------------------------------------------------------------------------
 		//탈퇴시 아이디 암호 조회 및 삭제 --------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------
 		// 성유진DAOImpl 
@@ -365,6 +380,24 @@ public class LoginDAOImp implements LoginDAO{
 				);
 				return insertBusiCnt;
 		};
+		
+		
+		//---------------------------------------------------------------------------------
+		//회원가입 등록 운영시간 정보----------------------------------------------------------------------------------
+		//---------------------------------------------------------------------------------
+
+		public int insertNewSalesTime(BusiInfoDTO busiInfoDTO){
+			
+			System.out.println("운영시간 저장 전"); 
+			int insertNewSalesTime = this.sqlSession.insert(
+				"com.naver.erp.LoginDAO.insertNewSalesTime" // 실행할 SQL 구문의 위치 지정
+				,busiInfoDTO	
+		);
+		System.out.println("DAO / insertNewSalesTime = " + insertNewSalesTime);
+		return insertNewSalesTime;
+		};
+		
+		
 		
 		public int getPwdCnt(BusiInfoDTO busiInfoDTO) {
 			int pwdCnt=this.sqlSession.selectOne(

@@ -217,8 +217,12 @@
 	         
 	         
 	      });   /* $("[name=business_type_name1]").change(function(){ */
-	         
-	 
+
+	      $("[name=business_open]").change(function(){
+	            //alert($("[name=business_open]").find("option:selected").index());
+	            k=$("[name=business_open]").find("option:selected").index();
+	       	 	$("[name=business_close] option:eq("+k+")").remove();
+	        });
 			
 	    });/*  $(document).ready(function() { */ 
 	    
@@ -544,34 +548,18 @@
 	</header>
 	<!-- Header Section end -->
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>회원정보 수정</strong></h2>
-			<div style=" color:#fff; width:30%">
-			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	            <i class="icon-user"></i> 마이페이지</span> &nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="icon-settings"></i> 내정보보기</span>&nbsp; > &nbsp; <span class="sb-item active">
-	            <i class="fas fa-wrench"></i> 회원정보 수정</span>
-	         </nav>
-			</div>
-		</div>
-	</section>
-	<!-- Page top Section end -->
 	
 		<!-- Page top Section end -->
 	<section class="page-top-section set-bg"
 		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
 		<div class="container"  style="margin: -25px 0 0 250px;">
 			<h2 style="font-size:65px"><strong>회원정보 수정</strong></h2>
-			<div style=" color:#fff; width:30%">
+			<div style=" color:#fff; width:40%">
 			<nav class="site-breadcrumb">
 	            <span class="sb-item active" style="font-size:20px">
 	         <i class="icon-user"></i> 마이페이지 > </span><span class="sb-item active" style="font-size:20px">
 	         <i class="icon-settings"></i> 내정보보기 > </span><span class="sb-item active" style="font-size:20px">
-	         <i class="fas fa-wrench"></i> 회원정보 수정 > </span>
+	         <i class="fas fa-wrench"></i> 회원정보 수정 </span>
 	         </nav>
 			</div>
 		</div>
@@ -584,7 +572,7 @@
   <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-6" align="center" style="margin:0 0 0 340">
+       <div class="col-lg-6" align="center" style="margin:0 0 0 460">
             <section class="panel">
               <header class="panel-heading">
                 	   <a href="">회원정보수정</a>
@@ -720,6 +708,75 @@
     <span>&nbsp;&nbsp;*숫자만 입력하세요</span>
    </td>
   </tr>
+  
+  <tr>
+   <td> OPEN시간 </td>
+   <td>
+    <select name="business_open" class="business_type_name1 form-control">
+          <option value=''>${myNStoreInfo[0].business_open} 시</option>
+			<option value="00">00 시</option>
+			<option value="01">01 시</option>
+			<option value="02">02 시</option>
+			<option value="03">03 시</option>
+			<option value="04">04 시</option>
+			<option value="05">05 시</option>
+			<option value="06">06 시</option>
+			<option value="07">07 시</option>
+			<option value="08">08 시</option>
+			<option value="09">09 시</option>
+			<option value="10">10 시</option>
+			<option value="11">11 시</option>
+			<option value="12">12 시</option>
+			<option value="13">13 시</option>
+			<option value="14">14 시</option>
+			<option value="15">15 시</option>
+			<option value="16">16 시</option>
+			<option value="17">17 시</option>
+			<option value="18">18 시</option>
+			<option value="19">19 시</option>
+			<option value="20">20 시</option>
+			<option value="21">21 시</option>
+			<option value="22">22 시</option>
+			<option value="23">23 시</option>
+    </select>
+  </td>
+  </tr>
+  
+  <tr>
+   <td> CLOSE시간 </td>
+   <td>
+    <select name="business_close" class="business_type_name1 form-control">
+          <option value=''>${myNStoreInfo[0].business_close} 시</option>
+			<option value="00">00 시</option>
+			<option value="01">01 시</option>
+			<option value="02">02 시</option>
+			<option value="03">03 시</option>
+			<option value="04">04 시</option>
+			<option value="05">05 시</option>
+			<option value="06">06 시</option>
+			<option value="07">07 시</option>
+			<option value="08">08 시</option>
+			<option value="09">09 시</option>
+			<option value="10">10 시</option>
+			<option value="11">11 시</option>
+			<option value="12">12 시</option>
+			<option value="13">13 시</option>
+			<option value="14">14 시</option>
+			<option value="15">15 시</option>
+			<option value="16">16 시</option>
+			<option value="17">17 시</option>
+			<option value="18">18 시</option>
+			<option value="19">19 시</option>
+			<option value="20">20 시</option>
+			<option value="21">21 시</option>
+			<option value="22">22 시</option>
+			<option value="23">23 시</option>
+    </select>
+  </td>
+  </tr>
+  
+  
+  
  <tr>
        <td >회원등급</td>
        <td>
@@ -761,12 +818,15 @@
 	</div>
 
 </form>
- 
+ <br>
  </div>
+  <br>
  </div>
  </div>
  </section>
  </div>
+ <br>
+ <br>
  </section>
  </section>
  </main>

@@ -983,6 +983,10 @@ public class LoginController {
 			}
 			return insertBusiCnt;
 		}
+		
+		
+		
+		
 	
 		// -----------------------------------------------------------------------------
 		@RequestMapping(value = "/delBusiProc.do", method = RequestMethod.POST, produces = "application/json;carset=UTF-8")

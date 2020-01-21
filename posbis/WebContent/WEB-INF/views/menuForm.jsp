@@ -129,7 +129,7 @@ select::-ms-expand { display: none; }
                   "${menuListAllCnt}"            //검색 결과 총 행 개수
                   ,"${menuSearchDTO.selectPageNo}"   //선택된 현재 페이지번호
                   ,"${menuSearchDTO.rowCntPerPage}"   //페이지 당 출력행의 개수
-                  ,"15"                        //페이지 당 보여줄 페이지번호 개수
+                  ,"10"                        //페이지 당 보여줄 페이지번호 개수
                   ,"goSearch();"                  //페이지번호 클릭 후 실행할 자스코드
                )
             );
@@ -594,21 +594,21 @@ select::-ms-expand { display: none; }
          
       <table class="table table-striped table-advance table-hover"  id="menu">
          <thead>
-                <tr>
-          <th>NO
+                <tr style="background-color:#d2d2d4;">
+          <th><font color="#656565">NO</font>
                   <!-- 매장이름 -->
                   <c:choose>
                      <c:when test="${param.sort=='business_name desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('business_name asc'); goSearch();">매장이름▼
+                           onClick="$('[name=sort]').val('business_name asc'); goSearch();"><font color="#656565">매장이름▼</font>
                      </c:when>
                      <c:when test="${param.sort=='business_name asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('business_name desc'); goSearch();">매장이름▲
+                           onClick="$('[name=sort]').val('business_name desc'); goSearch();"><font color="#656565">매장이름▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('business_name asc'); goSearch();">매장이름
+                           onClick="$('[name=sort]').val('business_name asc'); goSearch();"><font color="#656565">매장이름</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -616,15 +616,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='main_category_name desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('main_category_name asc'); goSearch();">대분류▼
+                           onClick="$('[name=sort]').val('main_category_name asc'); goSearch();"><font color="#656565">대분류▼</font>
                      </c:when>
                      <c:when test="${param.sort=='main_category_name asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('main_category_name desc'); goSearch();">대분류▲
+                           onClick="$('[name=sort]').val('main_category_name desc'); goSearch();"><font color="#656565">대분류▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('main_category_name asc'); goSearch();">대분류
+                           onClick="$('[name=sort]').val('main_category_name asc'); goSearch();"><font color="#656565">대분류</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -632,15 +632,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='mid_category_name desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('mid_category_name asc'); goSearch();">중분류▼
+                           onClick="$('[name=sort]').val('mid_category_name asc'); goSearch();"><font color="#656565">중분류▼</font>
                      </c:when>
                      <c:when test="${param.sort=='mid_category_name asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('mid_category_name desc'); goSearch();">중분류▲
+                           onClick="$('[name=sort]').val('mid_category_name desc'); goSearch();"><font color="#656565">중분류▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('mid_category_name asc'); goSearch();">중분류
+                           onClick="$('[name=sort]').val('mid_category_name asc'); goSearch();"><font color="#656565">중분류</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -648,15 +648,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='sub_category_name desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('sub_category_name asc'); goSearch();">소분류▼
+                           onClick="$('[name=sort]').val('sub_category_name asc'); goSearch();"><font color="#656565">소분류▼</font>
                      </c:when>
                      <c:when test="${param.sort=='sub_category_name asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('sub_category_name desc'); goSearch();">소분류▲
+                           onClick="$('[name=sort]').val('sub_category_name desc'); goSearch();"><font color="#656565">소분류▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('sub_category_name asc'); goSearch();">소분류
+                           onClick="$('[name=sort]').val('sub_category_name asc'); goSearch();"><font color="#656565">소분류</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -664,15 +664,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='menu_name desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_name asc'); goSearch();">메뉴이름▼
+                           onClick="$('[name=sort]').val('menu_name asc'); goSearch();"><font color="#656565">메뉴이름▼</font>
                      </c:when>
                      <c:when test="${param.sort=='menu_name asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_name desc'); goSearch();">메뉴이름▲
+                           onClick="$('[name=sort]').val('menu_name desc'); goSearch();"><font color="#656565">메뉴이름▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_name asc'); goSearch();">메뉴이름
+                           onClick="$('[name=sort]').val('menu_name asc'); goSearch();"><font color="#656565">메뉴이름</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -680,15 +680,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='menu_price desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_price asc'); goSearch();">메뉴가격▼
+                           onClick="$('[name=sort]').val('menu_price asc'); goSearch();"><font color="#656565">메뉴가격▼</font>
                      </c:when>
                      <c:when test="${param.sort=='menu_price asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_price desc'); goSearch();">메뉴가격▲
+                           onClick="$('[name=sort]').val('menu_price desc'); goSearch();"><font color="#656565">메뉴가격▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_price asc'); goSearch();">메뉴가격
+                           onClick="$('[name=sort]').val('menu_price asc'); goSearch();"><font color="#656565">메뉴가격</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -696,15 +696,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='menu_cost desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_cost asc'); goSearch();">메뉴원가▼
+                           onClick="$('[name=sort]').val('menu_cost asc'); goSearch();"><font color="#656565">메뉴원가▼</font>
                      </c:when>
                      <c:when test="${param.sort=='menu_cost asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_cost desc'); goSearch();">메뉴원가▲
+                           onClick="$('[name=sort]').val('menu_cost desc'); goSearch();"><font color="#656565">메뉴원가▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_cost asc'); goSearch();">메뉴원가
+                           onClick="$('[name=sort]').val('menu_cost asc'); goSearch();"><font color="#656565">메뉴원가</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -712,15 +712,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='10 desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('10 asc'); goSearch();">메뉴이익단가▼
+                           onClick="$('[name=sort]').val('10 asc'); goSearch();"><font color="#656565">메뉴이익단가▼</font>
                      </c:when>
                      <c:when test="${param.sort=='10 asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('10 desc'); goSearch();">메뉴이익단가▲
+                           onClick="$('[name=sort]').val('10 desc'); goSearch();"><font color="#656565">메뉴이익단가▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('10 asc'); goSearch();">메뉴이익단가
+                           onClick="$('[name=sort]').val('10 asc'); goSearch();"><font color="#656565">메뉴이익단가</font>
                      </c:otherwise>
                   </c:choose>
                   
@@ -728,15 +728,15 @@ select::-ms-expand { display: none; }
                   <c:choose>
                      <c:when test="${param.sort=='menu_using desc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_using asc'); goSearch();">사용여부▼
+                           onClick="$('[name=sort]').val('menu_using asc'); goSearch();"><font color="#656565">사용여부▼</font>
                      </c:when>
                      <c:when test="${param.sort=='menu_using asc'}">
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_using desc'); goSearch();">사용여부▲
+                           onClick="$('[name=sort]').val('menu_using desc'); goSearch();"><font color="#656565">사용여부▲</font>
                      </c:when>
                      <c:otherwise>
                         <th style="cursor:pointer" 
-                           onClick="$('[name=sort]').val('menu_using asc'); goSearch();">사용여부
+                           onClick="$('[name=sort]').val('menu_using asc'); goSearch();"><font color="#656565">사용여부</font>
                      </c:otherwise>
                   </c:choose>
                   

@@ -107,6 +107,26 @@
 		)
          
    </insert>
+   
+   
+<!--회원가입 등록 운영시간 정보 -->   
+   <insert id='insertJoinSalesTime' parameterType="com.naver.erp.JoinDTO">
+  insert into sales_time(
+          business_no
+          , business_open
+          , business_close 
+ 
+	)values (
+          #{business_no}
+          ,#{business_open}
+          ,#{business_close} 
+          
+		)
+         
+   </insert>   
+   
+   
+   
 <!--********************************************************************-->
 <!--탈퇴시 아이디 암호 조회 및 삭제  -->
 <!-- 성유진 mapper -->
@@ -173,6 +193,8 @@
 		        substr(xmlagg(xmlelement(x,',', c.business_type_name1||' ('||c.business_type_name2 ||')'
 		        )).extract('//text()'),2)
 		      from code_business_type c where b.business_type_code = c.business_type_code ) "business_type"
+		    , (select st.business_open "business_open" from sales_time st where b.business_no = st.business_no)   "business_open"
+            , (select st.business_close "business_close" from sales_time st where b.business_no = st.business_no) "business_close"  
 		    , b.store_tel_num "store_tel_num"
 		from user_info u , business_info b
 		where u.u_no = b.u_no and business_no = #{business_no}
@@ -199,6 +221,8 @@
 		    , b.addr_detail "addr_detail"  
 		    , (select c.business_type_name1 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name1"  
 		    , (select c.business_type_name2 from code_business_type c where c.business_type_code = b.business_type_code) "business_type_name2"
+		    , (select st.business_open "business_open" from sales_time st where b.business_no = st.business_no)   "business_open"
+            , (select st.business_close "business_close" from sales_time st where b.business_no = st.business_no) "business_close"
 		    , b.store_tel_num "store_tel_num"
 		from user_info u , business_info b
 		where u.u_no = b.u_no and business_no = #{business_no}
@@ -350,6 +374,21 @@
           ,#{store_tel_num}
 		)
 </insert>	
+
+
+<insert id='insertNewSalesTime' parameterType="com.naver.erp.BusiInfoDTO">
+  insert into sales_time(
+          business_no
+          , business_open
+          , business_close 
+ 
+	)values (
+          #{business_no}
+          ,#{business_open}
+          ,#{business_close} 
+          
+		)
+</insert>
 
 <select id="getPwdCnt" parameterType="com.naver.erp.BusiInfoDTO" resultType="int">
 	select count(*) from user_info where u_no=#{u_no} and user_pwd=#{user_pwd}

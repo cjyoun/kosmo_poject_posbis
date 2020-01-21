@@ -398,11 +398,12 @@ public class PreChartController {
 			
 			System.out.println("==================================================");
 			System.out.println("시간대별 판매 개수 구하기 (상품별 구분)");
+			System.out.println("월 ======= " + preChartParamDTO.getChangeMonth() );
 
 			List<Map<String,String>> hourSalesCount = new ArrayList<Map<String,String>>();
 
 			try {
-				
+				String business_no = preChartParamDTO.getChangeBusinessNo();
 	
 				hourSalesCount = this.preChartService.getHourSalesCount(preChartParamDTO);
 				
@@ -410,8 +411,17 @@ public class PreChartController {
 				for (int i = 0; i < hourSalesCount.size(); i++) {
 					System.out.println("hourSalesCount.get(\"hourSalesCount\")=>" + hourSalesCount.get(i));
 				}
+				
+				String salesOpenTime = this.preChartService.getSalesOpenTime(business_no);
+				System.out.println("salesOpenTime =>" + salesOpenTime);
+
+				String salesCloseTime = this.preChartService.getSalesCloseTime(business_no);
+				System.out.println("salesCloseTime =>" + salesCloseTime);
 
 				preChartHourSalesDTO.setHourSalesCount(hourSalesCount);
+				preChartHourSalesDTO.setSalesOpenTime(salesOpenTime);
+				preChartHourSalesDTO.setSalesCloseTime(salesCloseTime);
+				
 
 			} catch (Exception e) {
 				// try 구문에서 예외가 발생하면 실행할 구문 설정

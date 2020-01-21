@@ -149,7 +149,7 @@ select::-ms-expand { display: none; }
 						"${preResultAllCnt}"                //검색 결과 총 행 개수
 						,"${preSearchDTO.selectPageNo}"	//선택된 현재 페이지 번호
 						,"${preSearchDTO.rowCntPerPage}"	//페이지 당 출력행 개수
-						,"15"								//페이지 당 보여줄 페이지번호 개수
+						,"10"								//페이지 당 보여줄 페이지번호 개수
 						,"goPreSearch();"						//페이지 번호 클릭 후 실행할 자스코드
 					)
 				); 
@@ -734,82 +734,82 @@ select::-ms-expand { display: none; }
            		   <!-- ====== 결과 테이블 ========================================================== -->
                     <table class="table table-striped table-advance table-hover"  id="select">
                        <thead>
-                            <tr>
-                        <th> NO 
+                            <tr style="background-color:#d2d2d4;">
+                        <th><font color="#656565"> NO </font>
                         
                      <!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
                            <c:when test="${param.sort=='ranking desc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위▼
+                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();"><font color="#656565">매출순위▼</font>
                            </c:when>
                            <c:when test="${param.sort=='ranking asc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking desc'); goPreSearch();">매출순위▲
+                                    onClick="$('[name=sort]').val('ranking desc'); goPreSearch();"><font color="#656565">매출순위▲</font>
                            </c:when>
                            <c:otherwise>
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();">매출순위
+                                    onClick="$('[name=sort]').val('ranking asc'); goPreSearch();"><font color="#656565">매출순위</font>
                            </c:otherwise>
                         </c:choose>
                      <!-- 월매출-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
                            <c:when test="${param.sort=='month_sales desc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출 ▼<br>(지난달 기준)
+                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();"><font color="#656565">월 매 출 (지난달 기준)▼</font>
                            </c:when>
                            <c:when test="${param.sort=='month_sales asc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();">월 매 출 ▲<br>(지난달 기준)
+                                    onClick="$('[name=sort]').val('month_sales desc'); goPreSearch();"><font color="#656565">월 매 출 (지난달 기준)▲</font>
                            </c:when>
                            <c:otherwise>
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();">월 매 출<br>(지난달 기준)
+                                    onClick="$('[name=sort]').val('month_sales asc'); goPreSearch();"><font color="#656565">월 매 출 (지난달 기준)</font>
                            </c:otherwise>
                         </c:choose>
                         <!-- 업종-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
                            <c:when test="${param.sort=='business_type1 desc, business_type2 desc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();">업&nbsp;&nbsp;종▼
+                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();"><font color="#656565">업&nbsp;&nbsp;종▼</font>
                            </c:when>
                            <c:when test="${param.sort=='business_type1 asc, business_type2 asc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('business_type1 desc, business_type2 desc'); goPreSearch();">업&nbsp;&nbsp;종▲
+                                    onClick="$('[name=sort]').val('business_type1 desc, business_type2 desc'); goPreSearch();"><font color="#656565">업&nbsp;&nbsp;종▲</font>
                            </c:when>
                            <c:otherwise>
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();">업&nbsp;&nbsp;종
+                                    onClick="$('[name=sort]').val('business_type1 asc, business_type2 asc'); goPreSearch();"><font color="#656565">업&nbsp;&nbsp;종</font>
                            </c:otherwise>
                         </c:choose>
                         <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
                            <c:when test="${param.sort=='best_menu_type desc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴▼
+                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();"><font color="#656565">인기메뉴▼</font>
                            </c:when>
                            <c:when test="${param.sort=='best_menu_type asc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();">인기메뉴▲
+                                    onClick="$('[name=sort]').val('best_menu_type desc'); goPreSearch();"><font color="#656565">인기메뉴▲</font>
                            </c:when>
                            <c:otherwise>
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();">인기메뉴
+                                    onClick="$('[name=sort]').val('best_menu_type asc'); goPreSearch();"><font color="#656565">인기메뉴</font>
                            </c:otherwise>
                         </c:choose>
                         <!-- 인기메뉴분류-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>
                            <c:when test="${param.sort=='addr_gu desc, addr_dong desc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();">지역(동단위)▼
+                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();"><font color="#656565">지역(동단위)▼</font>
                            </c:when>
                            <c:when test="${param.sort=='addr_gu asc, addr_dong asc'}">
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_gu desc, addr_dong desc'); goPreSearch();">지역(동단위)▲
+                                    onClick="$('[name=sort]').val('addr_gu desc, addr_dong desc'); goPreSearch();"><font color="#656565">지역(동단위)▲</font>
                            </c:when>
                            <c:otherwise>
                               <th style="cursor:pointer"
-                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();">지역(동단위)
+                                    onClick="$('[name=sort]').val('addr_gu asc, addr_dong asc'); goPreSearch();"><font color="#656565">지역(동단위)</font>
                            </c:otherwise>
                         </c:choose>
                           </tr>

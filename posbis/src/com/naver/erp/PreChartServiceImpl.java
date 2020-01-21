@@ -172,6 +172,24 @@ public class PreChartServiceImpl implements PreChartService{
 		return hourSalesCount;
 	}
 
+	
+	// open 시간 구하기
+	@Override
+	public String getSalesOpenTime(String business_no) {
+
+		String salesOpenTime = this.preChartDAO.getSalesOpenTime(business_no);
+		
+		return salesOpenTime;
+	}
+	
+	// close 시간 구하기
+	@Override
+	public String getSalesCloseTime(String business_no) {
+		String salesCloseTime = this.preChartDAO.getSalesCloseTime(business_no);
+		
+		return salesCloseTime;
+	}
+
 
 
    
