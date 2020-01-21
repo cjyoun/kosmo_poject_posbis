@@ -5,7 +5,7 @@ public class MarketingDTO {
 
 	private String user_id;
 	private String changeBusinessNo;
-	
+	private String dataArea;
 	
 	public String getUser_id() {
 		return user_id;
@@ -18,6 +18,12 @@ public class MarketingDTO {
 	}
 	public void setChangeBusinessNo(String changeBusinessNo) {
 		this.changeBusinessNo = changeBusinessNo;
+	}
+	public String getDataArea() {
+		return dataArea;
+	}
+	public void setDataArea(String dataArea) {
+		this.dataArea = dataArea;
 	}
 
 

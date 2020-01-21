@@ -64,6 +64,7 @@
 	     mav.addObject("marketingDTO",marketingDTO);
 
 	     System.out.println(marketingDTO.getChangeBusinessNo());
+	     System.out.println(marketingDTO.getDataArea());
 	     System.out.println(setMenuList);
      }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
 	 	System.out.println("<에러발생>");
@@ -96,10 +97,15 @@
 			setMenuDTO.setSetMenuList(setMenuList);
 			
 			String changeBusinessNo = marketingDTO.getChangeBusinessNo();
-			setMenuDTO.setChangeBusinessNo(changeBusinessNo);			
+			setMenuDTO.setChangeBusinessNo(changeBusinessNo);		
+			
+
+			String dataArea = marketingDTO.getDataArea();
+			setMenuDTO.setDataArea(dataArea);			
 			
 			System.out.println( setMenuDTO.getSetMenuList() );
 			System.out.println( setMenuDTO.getChangeBusinessNo() );
+			System.out.println( setMenuDTO.getDataArea()  );			
 
 		} catch (Exception e) {
 			// try 구문에서 예외가 발생하면 실행할 구문 설정

@@ -86,20 +86,23 @@
    <script>  
    
 	   $(document).ready(function(){
-
-		inputData("[name=changeBusinessNo]","${marketingDTO.changeBusinessNo}");
 		   
- 		   if($("[name=changeBusinessNo]").val() ==""){
-				$("[name=changeBusinessNo]").find('option:eq(1)').attr("selected","selected");
+			inputData("[name=changeBusinessNo]","${marketingDTO.changeBusinessNo}");
+			inputData("[name=dataArea]","${marketingDTO.dataArea}");
+		   
+ 		   if($("[name=changeBusinessNo]").val() ==""){ 
+				$("[name=changeBusinessNo]").find('option:eq(1)').prop("selected",true);
+				//$("#dataAreaType").prop("checked",true);
 		 		document.marketingForm.submit();
 				marketingDTO.setChangeBusinessNo($("[name=marketingForm] [name=changeBusinessNo]").val());
-			}  
-
+				marketingDTO.setDataArea($("[name=marketingForm] [name=dataArea]").val());
+			}
+ 		  
 					google.charts.load('current', {'packages':['corechart']});
 					google.charts.setOnLoadCallback(drawChart);
 					
 					function drawChart() {
-						
+				             
 					  var data = google.visualization.arrayToDataTable([
 					        ['세트메뉴', '판매건수']
 					        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
@@ -107,17 +110,22 @@
 					  		</c:forEach>
 					      ]);
 
-					var sliceCo = 0 
-							
 					  var options = {
-					    title: '세트메뉴 추천 TOP 10'
+					    title: '세트메뉴 추천 TOP 10 \n\n'
 			   			,titleTextStyle: {
-			    	        fontSize: 17,
+			    	        fontSize: 25,
 			    	        bold: true
+			    	        
 			    	    }
+					    ,fontSize : 22
 						,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
 	                    ,width: "100%"
 	                    ,height: "100%"
+		                ,tooltip: {
+                         	text: 'percentage'
+                    	}
+                        ,pieSliceText: 'percentage'          
+                        ,legend: 'labeled'
 					  };
 					
 					  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -143,11 +151,17 @@
 					
 					//비동기 방식으로 차트 재실행
 					, success : function(setMenuDTO){
-						if(setMenuDTO != null){
+					//	alert($("[name=marketingForm]").serialize());
+					//	alert("${param.dataArea}");
+					//	alert( "${paramValues.setMenuDTO.dataArea}" );
 							//alert("성공");
 							$("#piechart").remove();
-							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 300px;"></div>');
+							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 60%;"></div>');
 							
+				if(setMenuDTO != null){
+					if(setMenuDTO.setMenuList.length == 0){
+					    $("#piechart").append("<h3>선택하신 조건에 적합한 세트메뉴 추천 데이터가 없습니다.</h3>")
+					}else{
 								google.charts.load('current', {'packages':['corechart']});
 								google.charts.setOnLoadCallback(drawChart);
 								
@@ -174,21 +188,52 @@
 										data.setCell(j,1,setMenuCnt[j]);
 									}
 										
-								  var options = {
-								    title: '세트메뉴 추천 TOP 10'
-						   			,titleTextStyle: {
-						    	        fontSize: 17,
-						    	        bold: true
-						    	    }
-									,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-				                    ,width: "100%"
-				                    ,height: "100%"
-								  };
+									
+			                    	
+					                  if(setMenuDTO.dataArea=="allStore"){
+				                		
+										  var options = {
+											    title: '세트메뉴 추천 TOP 10 \n\n'
+									   			,titleTextStyle: {
+									    	        fontSize: 25,
+									    	        bold: true
+									    	    }
+										  		,fontSize : 22
+												,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+							                    ,width: "100%"
+							                    ,height: "100%"
+								                ,tooltip: {
+						                         	text: 'percentage'
+						                    	}
+						                        ,pieSliceText: 'percentage'          
+							                    ,legend: 'labeled'
+												};
+											
+					                  }
+				                      
+					                  if(setMenuDTO.dataArea=="myStore"){
+
+										  var options = {
+											    title: '세트메뉴 추천 TOP 10 \n\n'
+									   			,titleTextStyle: {
+									    	        fontSize: 25,
+									    	        bold: true
+									    	    }
+										 		 ,fontSize : 22
+												,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+							                    ,width: "100%"
+							                    ,height: "100%"
+						                        ,pieSliceText: 'percentage'          
+							                    ,legend: 'labeled'
+												};
+											
+					                  }
 								
 								  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 								
 								  chart.draw(data, options);
 								}
+							}
 							
 						}
 						else if (setMenuDTO == null){
@@ -209,12 +254,186 @@
 
 									
 			});
+
+
+		   $('[name=dataArea]').change(function(){		
+			   
+				//alert($("[name=marketingForm]").serialize());
+				//alert($("[name=marketingForm] [name=dataArea]").val()  );
+			
+				$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
+				
+				$.ajax({
+					// 서버 쪽 호출 URL 주소 지정
+					url : "/posbis/marketingProc.do"
+					
+					// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
+					, type : "post"
+
+					// 서버로 보낼 파라미터명과 파라미터 값을 설정
+					, data : $("[name=marketingForm]").serialize()	
+					
+					//비동기 방식으로 차트 재실행
+					, success : function(setMenuDTO){
+						//alert($("[name=marketingForm]").serialize());
+						//alert("${param.dataArea}");
+						//alert( setMenuDTO.dataArea );
+							//alert("성공");
+							$("#piechart").remove();
+							$("#reDraw").append('<div id="piechart" style="width: 100%; height: 60%;"></div>');
+							
+						if(setMenuDTO != null){
+							if(setMenuDTO.setMenuList.length == 0){
+							    $("#piechart").append("<h3>선택하신 조건에 적합한 세트메뉴 추천 데이터가 없습니다.</h3>")
+							}else{
+								google.charts.load('current', {'packages':['corechart']});
+								google.charts.setOnLoadCallback(drawChart);
+								
+								function drawChart() {
+
+								var setMenuName = new Array() ;
+								var setMenuCnt = new Array();
+								var tooltipText = new Array();
+
+									for(var i=0; i<setMenuDTO.setMenuList.length; i++){
+										setMenuName[i] = setMenuDTO.setMenuList[i].SET_MENU ;
+										setMenuCnt[i] = setMenuDTO.setMenuList[i].SALES_CNT ;
+									}
+
+								  var data = google.visualization.arrayToDataTable([]);
+								        
+							        data.addColumn('string', '세트메뉴');
+							        data.addColumn('number', '판매건수');
+							    //    data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
+
+								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+										data.addRows(1);
+										data.setCell(j,0,setMenuName[j]);
+										data.setCell(j,1,setMenuCnt[j]);
+								//		data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
+									}
+									
+				                    	
+				                  if(setMenuDTO.dataArea=="allStore"){
+			                		
+									  var options = {
+										    title: '세트메뉴 추천 TOP 10 \n\n'
+								   			,titleTextStyle: {
+								    	        fontSize: 25,
+								    	        bold: true
+								    	        
+								    	    }
+									 		 ,fontSize : 22
+											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+						                    ,width: "100%"
+						                    ,height: "100%"
+							                
+							                ,tooltip: {
+					                         	text: 'percentage'
+					                    	}
+					                        ,pieSliceText: 'percentage'          
+						                    ,legend: 'labeled'
+							                
+											};
+										
+				                  }
+			                      
+				                  if(setMenuDTO.dataArea=="myStore"){
+
+									  var options = {
+										    title: '세트메뉴 추천 TOP 10 \n\n'
+								   			,titleTextStyle: {
+								    	        fontSize: 25,
+								    	        bold: true
+								    	    }
+									  		,fontSize : 22
+											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
+						                    ,width: "100%"
+						                    ,height: "100%"
+					                        ,pieSliceText: 'percentage'          
+						                    ,legend: 'labeled'
+											};
+										
+				                  }
+			                      
+								
+								  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+								
+								  chart.draw(data, options);
+								}
+							}
+						}
+						else if (setMenuDTO == null){
+							alert("실패 !");
+						}
+						else {
+							alert("서버 오류 발생. 관리자에게 문의 바람");
+						} 
+					}
+					// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
+					, error : function(request, error){
+						alert("서버 접속 실패");
+						alert($("[name=marketingForm]").serialize());
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);							
+					}
+					
+				});
+
+									
+			});
 			
 		    $(window).resize(function(){
 	    		drawChart();
 		    });
 		   
 	});
+
+
+		 //----------- 추천메뉴 여러개 일 때 생략된 것들 alert로 보여주는 부분 (랭킹 1 2 3위) --------------
+		 		
+		 	  function allSet1(){
+		 	         var result="";
+		 	      
+		 	         <c:forEach items="${setMenuList}" var="setMenu">
+		 	            if("${setMenu.RANKING}"==1 ){
+		 	               result= result+", "+"${setMenu.SET_MENU}"
+		 	            }
+		 	         </c:forEach>
+		 	            while( result.charAt(0) == "," && result.length>1){
+		 	               result = result.substring(1);
+		 	             }
+		 	         alert(result);
+		 	   }
+
+		 	  function allSet2(){
+		 	         var result="";
+		 	      
+		 	         <c:forEach items="${setMenuList}" var="setMenu">
+		 	            if("${setMenu.RANKING}"==2 ){
+		 	               result= result+", "+"${setMenu.SET_MENU}"
+		 	            }
+		 	         </c:forEach>
+		 	            while( result.charAt(0) == "," && result.length>1){
+		 	               result = result.substring(1);
+		 	             }
+		 	         alert(result);
+		 	   }
+
+		 	  function allSet3(){
+		 	         var result="";
+		 	      
+		 	         <c:forEach items="${setMenuList}" var="setMenu">
+		 	            if("${setMenu.RANKING}"==3 ){
+		 	               result= result+", "+"${setMenu.SET_MENU}"
+		 	            }
+		 	         </c:forEach>
+		 	            while( result.charAt(0) == "," && result.length>1){
+		 	               result = result.substring(1);
+		 	             }
+		 	         alert(result);
+		 	   }
+		 	
+		 //--------------------------------------------------------------------------------------	
 
 
 	     //--------------------------------------------------------
@@ -308,6 +527,13 @@
 	   		 }
 	   		//--------------------------------------------------------
 
+	   		// 마케팅 전략
+	        function goMarketingForm(){
+	            //alert("마케팅 전략 으로 이동");
+	            location.replace("/posbis/marketingForm.do");
+	         }
+	   		
+	   		
 	       </script>
  
    <body>
@@ -344,6 +570,7 @@
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
+						<li><a onClick="goMarketingForm();">마케팅 전략</a></li>
 					</ul>
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
@@ -381,16 +608,17 @@
 	<!-- Header Section end -->
 
 
-<!-- Page top Section end -->
-	<section class="page-top-section set-bg"
-		data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
-		<div class="container">
-			<h2><strong>마케팅전략</strong></h2>
+
+	
+	<!-- Page top Section end -->
+	<section class="page-top-section set-bg" data-setbg="resources/bootstrap/img/page-top-bg/1.jpg">
+		<div class="container"  style="margin: -25px 0 0 250px;">
+			<h2 style="font-size:65px"><strong>마케팅 전략</strong></h2>
 			<div style=" color:#fff; width:30%">
 			<nav class="site-breadcrumb">
-	            <span class="sb-item active">
-	         <i class="icon-location-pin"></i> 업계동향</span> &nbsp; > &nbsp; <span class="sb-item active">
-	         <i class="icon-eyeglass"></i> 마케팅전략</span>
+	            <span class="sb-item active" style="font-size:20px">
+	         <i class="icon-location-pin"></i> 업계동향 > </span><span class="sb-item active" style="font-size:20px">
+	         <i class="icon-eyeglass"></i> 마케팅 전략</span>
 	         </nav>
 			</div>
 		</div>
@@ -400,76 +628,92 @@
    <main id="main">
    <section id="main-content">
    <section class="wrapper">
-       <div class="col-lg-10" align="center">
+       <div class="col-lg-11" align="center">
             <section class="panel">
               <header class="panel-heading">
-                	   <a href="">세트 메뉴 추천</a>
+                	   <a href="">마케팅 전략</a>
               </header>
               
                
 			<div class="panel-body"> 
-			<div class="container">
-			
-
+			<div class="container" style="max-width:1400">
+			<br>
+  			<h1 style="font-size:40">[세트메뉴 추천]</h1>
             	 
           	<form name="marketingForm" method="post" action="/posbis/marketingForm.do"> 
 						<input type="hidden" name="user_id" value="${user_id}">  
-			<table border=0 width=1000  >
+			<table border=0 width=30% height="10%" align="right" >
 				<tr>
-					<td align=right>
+					<td align=left>
 						사업자번호 : &nbsp;
-						<select name="changeBusinessNo" style="width:200px; height:25px; text-align-last:center">	<!-- 중요! -->
+						<select name="changeBusinessNo" style="width:200px; height:30px; text-align-last:center">	<!-- 중요! -->
 									<option value="" style="display:none""></option>
 					 		<c:forEach items="${businessNoList}" var="businessNoList">
 									<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
 									</option>
 							</c:forEach>
-							
 						</select> 
+				<tr>
+					<td align=left>
+						<input type="radio" name="dataArea" value="allStore" id="dataAreaType" checked>동일 업종
+						&nbsp;
+						<input type="radio" name="dataArea" value="myStore" id="dataAreaMy">우리 가게
 					</table>
 				</form>
-	<br>
-	
 		<input type="hidden" name="user_id" value="${user_id}">  
 
-			<table id="menuSet" align="center" width="100%";" >
+			<table id="menuSet" align="center" width="100%" >
 			
 			<c:if test="${!empty setMenuList}">
 				<tr>
 					<td colsqan="5">
 						<table><tr><td>
-						<img src="resources/business_type_img/${setMenuList[0].BUSI_CODE}.jpg" class="img-fluid" alt="" width="100%" height="100%">
+						<img src="resources/business_type_img/${setMenuList[0].BUSI_CODE}.jpg" class="img-fluid" alt="" width="100%" height="100%" style="margin:0 0 4 0">
 						<td valign="bottom">
-						<h4><strong style="font-size:20">${setMenuList[0].BUSI_TYPE1} > ${setMenuList[0].BUSI_TYPE2}</strong></h4>
+						<h4 style="margin:0 0 25 10"><strong style="font-size:35">${setMenuList[0].BUSI_TYPE1} > ${setMenuList[0].BUSI_TYPE2}</strong></h4>
 						</table>
 				<tr style="text-align:center; height:10px">
 	         	<tr style="text-align:center; height:40px" >
 		         	<td valign= "bottom" style="background-color:#f8f9fa; width:32%;">
-                        <strong style="font-size:17">1위</strong>
+                        <strong style="font-size:32">1위</strong>
 			         <td style="width:2% ;">
 						<!-- 여백 -->
 					</td>
 			         <td valign= "bottom" style="background-color:#f8f9fa; width:32%">
-			         	<strong style="font-size:17">2위</strong>    
+			         	<strong style="font-size:32">2위</strong>    
 			         <td style="width:2% ;">
 			       		<!-- 여백 -->
 			         </td>
 			         <td valign= "bottom" style="background-color:#f8f9fa; width:32%">
-			         	<strong style="font-size:17">3위</strong>
-	         	<tr style="text-align:center; height:200px" >
+			         	<strong style="font-size:32">3위</strong>
+	         	<tr style="text-align:center; height:220px" >
 	         		<c:set var="rank1" value="0"></c:set>
 		         	<td style="background-color:#f8f9fa; width:32%;">
+                          
+		         		<c:set var="loop_index" value="0"></c:set>
                           <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+                          	<a onClick="allSet1();" style="cursor:pointer;">
+                          		
+                             <c:if test="${setMenu.RANKING!=1}">
+                                <c:set var="loop_index" value="${loop_index + 1}" />
+                             </c:if>
+                             
                              <c:if test="${setMenu.RANKING==1}">   
                              <c:set var="rank1" value="${rank1 + 1}" />   
                               <h5>
-                              <strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                              		<c:if test="${(loopTagStatus.index-loop_index+1)<=3}">
+                              			<strong style="font-size:30">${setMenu.SET_MENU}</strong>
+                                    </c:if>
+                                    <c:if test="${(loopTagStatus.index-loop_index+1)==4}">
+                                         <strong>...</strong>
+                                    </c:if>   
                              </h5>
                              </c:if>
+                             </a>
                           </c:forEach>
                           <c:if test="${rank1==0}">
                              <h5>
-                             	<strong style="font-size:17"> 없음</strong>
+                             	<strong style="font-size:30"> 없음</strong>
                              </h5>
                           </c:if>
 			         </td>         
@@ -478,18 +722,28 @@
 			         </td>  
 			         <c:set var="rank2" value="0"></c:set>
 			         <td style="background-color:#f8f9fa; width:32%">
-			         		
+                         <c:set var="loop_index" value="0"></c:set>
                           <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-                             <c:if test="${setMenu.RANKING==2}">  
+                          	<a onClick="allSet2();" style="cursor:pointer;">
+                             <c:if test="${setMenu.RANKING!=2}">
+                                <c:set var="loop_index" value="${loop_index + 1}" />
+                             </c:if>
+                             <c:if test="${setMenu.RANKING==2}">   
                              <c:set var="rank2" value="${rank2 + 1}" />   
                               <h5>
-                              <strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                              		<c:if test="${(loopTagStatus.index-loop_index+1)<=3}">
+                              			<strong style="font-size:30">${setMenu.SET_MENU}</strong>
+                                    </c:if>
+                                    <c:if test="${(loopTagStatus.index-loop_index+1)==4}">
+                                         <strong>...</strong>
+                                    </c:if>   
                              </h5>
                              </c:if>
+                             </a>
                           </c:forEach>
                           <c:if test="${rank2==0}">
                              <h5>
-                             	<strong style="font-size:17"> 없음</strong>
+                             	<strong style="font-size:30"> 없음</strong>
                              </h5>
                           </c:if>
 			         </td>	         
@@ -499,42 +753,50 @@
 			         <c:set var="rank3" value="0"></c:set>
 			         <td style="background-color:#f8f9fa; width:32%">
 			         		
-                          <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus">
-                             <c:if test="${setMenu.RANKING==3}">  
-                             <c:set var="rank3" value="${rank3 + 1}" /> 
+ 
+						<c:set var="loop_index" value="0"></c:set>
+                          <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+                          	<a onClick="allSet3();" style="cursor:pointer;">
+                             <c:if test="${setMenu.RANKING!=3}">
+                                <c:set var="loop_index" value="${loop_index + 1}" />
+                             </c:if>
+                             <c:if test="${setMenu.RANKING==3}">   
+                             <c:set var="rank3" value="${rank3 + 1}" />   
                               <h5>
-                              	<strong style="font-size:17">${setMenu.SET_MENU}</strong>
+                              		<c:if test="${(loopTagStatus.index-loop_index+1)<=3}">
+                              			<strong style="font-size:30">${setMenu.SET_MENU}</strong>
+                                    </c:if>
+                                    <c:if test="${(loopTagStatus.index-loop_index+1)==4}">
+                                         <strong>...</strong>
+                                    </c:if>   
                              </h5>
                              </c:if>
+                             </a>
                           </c:forEach>
                           <c:if test="${rank3==0}">
                              <h5>
-                             	<strong style="font-size:17"> 없음</strong>
+                             	<strong style="font-size:30"> 없음</strong>
                              </h5>
                           </c:if>
 			         </td>
 		         </tr>
 		    
 		         </c:if>
-		       
-			<c:if test="${empty setMenuList}">
-				<tr><td>
-				선택하신 업종은 세트메뉴 추천 데이터가 없습니다.
-				</c:if>
 		     </table>
 			<table>
 			
 		    <!-- 여백용 테이블 --> 
-			<table><tr><td height="30px"></table>
+			<table><tr><td height="100px"></table>
 			
-		     <div id="reDraw"> <div id="piechart" style="width: 100%; height: 300px;"></div> </div>
+		    	<div id="reDraw" style="width:100%"> <div id="piechart" style="width: 100%; height: 60%;"></div> </div>
 		     </table>
 		    <!-- 여백용 테이블 --> 
-			<table><tr><td height="100px"></table>
+			<table><tr><td height="130px"></table>
 
 		</div>
 		</div>
 </section>
+<br><br><br>
 </section>
  
 </main>

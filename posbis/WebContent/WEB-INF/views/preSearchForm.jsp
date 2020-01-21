@@ -497,10 +497,11 @@ select::-ms-expand { display: none; }
 			//--------------------------------------------------------
 
 			
-			function goMessageForm(){
-			    alert("건의사항이 접수 되었습니다. 감사합니다");
-		 
-			 }
+			// 마케팅 전략
+	    function goMarketingForm(){
+	        //alert("마케팅 전략 으로 이동");
+	        location.replace("/posbis/marketingForm.do");
+	     }
 	    	
      </script>
 </head>
@@ -539,6 +540,8 @@ select::-ms-expand { display: none; }
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
+						<li><a onClick="goMarketingForm();">마케팅 전략</a></li>
+						
 					</ul>
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>

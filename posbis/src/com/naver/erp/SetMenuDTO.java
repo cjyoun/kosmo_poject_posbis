@@ -8,6 +8,7 @@ public class SetMenuDTO {
 
 	private List<Map<String,String>> setMenuList;
 	private String changeBusinessNo;
+	private String dataArea;
 
 	public List<Map<String, String>> getSetMenuList() {
 		return setMenuList;
@@ -23,6 +24,14 @@ public class SetMenuDTO {
 
 	public void setChangeBusinessNo(String changeBusinessNo) {
 		this.changeBusinessNo = changeBusinessNo;
+	}
+
+	public String getDataArea() {
+		return dataArea;
+	}
+
+	public void setDataArea(String dataArea) {
+		this.dataArea = dataArea;
 	}
 	
 

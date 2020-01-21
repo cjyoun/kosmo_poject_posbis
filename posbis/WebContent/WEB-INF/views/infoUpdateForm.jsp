@@ -218,6 +218,8 @@
 	         
 	      });   /* $("[name=business_type_name1]").change(function(){ */
 
+
+
 	      $("[name=business_open]").change(function(){
 	            //alert($("[name=business_open]").find("option:selected").index());
 	            k=$("[name=business_open]").find("option:selected").index();
@@ -472,7 +474,11 @@
    		//--------------------------------------------------------
 
    		 
-	 	
+   		// 마케팅 전략
+        function goMarketingForm(){
+            //alert("마케팅 전략 으로 이동");
+            location.replace("/posbis/marketingForm.do");
+         }
 	 			
    </script>
    
@@ -512,6 +518,7 @@
 					<ul class="sub-menu" style="cursor:pointer;">
 						<li><a onClick="goPreSearchForm();">시장분석</a></li>
 						<li><a onClick="goPreChartForm();">비교차트</a></li>
+						<li><a onClick="goMarketingForm();">마케팅 전략</a></li>
 					</ul>
 				</li>
 				<li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
@@ -713,7 +720,7 @@
    <td> OPEN시간 </td>
    <td>
     <select name="business_open" class="business_type_name1 form-control">
-          <option value=''>${myNStoreInfo[0].business_open} 시</option>
+          <option value='${myNStoreInfo[0].business_open}'>${myNStoreInfo[0].business_open} 시</option>
 			<option value="00">00 시</option>
 			<option value="01">01 시</option>
 			<option value="02">02 시</option>
@@ -746,7 +753,7 @@
    <td> CLOSE시간 </td>
    <td>
     <select name="business_close" class="business_type_name1 form-control">
-          <option value=''>${myNStoreInfo[0].business_close} 시</option>
+          <option value='${myNStoreInfo[0].business_close}'>${myNStoreInfo[0].business_close} 시</option>
 			<option value="00">00 시</option>
 			<option value="01">01 시</option>
 			<option value="02">02 시</option>
