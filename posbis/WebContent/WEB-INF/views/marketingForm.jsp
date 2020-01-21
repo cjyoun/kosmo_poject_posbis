@@ -103,12 +103,22 @@
 					
 					function drawChart() {
 				             
-					  var data = google.visualization.arrayToDataTable([
-					        ['세트메뉴', '판매건수']
-					        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-					   			,['${setMenuList[loopTagStatus.index].SET_MENU}',${setMenuList[loopTagStatus.index].SALES_CNT}]
-					  		</c:forEach>
-					      ]);
+						if($("[name=marketingForm] [name=dataArea]:checked").val()=="allStore"){      
+							  var data = google.visualization.arrayToDataTable([
+							        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
+							        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+							   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}']
+							  		</c:forEach>
+							      ]);
+						}
+						if($("[name=marketingForm] [name=dataArea]:checked").val()=="myStore"){      
+							  var data = google.visualization.arrayToDataTable([
+							        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
+							        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
+							   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}'+' '+'${setMenu.SALES_CNT}'+'건']
+							  		</c:forEach>
+							      ]);
+						}
 
 					  var options = {
 					    title: '세트메뉴 추천 TOP 10 \n\n'
@@ -121,9 +131,6 @@
 						,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
 	                    ,width: "100%"
 	                    ,height: "100%"
-		                ,tooltip: {
-                         	text: 'percentage'
-                    	}
                         ,pieSliceText: 'percentage'          
                         ,legend: 'labeled'
 					  };
@@ -181,6 +188,7 @@
 								        
 							        data.addColumn('string', '세트메뉴');
 							        data.addColumn('number', '판매건수');
+							        data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
 
 								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
 										data.addRows(1);
@@ -191,6 +199,9 @@
 									
 			                    	
 					                  if(setMenuDTO.dataArea=="allStore"){
+					                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+												data.setCell(j,2,setMenuName[j]);
+											}
 				                		
 										  var options = {
 											    title: '세트메뉴 추천 TOP 10 \n\n'
@@ -202,9 +213,6 @@
 												,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
 							                    ,width: "100%"
 							                    ,height: "100%"
-								                ,tooltip: {
-						                         	text: 'percentage'
-						                    	}
 						                        ,pieSliceText: 'percentage'          
 							                    ,legend: 'labeled'
 												};
@@ -212,6 +220,9 @@
 					                  }
 				                      
 					                  if(setMenuDTO.dataArea=="myStore"){
+					                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+												data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
+											}
 
 										  var options = {
 											    title: '세트메뉴 추천 TOP 10 \n\n'
@@ -304,6 +315,8 @@
 								        
 							        data.addColumn('string', '세트메뉴');
 							        data.addColumn('number', '판매건수');
+							        data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
+							        
 							    //    data.addColumn({'type': 'string', 'role': 'tooltip' , 'p': {'html': true}});
 
 								   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
@@ -315,6 +328,9 @@
 									
 				                    	
 				                  if(setMenuDTO.dataArea=="allStore"){
+				                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+											data.setCell(j,2,setMenuName[j]);
+										}
 			                		
 									  var options = {
 										    title: '세트메뉴 추천 TOP 10 \n\n'
@@ -327,10 +343,6 @@
 											,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
 						                    ,width: "100%"
 						                    ,height: "100%"
-							                
-							                ,tooltip: {
-					                         	text: 'percentage'
-					                    	}
 					                        ,pieSliceText: 'percentage'          
 						                    ,legend: 'labeled'
 							                
@@ -339,6 +351,9 @@
 				                  }
 			                      
 				                  if(setMenuDTO.dataArea=="myStore"){
+				                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
+											data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
+										}
 
 									  var options = {
 										    title: '세트메뉴 추천 TOP 10 \n\n'

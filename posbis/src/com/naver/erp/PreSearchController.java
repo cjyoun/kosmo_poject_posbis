@@ -27,8 +27,8 @@ public class PreSearchController {
     public  PreSearchDTO getPreResultProc( 
           PreSearchDTO preSearchDTO 
    ) {
-       System.out.println("proc시작");
-       System.out.println("controller/preSearchDTO.getSort();===>"+preSearchDTO.getSort());
+       //System.out.println("proc시작");
+       //System.out.println("controller/preSearchDTO.getSort();===>"+preSearchDTO.getSort());
 
        
        
@@ -36,35 +36,39 @@ public class PreSearchController {
             
              int preResultAllCnt = this.preSearchService.getPreResultAllCnt(preSearchDTO);
              preSearchDTO.setPreResultAllCnt(preResultAllCnt);
-             
-             //[선택된 페이지 번호] 보정하기
-             //보정을 하지 않으면 검색 총 개수 < 선택페이지의 시작행 번호일 때 검색 결과를 보여줄 수 없다.
-             //효율성을 위해 총 개수가 0개 이상일 때만 코딩 실행하도록 설정
-                if(preResultAllCnt>0) {
-                //선택한 페이지 번호 구하기
-                   int selectPageNo=preSearchDTO.getSelectPageNo();
-                   //한 화면에 보여지는 행의 개수 구하기
-                   int rowCntPerPage=preSearchDTO.getRowCntPerPage();
-                   //검색할 시작 행 번호 구하기
-                   int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
-                   //만약 검색결과 총 행의 개수가 선택한 페이지 시작행 번호보다 작으면
-                   //선택한 페이지 번호를 1로 세팅하기
-                  if(preResultAllCnt<beginRowNo) {
-                     preSearchDTO.setSelectPageNo(1);
-                   }
-                }
-               
-               //검색목록 얻기
-               List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
-               preSearchDTO.setPreResultList(preResultList);
-               
+//             
+//             //[선택된 페이지 번호] 보정하기
+//             //보정을 하지 않으면 검색 총 개수 < 선택페이지의 시작행 번호일 때 검색 결과를 보여줄 수 없다.
+//             //효율성을 위해 총 개수가 0개 이상일 때만 코딩 실행하도록 설정
+//                if(preResultAllCnt>0) {
+//                //선택한 페이지 번호 구하기
+//                   int selectPageNo=preSearchDTO.getSelectPageNo();
+//                   //한 화면에 보여지는 행의 개수 구하기
+//                   int rowCntPerPage=preSearchDTO.getRowCntPerPage();
+//                   //검색할 시작 행 번호 구하기
+//                   int beginRowNo = selectPageNo*rowCntPerPage-rowCntPerPage+1;
+//                   //만약 검색결과 총 행의 개수가 선택한 페이지 시작행 번호보다 작으면
+//                   //선택한 페이지 번호를 1로 세팅하기
+//                  if(preResultAllCnt<beginRowNo) {
+//                     preSearchDTO.setSelectPageNo(1);
+//                   }
+//                }
+//               
+//               //검색목록 얻기
+//               List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
+//               preSearchDTO.setPreResultList(preResultList);
+//               
+//               //검색목록 for MAP 얻기
+//               List<Map<String,String>> preResultMAPList  = this.preSearchService.getPreResultMAPList(preSearchDTO);
+//              preSearchDTO.setPreResultMAPList(preResultMAPList);
+//               
 
          }
          catch(Exception e) {
             System.out.println("salesProc <에러발생>");
             System.out.println(e.getMessage());
          }
-         System.out.println(preSearchDTO.getPreResultAllCnt() );
+         //System.out.println(preSearchDTO.getPreResultAllCnt() );
           return preSearchDTO;
     } 
     
@@ -139,7 +143,7 @@ public class PreSearchController {
             }
             
             
-            
+
             //=====================[검색 목록] 얻기===========================
             List<Map<String,String>> preResultList = this.preSearchService.getPreResultList(preSearchDTO);
             mav.addObject("preResultList", preResultList);  
@@ -149,41 +153,63 @@ public class PreSearchController {
  
             
             
-   
+            												
          
-         
-         
-         
-         //=====================[select / addrGu1]얻기====================
-         List<String> addrGu1List = this.preSearchService.getAddrGu1List();
-         mav.addObject("addrGu1List", addrGu1List);
-         //System.out.println("Controller/addrGu1List///"+addrGu1List);
-         //================= 끝  [select / addrGu1]얻기====================
-         
-         
-         //=====================[select / businessTypeName1List]얻기====================
-         List<String> businessTypeName1List = this.preSearchService.getBusinessTypeName1List();
-         mav.addObject("businessTypeName1List", businessTypeName1List);
-         //System.out.println("Controller/businessTypeName1List///"+businessTypeName1List);
-         //================= 끝  [select / businessTypeName1List]얻기====================
-
-
-
-         //=====================[bestMenuList]얻기====================
-         List<String> bestMenuList = this.preSearchService.getBestMenuList(preSearchDTO);
-         mav.addObject("bestMenuList", bestMenuList);
-         System.out.println(bestMenuList);
-
-         //================= 끝  [bestMenuList]얻기====================
-         
-         //System.out.println("Controller/preSearchDTO.rowCntPerPage===>"+preSearchDTO.getRowCntPerPage());
-         //System.out.println("Controller/preSearchDTO.selectPageNo===>"+preSearchDTO.getSelectPageNo());
-         
-         
-         mav.addObject("preSearchDTO", preSearchDTO);
-         //System.out.println("Controller/preSearchDTO==>"+preSearchDTO.getBusiness_type_name2());
-         //System.out.println("Controller/preSearchDTO.getSelectPageNo==>"+preSearchDTO.getSelectPageNo());
-         
+	         
+			         
+	            
+	         //=====================[select / addrGu1]얻기====================
+	         List<Map<String,String>> addrGu1List = this.preSearchService.getAddrGu1List();
+	         mav.addObject("addrGu1List", addrGu1List);
+	         preSearchDTO.setAddrGuList(addrGu1List);
+	         //System.out.println("Controller/addrGu1List///"+addrGu1List);
+	         //================= 끝  [select / addrGu1]얻기====================
+	         
+	         
+	         //=====================[select / businessTypeName1List]얻기====================
+	         List<String> businessTypeName1List = this.preSearchService.getBusinessTypeName1List();
+	         mav.addObject("businessTypeName1List", businessTypeName1List);
+	         //System.out.println("Controller/businessTypeName1List///"+businessTypeName1List);
+	         //================= 끝  [select / businessTypeName1List]얻기====================
+	
+	
+	
+	         //=====================[bestMenuList]얻기====================
+	         List<String> bestMenuList = this.preSearchService.getBestMenuList(preSearchDTO);
+	         mav.addObject("bestMenuList", bestMenuList);
+	         //System.out.println(bestMenuList);
+	
+	         //================= 끝  [bestMenuList]얻기====================
+	         
+	         //System.out.println("Controller/preSearchDTO.rowCntPerPage===>"+preSearchDTO.getRowCntPerPage());
+	         //System.out.println("Controller/preSearchDTO.selectPageNo===>"+preSearchDTO.getSelectPageNo());
+	         
+	         
+	         mav.addObject("preSearchDTO", preSearchDTO);
+	         //System.out.println("Controller/preSearchDTO==>"+preSearchDTO.getBusiness_type_name2());
+	         //System.out.println("Controller/preSearchDTO.getSelectPageNo==>"+preSearchDTO.getSelectPageNo());
+	         
+	
+	       
+	       //검색목록 for MAP 얻기
+	       List<Map<String,String>> preResultMAPList  = this.preSearchService.getPreResultMAPList(preSearchDTO);
+	       mav.addObject("preResultMAPList", preResultMAPList);
+	       //System.out.println(preResultMAPList);
+	       
+	       
+	
+	       //System.out.println("1111111111");
+	       
+	
+		  //구 별 점포수
+		   List<Map<String,String>> cntPerGu =this.preSearchService.getCntPerGu(preSearchDTO); 
+	       //System.out.println("cntPerGu=====>"+cntPerGu);
+	       
+	       //cntPerGu.addAll(addrGu1List);
+		   mav.addObject("cntPerGu", cntPerGu);
+	       
+	       //System.out.println("controller/cntPerGu==========>"+cntPerGu);
+		    
       }
       catch(Exception e) {
          System.out.println("preResultList <에러발생>");

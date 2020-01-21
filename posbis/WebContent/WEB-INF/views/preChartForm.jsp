@@ -133,10 +133,17 @@
    		$(document).ready(function(){	
 //	    	 checkBusinessNoForm();
 				// name="changeBusinessNo" 에 change 이벤트가 발생하면 실행할 코드 설정.
-				$('[name=changeBusinessNo]').change(function(){		
+				$('[name=changeBusinessNo]').change(function(){	
 					changeChart();
 					checkBusinessNoForm();
-					searchHourSales();
+
+					if($('[name=changeBusinessNo]').val()!='all'){
+						changeChart();
+						checkBusinessNoForm();
+						searchHourSales();
+					}	
+					
+					
 
 				});	
 

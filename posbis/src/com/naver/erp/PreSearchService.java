@@ -19,7 +19,10 @@ public interface PreSearchService {
 	   
 	
 	//[검색한 게시판 목록] 리턴하는 메소드 선언
-	List<Map<String,String>> getPreResultList(PreSearchDTO preSearchDTO);
+	List<Map<String,String>> getPreResultList(PreSearchDTO preSearchDTO);	
+	
+	//[검색한 게시판 목록 for MAP] 리턴하는 메소드 선언
+	List<Map<String, String>> getPreResultMAPList(PreSearchDTO preSearchDTO);
 	
 	//[검색한 게시판 목록 개수] 리턴하는 메소드 선언
 	int getPreResultAllCnt(PreSearchDTO preSearchDTO);
@@ -28,7 +31,7 @@ public interface PreSearchService {
 	List<Map<String,String>> getBusinessInfoList(int u_no);
 	
 	//[select / addrGu1]얻기
-	List<String> getAddrGu1List();
+	List<Map<String,String>> getAddrGu1List();
 	
 	//[select / getBusinessTypeName1List]얻기
 	List<String> getBusinessTypeName1List();
@@ -42,5 +45,8 @@ public interface PreSearchService {
 	
 	//bestMenuList 얻기
 	List<String> getBestMenuList(PreSearchDTO preSearchDTO);
+	
+	//구 별 점포수
+	List<Map<String, String>> getCntPerGu(PreSearchDTO preSearchDTO);
 	
 }

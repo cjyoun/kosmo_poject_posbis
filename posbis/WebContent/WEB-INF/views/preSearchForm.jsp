@@ -74,6 +74,8 @@
 <link rel="stylesheet" href="resources/pos/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
 <link rel="stylesheet" href="resources/pos/assets/vendor/fonts/simple-line-icons/css/simple-line-icons.css">
 
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bfd46260df6b63857da2c97598faca6e&libraries=services,clusterer,drawing"></script>
  
  <style>
  .loginmaintaining {
@@ -119,7 +121,8 @@ select::-ms-expand { display: none; }
 <script>
 
 	
-
+var markers = [];
+var customOverlays = [];
 
 	
 	
@@ -187,10 +190,183 @@ select::-ms-expand { display: none; }
 			} 
 			inputData("[name=month_sales]","${preSearchDTO.month_sales}");
 			inputData("[name=sort]","${preSearchDTO.sort}");
+
+
+
+
+
+
+			//================ M A P=====================================================================================
+
+			 
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+		        maxLevel:10,
+		        level: 8 // 지도의 확대 레벨
+		    };  
+
+
+			
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
+
+			// 구, 동 검색했을 때
+			if( ${preSearchDTO.addr_gu1!=null && preSearchDTO.addr_gu1!=""}){
+	
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
+				
+	
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch("${preSearchDTO.addr_gu1} ${preSearchDTO.addr_dong1}", function(result, status) {
+					//alert("${preSearchDTO.addr_gu1}");
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				        //var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					    var imageSrc = 'resources/bootstrap/img/MAPmarker.png', // 마커이미지의 주소입니다    
+						    imageSize = new kakao.maps.Size(300, 300), // 마커이미지의 크기입니다
+						    imageOption = {offset: new kakao.maps.Point(150,150)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+						
+				        
+						// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+						var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+						    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x); // 마커가 표시될 위치입니다
+	
+						 // 마커를 생성합니다
+						    var marker = new kakao.maps.Marker({
+						      position: markerPosition,
+						      image: markerImage // 마커이미지 설정 
+						    });
+	
+						 // 마커가 지도 위에 표시되도록 설정합니다
+						    marker.setMap(map);  
+						    
+						 // 커스텀 오버레이에 표시할 내용입니다     
+						 // HTML 문자열 또는 Dom Element 입니다 
+						 var content = '<div class ="label" style="font-size:8;"><span class="left"></span><span class="center" style="font-size:30; align-content: center;">${preSearchDTO.addr_gu1} ${preSearchDTO.addr_dong1}<br><br><div style="align:center; font-size:26">${preResultAllCnt} 점포</div></span><span class="right"></span></div>';
+						 
+						 // 커스텀 오버레이가 표시될 위치입니다 
+						    var position = new kakao.maps.LatLng(result[0].y, result[0].x);  
+	
+						    // 커스텀 오버레이를 생성합니다
+						    var customOverlay = new kakao.maps.CustomOverlay({
+						        position: position,
+						        content: content   
+						    });
+	
+						    // 커스텀 오버레이를 지도에 표시합니다
+						    customOverlay.setMap(map);
+	
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(position);
+				        if("${preSearchDTO.addr_dong1}"!=null && "${preSearchDTO.addr_dong1}"!=""){
+							map.setLevel(4);
+						}
+				        else{map.setLevel(7);}
+				    } 
+				});  
+			}  
+	
+	
+			else if( ${preSearchDTO.addr_gu1==null || preSearchDTO.addr_gu1==""} ){
+		
+		
+					var positions=[];
+					var contents=[];
+		 
+							
+		
+					<c:forEach items="${addrGu1List}" var="addrGu" varStatus="Status">
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+							// 주소로 좌표를 검색합니다
+							geocoder.addressSearch("${addrGu.addr_gu1}", function(result, status) {
+								    // 정상적으로 검색이 완료됐으면 
+								     if (status === kakao.maps.services.Status.OK){
+								    		 positions.push(
+													{ latlng: new kakao.maps.LatLng(result[0].y, result[0].x) }
+											);
+								    		 contents.push(
+													{addrGu : "<div class ='label' style='font-size:8;'><span class='left'></span><span class='center' style='font-size:20; align-content: center;'>${addrGu.addr_gu1}<br><div style='align:center; font-size:14'>${cntPerGu[Status.index].cntPerGu} 점포</div></span><span class='right'></span></div>" }
+											);
+		
+		
+		
+		
+								    	<c:if test="${Status.last eq true}">
+												//alert("success")
+		
+						 						for (var j = 0; j < positions.length; j ++) {
+		
+						 							    var imageSrc = 'resources/bootstrap/img/MAPmarker.png', // 마커이미지의 주소입니다    
+								 							    imageSize = new kakao.maps.Size(130, 130), // 마커이미지의 크기입니다
+								 							    imageOption = {offset: new kakao.maps.Point(65,65)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+						 							
+						 					        
+							 							// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+							 							var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+						 							    
+						 								   
+						 								   
+						 								    var marker = new kakao.maps.Marker({
+						 								        //map: map, // 마커를 표시할 지도
+						 								        position: positions[j].latlng, // 마커를 표시할 위치
+						 								        image : markerImage // 마커 이미지 
+						 								    });
+							 								marker.setMap(map);
+						 									markers.push(marker);
+
+							 							    // 커스텀 오버레이를 생성합니다
+							 							    var customOverlay = new kakao.maps.CustomOverlay({
+						 								        map: map,
+						 								        position: positions[j].latlng, 
+							 							        content: contents[j].addrGu 
+							 							    }); 
+							 							   customOverlay.setMap(map);  
+							 							   customOverlays.push(customOverlay);
+						 						}  //  /마커, 오버레이 찍기 위한 for문 끝 
+						 					</c:if>	
+								     }   //   /검색 성공시 끝 
+							});  //   /주소 검색 끝  
+		
+		
+					</c:forEach>   //   주소찾아서 마커,오버레이찍기 전체 for문 끝
+		
+						 
+			}	
+
+
+
+		    kakao.maps.event.addListener(map, 'zoom_changed', function() {
+			    
+		    	if(map.getLevel()>9){
+			    	setMarkers(null);
+				 }
+		    	else if(map.getLevel()<9){
+					 setMarkers(map);
+				}
+				 
+		    });
+
+//================ /  M A P   끝=====================================================================================
 	
 	
 	  });	 
+
+
+		
+	//새로============================================================================================================
+		// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+		  function setMarkers(map) {
+		      for (var i = 0; i < markers.length; i++) {
+		          markers[i].setMap(map);
+		          customOverlays[i].setMap(map);
+		      }            
+		  }
+		//새로 끝===========================================================================================================
+		  
 	
 	
 	
@@ -624,7 +800,32 @@ select::-ms-expand { display: none; }
               <div class="panel-body">
          
       <div class="container" style="max-width:1400">
+      <br>
 <!--======================-->
+
+<!--======================-->
+<!-- 검색 결과 멥 -->
+<!--======================-->
+	<!--==========================
+      Services Section
+    ============================-->
+ <!-- ============================= MAP =========================================================-->  	
+     <section id="services" class="section-bg">
+      <div class="container">
+
+
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:60%;position:relative;overflow:hidden;"></div>
+</div>
+		        
+
+      </div>
+    </section>   
+ <!-- ============================= MAP 끝 =========================================================-->  
+
+<br><br>
+
+
 					<!--======================-->
                <!------검     색        조      건-------------->
                <!--======================-->
@@ -843,15 +1044,22 @@ select::-ms-expand { display: none; }
                <!--============================= /검색결과 ===========================-->
                <br>
                <br>
-               <br>
+               <c:if test="${empty preResultList}">
+               검색 결과가 없습니다.
+               <br><br><br>
+               </c:if>
+               
+               
+			
                	 <!-- ====== 추천 메뉴 ========================================================== -->
-				<div>
+				<div style="border:1px solid #d2d2d2; padding:30 0 60 0">
 						 
                    	 <table class="table-advance">
 						 <thead>
 						 		<tr><th  align=center colspan="${fn:length(bestMenuList)}"  style="font-size:40; padding:10 0 15 0; color:#6993da">추천메뉴
 
 						 </thead>
+						 <c:if test="${!empty preResultList}">
 						 <tbody>	
 						 	                          <tr>                         
                              <td  align=center style="vertical-align:bottom; padding:60 20 0 40px" >
@@ -973,8 +1181,14 @@ select::-ms-expand { display: none; }
 	                    			</c:if> 
 			                     </c:forEach> --%>
                    		 </tbody>
-                    
+                     </c:if>
+                     
                  	 </table>
+                 	 <br>
+					<br>
+                      <c:if test="${empty bestMenuList}">
+		               추천 결과가 없습니다.
+		               </c:if>
                  </div>
                  	 <!-- ====== / 추천 메뉴 ========================================================== -->
                
@@ -982,57 +1196,15 @@ select::-ms-expand { display: none; }
                
 
 
-               <c:if test="${empty preResultList}">
-               검색 결과가 없습니다.
-               </c:if>
+               
 
-					<br>
-					<br>
+					
 					<br>
 					<br>
 
-<!--======================-->
-<!-- 창업/ 뉴스 -->
-<!--======================-->
-<form name="preTrendForm">
-	<a href="">[창업/소상공인 뉴스]</a>
-</form>
-	<!--==========================
-      Services Section
-    ============================-->
-    <section id="services" class="section-bg">
-      <div class="container">
+			  
+	
 
-        
-        <div class="row">
-
-         <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
-            <div class="box">
-              <div class="icon" style="background: #eafde7;"><i class="ion-ios-speedometer-outline" style="color:#41cf2e;"></i></div>
-              <h4 class="title"><a href="https://www.semas.or.kr/web/main/index.kmdc">소상공인시장진흥공단</a></h4>
-              <p class="description">소상공인 육성, 전통시장과 상점가 지원 및 상권활성화를 구축하며 국민경제 활성화에 기여하는 준정부기관입니다.</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-            <div class="box">
-              <div class="icon" style="background: #e1eeff;"><i class="ion-ios-world-outline" style="color: #2282ff;"></i></div>
-              <h4 class="title"><a href="http://www.sbiz.or.kr/sup/main.do">소상공인 마당</a></h4>
-              <p class="description">소상공인을 위한 맞춤형 서비스와 정보접근성을 향상시켜 창업 및 운영 관련정보를 다양한 방식으로 제공받을 수 있는 포털사이트입니다.</p>
-            </div>
-          </div>
-          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
-            <div class="box">
-              <div class="icon" style="background: #ecebff;"><i class="ion-ios-clock-outline" style="color: #8660fe;"></i></div>
-              <h4 class="title"><a href="http://www.seoulsbdc.or.kr/main.do">소상공인 종합지원포털</a></h4>
-              <p class="description">창업준비부터 사업의 운영까지 맞춤컨설팅 제공 및 창업자금, 멘토링 등 소상공인의 경쟁력강화를 위한 포털 사이트입니다.</p>
-            </div>
-          </div>
- 
-        </div>
-
-      </div>
-    </section><!-- #services -->
 		
     		</div>
         </div>

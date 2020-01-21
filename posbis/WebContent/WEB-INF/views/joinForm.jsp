@@ -250,11 +250,11 @@
 
 
 		//--------------------------------------------------open close 시간===========================
-        $("[name=business_open]").change(function(){
+       /*  $("[name=business_open]").change(function(){
             //alert($("[name=business_open]").find("option:selected").index());
             k=$("[name=business_open]").find("option:selected").index();
-       	 	$("[name=business_close] option:eq("+k+")").remove();
-        });
+       	 	$("[name=business_close] option:eq("+k+")").hide();
+        }); */
            
          
       });/*  $(document).ready(function() { */ 
@@ -523,7 +523,13 @@
 	
 
 	
-	
+	function checkBusinessTime(){   
+	     if(is_empty("[name=business_open]") || is_empty("[name=business_close]")){
+	        alert("Open시간 또는 Close시간 입력 바랍니다.")
+	        return;
+	     }
+	 
+	   }
 	
 	
 	
@@ -539,7 +545,7 @@
 			checkBirth();
 			checkEmail();
 			checkBusinessNo();
-
+			checkBusinessTime();
 
 
 	        if( is_empty("[name=question_code]") ){

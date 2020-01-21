@@ -16,12 +16,23 @@ public class PreSearchDTO {
 	private int rowCntPerPage=10;
 	private String sort="ranking asc";
 	
+	private List<Map<String,String>> addrGuList;
+	private String strGu;
+
+	
 	//검색결과
 	private List<Map<String,String>> preResultList;
+	private List<Map<String,String>> preResultMAPList;
 	private int preResultAllCnt=0;
 	
 	
 	
+	public String getStrGu() {
+		return strGu;
+	}
+	public void setStrGu(String strGu) {
+		this.strGu = strGu;
+	}
 	public String getBusiness_type_name1() {
 		return business_type_name1;
 	}
@@ -76,11 +87,23 @@ public class PreSearchDTO {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+	public List<Map<String, String>> getAddrGuList() {
+		return addrGuList;
+	}
+	public void setAddrGuList(List<Map<String, String>> addrGuList) {
+		this.addrGuList = addrGuList;
+	}
 	public List<Map<String, String>> getPreResultList() {
 		return preResultList;
 	}
 	public void setPreResultList(List<Map<String, String>> preResultList) {
 		this.preResultList = preResultList;
+	}
+	public List<Map<String, String>> getPreResultMAPList() {
+		return preResultMAPList;
+	}
+	public void setPreResultMAPList(List<Map<String, String>> preResultMAPList) {
+		this.preResultMAPList = preResultMAPList;
 	}
 	public int getPreResultAllCnt() {
 		return preResultAllCnt;
@@ -88,6 +111,7 @@ public class PreSearchDTO {
 	public void setPreResultAllCnt(int preResultAllCnt) {
 		this.preResultAllCnt = preResultAllCnt;
 	}
+	
 	
 	
 

@@ -37,7 +37,20 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 		return preResultList;
 	}
 	
-
+	
+	//[검색한 게시판 목록 for MAP] 리턴하는 메소드 선언
+	public List<Map<String, String>> getPreResultMAPList(PreSearchDTO preSearchDTO){
+		//System.out.println("DAO/DTO.business_name1===>"+preSearchDTO.getBusiness_type_name1());
+		//System.out.println("DAO  getPreResultList 호출");
+		//System.out.println("DAO/DTO.sort==>"+preSearchDTO.getSort());
+		List<Map<String, String>> preResultMAPList = this.sqlSession.selectList(
+				"com.naver.erp.PreSearchDAO.getPreResultMAPList"  
+				, preSearchDTO				
+		);
+		//System.out.println("DAO/preResultList===>"+preResultList);
+		return preResultMAPList;
+	}
+	
 	//--------------------------------------------------------------------------------------------------   
 	//[select문 사업자번호, 가게 이름] 얻기
 	public List<Map<String,String>> getBusinessInfoList(int u_no){
@@ -72,9 +85,9 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 	
 
 	//[select / addrGu1]얻기
-	public List<String> getAddrGu1List(){
+	public List<Map<String,String>> getAddrGu1List(){
 		//System.out.println("DAO  getAddrGu1List 호출");
-		List<String> addrGu1List = this.sqlSession.selectList(
+		List<Map<String,String>> addrGu1List = this.sqlSession.selectList(
 				"com.naver.erp.PreSearchDAO.getAddrGu1List"
 		);
 		return addrGu1List;
@@ -172,6 +185,21 @@ public class PreSearchDAOImpl implements PreSearchDAO{
 					,preSearchDTO
 			);
 			return bestMenuList;
+		}
+		
+
+		//--------------------------------------------------------------------------------------------------   
+		
+		
+		
+		//구 별 점포 수 얻기
+		public List<Map<String,String>> getCntPerGu(PreSearchDTO preSearchDTO){
+			List<Map<String,String>> cntPerGu = this.sqlSession.selectList(
+					"com.naver.erp.PreSearchDAO.getCntPerGu"
+					,preSearchDTO
+			);
+			//System.out.println("DAO/cntPerGu"+cntPerGu);
+			return cntPerGu;
 		}
 		
 	

@@ -40,6 +40,19 @@ public class PreSearchServiceImpl implements PreSearchService{
 
 	//--------------------------------------------------------------------------------------------------   
 	
+
+	//[검색한 게시판 목록 for MAP] 리턴하는 메소드 선언
+	public List<Map<String, String>> getPreResultMAPList(PreSearchDTO preSearchDTO) {
+		List<Map<String, String>> preResultMAPList = this.preSearchDAO.getPreResultMAPList(preSearchDTO);
+		
+		//[검색한 게시판 목록 총 개수]를 리턴한다
+		return preResultMAPList;
+	}
+	
+	
+
+	//--------------------------------------------------------------------------------------------------   
+	
 	
 	//[검색한 게시판 목록] 리턴하는 메소드 선언
 	public List<Map<String, String>> getPreResultList(PreSearchDTO preSearchDTO){
@@ -63,8 +76,8 @@ public class PreSearchServiceImpl implements PreSearchService{
 	//--------------------------------------------------------------------------------------------------   
 
 	//[select / addrGu1]얻기
-	public List<String> getAddrGu1List(){
-		List<String> addrGu1List = this.preSearchDAO.getAddrGu1List();
+	public List<Map<String,String>> getAddrGu1List(){
+		List<Map<String,String>> addrGu1List = this.preSearchDAO.getAddrGu1List();
 		return addrGu1List;
 	}
 	
@@ -143,6 +156,30 @@ public class PreSearchServiceImpl implements PreSearchService{
 		return bestMenuList;
 	}
 	
-	
 
+	//--------------------------------------------------------------------------------------------------   
+	
+	
+	 //구 별 점포수
+	public List<Map<String,String>> getCntPerGu(PreSearchDTO preSearchDTO){
+		
+		List<Map<String,String>> cntPerGu = new ArrayList<Map<String,String>>();
+		//Map<String,String> addr_gu = new HashMap<String,String>();
+		//System.out.println(preSearchDTO.getAddrGuList().size());
+		for(int i=0; i<preSearchDTO.getAddrGuList().size(); i++) {
+			preSearchDTO.setStrGu(preSearchDTO.getAddrGuList().get(i).get("addr_gu1"));
+			
+			//addr_gu.put("addr_gu",preSearchDTO.getAddrGuList().get(i).get("addr_gu1") );
+			//cntPerGu.add(i, addr_gu);
+			
+			List<Map<String, String>> input = this.preSearchDAO.getCntPerGu(preSearchDTO);
+			cntPerGu.add(i,input.get(0));
+		}
+
+		//System.out.println("Service/cntPerGu22222"+cntPerGu);
+		//System.out.println(cntPerGu.size());
+		return cntPerGu;	 
+	 }
+	 
+	
 }

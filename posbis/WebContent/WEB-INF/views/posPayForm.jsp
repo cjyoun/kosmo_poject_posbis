@@ -165,9 +165,9 @@
 										var appendTr = "<tr><td>"+(++levelNum)
 										appendTr += "<td>"+menu_name+"<input type='hidden' value='"+menu_name+"'name='menu_name'>" //메뉴이름
 										appendTr += "<td class=perPrice>"+menu_price+"<input type='hidden' value='"+menu_price+"'name='menu_price'>" //메뉴 가격 
-										appendTr += "<td><input type='text' name='"+menu_name+"' value="+sales_count+" class='sales_count' '"+menu_name+"' size=3 ><input type='hidden' name='sales_count' class='sales_countCNT' value="+sales_count+">"  //메뉴 개수
+										appendTr += "<td><input type='text' name='"+menu_name+"' value="+sales_count+" class='sales_count' '"+menu_name+"' size=3 style='height:35px; text-align:center'><input type='hidden' name='sales_count' class='sales_countCNT' value="+sales_count+">"  //메뉴 개수
 								
-										appendTr += "<td><div style=float:left; ><input type=button class=count_updateButton1 name=count_update value='+'></div><div style=float:right;><input type=button class=count_updateButton2 name=count_update value='-'></div><td><input type=button name=menu_deleteBtn  value='삭제'></tr>"
+										appendTr += "<td style='width:100'><div style=float:left; ><input type=button class=count_updateButton1 name=count_update value='+' style='height:35px; width:35; font-size:30'></div>&nbsp;<div style=float:right;><input type=button class=count_updateButton2 name=count_update value='-' style='height:35px; width:35; font-size:40'></div><td><input type=button name=menu_deleteBtn  value='삭제' style='height:35px'></tr>"
 										$("[name=tablelist] [name=perMenuList]").append(appendTr)
 										
 				 
@@ -727,7 +727,7 @@
 	                        <div class="card-body">
 	                            <h2>TOTAL</h2>
 	                            <h1><div class=allPrice style="float:left"></div></h1>
-	                            <div><input type="button" value="결제" style="WIDTH: 60pt; HEIGHT: 60pt; float:right" onClick="salesRegForm();"></div>
+	                            <div><input type="button" value="결제" style="WIDTH: 60pt; HEIGHT: 60pt; float:right; font-size:30" onClick="salesRegForm();"></div>
 	                            <div class="metric-value d-inline-block">
 	                            </div>
 	                        </div>

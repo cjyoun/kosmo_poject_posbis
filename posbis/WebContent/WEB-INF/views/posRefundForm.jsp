@@ -375,7 +375,7 @@ function startTime() {
                     <!-- ================ 메뉴 ======================================== -->
                     <!-- ============================================================== -->
                     <div class="row">
-					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" style="height:800">
+					<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8" style="height:800; max-width: 980">
 					    <div class="card"  style="height:100%;">
 	                          <h5 class="card-header">판매 LIST</h5>
 	                          	<div class="sidebar-nav-fixed" >
@@ -416,7 +416,7 @@ function startTime() {
 	                              		<td align=center >${posSales.RNUM}<input type='hidden' name='no' value='${posSales.RNUM}'>
 	                              		<td align=center class="sales_date" >${posSales.sales_date}<input type='hidden' name='sales_date' value='${posSales.sales_date}'>
 	                              		<td align=center >${posSales.sales_count}<input type='hidden' name='sales_count' value='${posSales.sales_count}'>
-	                              		<td align=center ><input type='button' class='detailbutton' value='상세보기'>
+	                              		<td align=center ><input type='button' class='detailbutton'  value='상세보기' >
 	                              		</tr>
 	                              		</c:forEach>
 										</tbody>
@@ -438,7 +438,7 @@ function startTime() {
                     <!-- ============================================================== -->
                     <!-- 결제목록 -->
                     <!-- ============================================================== -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" style="height:800">                    
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12" style="height:800; min-width:629">                    
 						<div class="card" style="height:76%">
                   			<h5 class="card-header">결제 목록</h5>
                   				<div class="card-body">
@@ -469,7 +469,7 @@ function startTime() {
 	                        <div class="card-body allPrice">
 	                            <h2>TOTAL</h2>
 	                            <h1><span class=allPriceDetail style="float:left"></span></h1>
-	                            <div><input type="button" value="결제취소" style="WIDTH: 60pt; HEIGHT: 60pt; float:right" class='refundButton'></div>
+	                            <div><input type="button" value="결제취소" style="WIDTH: 110; HEIGHT: 60pt; float:right; font-size:25" class='refundButton'></div>
 	                            <div class="metric-value d-inline-block">
 	                            </div>
 	                        </div>
