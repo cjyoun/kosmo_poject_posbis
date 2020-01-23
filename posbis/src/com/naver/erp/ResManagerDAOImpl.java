@@ -14,21 +14,14 @@ public class ResManagerDAOImpl implements ResManagerDAO{
 	private SqlSessionTemplate sqlSession;
 
 	
-	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
-	public int getResListAllCnt(ResManagerDTO resManagerDTO) {
-		int resListAllCnt = this.sqlSession.selectOne(
-				"com.naver.erp.ResManagerDAO.getResListAllCnt"   // 실행할 SQL 구문의 위치 지정
-				,resManagerDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
-		);
-		return resListAllCnt;
-	}
-	
 	// [검색한 게시판 목록] 리턴하는 메소드 선언
-	public List<Map<String,String>> getResList(ResManagerDTO resManagerDTO){
-		System.out.println("resManagerDTO===>"+resManagerDTO);
-		List<Map<String,String>> resList = this.sqlSession.selectList(
+	public List<Map<String,Object>> getResList(ReservationDTO reservationDTO){
+		for(int i=0; i<reservationDTO.getChooseBusinessNo().length; i++) {
+			System.out.println("reservationDTO 사업자 넘버 = = " + reservationDTO.getChooseBusinessNo()[i]);
+		}
+		List<Map<String,Object>> resList = this.sqlSession.selectList(
 			"com.naver.erp.ResManagerDAO.getResList" // 실행할 SQL 구문의 위치 지정 
-			,resManagerDTO
+			,reservationDTO
 			
 		);
 		System.out.println("resListDAO===>"+resList);
@@ -72,36 +65,75 @@ public class ResManagerDAOImpl implements ResManagerDAO{
 			return resRegCnt;
 	   }
 
-		public List<Map<String,String>> getResCntList(ResManagerDTO resManagerDTO){
-			System.out.println("resManagerDTO===>"+resManagerDTO);
-			List<Map<String,String>> resCntList = this.sqlSession.selectList(
+		
+		public List<Map<String, Object>> getResCntList(ResCntDTO resCntDTO){
+			for(int i=0; i<resCntDTO.getChooseBusinessNo().length; i++) {
+				System.out.println("사업자 넘버 = = " + resCntDTO.getChooseBusinessNo()[i]);
+			}
+			List<Map<String, Object>> resCntList = this.sqlSession.selectList(
 				"com.naver.erp.ResManagerDAO.getResCntList" // 실행할 SQL 구문의 위치 지정 
-				,resManagerDTO
+				,resCntDTO
 				
 			);
 			System.out.println("resCntListDAO===>"+resCntList);
 			return resCntList;
 		}
-/*
-		public List<String> getResCntList2(ResCntDTO resCntDTO){
-		       List<String> resCntList2 = this.sqlSession.selectList(
-		          "com.naver.erp.ResManagerDAO.resCntList2" // 실행할 SQL 구문의 위치 지정
-		          ,resCntDTO   
-		    );
-		    System.out.println("DAO / resCntList2" + resCntList2);
-		    return resCntList2;
-		    }
-*/		
 		
-		public List<Map<String, Object>> getResCntList2(ResCntDTO resCntDTO){
-			System.out.println("resCntDTO===>"+resCntDTO);
-			List<Map<String, Object>> resCntList2 = this.sqlSession.selectList(
-				"com.naver.erp.ResManagerDAO.getResCntList2" // 실행할 SQL 구문의 위치 지정 
-				,resCntDTO
+		// [1개 메뉴]리턴하는 메소드 선언
+
+		public ReservationDTO getReservationDTO(int r_no) {
+			System.out.println("getReservationDTO시작==>" + r_no);
+			// [SqlSessionTemplate 객체]의 selectOne(~,~) 를 호출하여 1개의 메뉴 얻기
+			ReservationDTO reservationDTO = this.sqlSession.selectOne(
+					"com.naver.erp.ResManagerDAO.getReservationDTO"    // 실행할 SQL 구문의 위치 지정
+					,r_no								// 실행할 SQL 구문에서 사용할 데이터 지정
+			);
+			return reservationDTO;
+		}
+
+		public List<Map<String,Object>> getResUpDel(ReservationDTO reservationDTO){
+			System.out.println("resManagerDTO===>"+reservationDTO);
+			List<Map<String,Object>> resUpDel = this.sqlSession.selectList(
+				"com.naver.erp.ResManagerDAO.getResUpDel" // 실행할 SQL 구문의 위치 지정 
+				,reservationDTO
 				
 			);
-			System.out.println("resCntList2DAO===>"+resCntList2);
-			return resCntList2;
+			System.out.println("resUpDelDAO===>"+resUpDel);
+			return resUpDel;
 		}
+		
+		
+		//김수민
+		public Map<String,String> getNoShowChartMap(ReservationDTO reservationDTO){
+			Map<String,String> noShowChartMap = this.sqlSession.selectOne(
+				"com.naver.erp.ResManagerDAO.getNoShowChartMap" // 실행할 SQL 구문의 위치 지정 
+				,reservationDTO
+				
+			);
+			return noShowChartMap;
+		}
+
+
+		public int getChangeSuccess(String r_no) {
+			int updateChangeSuccess = this.sqlSession.update(
+					"com.naver.erp.ResManagerDAO.getChangeSuccess" // 실행할 SQL 구문의 위치 지정 
+					,r_no
+			);
+			System.out.println("updateChangeSuccess===>"+updateChangeSuccess);
+
+			return updateChangeSuccess;
+		}
+		
+		
+		public int getChangeNoshow(String r_no) {
+			int updateChangeNoshow = this.sqlSession.update(
+					"com.naver.erp.ResManagerDAO.getChangeNoshow" // 실행할 SQL 구문의 위치 지정 
+					,r_no
+			);
+			System.out.println("updateChangeSuccess===>"+updateChangeNoshow);
+
+			return updateChangeNoshow;
+		}
+		
 		
 }

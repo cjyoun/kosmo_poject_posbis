@@ -12,17 +12,10 @@ public class ResManagerServiceImpl implements ResManagerService{
 	@Autowired
 	private ResManagerDAO resManagerDAO;
 
-	public int getResListAllCnt(ResManagerDTO resManagerDTO){
-
-		int resListAllCnt = this.resManagerDAO.getResListAllCnt(resManagerDTO);
-
-		return resListAllCnt;
-	}
-		
-	public List<Map<String,String>> getResList(ResManagerDTO resManagerDTO){
-		System.out.println("service : getMenuList 시작");
-		List<Map<String,String>> resList = this.resManagerDAO.getResList(resManagerDTO);
-		System.out.println("service : getMenuList 끝");
+	public List<Map<String,Object>> getResList(ReservationDTO reservationDTO){
+		System.out.println("service : getResList 시작");
+		List<Map<String, Object>> resList = this.resManagerDAO.getResList(reservationDTO);
+		System.out.println("service : getResList 끝" + resList);
 		return resList;
 	}
 	
@@ -56,27 +49,60 @@ public class ResManagerServiceImpl implements ResManagerService{
 		return resRegCnt;
 	}
 	
-	public List<Map<String,String>> getResCntList(ResManagerDTO resManagerDTO){
-		System.out.println("service : getMenuList 시작");
-		List<Map<String,String>> resCntList = this.resManagerDAO.getResCntList(resManagerDTO);
+
+	public List<Map<String, Object>> getResCntList(ResCntDTO resCntDTO){
+		System.out.println("service : getResCntList 시작");
+		List<Map<String, Object>> resCntList = this.resManagerDAO.getResCntList(resCntDTO);
 		System.out.println("service : resCntList 끝");
+		System.out.println("resManagerDAO" + resCntList);
 		return resCntList;
 	}
-
 	
-	public List<Map<String, Object>> getResCntList2(ResCntDTO resCntDTO){
-		System.out.println("service : getResCntList2 시작");
-		List<Map<String, Object>> resCntList2 = this.resManagerDAO.getResCntList2(resCntDTO);
-		System.out.println("service : resCntList2 끝");
-		System.out.println("resManagerDAO" + resCntList2);
-		return resCntList2;
+	public ReservationDTO getReservationDTO(int r_no) {
+		System.out.println("r_no====>"+r_no);
+		ReservationDTO reservationDTO = this.resManagerDAO.getReservationDTO(r_no);
+	
+		System.out.println("reservationDTO=====>"+reservationDTO);
+		return reservationDTO;
 	}
-	/*
-	   public List<String> getResCntList2(ResCntDTO resCntDTO){
-	      List<String> resCntList2 = this.resManagerDAO.getResCntList2(resCntDTO);
-	         return resCntList2;
-	   }
-	*/
 
+	public ReservationDTO getReservationDTO_upDel(int r_no) {
+		
+		ReservationDTO reservationDTO = this.resManagerDAO.getReservationDTO(r_no);
+		return reservationDTO;
+	}
+	
+	public List<Map<String,Object>> getResUpDel(ReservationDTO reservationDTO){
+		System.out.println("service : getResUpDel 시작");
+		List<Map<String, Object>> resUpDel = this.resManagerDAO.getResUpDel(reservationDTO);
+		System.out.println("service : getResUpDel 끝" + resUpDel);
+		return resUpDel;
+	}
+	
+	
+	
+	
+	//김수민
+	public Map<String,String> getNoShowChartMap(ReservationDTO reservationDTO){
+		Map<String, String> noShowChartMap = this.resManagerDAO.getNoShowChartMap(reservationDTO);
+		return noShowChartMap;
+	}
+
+
+
+	public int getChangeSuccess(String r_no) {
+
+		int updateChangeSuccess = this.resManagerDAO.getChangeSuccess(r_no);
+		return updateChangeSuccess;
+	}
+
+
+	public int getChangeNoshow(String r_no) {
+
+		int updateChangeSuccess = this.resManagerDAO.getChangeNoshow(r_no);
+		return updateChangeSuccess;
+	}
+	
+	
 }
 	

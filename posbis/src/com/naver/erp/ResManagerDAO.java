@@ -8,10 +8,7 @@ import java.util.Map;
 public interface ResManagerDAO {
 	
 	// [검색한 게시판 목록] 리턴하는 메소드 선언
-	List<Map<String,String>> getResList(ResManagerDTO resManagerDTO);
-
-	// [검색한 게시판 목록 개수] 리턴하는 메소드 선언
-	int getResListAllCnt(ResManagerDTO resManagerDTO);
+	List<Map<String,Object>> getResList(ReservationDTO reservationDTO);
 
 	// 유저 정보를 를 리턴하는 메소드 선언
 	int getUserNo(String user_id);
@@ -20,10 +17,16 @@ public interface ResManagerDAO {
 
 	int insertReservation(ReservationDTO reservationDTO);
 
-	List<Map<String, String>> getResCntList(ResManagerDTO resManagerDTO);
-
-	//List<String> getResCntList2(ResCntDTO resCntDTO);
+	List<Map<String, Object>> getResCntList(ResCntDTO resCntDTO);
 	
-	List<Map<String, Object>> getResCntList2(ResCntDTO resCntDTO);
+	ReservationDTO getReservationDTO(int r_no);
+
+	List<Map<String,Object>> getResUpDel(ReservationDTO reservationDTO);
+	
+	//김수민
+	Map<String,String> getNoShowChartMap(ReservationDTO reservationDTO);
+
+	int getChangeSuccess(String r_no);
+	int getChangeNoshow(String r_no);
 
 }

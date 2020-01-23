@@ -224,7 +224,7 @@ hr.fc-divider {
   border-width: 1px;
   padding: 0;
   vertical-align: top;
-  color: #71748d; }
+  /* color: #71748d; */ }
 
 .fc td.fc-today {
   border-style: double;
@@ -598,7 +598,24 @@ TODO: more distinction between this file and common.css
 */
 /* Colors
 --------------------------------------------------------------------------------------------------*/
-.fc-unthemed th{padding: 10px; color: #3d405c; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;}
+
+.fc-sun{color: red; }
+.fc-mon,
+.fc-tue,
+.fc-wed,
+.fc-thu,
+.fc-fri{
+color: #3d405c; 
+}
+.fc-sat{
+color : blue;   
+}
+
+
+
+
+
+.fc-unthemed th{padding: 10px; /* color: #3d405c; */ font-size: 14px; text-transform: uppercase; letter-spacing: 1px;}
 .fc-unthemed th,
 .fc-unthemed td,
 .fc-unthemed thead,

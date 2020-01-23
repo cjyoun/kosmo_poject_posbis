@@ -138,7 +138,16 @@
 				checkBusinessNo();
 
 			}); // 사업자번호 유효성 검사 끝==================================
-      
+
+
+			$("[name=business_open]").change(function(){
+		           overLapTime();
+		         
+		        });
+
+	        $("[name=business_close]").change(function(){
+	           overLapTime();
+	        });
          
         
 /*          //비밀번호 확인 체크

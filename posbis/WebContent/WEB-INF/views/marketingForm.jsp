@@ -100,49 +100,9 @@
 				marketingDTO.setDataArea($("[name=marketingForm] [name=dataArea]").val());
 			}
 
- 		  //중복포함 10위까지 세트메뉴 추천해주는 파이차트
-				google.charts.load('current', {'packages':['corechart']});
-				google.charts.setOnLoadCallback(drawChart);
-				
-				function drawChart() {
-			             
-					if($("[name=marketingForm] [name=dataArea]:checked").val()=="allStore"){      
-						  var data = google.visualization.arrayToDataTable([
-						        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
-						        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-						   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}']
-						  		</c:forEach>
-						      ]);
-					}
-					if($("[name=marketingForm] [name=dataArea]:checked").val()=="myStore"){      
-						  var data = google.visualization.arrayToDataTable([
-						        ['세트메뉴', '판매건수',{'type': 'string', 'role': 'tooltip' , 'p': {'html': true}}]
-						        <c:forEach items="${setMenuList}" var="setMenu" varStatus="loopTagStatus" >
-						   			,['${setMenu.SET_MENU}',${setMenu.SALES_CNT},'${setMenu.SET_MENU}'+' '+'${setMenu.SALES_CNT}'+'건']
-						  		</c:forEach>
-						      ]);
-					}
+		   reSearch();
 
-				  var options = {
-				    title: '세트메뉴 추천 TOP 10 \n\n'
-		   			,titleTextStyle: {
-		    	        fontSize: 25,
-		    	        bold: true
-		    	        
-		    	    }
-				    ,fontSize : 22
-					,colors: ['#6454c6','#74A2F2', '#b2a9e7', '#7966E3','#433886']
-                    ,width: "100%"
-                    ,height: "100%"
-                       ,pieSliceText: 'percentage'          
-                       ,legend: 'labeled'
-				  };
-				
-				  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-				
-				  chart.draw(data, options);
-				}
-
+		   
 			//사업자번호 셀렉트 박스에 change 이벤트 발생 시 실행할 함수
 		   $('[name=changeBusinessNo]').change(function(){		
 
@@ -514,7 +474,7 @@
 			
 			<c:if test="${!empty setMenuList}">
 				<tr>
-					<td colsqan="5">
+					<td colspan="5">
 						<table><tr><td>
 						<img src="resources/business_type_img/${setMenuList[0].BUSI_CODE}.jpg" class="img-fluid" alt="" width="100%" height="100%" style="margin:0 0 4 0">
 						<td valign="bottom">

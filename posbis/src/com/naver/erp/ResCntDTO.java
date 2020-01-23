@@ -10,10 +10,24 @@ public class ResCntDTO {
 	private String start;
 	private String business_no;
 	private String user_id;
+	private String[] chooseBusinessNo;
+	private String chooseAllBusinessNo;
+
 	
 	
 	
-	
+	public String[] getChooseBusinessNo() {
+		return chooseBusinessNo;
+	}
+	public void setChooseBusinessNo(String[] chooseBusinessNo) {
+		this.chooseBusinessNo = chooseBusinessNo;
+	}
+	public String getChooseAllBusinessNo() {
+		return chooseAllBusinessNo;
+	}
+	public void setChooseAllBusinessNo(String chooseAllBusinessNo) {
+		this.chooseAllBusinessNo = chooseAllBusinessNo;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

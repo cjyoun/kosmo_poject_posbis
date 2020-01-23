@@ -17,9 +17,23 @@ public class ReservationDTO {
 	private int month;
 	private int title;
 	private String start;
+	private String[] chooseBusinessNo;
+	private String chooseAllBusinessNo;
 	
 	
 	
+	public String[] getChooseBusinessNo() {
+		return chooseBusinessNo;
+	}
+	public void setChooseBusinessNo(String[] chooseBusinessNo) {
+		this.chooseBusinessNo = chooseBusinessNo;
+	}
+	public String getChooseAllBusinessNo() {
+		return chooseAllBusinessNo;
+	}
+	public void setChooseAllBusinessNo(String chooseAllBusinessNo) {
+		this.chooseAllBusinessNo = chooseAllBusinessNo;
+	}
 	public int getMonth() {
 		return month;
 	}

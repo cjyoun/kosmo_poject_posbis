@@ -6,6 +6,7 @@ public class ResManagerDTO {
 	private int r_no;
 	private String user_id;
 	private String res_date;
+	private String res_time;
 	private String business_no;
 	private int month;
 	private String title;
@@ -16,6 +17,12 @@ public class ResManagerDTO {
 	
 	
 	
+	public String getRes_time() {
+		return res_time;
+	}
+	public void setRes_time(String res_time) {
+		this.res_time = res_time;
+	}
 	public String getTitle() {
 		return title;
 	}
