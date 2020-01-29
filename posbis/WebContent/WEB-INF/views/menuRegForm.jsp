@@ -161,6 +161,8 @@ $(document).ready(function(){
         
      }); //$(document).ready(function(){
 
+     	
+
     	 
 		// [메뉴 등록 화면]에 입력된 데이터의 유효성 체크 함수 선언
 		function checkMenuRegForm(){
@@ -192,12 +194,28 @@ $(document).ready(function(){
 				$("[name=menu_cost]").focus();
 				return;
 			}
+
+			if(is_valid_pattern($("[name=menu_price]"), /^[0-9]{1,15}$/)==false){
+	          		alert("메뉴가격은 숫자로 입력해주세요."); 
+	          		$("[name=menu_price]").val("");
+	          		$("[name=menu_price]").focus();
+	          	 	return;
+			}
 			
 			if(is_empty("[name=menu_cost]")){
 				alert("메뉴원가를 입력해주세요.");
 				return;
 			}
 
+			if(is_valid_pattern($("[name=menu_cost]"), /^[0-9]{1,15}$/)==false){
+          		alert("메뉴원가는 숫자로 입력해주세요."); 
+          		$("[name=menu_cost]").val("");
+          		$("[name=menu_cost]").focus();
+          	 	return;
+			}
+			
+			if(confirm("메뉴등록 하시겠습니까?")==false) {return;}
+			
 			//alert($('[name=menuRegForm]').serialize());
 			// 메뉴 등록 후 메뉴 입력 행 개수를 받기
 			$.ajax({
@@ -214,8 +232,9 @@ $(document).ready(function(){
 				// 서버의 응답을 성공적으로 받았을 경우 실행할 익명함수 설정
 				// 매개변수 menuRegCnt 에는 입력 행의 개수가 들어온다.
 				, success : function(menuRegCnt){
-					alert("메뉴 등록하시겠습니까?"+menuRegCnt);
-				// [메뉴 등록 적용 개수]가 1개면(=insert 라 한 번 성공했따는 뜻)
+
+					// 메뉴등록여부 묻기
+					
 					if(menuRegCnt==1){
 						alert("메뉴 등록 성공!");
 						location.replace("/posbis/menuForm.do");
@@ -446,9 +465,9 @@ $(document).ready(function(){
    
        <div class="col-lg-8" align="center" style="margin:0 0 0 330">
             <section class="panel">
-              <header class="panel-heading" style="text-align:center;">
-                	   [메뉴등록]
-              </header>    
+              <header class="panel-heading" style="text-align:center; background-color:#7f9ed436;">
+                	   <font color="#39485f">[메뉴등록]</font>
+              </header>   
               
               <div class="panel-body"> 
                   <form name = "menuRegForm" method="post" action="/posbis/menuRegForm.do" class="form-validate form-horizontal" id="feedback_form"  >

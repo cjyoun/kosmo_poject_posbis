@@ -123,6 +123,7 @@
 	
 	
 	<select id="getResUpDel" parameterType="com.naver.erp.ReservationDTO" resultType="java.util.HashMap">
+	<!-- (추가) where 절 조건 변경 -->
 	select 
 	      rs.r_no                                     	"r_no"
 	    , rs.business_no                             	"business_no"
@@ -133,8 +134,8 @@
 	    , rs.res_phone             						"res_phone"
 	    , rs.res_text             						"res_text"
 	from business_info b, reservation rs, user_info u
-	where to_char(res_date, 'yyyy-mm-dd')=#{res_date} and b.business_no=#{business_no}
-	        and u.u_no=b.u_no and u.user_id=#{user_id} and rs.r_no=${r_no}
+	where to_char(res_date, 'yyyy-mm-dd')=#{res_date} and u.u_no=b.u_no
+            and b.business_no=rs.business_no and u.user_id=#{user_id} and rs.r_no=${r_no}
    </select>
 
 	<!-- 메뉴 수정 후 수정행의 적용개수를 리턴하는 메소드 선언-->
@@ -146,7 +147,6 @@
 			,res_guest=#{res_guest}
 			,res_phone=#{res_phone}
 		where r_no=${r_no}
-
 	</update>
 
 

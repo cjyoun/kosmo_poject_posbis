@@ -320,8 +320,8 @@
    <section class="wrapper">
        <div class="col-lg-7" align="center" style="margin:0 0 0 410">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">프리미엄 회원 결제</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">프리미엄 회원 결제</font>
               </header>
                 
               <div class="panel-body"> 

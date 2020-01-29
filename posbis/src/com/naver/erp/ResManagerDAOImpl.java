@@ -102,6 +102,32 @@ public class ResManagerDAOImpl implements ResManagerDAO{
 			return resUpDel;
 		}
 		
+		@Override
+		public int getResCnt(ReservationDTO reservationDTO) {
+			int resCnt = this.sqlSession.selectOne(
+					"com.naver.erp.ResManagerDAO.getResCnt"    // 실행할 SQL 구문의 위치 지정
+					,reservationDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
+			);
+			return resCnt;
+		}
+
+		@Override
+		public int updateRes(ReservationDTO reservationDTO) {
+			int updateCnt = this.sqlSession.update(
+					"com.naver.erp.ResManagerDAO.updateRes"    // 실행할 SQL 구문의 위치 지정
+					,reservationDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
+			);
+			return updateCnt;
+		}
+
+		@Override
+		public int deleteRes(ReservationDTO reservationDTO) {
+			int deleteCnt = this.sqlSession.delete(
+					"com.naver.erp.ResManagerDAO.deleteRes"    // 실행할 SQL 구문의 위치 지정
+					,reservationDTO								// 실행할 SQL 구문에서 사용할 데이터 지정
+			);
+			return deleteCnt;
+		}
 		
 		//김수민
 		public Map<String,String> getNoShowChartMap(ReservationDTO reservationDTO){

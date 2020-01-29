@@ -23,6 +23,12 @@ public interface ResManagerDAO {
 
 	List<Map<String,Object>> getResUpDel(ReservationDTO reservationDTO);
 	
+	int getResCnt(ReservationDTO reservationDTO);
+
+	int updateRes(ReservationDTO reservationDTO);
+
+	int deleteRes(ReservationDTO reservationDTO);
+	
 	//김수민
 	Map<String,String> getNoShowChartMap(ReservationDTO reservationDTO);
 

@@ -446,8 +446,8 @@ function goInfoUpdateForm(){
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">내정보 보기</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">내정보 보기</font>
               </header>
 			<div class="panel-body"> 
             <!------------------ 메인으로 보여줄 div -------------------->
@@ -489,8 +489,8 @@ function goInfoUpdateForm(){
    
           <div class="col-sm-6" style="margin:20 0 0 145">
             <section class="panel" >
-              <header class="panel-heading">
-                	개인정보
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	<font color="#39485f">개인정보</font>
               </header>
               
               <table class="table table-hover" > 

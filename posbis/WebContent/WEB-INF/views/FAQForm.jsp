@@ -375,8 +375,8 @@ UTF-8 인코딩 방식은 한글을 포함 전세계 모든 문자열을 부호�
            <div class="col-lg-11" align="center">
       <br><br>
             <section class="panel">
-              <header class="panel-heading">
-                      FAQ
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">FAQ</font>
               </header>
               <div class="panel-body">  
                   <div class="col-sm-10" align="center" style="margin:20 0 30 145">

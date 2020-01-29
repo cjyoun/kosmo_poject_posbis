@@ -646,11 +646,11 @@
 
 							<table class="table table-striped table-advance table-hover"> 
 								<thead>
-								<tr style="background-color:#d2d2d4;">
-									<th align=center><font color="#656565">번호</font>
-									<th align=center><font color="#656565">글제목</font>
-									<th align=center><font color="#656565">등록일</font>
-									<th align=center><font color="#656565">댓글수</font>
+								<tr style="background-color:#7f9ed436;">
+									<th align=center><font color="#39485f">번호</font>
+									<th align=center><font color="#39485f">글제목</font>
+									<th align=center><font color="#39485f">등록일</font>
+									<th align=center><font color="#39485f">댓글수</font>
 									
 								<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
 								 
@@ -682,161 +682,6 @@
 	</section>
 	<!-- Why Section3 end -->
 
-<%-- 
-  <main id="main">
-   <section id="main-content">
-   <section class="wrapper">
-       <div class="col-lg-10" align="center">
-            <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">통합관리</a>
-              </header>           
-     <div class="panel-body">
-      <div class="container">
-		 <div class="row" align="center">
-          <div class="col-sm-10-2">
-            <section class="panel">
-              <header class="panel-heading no-border">
-              		 <a href="">통합 개인정보</a>
-              </header>
- 
-  <!-- =========================================== -->
- <!-- =========                     이정숙꺼                   =========== -->
- <!-- =========================================== -->
-	<div class="myStoreInfo">
-		 	  <form name="myStoreInfoForm" method="post" action="/posbis/homeMyStoreInfoProc.do">	
-		 	  			
-				<table border=0 width="850" align="center">
-				<tr><td align = right>
-				[내 점포 수] : ${myStoreInfoAllCnt} 개
-				</table>
-		 			   <table  class="table table-bordered"   id="mystore">
-			            <c:forEach items="${myStoreInfoList}" var="myStoreInfo" varStatus="status">
-			               <!-- <script>alert("${status.count}"%3);</script> -->
-			            <c:if test="${status.index%3==0}">
-			                  <tr>
-			               </c:if>
-			               <td align=center>  
-			         			       <img src="resources/business_type_img/${myStoreInfo.business_type_code}.jpg" class="img-fluid" alt="">   		
-			               <td>상호명 : ${myStoreInfo.business_name} <br>
-			                     사업자 번호 : ${myStoreInfo.business_no} <br>
-			                     업종 : ${myStoreInfo.business_type_name1}&nbsp;>&nbsp;${myStoreInfo.business_type_name2}<br>
-			                     주소 : ${myStoreInfo.addr_gu}&nbsp;${myStoreInfo.addr_dong}&nbsp;${myStoreInfo.addr_detail}<br>
-			                     전화번호 : ${myStoreInfo.store_tel_num}   
-			            </c:forEach>
-			       </table>    	
-					<div class="pagingDiv2">&nbsp;<span class="pagingNumber2"></span>&nbsp;</div>
-	     			 <input type="hidden" name="selectPageNo2"> 
-	     	</form>
-       </div>
-
-       
- <!-- =========================================== -->
- <!-- ==========                    /이정숙꺼끝                =========== -->     
- <!-- =========================================== --> 	
- 
- 
-				
-      <div id = "container" style = "width: 550px; height: 270px; margin: 0 auto">
-      </div>
-      <script language = "JavaScript">
-         function drawChart() {
-            // Define the chart to be drawn.
-           var data = google.visualization.arrayToDataTable([
-               [         '판매일자(월)',                             '매출액(원)' ,             { role: 'style' },  { role: 'annotation' }         ],
-               [ ${salesNow[0].now_sales_date} + ' 총매출',  ${salesNow[0].now_sales_amount},  'color: #7966e3;',  ${salesNow[0].now_sales_amount} ], 
-               [ ${salesNow[0].now_sales_date} + ' 순매출',  ${salesNow[0].now_sales_income},  'color: #b2a9e7;',  ${salesNow[0].now_sales_income} ],
-               [ ${salesNow[1].now_sales_date} + ' 총매출',  ${salesNow[1].now_sales_amount},  'color: #74a2f2;',  ${salesNow[1].now_sales_amount} ],
-               [ ${salesNow[1].now_sales_date} + ' 순매출',  ${salesNow[1].now_sales_income},  'color: #9abbf4;',  ${salesNow[1].now_sales_income} ]
-            ]);
-
-           var options = {
-                   title: '[전월대비 당월 매출현황(원)]'
-                   , tooltip:{textStyle : {fontSize:12}, showColorCode : true}
-                   , legend: { position: "none" }
-                    , bar: {groupWidth: "42%"}
-                     , isStacked: false
-                     , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-                           startup: true,
-                           duration: 1000,
-                           easing: 'linear' }
-                     , annotations: {
-                      textStyle: {
-                         fontSize : 13
-                         , bold: true
-                         , italic: true
-                         , color: '#white'
-                         ,  auraColor: '#black'
-                         ,  opacity: 0.8
-
-                      }
-                      }    
-                     
-             }; 
-
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.BarChart(document.getElementById('container'));
-            chart.draw(data, options);
-         }
-         google.charts.setOnLoadCallback(drawChart);
-      </script>
-  
- 
- <br><br>
- 
-  <header class="panel-heading no-border">
-             <a href="">내가 쓴글 보기</a>
-              </header>
- 		<div class="panel-body"> 
- 		 <div class="col-sm-12" align="center">
-	   <table  class="table table-bordered"  align=center id="mystore">
-	   
-	   <form name="myQstnList" method="post" action="/posbis/homePageForm.do" align="center" ><br>
-<!-- 				<b>내가 쓴 글</b> -->
-				<table border=0 width="500" align="center">
-				<tr><td align = right>
-				[나의글 총개수] : ${myQstnAllCnt}&nbsp;&nbsp;&nbsp;&nbsp;
-				</table>
-				
-				<div style="border: 0px solid;">&nbsp;<span class="pagingNumber"></span> &nbsp;
-				</div>
-				<table class="table table-striped table-advance table-hover"> 
-					<thead>
-					<tr>
-						<th align=right>번호
-						<th align=right>글제목
-						<th align=right>등록일
-						<th align=right>댓글수
-						
-					<c:forEach items="${myQstnList}" var="myQstn" varStatus="loopTagStatus">
-					 
-					<tr style="cursor: pointer" onClick="goMyQstnForm();">
-						<td >
-						${myQstn.selectPageNo*myQstn.rowCntPerPage-
-									 				myQstn.rowCntPerPage+1+loopTagStatus.index}
-						<td  >${myQstn.subject}
-						<td  >${myQstn.qna_date}
-						<td >${myQstn.reply_cnt}
-					</c:forEach>
-				<!------------------------------------------------>
-				</table>
-					<c:if test="${empty myQstnList}">
-						<br>
-						고객님께서 쓰신글이 존재하지 않습니다.
-					</c:if>
-			</form>
-  		<tr>
-                  <th>
-       </table>   		 
- 
-</section>
-</div>
-</div>
-</div>
-</section>
-</section>
-</main>
- --%>
 <!--==========================
     꼬리말
   ============================-->

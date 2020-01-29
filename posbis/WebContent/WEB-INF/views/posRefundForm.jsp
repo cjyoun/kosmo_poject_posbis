@@ -133,6 +133,13 @@ function startTime() {
 	    return parts.join(".");
 	}
 
+	//콤마풀기
+	function uncomma(str) {
+	    var str = String(str);
+	    return str.replace(/[^\d]+/g, '');
+	}
+
+
 	var levelNum= 0;
 	
 	$(document).on('click','.detailbutton',function() {
@@ -170,10 +177,17 @@ function startTime() {
 							var business_no=data[i].business_no
 							var sales_date=data[i].sales_date
 					 
-							var refundList=tableObj.append("<tr><td>"+(++levelNum)+"<td>"+menu_name+"<td>"+menu_price+"<td>"+sales_count+"<input type=hidden name=business_no value="+business_no+">"+"<input type=hidden name=sales_date value="+sales_date+">"+"<input type=hidden name=sales_count value="+sales_count+">")
+							var refundList=tableObj.append("<tr><td>"+(++levelNum)+"<td>"+menu_name+"<td class=perPrice>"+menu_price+"<td>"+sales_count+"<input type=hidden name=business_no value="+business_no+">"+"<input type=hidden name=sales_date value="+sales_date+">"+"<input type=hidden name=sales_count value="+sales_count+">")
 							
 					  	  }  
 					  	for(var i=0; i<tableObj.find("tr").length; i++){
+					  		
+					  		$(".perPrice").each(function() {
+					             var num = $(this).text();
+					             var commaNum = uncomma(num);
+					             $(this).text(commaNum);
+					     	});
+							
 				 
 					  		var price=tableObj.find("tr").eq(i).find("td").eq(2).text()
 					  		var cnt=tableObj.find("tr").eq(i).find("td").eq(3).text()
@@ -185,7 +199,14 @@ function startTime() {
 
 					  		var num = $(".allPriceDetail").text();
 					  		var commaNum = numberWithCommas(num);
-					  		$(".allPriceDetail").text(commaNum);  
+					  		$(".allPriceDetail").text(commaNum+" 원");  
+					  		
+					  		
+					  		$(".perPrice").each(function() {
+					             var num = $(this).text();
+					             var commaNum = numberWithCommas(num);
+					             $(this).text(commaNum);
+					     	});
 						}
 			 
 					}else{
@@ -255,7 +276,7 @@ function startTime() {
 		}else{
 			
 			 alert("취소되었습니다"); 
-			 location.replace("/posbis/posMenuForm.do"); 
+			location.replace("/posbis/posRefundForm.do"); 
 			
 			
 		}
@@ -339,17 +360,17 @@ function startTime() {
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav flex-column">
-                            <li class="nav-divider">
-                                Menu
+                        <ul class="navbar-nav flex-column" >
+                            <li class="nav-divider" style="font-size:25"> Menu</li>
+                            <li class="nav-item " style="cursor:pointer">
+                                <a class="nav-link"  onClick="goPosPayForm();" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
+                                <i class="fa fa-fw fas fa-calculator" style="font-size:25"></i><span style="cursor:pointer; font-size:25">결제관리</span>
+                				</a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosPayForm();" style="cursor:pointer">결제관리</span>
-                				<span class="badge badge-success">6</span></a>
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosRefundForm();" style="cursor:pointer">매출관리</span>
-                				<span class="badge badge-success">6</span></a>
+                            <li class="nav-item " style="cursor:pointer">
+                                <a class="nav-link active"  onClick="goPosRefundForm();" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">
+                                <i class="fa fa-fw fas fa-won-sign" style="font-size:25"></i><span style="cursor:pointer; font-size:25">매출관리</span>
+                				</a>
                             </li>
                         </ul>
                     </div>
@@ -374,8 +395,8 @@ function startTime() {
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <ol class="breadcrumb" style="padding: 2 0 12 15;">
-								<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">MENU</a></li>
-								<li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fas fa-calculator""></i>결제하기</li>
+								<li class="breadcrumb-item">MENU</li>
+								<li class="breadcrumb-item active" aria-current="page"><i class="fa fa-fw fas fa-won-sign"></i>매출관리</li>
                             </ol>
                         </div>
                     </div>
@@ -465,7 +486,7 @@ function startTime() {
 		                                	<tr>
 		                                      <th width="5%">no</th>
 		                                      <th width="38%">메뉴이름</th>
-		                                      <th width="30%">가격</th>
+		                                      <th width="30%">가격(원)</th>
 		                                      <th width="10%">수량</th>
 		                                	</tr>
 	                             		</thead>

@@ -293,7 +293,7 @@
 					// 삭제 버튼 눌렀을 경우
 					if(upDel=='del'){
 						$("[name=upDel]").val("del");
-						if(confirm("정말 삭제 하시겠습니까?")==false) {return;}
+						if(confirm("메뉴를 삭제 하시겠습니까?")==false) {return;}
 						
 					}else if(upDel=="up"){
 						if(is_empty("[name=main_category_name]")){
@@ -325,11 +325,27 @@
 							$("[name=menu_cost]").focus();
 							return;
 						}
+
+						if(is_valid_pattern($("[name=menu_price]"), /^[0-9]{1,15}$/)==false){
+			          		alert("메뉴가격은 숫자로 입력해주세요."); 
+			          		$("[name=menu_price]").val("");
+			          		$("[name=menu_price]").focus();
+			          	 	return;
+						}
 						
 						if(is_empty("[name=menu_cost]")){
 							alert("메뉴원가를 입력해주세요.");
 							return;
 						}
+
+						if(is_valid_pattern($("[name=menu_cost]"), /^[0-9]{1,15}$/)==false){
+			          		alert("메뉴원가는 숫자로 입력해주세요."); 
+			          		$("[name=menu_cost]").val("");
+			          		$("[name=menu_cost]").focus();
+			          	 	return;
+						}
+
+						if(confirm("메뉴수정 하시겠습니까?")==false) {return;}
 					}
 					$.ajax({
 						//--------------------------
@@ -492,8 +508,8 @@
       
           <div class="col-lg-8" style="margin:0 0 0 330; ">
             <section class="panel" >
-              <header class="panel-heading" style="text-align:center;">
-                 [메뉴수정]
+              <header class="panel-heading" style="text-align:center;background-color:#7f9ed436;">
+                 <font color="#39485f">[메뉴수정]</font>
               </header>
               <div class="panel-body"> 
                   <form name = "menuUpDelForm" method="post" action="/posbis/menuUpDelProc.do"class="form-validate form-horizontal" id="feedback_form" >

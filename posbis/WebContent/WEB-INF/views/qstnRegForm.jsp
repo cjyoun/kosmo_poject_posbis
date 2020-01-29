@@ -408,10 +408,10 @@
 					            <section class="panel">
 					            <input type="hidden" name="qna_no" value="${(empty param.qna_no)?0:param.qna_no}"> 
 					              <c:if test="${empty param.qna_no}"> <!-- empty는 존재하지 않거나 null이거나 길이가 없으면 (사용할 만한 데이터가 아니면) 무조건 true 리턴-->
-					             <header class="panel-heading">[문의하기]</header>
+					             <header class="panel-heading"style="background-color:#7f9ed436;"><font color="#39485f">[문의하기]</font></header>
 						         </c:if>
 						         <c:if test="${param.qna_no>0}"> <!-- 무조건 test 오른쪽은 EL이 나온다. EL 영역 안에 처음과 맨 끝에 공백 넣으면 안 됨 -->
-						           <header class="panel-heading">[답글쓰기]</header>
+						           <header class="panel-heading"style="background-color:#7f9ed436;"><font color="#39485f">[답글쓰기]</font></header>
 						         </c:if>
 					             
 					              

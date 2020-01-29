@@ -106,10 +106,7 @@
 
 .window{
     display: none;
-    position:absolute;  
-/* /*     left:50%;
-    top:50px; */ */
-    margin-left: -500px;
+    position:fixed;  
     width:fit-content;
     height:fit-content;
     background-color:#6993DA;
@@ -148,6 +145,8 @@
     
    background-color: #f5f8fd;
    
+   
+   
 
 }
   
@@ -158,16 +157,33 @@ select {
      background: url("resources/selectImg.jpg") no-repeat 93% 50%; /* 화살표 모양의 이미지 */ 
 } 
 select::-ms-expand { display: none; }
+
+.fc-event{ cursor: pointer; }
+
+
+label {
+	font-size:25;
+}
   
   </style>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
          <script>
-         
+
+       //**************수민*************
+			var prevObj = null;
+		//*******************************
+      
+ var selectDate;        
 
            $(document).ready(function(){
 
+        	   // (추가)팝업창 이동가능하도록 적용
+          	 $(".window").draggable();
 
+
+      		
+				// 사업자 번호 입력양식에 넣어주기
         	   inputData("[name=chooseAllBusinessNo]","${reservationDTO.chooseAllBusinessNo}");
                <c:forEach items="${reservationDTO.chooseBusinessNo}" var="chooseBusinessNo">
                   inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
@@ -200,62 +216,106 @@ select::-ms-expand { display: none; }
                });// 사업자번호 체크시 끝
 
 
-               
-              
-               
-               //달 체크
+               // (수정됨)달 체크
+               $("[name=res_month]").click(function() {
+              	   
+                  	var res_month = $('[name=res_month]').find("option:selected").val();
+                  	var res_year = $('[name=res_year]').find("option:selected").val();
+                  	$("[name=res_day]").find("option").remove();
+                  	 
+                  	
+                  	if(res_month=="02" &&(res_year%4==0 && res_year%100!=0 || res_year%400==0)){       		     
+   	            	   for(var i=1; i<=29; i++){
+   		                  var d = (i<10)?"0"+i:i;
+   		             
+   		                  $("[name=res_day]").append("<option value="+d+">"+d);
+   		              }
+   	               }else if(res_month=="02"){ 	 
+  	                    for(var i=1; i<=28; i++){
+  	                     var d = (i<10)?"0"+i:i;
+  	                    
+  	                     $("[name=res_day]").append("<option value="+d+">"+d);
+  	                  }
+  	               }else if(res_month=="01"||res_month=="03"||res_month=="05"||res_month=="07"||res_month=="08"||res_month=="10"||res_month=="12"){ 
+  	            	   for(var i=1; i<=31; i++){
+  	                       var d = (i<10)?"0"+i:i;
+  	                    
+  	                       $("[name=res_day]").append("<option value="+d+">"+d);
+  	            	   }
+  	               }else{
+  	            	 
+  	                  for(var i=1; i<=30; i++){
+  	                     var d = (i<10)?"0"+i:i;
+  	                  
+  	                     $("[name=res_day]").append("<option value="+d+">"+d);
+  	                  }
+  	               }
                  
-                  $("[name=res_month]").change(function() {
-                     $('[name=res_day]').find("option").remove();
-                      var res_month = $('[name=res_month]').find("option:selected").val();
-                  
-                     if(res_month=="02"){
-                          for(var i=1; i<=28; i++){
-                           var d = (i<10)?"0"+i:i;
-                           $("[name=res_day]").append("<option value="+d+">"+d);
-                        }
-                     }else if(res_month=="01"||res_month=="03"||res_month=="05"||res_month=="07"||res_month=="08"||res_month=="10"||res_month=="12"){
-                        for(var i=1; i<=31; i++){
-                             var d = (i<10)?"0"+i:i;
-                             $("[name=res_day]").append("<option value="+d+">"+d);
-                        }
-                     }
-                     else{
-                        for(var i=1; i<=30; i++){
-                           var d = (i<10)?"0"+i:i;
-                           $("[name=res_day]").append("<option value="+d+">"+d);
-                        }
-                     }
-                  
-                 });
+                });//달 체크 끝 
 
+
+                // (추가)연락처 입력 창 자동 커서이동  
+                $('[name=phone1]').keyup (function () {
+                    var charLimit = $(this).attr("maxlength");
+                    if (this.value.length >= charLimit) {
+                        $(this).next().focus();
+                        return false;
+                    }
+                });
+                
+                $('[name=phone2]').keyup (function () {
+                    var charLimit = $(this).attr("maxlength");
+                    if (this.value.length >= charLimit) {
+                        $(this).next().focus();
+                        return false;
+                    }
+                });
+                //커서이동 끝
+                
+             
                // 팝업창 띄운 후 검은 막 띄우기
                $(".openMask").click(function(e){
                    e.preventDefault();
                    wrapWindowByMask();
                });
-        
-               //닫기 버튼을 눌렀을 때
+
+               
+              // 팝업창 닫기 버튼을 눌렀을 때
                $(".window .close").click(function (e) {  
-                   //링크 기본동작은 작동하지 않도록 한다.
-                   e.preventDefault();  
-                   $("#mask, .window").hide();  
+                   e.preventDefault();
+
+                   // (수정) 닫으면 내용 리셋
+                   $("form").each(function() {  
+                       if(this.id == "res_reset") this.reset();
+                       $("#mask, .window").hide();
+                   });
+                   $('.window').val('');
+                // (수정) 닫으면 내용 리셋 끝
                });       
         
                //팝업창 외에 뒤에있는 검은색 배경 눌렀을 때 
                $("#mask").click(function () {  
-                   $(this).hide();  
-                   $(".window").hide();  
-        
-               });   
+                   $(this).hide();
 
-            // 선택한 사업자 번호를 popup_business_no로 넣어준다
+                   // (수정) 닫으면 내용 리셋
+                   $("form").each(function() {  
+                       if(this.id == "res_reset") this.reset();
+                       $("#mask, .window").hide();
+                   });
+                   $('.window').val('');
+                   // (수정) 닫으면 내용 리셋
+               });
+                  
+
+   			// (수정)작동 이상없을 시 삭제 예정 
+   			
+            /* // 선택한 사업자 번호를 popup_business_no로 넣어준다
             $('#select_business_no').change(function(){
                //alert(this.value);
                $('#select_business_no').val(this.value);
                $('#popup_business_no').val(this.value);
                fn_get_events(0);
-            });
+            }); */
 
             
             
@@ -269,7 +329,25 @@ select::-ms-expand { display: none; }
                  eventClick: function(calEvent, jsEvent, view){ 
                   console.log('click', calEvent.start);
                   //alert(calEvent.start);
+                  selectDate = calEvent.start;
                   goResList(calEvent.start);
+
+                  //========================수민========================
+	  				if(prevObj) {
+                     prevObj.css('background-color', '#5969FF');
+                     prevObj.css('font-weight', '400');
+                     $(this).css('background-color', '#191970');
+                     $(this).css('font-weight', '900');
+      
+                  } else {
+                     $(this).css('background-color', '#191970');
+                     $(this).css('font-weight', '900');
+                  }
+      
+                  prevObj = $(this);
+
+
+			//=====================================================
                 }
             });
 
@@ -321,6 +399,7 @@ select::-ms-expand { display: none; }
 	            //console.log(date2);
 	            fn_get_events(date2);
 	            //alert("date = " + convertDate(date))
+	            
 	            goResList(date2);
            }
            
@@ -522,9 +601,10 @@ select::-ms-expand { display: none; }
 	       	               var date = $("#calendar").fullCalendar("getDate");
 	       	               convertDate(date);
 	       	               var date2 = parseInt(convertDate(date));
-	        	            //console.log(date2);
+	        	            //alert(date2);
 	        	            fn_get_events(date2);
-	        	            goResList(date2);
+	        	            //alert(selectDate);
+	        	            goResList(selectDate);
 
 	                   }
 	                   ,error:function(request,status,error){
@@ -559,7 +639,7 @@ select::-ms-expand { display: none; }
 	       	               var date2 = parseInt(convertDate(date));
 	        	            //console.log(date2);
 	        	            fn_get_events(date2);
-	        	            goResList(date2);
+	        	            goResList(selectDate);
 
 	                   }
 	                   ,error:function(request,status,error){
@@ -570,139 +650,143 @@ select::-ms-expand { display: none; }
                }
 
 
-
-
-
-
-
-            // 사업자 번호 선택여부 확인
-            function checkBusiNo(){
-               
-               if(is_empty("[name=business_no]")){
-                  alert("사업자 번호를 선택해주세요.");
-                  $("[name=business_no]").focus();
-                  return;
-               }
-               wrapWindowByMask();   
-            }
-
-            // 사업자 번호 선택 후 메뉴등록 화면 띄우기
-              function wrapWindowByMask(){
-              
+            // 예약하기 팝업 띄우기
+               function wrapWindowByMask(){
+                   
                    //화면의 높이와 너비를 구한다.
                    var maskHeight = $(document).height();  
                    var maskWidth = $(window).width();
-                   var popupX = (window.screen.width / 2) - (200 / 2);
+                   var popupX = (window.screen.width / 2) - (500 / 2);
                  // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
       
-                  var popupY= (window.screen.height / 2) - (300 / 2);
+                  var popupY= (window.screen.height / 2) - (500 / 2);
                  // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
                  
                    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
                    $("#mask").css({"width":maskWidth,"height":maskHeight});
             
                    //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
-            
                    $("#mask").fadeIn(0);      
                    $("#mask").fadeTo("slow",0.6);    
    
-                  $(".window").css({"left":popupX+"px"});
-               $(".window").css({"top":popupY+"px"});
-               $('#reg_button').show();
-               $('#up_button').hide();
-               $('#del_button').hide();
+                   $(".window").css({"left":popupX+"px"});
+	               $(".window").css({"top":popupY+"px"});
+	               $('#reg_button').show();
+
+	               //(수정 및 추가) 
+	               $('#upDel_button').hide();
+	               $('.reg_business').show();
+	               $('#reg_obj').show();
+	               $('#upDel_obj').hide();
+	               //(수정 및 추가 끝)
             
                    //윈도우 같은 거 띄운다.
                    $(".window").show();
-                     console.log("popupX" +popupX);
-                   console.log("popupY" + popupY);
          
                }
 
              // 예약하기 화면에서 예약 클릭시 유효성 체크 및 예약등록
              function checkReservation(){
 
-                var business_no = $('[name=business_no]').val();
-               var user_id = $('[name=user_id]').val();
-            var res_name = $('[name=res_name]').val();
-            var res_year = $('[name=res_year]').val();
-            var res_month = $('[name=res_month]').val();
-            var res_day = $('[name=res_day]').val();
-            var res_guest = $('[name=res_guest]').val();
-            var res_text = $('[name=res_text]').val();
-            var phone1 = $('[name=phone1]').val();
-            var phone2 = $('[name=phone2]').val();
-            var phone3 = $('[name=phone3]').val();
-            var res_date = res_year+res_month+res_day
-            var res_time = res_date+" "+$('[name=res_time]').val();
-            var res_phone = phone1+"-"+phone2+"-"+phone3
+ 				// (수정) name변경
+	            var business_no = $('[name=pop_businessNo]').val();
+				// 변경끝
+	            
+	            var user_id = $('[name=user_id]').val();
+	            var res_name = $('[name=res_name]').val();
+	            var res_year = $('[name=res_year]').val();
+	            var res_month = $('[name=res_month]').val();
+	            var res_day = $('[name=res_day]').val();
+	            var res_guest = $('[name=res_guest]').val();
+	            var res_text = $('[name=res_text]').val();
+	            var phone1 = $('[name=phone1]').val();
+	            var phone2 = $('[name=phone2]').val();
+	            var phone3 = $('[name=phone3]').val();
+	            var res_date = res_year+res_month+res_day
+	            var res_time = res_date+" "+$('[name=res_time]').val();
+	            var res_phone = phone1+"-"+phone2+"-"+phone3
             
-            var data = "business_no="+business_no+"&user_id="+user_id+"&res_name="+res_name+"&res_date="+res_date+"&res_time="+res_time+"&res_guest="+res_guest+"&res_phone="+res_phone+"&res_text="+res_text;
-               //console.log(data);
-               
-          
-            //지난 일정 체크
-            var date= new Date();
-            var year = date.getFullYear();   
-            var month = date.getMonth()+1;     
-            var date = date.getDate();
+          		//(수정) data 위치변경
+          		//var data = "business_no="+business_no+"&user_id="+user_id+"&res_name="+res_name+"&res_date="+res_date+"&res_time="+res_time+"&res_guest="+res_guest+"&res_phone="+res_phone+"&res_text="+res_text;
 
-            if((res_year==year)&&(res_month<=month)&&(res_day<date)){
-                  alert("지난 일정은 예약할 수 없습니다.");
-                  $("[name=res_year] option:eq(0)").attr("selected","selected");
-                 $("[name=res_month] option:eq(0)").attr("selected","selected");
-                 $("[name=res_day] option:eq(0)").attr("selected","selected");
-                  return
-               }
-             
-            
-            
-            
-                if(is_empty("[name=res_name]")){
-                  alert("예약자 이름을 입력해주세요.");
-                  $("[name=res_name]").focus();
-                  return;
-               }
-               if(is_empty("[name=res_guest]")){
-                  alert("인원수를 입력해주세요.");
-                  $("[name=res_guest]").focus();
-                  return;
-               }
-               if(is_empty("[name=phone1]")){
-                  alert("전화번호를 입력해주세요");
-                  $("[name=phone1]").focus();
-                  return;
-               }
-               if(is_empty("[name=phone2]")){
-                  alert("전화번호를 입력해주세요");
-                  $("[name=phone2]").focus();
-                  return;
-               }
-               if(is_empty("[name=phone3]")){
-                  alert("전화번호를 입력해주세요");
-                  $("[name=phone3]").focus();
-                  return;
-               }
-               if(is_empty("[name=res_year]")){
-                  alert("예약년도 입력해주세요.");
-                  $("[name=res_year]").focus();
-                  return;
-               }
-               if(is_empty("[name=res_month]")){
-                  alert("예약월을 입력해주세요");
-                  $("[name=res_month]").focus();
-                  return;
-               }
-               if(is_empty("[name=res_day]")){
-                  alert("예약일자를 입력해주세요");
-                  $("[name=res_day]").focus();
-                  return;
-               }
-               if(is_empty("[name=res_time]")){
-                  alert("예약시간을 입력해주세요");
-                  $("[name=res_time]").focus();
-                  return;
-               }
+	            //지난 일정 체크
+	            var date= new Date();
+	            var year = date.getFullYear();   
+	            var month = date.getMonth()+1;     
+	            var date = date.getDate();
+
+	            if((res_year==year)&&(res_month<=month)&&(res_day<date)){
+	                 alert("지난 일정은 예약할 수 없습니다.");
+	                 //(수정) 지난 일정 예약시 value 변경
+	                 $("[name=res_year]").val("");
+	                 $("[name=res_month]").val("");
+	                 $("[name=res_day]").val("");
+	                 //(수정 끝)
+	                 return;
+	            }
+	         	   // (추가 및 수정) 유효성 검사 순서 및 추가
+	               if(is_empty("[name=pop_businessNo]")){
+	                   alert("사업자번호를 선택해주세요.");
+	                   $("[name=pop_businessNo]").focus();
+	                   return;
+	               }// (추가 끝)
+	            
+	               if(is_empty("[name=res_name]")){
+	                   alert("예약자 이름을 입력해주세요.");
+	                   $("[name=res_name]").focus();
+	                   return;
+	               }
+	               if(is_empty("[name=res_year]")){
+	                    alert("예약년도 입력해주세요.");
+	                    $("[name=res_year]").focus();
+	                    return;
+	               }
+	               if(is_empty("[name=res_month]")){
+	                    alert("예약월을 입력해주세요");
+	                    $("[name=res_month]").focus();
+	                    return;
+	               }
+	               if(is_empty("[name=res_day]")){
+	                    alert("예약일자를 입력해주세요");
+	                    $("[name=res_day]").focus();
+	                    return;
+	               }
+	               if(is_empty("[name=res_time]")){
+	                   alert("예약시간을 입력해주세요");
+	                   $("[name=res_time]").focus();
+	                   return;
+	               }
+	               if(is_empty("[name=res_guest]")){
+	                  alert("인원수를 입력해주세요.");
+	                  $("[name=res_guest]").focus();
+	                  return;
+	               }
+	               if (is_valid_pattern($("[name=res_guest]"), /^[0-9]{1,15}$/)==false){
+		           		alert("인원수 숫자 입력 바랍니다."); 
+		           		$("[name=res_guest]").val("");
+		           		$("[name=res_guest]").focus();
+		           	 	return;
+				   }
+	               if(is_valid_pattern($("[name=phone1]"),/^(010|011|016|017|019)$/)==false){
+	            	   alert("올바른 번호 입력 바랍니다."); 
+	            	   $("[name=phone1]").focus();
+	            	   return;
+	               }
+	               if(is_valid_pattern($("[name=phone2]"),/^[0-9]{3,4}$/)==false){
+	            	   alert("올바른 번호 입력 바랍니다."); 
+	            	   $("[name=phone2]").focus();
+	            	   return;
+	               }
+	               
+	               if(is_valid_pattern($("[name=phone3]"),/^[0-9]{4}$/)==false){
+	            	   alert("올바른 번호 입력 바랍니다."); 
+	            	   $("[name=phone3]").focus();
+	            	   return;
+	               }
+	               if(confirm("예약 하시겠습니까?")==false) {return;}
+	               // (추가끝)
+	  	           var data = "business_no="+business_no+"&user_id="+user_id+"&res_name="+res_name+"&res_date="+res_date+"&res_time="+res_time+"&res_guest="+res_guest+"&res_phone="+res_phone+"&res_text="+res_text;
+	 	                              
 
                 $.ajax({
                   // 서버 쪽 호출 URL 주소 지정
@@ -716,7 +800,6 @@ select::-ms-expand { display: none; }
                   , data : data
                   
                   , success : function(resRegCnt){
-                     alert("등록 하시겠습니까?");
 
                      if(resRegCnt==1){
                         alert(res_name+"님 예약이 완료되었습니다.");
@@ -735,49 +818,229 @@ select::-ms-expand { display: none; }
 
                 }
 
-         // 예약내역 수정삭제 하기
-         
+          // (수정 및 추가) 예약내역 상세 보기 띄우기
+          // 예약내역 상세보기 및 수정삭제까지 모두 수정
              function goResUpDelForm(r_no, res_date){
-                console.log(res_date);
-                var user_id = $('[name=user_id]').val();
-                var business_no = $('[name=business_no]').val();   
-            var data = "r_no="+r_no+"&business_no="+business_no+"&user_id="+user_id+"&res_date="+res_date;
+                 console.log(res_date);
+                 var user_id = $('[name=user_id]').val();
 
-            console.log(typeof(r_no));
-            console.log(typeof(business_no));
-            console.log(typeof(user_id));
-            console.log(typeof(res_date));
-            
+                 var data = "r_no="+r_no+"&user_id="+user_id+"&res_date="+res_date;
+
+                 //console.log(typeof(r_no));
+                 //console.log(typeof(user_id));
+                 //console.log(typeof(res_date));
+                 //console.log("goResUpDelForm====>" + data);
+                 
+                     $.ajax({
+                       // 서버 쪽 호출 URL 주소 지정
+                       url : "/posbis/resUpDelForm.do"
+                          
+                       // 전송 방법 설정
+                       , type : "post"
+                          
+                       , data : data
+                       
+                       , success : function(data){
+						  
+	     	               	  var phone = data.data[0]['res_phone']
+	     	               			phone = phone.split("-");
+	     	                  var date = data.data[0]['res_date']
+	     	                  		date = date.split("-");
+	
+	                   		 
+	                     	  var time1 = data.data[0]['res_time']
+	                     	  	  time1 = time1.substring(0,2)
+	                     	  var time2 = data.data[0]['res_time']
+	                     			time2 = time2.substring(3,5)
+	                     	  var time3 = data.data[0]['res_time']
+	               					time3 = time3.substring(6,8)
+	               					
+	     	          			if(time1=='오후'){
+	     	                        	time2 = time2 * 1
+	     	     						time2 = 12+time2
+	     	                    }
+	                     	  var reser_time = time2 + ':' + time3
+	
+	
+	     	                  //화면의 높이와 너비를 구한다.
+	     	                   var maskHeight = $(document).height();  
+	     	                   var maskWidth = $(window).width();
+	     	                   var popupX = (window.screen.width / 2) - (500 / 2);
+	     	                   // 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+	     	      
+	     	                   var popupY= (window.screen.height / 2) - (500 / 2);
+	     	                   // 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	     	                 
+	     	                   //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	     	                   $("#mask").css({"width":maskWidth,"height":maskHeight});
+	     	            
+	     	                   //애니메이션 효과 - 일단 0초동안 까맣게 됐다가 60% 불투명도로 간다.
+	     	            
+	     	                   $("#mask").fadeIn(0);      
+	     	                   $("#mask").fadeTo("slow",0.6);    
+	     	   
+	     	                   $(".window").css({"left":popupX+"px"});
+	     		               $(".window").css({"top":popupY+"px"});
+	
+	     		               $('#r_no').val(data.data[0]['r_no'])
+	     	                   $('#res_name').val(data.data[0]['res_name']);
+	     	                   $('#res_guest').val(data.data[0]['res_guest']);
+	     	                   $('#res_text').val(data.data[0]['res_text']);
+	     	                   $('#phone1').val(phone[0]);
+	     	                   $('#phone2').val(phone[1]);
+	     	                   $('#phone3').val(phone[2]);
+	     	                   $('[name=res_year]').val(date[0]);
+	     	                   $('[name=res_month]').val(date[1]);
+	     	                   $('[name=res_day]').val(date[2]);
+	     	                   $('[name=res_time]').val(reser_time);
+	     	                   $('#reg_button').hide();
+	     	                   $('.reg_business').hide();
+	     	                   $('#upDel_button').show();
+	     		               $('#reg_obj').hide();
+	     		               $('#upDel_obj').show();
+	     	                   $(".window").show();
+	     	                   
+	     	              }
+	                           
+                           
+                       , error : function(){
+                          alert("서버 접속에 실패하였습니다.");
+                          
+                       }
+                  });
+              }
+     		
+             // (추가)예약내역 수정 및 삭제
+             function upDelReservation(upDel){
+
+     			var r_no = $('#r_no').val();
+                 var user_id = $('[name=user_id]').val();
+                 var res_name = $('[name=res_name]').val();
+                 var res_year = $('[name=res_year]').val();
+                 var res_month = $('[name=res_month]').val();
+                 var res_day = $('[name=res_day]').val();
+                 var res_guest = $('[name=res_guest]').val();
+                 var res_text = $('[name=res_text]').val();
+                 var phone1 = $('[name=phone1]').val();
+                 var phone2 = $('[name=phone2]').val();
+                 var phone3 = $('[name=phone3]').val();
+                 var res_date = res_year+res_month+res_day
+                 var res_time = res_date+" "+$('[name=res_time]').val();
+                 var res_phone = phone1+"-"+phone2+"-"+phone3
+                 var date= new Date();
+                 var year = date.getFullYear();   
+                 var month = date.getMonth()+1;     
+                 var date = date.getDate();
+
+                 console.log(upDel);
+                 
+     			if(upDel=='del'){
+     				$("[name=upDel]").val("del");
+     				if(confirm("정말 삭제 하시겠습니까?")==false) {return;}
+     				
+     			}else if(upDel=='up'){
+	     	          if(is_empty("[name=res_name]")){
+	     	              alert("예약자 이름을 입력해주세요.");
+	     	              $("[name=res_name]").focus();
+	     	              return;
+	     	          }
+	     	          if(is_empty("[name=res_year]")){
+	     	               alert("예약년도 입력해주세요.");
+	     	               $("[name=res_year]").focus();
+	     	               return;
+	     	          }
+	     	          if(is_empty("[name=res_month]")){
+	     	               alert("예약월을 입력해주세요");
+	     	               $("[name=res_month]").focus();
+	     	               return;
+	     	          }
+	     	          if(is_empty("[name=res_day]")){
+	     	               alert("예약일자를 입력해주세요");
+	     	               $("[name=res_day]").focus();
+	     	               return;
+	     	          }
+	     	          if(is_empty("[name=res_time]")){
+	     	              alert("예약시간을 입력해주세요");
+	     	              $("[name=res_time]").focus();
+	     	              return;
+	     	          }
+	     	          if(is_empty("[name=res_guest]")){
+	     	             alert("인원수를 입력해주세요.");
+	     	             $("[name=res_guest]").focus();
+	     	             return;
+	     	          }
+	     	          if (is_valid_pattern($("[name=res_guest]"), /^[0-9]{1,15}$/)==false){
+	     	          		alert("인원수 숫자 입력 바랍니다."); 
+	     	          		$("[name=res_guest]").val("");
+	     	          		$("[name=res_guest]").focus();
+	     	          	 	return;
+	     			   }
+	     	          if(is_valid_pattern($("[name=phone1]"),/^(010|011|016|017|019)$/)==false){
+	     	       	   alert("올바른 번호 입력 바랍니다."); 
+	     	       	   $("[name=phone1]").focus();
+	     	       	   return;
+	     	          }
+	     	          if(is_valid_pattern($("[name=phone2]"),/^[0-9]{3,4}$/)==false){
+	     	       	   alert("올바른 번호 입력 바랍니다."); 
+	     	       	   $("[name=phone2]").focus();
+	     	       	   return;
+	     	          }
+	     	          
+	     	          if(is_valid_pattern($("[name=phone3]"),/^[0-9]{4}$/)==false){
+	     	       	   alert("올바른 번호 입력 바랍니다."); 
+	     	       	   $("[name=phone3]").focus();
+	     	       	   return;
+	     	          }
+	     	          if(confirm("수정 하시겠습니까?")==false) {
+							return;
+	     	          }
+
+      			}
+     			
+      	           var data = "upDel="+upDel+"&r_no="+r_no+"&res_name="+res_name+"&res_date="+res_date+"&res_time="+res_time+"&res_guest="+res_guest+"&res_phone="+res_phone+"&res_text="+res_text;
+
                 $.ajax({
                   // 서버 쪽 호출 URL 주소 지정
                   url : "/posbis/resUpDelProc.do"
-                     
+                    
                   // 전송 방법 설정
                   , type : "post"
                      
+                  // 서버로 보낼 파라미터명과 파라미터값을 설정
                   , data : data
                   
-                  , success : function(data){
-                  $('#reser_name').val(data.data[0]['res_name']);
-                  $('#reg_button').hide();
-                  $('#up_button').show();
-                  $('#del_button').show();
-                  $(".window").show();
-                     console.log(data);
+                  , success : function(upDelCnt){
+                 	 if(upDel=='up'){
+     						if(upDelCnt==1){
+     						alert(res_name+"님 예약내역 수정이 완료되었습니다.");
+     							location.replace("/posbis/resManagerForm.do");
+     						}else{
+     							alert("서버쪽 DB 연동 실패!");
+     						}
+     					}else if(upDel=='del'){
+     						if(upDelCnt==1){
+     						alert(res_name+"님 예약이 삭제되었습니다.");
+     						location.replace("/posbis/resManagerForm.do");
+     						}else{
+     							alert("서버쪽 DB 연동 실패!");
+     						}
+     					}
                   }
                   // 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
-                  , error : function(){
+                  , error : function(request,status,error){
                      alert("서버 접속에 실패하였습니다.");
-                     
+                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                   }
                });
-         }
+     		  
+     	      // console.log("updel======>"+ data);
+             }
+
+ 			// 수정 및 추가끝
+		
 
 
-
-
-
-             //===========================================================================================수민
+           //===========================================================================================수민
              function chartDraw(){
 
             	 var date = $("#calendar").fullCalendar("getDate");
@@ -811,9 +1074,6 @@ select::-ms-expand { display: none; }
                          
                          //alert(typeof(res_all_cnt));
 
-                         if(noShowChartMap.res_all_cnt !=0){
-								$('#chartTable').show();
-                         }
                          	
 							$("#chart_div").remove();
 							$("#chart_div2").remove();
@@ -821,12 +1081,15 @@ select::-ms-expand { display: none; }
 							$("#tdComment1").empty();
 							$("#tdComment2").empty();
 							$("#title").empty();
+							$("#noRes").empty();
 
-							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ '+res_date+" 완료된 예약 미방문 현황 ]</h1>");
+	                         if(res_all_cnt >=0 ){
+								
+							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 noshow 현황 ]</h1>');
 							$("#tdChart1").append('<div id="chart_div" style="width: 100%; height: 100%;"></div>');
-							$("#tdComment1").append('<h1 style="font-size:30">예약완료(건) : '+res_all_cnt+'건<br><br>미&nbsp;방&nbsp;문&nbsp(건)&nbsp;: '+no_show_cnt+'건</h1>');
+							$("#tdComment1").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(건) : '+res_all_cnt+'건<br><br>noshow(건)&nbsp;: '+no_show_cnt+'건</h1>');
 							$("#tdChart2").append('<div id="chart_div2" style="width: 100%; height: 100%;"></div>');
-							$("#tdComment2").append('<h1 style="font-size:30">예약완료(명) : '+res_guest+'명<br><br>미&nbsp;방&nbsp;문&nbsp;(명)&nbsp;: '+no_show_guest+'명</h1>');
+							$("#tdComment2").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(명) : '+res_guest+'명<br><br>미&nbsp;방&nbsp;문&nbsp;(명)&nbsp;: '+no_show_guest+'명</h1>');
 
 							
 							
@@ -837,37 +1100,46 @@ select::-ms-expand { display: none; }
 
                            var data = google.visualization.arrayToDataTable([
                              ['Label', 'Value'],
-                             [Math.round((no_show_cnt/res_all_cnt)*100)+'%', no_show_cnt]			//예약 건 수/ 예약 인원 수, value
+                             ['', { v: Math.round((no_show_cnt/res_all_cnt)*100), f: Math.round((no_show_cnt/res_all_cnt)*100)+'%' }]			//예약 건 수/ 예약 인원 수, value
                            ]);
                            
                            var data2 = google.visualization.arrayToDataTable([
                                ['Label', 'Value'],
-                               [Math.round((no_show_guest/res_guest)*100)+'%', no_show_guest]			//예약 건 수/ 예약 인원 수, value
+                               ['', { v: Math.round((no_show_guest/res_guest)*100), f: Math.round((no_show_guest/res_guest)*100)+'%' }]			//예약 건 수/ 예약 인원 수, value
                            ]);
+
   
                            var options = {
                              width: 500, height: 300,
-                             redFrom: (res_all_cnt/100)*70, redTo: res_all_cnt, //노쇼비율 70~100%은 적색으로 지정
-                             yellowFrom:(res_all_cnt/100)*20, yellowTo: (res_all_cnt/100)*70, //노쇼비율 20~70%은 황색으로 지정
-                             greenFrom:0, greenTo: (res_all_cnt/100)*20,	//노쇼비율 0~20%은 녹색으로 지정
+                             redFrom: 70, redTo: 100, //노쇼비율 70~100%은 적색으로 지정
+                             yellowFrom:20, yellowTo: 70, //노쇼비율 20~70%은 황색으로 지정
+                             greenFrom:0, greenTo: 20,	//노쇼비율 0~20%은 녹색으로 지정
                              minorTicks: 5,	//눈금 표시선
-                             min:0, max:res_all_cnt	//max값은 전체 예약건수 or 인원수
-                           };
+                             min:0, max:100	//max값은 전체 예약건수 or 인원수
+                             };
+                           
                            var options2 = {
                              width: 500, height: 300,
-                             redFrom: (res_guest/100)*70, redTo: res_guest, //노쇼비율 70~100%은 적색으로 지정
-                             yellowFrom:(res_guest/100)*20, yellowTo: (res_guest/100)*70, //노쇼비율 20~70%은 황색으로 지정
-                             greenFrom:0, greenTo: (res_guest/100)*20,	//노쇼비율 0~20%은 녹색으로 지정
+                             redFrom: 70, redTo: 100, //노쇼비율 70~100%은 적색으로 지정
+                             yellowFrom:20, yellowTo: 70, //노쇼비율 20~70%은 황색으로 지정
+                             greenFrom:0, greenTo: 20,	//노쇼비율 0~20%은 녹색으로 지정
                              minorTicks: 5,	//눈금 표시선
-                             min:0, max:res_guest	//max값은 전체 예약건수 or 인원수
+                             min:0, max:100	//max값은 전체 예약건수 or 인원수
                            };
+
+                           
 
                            var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
 	           			      var chart2 = new google.visualization.Gauge(document.getElementById('chart_div2'));
 
                            chart.draw(data, options);
-	        			      chart2.draw(data2, options2);
+	        			   chart2.draw(data2, options2);
                          }
+
+						}else{
+							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 미방문 현황 ]</h1>');
+							$("#noRes").append('<h1 style="font-size:30">해당 월은 완료된 예약이 없습니다.');
+						}
 
                        }
                      ,error:function(request,status,error){
@@ -881,7 +1153,6 @@ select::-ms-expand { display: none; }
  		    });
 
              //==================================================================================수민 끝
-             
 
    
 
@@ -992,6 +1263,8 @@ select::-ms-expand { display: none; }
    </head>
 
 <body>
+<!-- (수정) 팝업창 마스크 위치 변경 -->
+<div id="mask"></div>
 <!-- Header Section -->
    <header class="header-section">
       <a onClick="goHomePageForm();" class="site-logo" style="cursor:pointer;">
@@ -1096,8 +1369,8 @@ select::-ms-expand { display: none; }
 <section class="wrapper">
      <div class="col-lg-11" align="center">
           <section class="panel">
-          <header class="panel-heading">
-                    <a href="">예약관리</a>
+          <header class="panel-heading" style="background-color:#7f9ed436;">
+                    <font color="#39485f">예약관리</font>
             </header>
              <div class="panel-body">
          
@@ -1126,7 +1399,7 @@ select::-ms-expand { display: none; }
 	                           
 		                        </select> --%>
 		                        
-		                        
+		           <%--              
 		                        <table><tr><td style="color:#330066">
 					               [ 사업자 번호 ]&nbsp; : &nbsp;
 					                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
@@ -1145,13 +1418,33 @@ select::-ms-expand { display: none; }
 					                  </c:if>   
 					            </c:forEach>
 					            </table>
+									             --%>
+							<table><tr><td style="color:#330066">
+				               [ 사업자 번호 ]&nbsp; : &nbsp;
+				                  <td><input type = "checkbox" name="chooseAllBusinessNo" id="chooseAllBusinessNo"> <label for="chooseAllBusinessNo">모두선택</label>
+				               <tr><td>
+				            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+				              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}" id="${businessNoList.business_no}">
+				              					<label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
+				                    <c:if test="${(status.index+1)%3!=0}">
+				                     <c:if test="${!status.last }">
+				                        <td width="40">
+				                     </c:if>
+				                    </c:if>
+				                    <c:if test="${(status.index+1)%3==0}">
+				                     <c:if test="${!status.last }">
+				                        <tr><td>
+				                     </c:if>
+				                  </c:if>   
+				            </c:forEach>
+				            </table>
 		                        
 		                        
 		                     </div>
 		                     <div style="width:20%; height:10%; float:right; margin:63 70 0 0">
 		                    	 <input type=button  value=조회 style="width:110px; height:45px; font-size:25" onClick="lookUp();">
 		                    	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		                    	<input type="button"  value="예약" style="width:110px; height:45px; font-size:25" onClick="checkBusiNo();">
+		                    	<input type="button"  value="예약" style="width:110px; height:45px; font-size:25" onClick="wrapWindowByMask();">
 		                    </div>
 		                    </form>
 		                     <br>
@@ -1180,6 +1473,7 @@ select::-ms-expand { display: none; }
 															<div id="chart_div2" style="width: 100%; height: 100%;"></div>
 														<td>&nbsp;&nbsp;
 														<td id="tdComment2" align="left">
+												<tr align="center"><td id="noRes" colspan="2">
 										</table>
 									</div>
                                     
@@ -1199,16 +1493,16 @@ select::-ms-expand { display: none; }
 			                           </div>
 			                               <table class="table table-striped table-advance table-hover" id="resList">
 			                                 <thead>
-			                                 <tr>
-			                                   <th align=center width="5%">no</th>
-			                                   <th align=center width="12%">가게명</th>
-			                                   <th align=center width="9%">예약자</th>
-			                                   <th align=center width="12%">예약일자</th>
-			                                   <th align=center width="9%">예약시간</th>
-			                                   <th align=center width="5%">인원수</th>
-			                                   <th align=center width="12%">휴대폰번호</th>
-			                                   <th align=center width="12%">예약현황</th>
-			                                   <th align=center width="9%">비고</th>
+			                                 <tr style="background-color:#7f9ed436;">
+			                                   <th align=center width="5%"><font color="#39485f">NO</font></th>
+			                                   <th align=center width="12%"><font color="#39485f">가게명</font></th>
+			                                   <th align=center width="9%"><font color="#39485f">예약자</font></th>
+			                                   <th align=center width="12%"><font color="#39485f">예약일자</font></th>
+			                                   <th align=center width="9%"><font color="#39485f">예약시간</font></th>
+			                                   <th align=center width="5%"><font color="#39485f">인원수</font></th>
+			                                   <th align=center width="12%"><font color="#39485f">휴대폰번호</font></th>
+			                                   <th align=center width="12%"><font color="#39485f">예약현황</font></th>
+			                                   <th align=center width="9%"><font color="#39485f">비고</font></th>
 			                                 </tr>
 			                                 </thead>
 			                              <tbody >
@@ -1229,17 +1523,29 @@ select::-ms-expand { display: none; }
          
          <div id ="wrap"> 
               <div id = "container">  
-                  <div id="mask"></div>
-                     <form name = "resRegForm" method="post" action="/posbis/resRegProc.do">
+                  <!-- <div id="mask"></div> 위치 변경 -->
+                     <form name = "resRegForm" method="post" action="/posbis/resRegProc.do" id ="res_reset"><!-- (추가) id 추가 -->
                      <div class="window">
-                         <p style="width:fit-content; height:fit-content; text-align:center;vertical-align:middle; color: aliceblue; font-size:17px;">예약하기
+                         <p style="width:fit-content; height:fit-content; text-align:center;vertical-align:middle; color: aliceblue; font-size:17px;">
+                         	<font id="reg_obj">예약하기</font><!-- (추가) id 에 따른 팝업 상단 메세지 뜨도록 추가 -->
+                         	<font id="upDel_obj">예약상세보기</font> <!-- (추가) id 에 따른 팝업 상단 메세지 뜨도록 추가 -->
                          <a href="#" class="close" style="color: aliceblue; font-size:30px;">X&nbsp;</a>
-                         <table class="popCont" >
+                         <table class="popCont">
                           <tr>
                              <th colspan="2">
                         <tr>
+                           <th class="reg_business">사업자번호
+                           <td><select id="select_business_no" name=pop_businessNo class="reg_business" style="width:373px;height:30px; text-align-last: auto; font-size:17px;">
+									<option value="">사업자 번호를 선택해주세요
+										<c:forEach items="${businessNoList}" var="businessNoList">
+											<option value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name}) 
+	                                 		</option>
+	                           			</c:forEach>
+		                        </select>
+		                        
+                        <tr>
                            <th>예&nbsp;&nbsp;&nbsp;약&nbsp;&nbsp;&nbsp;자&nbsp;
-                           <td><input type="text" size="30" maxlength="20" name="res_name" style="height: 25px;" id="reser_name">
+                           <td><input type="text" size="30" maxlength="20" name="res_name" style="height: 25px;" id="res_name"><!-- (추가) id 값 변경 -->
                         <tr>
                            <th>예약&nbsp;&nbsp;&nbsp;일자&nbsp;
                            <td>
@@ -1263,9 +1569,16 @@ select::-ms-expand { display: none; }
                                     }
                                  </script>
                               </select>&nbsp;월&nbsp;
-                              <select name="res_day" style="width:40px">
-                              <option value = "">
-                                
+                              
+                              <!-- (추가) 일 selset박스 수정 -->
+                              <select name="res_day" style="width:40px; height: 30px;">
+	                              <option value = "">
+	                                <script>
+                                    for(var i=1; i<=30; i++){
+                                       var m = (i<10)?"0"+i:i;
+                                       document.write("<option value="+m+">"+m);
+                                    }
+                                 </script> 
                               </select>&nbsp;일&nbsp;
                               
                               <select name="res_time" style="width:74px">
@@ -1296,26 +1609,29 @@ select::-ms-expand { display: none; }
                               </select>
                         <tr>
                            <th>인&nbsp;&nbsp;&nbsp;원&nbsp;&nbsp;&nbsp;수&nbsp;
-                           <td><input type="text" size="28" maxlength="20" name="res_guest" style="height: 25px;">명
+                           <td><input type="text" size="28" maxlength="20" name="res_guest" style="height: 25px;" id="res_guest">명<!-- (추가) id 추가 -->
                         <tr>
                            <th>휴대폰번호&nbsp;
-                           <td><input type="text" size="30" maxlength="3" name="phone1" style="height: 25px; width:89px">&nbsp;-&nbsp;
-                              <input type="text" size="30" maxlength="4" name="phone2" style="height: 25px; width:89px">&nbsp;-&nbsp;
-                              <input type="text" size="30" maxlength="4" name="phone3" style="height: 25px; width:89px">
+                           <td><input type="text" size="30" maxlength="3" name="phone1" style="height: 25px; width:89px" id = "phone1">&nbsp;-&nbsp;<!-- (추가) id 추가 -->
+                              <input type="text" size="30" maxlength="4" name="phone2" style="height: 25px; width:89px" id = "phone2">&nbsp;-&nbsp;<!-- (추가) id 추가 -->
+                              <input type="text" size="30" maxlength="4" name="phone3" style="height: 25px; width:89px" id = "phone3"><!-- (추가) id 추가 -->
                         <tr>
                            <th>비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고&nbsp;
-                           <td><textarea rows="5" cols="35" name= "res_text" maxlength="200" width="200"></textarea>
-                        <tr>
-                           <th colspan="2"><input type="button" value="등록" id="reg_button" onClick="checkReservation();" style="width:60px; height:30px; float:right; margin: 8 0 18 0;">
-                           <th colspan="2"><input type="button" value="수정" id="up_button" onClick="checkReservation();" style="width:60px; height:30px; float:right; margin: 8 0 18 0;">
-                           <th colspan="2"><input type="button" value="삭제" id="del_button" onClick="checkReservation();" style="width:60px; height:30px; float:right; margin: 8 0 18 0;">
-                           <!-- 등록 삭제 onClick 다르게 구현 -->
-                           <input type="hidden" id="popup_business_no" readonly>
+                           <td><textarea rows="5" cols="35" name= "res_text" maxlength="200" width="200" id="res_text"></textarea> <!-- (추가) id 추가 --> 
+                        
+                        <!-- (수정)등록 삭제 onClick 다르게 보여지도록 구현 및 호출 함수변경 -->
+                        <tr id="reg_button">
+                           <th colspan="2"><input type="button" value="등록"  onClick="checkReservation();" style="width:60px; height:30px; float:right; margin: 8 0 18 0;">
+                        <tr id="upDel_button">
+                           <th colspan="2"><input type="button" value="삭제" onClick="upDelReservation('del');" style="width:60px; height:30px; float:right; margin: 8 0 18 10;">
+										   <input type="button" value="수정" onClick="upDelReservation('up');" style="width:60px; height:30px; float:right; margin: 8 0 18 10;">
+                           <!-- (수정)input 변경 -->
                            <input type="hidden" name="user_id" value="${user_id}">
+                           <input type="hidden" id="r_no" name="r_no">
                      </table>
                          </p>
+                         </div>
                        </div>
-                     </form>
               </div> 
           </div>
           

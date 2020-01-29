@@ -115,10 +115,10 @@
        	
         
            function goJoinForm(){
-       	    alert("로그인 페이지로 이동합니다. 감사합니다");
-       	    location.replace("/posbis/mainForm.do");
+               //alert(" 페이지로 이동합니다. 감사합니다");
+               location.replace("/posbis/joinForm.do");
 
-       	 }
+            }
 
     		
     		function goMessageForm(){
@@ -162,28 +162,28 @@
 	 <section id="main-content">
 	      <section class="wrapper">
 	      
-         <div class="col-lg-6" align="center" style="margin:0 0 0 320">
+         <div class="col-lg-8" align="center" style="margin:0 0 0 320">
             <section class="panel">
-              <header class="panel-heading">
-                 [아이디/비밀번호 찾기]
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                <font color="#39485f">[아이디/비밀번호 찾기]</font> 
               </header>
               <div class="panel-body"> 
                   <form name="findIdPwdForm" class="form-validate form-horizontal" id="feedback_form"  >
                   
                   <div class="form-group"> 
-                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">이름 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 30 0 80">이름 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text" name="user_name" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">사업자 등록 번호 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 30 0 80">사업자 등록 번호 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text"  name="business_no" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">질문 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 30 0 80">질문 <span class="required">*</span></label>
                     <div class="col-lg-6">
                      <!--    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                         
@@ -198,14 +198,14 @@
                   </div>
                   
                    <div class="form-group">
-                    <label for="cname" class="control-label col-lg-2" style="margin:10 0 0 80">답변 <span class="required">*</span></label>
+                    <label for="cname" class="control-label col-lg-2" style="margin:0 30 0 80">답변 <span class="required">*</span></label>
                     <div class="col-lg-6">
                         <input type="text" name="answer" class="form-control" id="exampleInputEmail1"  >
                       </div> 
                   </div>
                   
         			 <div style="margin:30 0 0 0">
-                   <button class="btn btn-default" type="button" value="메인으로" onClick="findIdPwdStart();"  >아이디 비밀번호 찾기 </button>
+                   <button class="btn btn-default" type="button" value="메인으로" onClick="findIdPwdStart();" style="margin:0 50 0 0" >아이디 비밀번호 찾기 </button>
  				  <button class="btn btn-default" type="button" value="메인으로" onClick="goJoinForm();" >로그인 하기 </button>
  					</div>
  					

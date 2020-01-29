@@ -389,8 +389,8 @@
    <section class="wrapper">
        <div class="col-lg-7" align="center" style="margin:0 0 0 410">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">회원탈퇴</a>
+              <header class="" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">회원탈퇴</font>
               </header>
              <div class="panel-body"> 
 			

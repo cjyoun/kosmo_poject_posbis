@@ -585,8 +585,9 @@ select::-ms-expand { display: none; }
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">Q&A 목록</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;"
+              >
+                	   <font color="#39485f">Q&A 목록</font>
               </header>
               
               <div class="panel-body">  
@@ -663,11 +664,11 @@ select::-ms-expand { display: none; }
               <table class="table table-striped table-advance table-hover">
                 
                   <tr >
-                    <th align=center style="background-color:#d2d2d4;"><font color="#656565">번호</font></th>
-                    <th style="background-color:#d2d2d4;"><font color="#656565">제목</font></th>
-                    <th style="background-color:#d2d2d4;"><font color="#656565">글쓴이</font></th>
-                    <th style="background-color:#d2d2d4;"><font color="#656565">등록일</font></th>
-                    <th style="background-color:#d2d2d4;"><font color="#656565">조회수</font></th>
+                    <th align=center style="background-color:#7f9ed436;"><font color="#39485f">번호</font></th>
+                    <th style="background-color:#7f9ed436;"><font color="#39485f">제목</font></th>
+                    <th style="background-color:#7f9ed436;"><font color="#39485f">글쓴이</font></th>
+                    <th style="background-color:#7f9ed436;"><font color="#39485f">등록일</font></th>
+                    <th style="background-color:#7f9ed436;"><font color="#39485f">조회수</font></th>
                     <c:forEach items="${qstn}" var="qstn" varStatus="loopTagStatus">
                     <tr style="cursor:pointer" 
                onClick="goQstnContentForm(${qstn.qna_no}, '${qstn.user_id}',${qstn.print_level},${qstn.group_no});">

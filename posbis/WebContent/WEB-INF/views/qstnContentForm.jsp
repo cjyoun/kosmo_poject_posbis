@@ -414,8 +414,8 @@
    <section class="wrapper">
        <div class="col-lg-11" align="center" style="width:1200; margin:0 0 0 350;">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">Q&A게시판</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">Q&A게시판</font>
               </header>
               
 					<div class="panel-body" >
@@ -430,7 +430,9 @@
 								<div class="row">
 									<div class="col-sm-6" style="margin:20 0 10 203;">
 										<section class="panel" style="width:700">
-											<header class="panel-heading no-border"> 글 상세보기 </header>
+											<header class="panel-heading no-border" style="background-color:#7f9ed436;"> 
+												<font color="#39485f">글 상세보기 </font>
+											</header>
 											<table class="table table-bordered" >
 												<tr align=center>
 													<th width=60>글번호</th>

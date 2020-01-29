@@ -79,7 +79,28 @@ public class ResManagerServiceImpl implements ResManagerService{
 		return resUpDel;
 	}
 	
-	
+	public int updateRes(ReservationDTO reservationDTO){
+		
+		int resCnt = this.resManagerDAO.getResCnt(reservationDTO);
+		if(resCnt==0) {return -1;}
+		
+
+		System.out.println("updateCnt");
+		int updateCnt = this.resManagerDAO.updateRes(reservationDTO);
+		
+		return updateCnt;
+	} 
+
+	public int deleteRes(ReservationDTO reservationDTO){
+		
+
+		int resCnt = this.resManagerDAO.getResCnt(reservationDTO);
+		if(resCnt==0) {return -1;}
+
+
+		int deleteCnt = this.resManagerDAO.deleteRes(reservationDTO);
+		return deleteCnt;
+	}
 	
 	
 	//김수민

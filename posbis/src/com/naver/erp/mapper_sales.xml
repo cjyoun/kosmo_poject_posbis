@@ -112,9 +112,9 @@
 	<!--*************************************************************-->
 	<select id="getSalesSum" parameterType="com.naver.erp.SalesSearchDTO" resultType="java.util.HashMap">
 		select 
-		    sum(s.sales_count) as "sum_sales_count"
-		    ,sum(s.menu_price * s.sales_count) as "sum_sales_amount"   
-		    ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) as "sum_sales_income"
+		    nvl(sum(s.sales_count),0) as "sum_sales_count"
+		    ,nvl(sum(s.menu_price * s.sales_count),0) as "sum_sales_amount"
+		    ,nvl(sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)),0) as "sum_sales_income"
 		from sales s, business_info b, user_info u
 		where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
 			<!-- and s.business_no like '%${changeBusinessNo}%' -->
@@ -176,9 +176,9 @@
 	
 	<select id="getMenuSalesSum" parameterType="com.naver.erp.MenuSalesSearchDTO" resultType="java.util.HashMap">
 		select 
-		    sum(s.sales_count) as "sum_sales_count"
-		    ,sum(s.menu_price * s.sales_count) as "sum_sales_amount"   
-		    ,sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)) as "sum_sales_income"
+		    nvl(sum(s.sales_count),0) as "sum_sales_count"
+		    ,nvl(sum(s.menu_price * s.sales_count),0) as "sum_sales_amount"
+		    ,nvl(sum((s.menu_price * s.sales_count)-(s.menu_cost* s.sales_count)),0) as "sum_sales_income"
 		from sales s, business_info b, user_info u
 		where b.business_no = s.business_no and u.user_id=#{user_id,jdbcType=VARCHAR}
 			<!-- and s.business_no like '%${changeBusinessNo}%' -->

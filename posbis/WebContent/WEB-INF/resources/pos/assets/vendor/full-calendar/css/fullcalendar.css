@@ -339,7 +339,8 @@ temporary rendered events).
   /* for resize handle and other inner positioning */
   display: block;
   /* make the <a> tag block */
-  font-size: 14px;
+  font-size: 18px;				/*수민*/
+  text-align: center;			/*수민*/
   line-height: 2;
   border-radius: 2px;
   border: 1px solid #5969ff;
@@ -615,7 +616,7 @@ color : blue;
 
 
 
-.fc-unthemed th{padding: 10px; /* color: #3d405c; */ font-size: 14px; text-transform: uppercase; letter-spacing: 1px;}
+.fc-unthemed th{padding: 10px; /* color: #3d405c; */ font-size: 20px; text-transform: uppercase; letter-spacing: 1px;}		/*수민 font-size*/
 .fc-unthemed th,
 .fc-unthemed td,
 .fc-unthemed thead,

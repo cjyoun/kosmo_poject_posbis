@@ -326,7 +326,10 @@ select::-ms-expand { display: none; }
                 inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
              </c:forEach>
          }
-   
+         //기간선택 초기화(전체 기간)
+         function allDate(){
+        	 $('[name=sales_date]').prop("checked",false)
+         }
       
 		//--------------------------------------------------------
 		   //로고 클릭시
@@ -437,7 +440,8 @@ select::-ms-expand { display: none; }
 	         google.charts.setOnLoadCallback(drawBasic);
 	
 	         function drawBasic() {
-	
+
+                 if(${salesList[0].sales_count >0}){
 	               var data = google.visualization.arrayToDataTable([
 	                 ['총매출', '매출이익(원)', { role: 'annotation' },
 	                          '매출원가(원)', { role: 'annotation' } ],
@@ -472,7 +476,8 @@ select::-ms-expand { display: none; }
 	               var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 	
 	               chart.draw(data, options);
-	             }
+                 }
+	         }
             
 	         $(window).resize(function(){
 	                drawBasic();
@@ -584,8 +589,8 @@ select::-ms-expand { display: none; }
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">매출관리</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">매출관리</font>
               </header>
               
                
@@ -605,10 +610,11 @@ select::-ms-expand { display: none; }
 		
 			<table><tr><td style="color:#330066">
                [ 사업자 번호 ]&nbsp; : &nbsp;
-                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
+                  <td><input type = "checkbox" name="chooseAllBusinessNo" id="chooseAllBusinessNo"> <label for="chooseAllBusinessNo">모두선택</label>
                <tr><td>
             <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
+              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}" id="${businessNoList.business_no}">
+              					<label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
                     <c:if test="${(status.index+1)%2!=0}">
                      <c:if test="${!status.last }">
                         <td width="40">
@@ -624,7 +630,6 @@ select::-ms-expand { display: none; }
             
             
             
-            
 		<br><br> 
  	<tr>
 		<td style="color:#330066">
@@ -637,9 +642,10 @@ select::-ms-expand { display: none; }
 		<td >					      
 				
 				              <span style="color:#330066"> [ 기간&nbsp;&nbsp;&nbsp;선택 ]&nbsp; : &nbsp;</span>
-				               <input type = "radio" name="sales_date" class="sales_date" value="1" >금일매출&nbsp;
-				               <input type = "radio" name="sales_date" class="sales_date" value="2" >최근 일주일매출&nbsp;
-				               <input type = "radio" name="sales_date" class="sales_date" value="3" >이번달매출<br>
+				               <input type = "radio" name="sales_date" class="sales_date" value="1" id="sales_date_today" ><label for="sales_date_today">금일매출</label>&nbsp;
+				               <input type = "radio" name="sales_date" class="sales_date" value="2" id="sales_date_week"><label for="sales_date_week">최근 일주일매출</label>&nbsp;
+				               <input type = "radio" name="sales_date" class="sales_date" value="3" id="sales_date_month"><label for="sales_date_month">이번달매출</label>&nbsp;&nbsp;
+				              <a href="javascript:allDate();"><u><font size="4">전체 기간</font></u></a><br>
 		<br>  					      
 	<tr>
 		<td style="color:#330066">		               
@@ -704,8 +710,8 @@ select::-ms-expand { display: none; }
       <br>
       	<table class="table table-striped table-advance table-hover " id="sales">
             <thead>
-                <tr style="background-color:#d2d2d4;">
-             <th><font color="#656565">NO</font>
+                <tr style="background-color:#7f9ed436;">
+             <th><font color="#39485f">NO</font>
                 <c:choose>
 				<c:when test="${param.sort=='b.business_name desc'}">
 					<th style="cursor:pointer"
@@ -843,7 +849,7 @@ select::-ms-expand { display: none; }
 
               </table><br>
          <c:if test="${empty salesList}">
-		검색결과 없음
+		매출 내역이 없습니다.
 		</c:if> 
     		</div>
         </div>

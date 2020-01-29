@@ -518,8 +518,8 @@ select::-ms-expand { display: none; }
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">메뉴관리</a>
+             <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">메뉴관리</font>
               </header>
          <div class="panel-body">
          
@@ -533,24 +533,25 @@ select::-ms-expand { display: none; }
             <tr>
                <td> 
                <!-- 2020-01-09 수정 -->
-               <table><tr><td style="color:#330066">
-	               [ 사업자&nbsp;&nbsp; 번호 ]&nbsp; : &nbsp;
-	                  <td><input type = "checkbox" name="chooseAllBusinessNo"> 모두선택
-	               <tr><td>
-	            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
-	              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})
-	                    <c:if test="${(status.index+1)%2!=0}">
-	                     <c:if test="${!status.last }">
-	                        <td width="40">
-	                     </c:if>
-	                    </c:if>
-	                    <c:if test="${(status.index+1)%2==0}">
-	                     <c:if test="${!status.last }">
-	                        <tr><td>
-	                     </c:if>
-	                  </c:if>   
-	            </c:forEach>
-	            </table>
+			<table><tr><td style="color:#330066">
+               [ 사업자 번호 ]&nbsp; : &nbsp;
+                  <td><input type = "checkbox" name="chooseAllBusinessNo" id="chooseAllBusinessNo"> <label for="chooseAllBusinessNo">모두선택</label>
+               <tr><td>
+            <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
+              <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}" id="${businessNoList.business_no}">
+              					<label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
+                    <c:if test="${(status.index+1)%2!=0}">
+                     <c:if test="${!status.last }">
+                        <td width="40">
+                     </c:if>
+                    </c:if>
+                    <c:if test="${(status.index+1)%2==0}">
+                     <c:if test="${!status.last }">
+                        <tr><td>
+                     </c:if>
+                  </c:if>   
+            </c:forEach>
+            </table>
                <br> 
             <tr>
                <td style="color:#330066"> [ 메뉴사용여부 ]&nbsp;&nbsp;:&nbsp;&nbsp;
@@ -609,8 +610,8 @@ select::-ms-expand { display: none; }
          
       <table class="table table-striped table-advance table-hover"  id="menu">
          <thead>
-                <tr style="background-color:#d2d2d4;">
-          <th><font color="#656565">NO</font>
+                <tr style="background-color:#7f9ed436;">
+          <th><font color="#39485f">NO</font>
                   <!-- 매장이름 -->
                   <c:choose>
                      <c:when test="${param.sort=='business_name desc'}">
@@ -796,7 +797,7 @@ select::-ms-expand { display: none; }
             </table>
             
                <c:if test="${empty menuList}">
-                  검색 결과가 없습니다.
+                  등록된 메뉴가 없습니다.
                </c:if>
             
          </form>

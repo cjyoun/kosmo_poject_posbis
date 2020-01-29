@@ -457,8 +457,8 @@
      
     <div class="col-lg-11" align="center">
             <section class="panel" style="width:1200">
-              <header class="panel-heading">
-                	    <a href="">Q&A 게시판</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	    <font color="#39485f">Q&A 게시판</font>
               </header>
               <div class="panel-body">
  
@@ -491,8 +491,8 @@
    <div class="row" align="center">
           <div class="col-sm-6">
             <section class="panel" style="width:700; margin:20 0 0 203">
-              <header class="panel-heading no-border">
-               문의사항 수정/삭제
+              <header class="panel-heading no-border" style="background-color:#7f9ed436;">
+               		<font color="#39485f">문의사항 수정/삭제</font>
               </header>
               <table class="table table-bordered">
                <tr>

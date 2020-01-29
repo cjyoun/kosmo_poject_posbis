@@ -22,8 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 		
 		@RequestMapping( value="/resManagerForm.do" )	
 		public ModelAndView resManagerForm(
-			ResManagerDTO resManagerDTO
-			,ReservationDTO reservationDTO
+			ReservationDTO reservationDTO
 			,ResCntDTO resCntDTO
 			,HttpSession session
 		) {
@@ -47,7 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 	         //System.out.println("businessNoList 끝");
 	         
 	         mav.addObject("businessNoList" , businessNoList);
-	         mav.addObject("resManagerDTO", resManagerDTO);
+	         
 	         mav.addObject("reservationDTO", reservationDTO);
 	         mav.addObject("resCntDTO", resCntDTO);
 	         
@@ -192,30 +191,104 @@ import org.springframework.web.servlet.ModelAndView;
 
 		
 		
-		 @RequestMapping( value="/resUpDelProc.do" //접속하는 클래스의 URL 주소 설정
-					,produces="application/json;charset=UTF-8" )	 
-			@ResponseBody
-			public  Map<String, Object> resUpDelProc( 
-					ReservationDTO reservationDTO 
-			) {
-			 	System.out.println("resUpDelProc시작");
-				
-			 	Map<String, Object> message = new HashMap<String, Object>();
-			try {
+		// 예약 내역 상세보기 및 수정,삭제 페이지 목록보기
+		
+			 @RequestMapping( value="/resUpDelForm.do" //접속하는 클래스의 URL 주소 설정
+						,produces="application/json;charset=UTF-8" )	 
+				@ResponseBody
+				public  Map<String, Object> resUpDelForm( 
+						ReservationDTO reservationDTO 
+				) {
+				 
+					ModelAndView mav = new ModelAndView();
+					mav.setViewName("resManagerForm.jsp");
+					
+				 	System.out.println("resUpDelForm시작");
+					
+				 	Map<String, Object> message = new HashMap<String, Object>();
+				 	
+				 	
+				try {
 
-				//검색목록 얻기
-				List<Map<String,Object>> resUpDel = this.resManagerService.getResUpDel(reservationDTO);
+					//검색목록 얻기
+					List<Map<String,Object>> resUpDel = this.resManagerService.getResUpDel(reservationDTO);
 
+					
+					message.put("data", resUpDel);
+				}
+					catch(Exception e) {
+					System.out.println("resListProc <에러발생>");
+					System.out.println(e.getMessage());
+				}
 				
-				message.put("data", resUpDel);
-			}
-				catch(Exception e) {
-				System.out.println("resListProc <에러발생>");
-				System.out.println(e.getMessage());
-			}
-			
-			return message;
-			} 
+				return message;
+				} 
+			 
+			 //예약내역 수정 및 삭제 
+			 @RequestMapping(
+						value="/resUpDelProc.do"			// 접속하는 클래스의 URL 주소 설정
+						,method=RequestMethod.POST		// 접속하는 클래스의 파마리터값 전송 방법
+						,produces="application/json;charset=UTF-8"	// 응답할 데이터 종류 설정
+				)
+			 
+				@ResponseBody
+				// 비동기 방식으로 접속에 대한 응답
+				public int resUpDelProc(
+						@RequestParam(value="upDel") String upDel
+						,ReservationDTO reservationDTO
+						
+				) {
+				 
+					//수정 또는 삭제 적용행의 개수가 저장되는 변수 선언.
+					int resUpDelCnt = 0;
+					System.out.println("adfasdfasdf");
+					try {
+						//-------------------------------------------
+						// 만약 수정 모드이면 수정 실행하고 수정 적용행의 개수를 저장
+						//-------------------------------------------
+						if(upDel.equals("up")) {
+							System.out.println("000");
+							resUpDelCnt = this.resManagerService.updateRes(reservationDTO);
+							
+							System.out.println("up_r_no ====> "+ reservationDTO.getR_no());
+				            System.out.println("up_business_no ====> "+ reservationDTO.getBusiness_no());
+							System.out.println("up_user_id ====> "+ reservationDTO.getUser_id());
+							System.out.println("up_res_name ====> "+ reservationDTO.getRes_name());
+							System.out.println("up_res_date ====> "+ reservationDTO.getRes_date());
+							System.out.println("up_res_date ====> "+ reservationDTO.getRes_time());
+							System.out.println("up_res_guest ====> "+ reservationDTO.getRes_guest());
+							System.out.println("up_res_text ====> "+ reservationDTO.getRes_text());
+						}
+						
+						
+						//-------------------------------------------
+						// 만약 삭제 모드이면 삭제 실행하고 삭제 적용행의 개수를 저장
+						//-------------------------------------------
+						else{
+							resUpDelCnt = this.resManagerService.deleteRes(reservationDTO);
+							
+							System.out.println("del_r_no ====> "+ reservationDTO.getR_no());
+				            System.out.println("del_business_no ====> "+ reservationDTO.getBusiness_no());
+							System.out.println("del_user_id ====> "+ reservationDTO.getUser_id());
+							System.out.println("del_res_name ====> "+ reservationDTO.getRes_name());
+							System.out.println("del_res_date ====> "+ reservationDTO.getRes_date());
+							System.out.println("del_res_date ====> "+ reservationDTO.getRes_time());
+							System.out.println("del_res_guest ====> "+ reservationDTO.getRes_guest());
+							System.out.println("del_res_text ====> "+ reservationDTO.getRes_text());
+						}
+						
+					}catch(Exception e) {
+						//-------------------------------------------
+						// 예외 발생 시 실행할 코드 설정
+						//-------------------------------------------
+						System.out.println("<접속실패> resUpDelProc");
+						System.out.println(e.getMessage());
+					}
+					//-------------------------------------------
+					// 수정 또는 삭제 적용행의 개수 리턴
+					//-------------------------------------------
+					return resUpDelCnt;
+				}
 		 
 		 
 		 

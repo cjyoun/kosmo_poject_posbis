@@ -787,7 +787,10 @@ var customOverlays = [];
                </ul>
             </li>
             <li>
-               <a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0" onClick="goResManagerForm();">예약관리</a>
+               <a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">예약관리</a>
+					<ul class="sub-menu" style="cursor:pointer;">
+						<li><a onClick="goResManagerForm();">예약목록</a></li>
+					</ul>	
             </li>
             <li><a style="color:#fff; cursor:pointer; font-size:20; margin:0 55 4 0">고객센터</a>
                <ul class="sub-menu" style="cursor:pointer;">
@@ -852,8 +855,8 @@ var customOverlays = [];
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                      <a href="">시장 검색</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                      <font color="#39485f">시장 검색</font>
               </header>
               
               <div class="panel-body">
@@ -1007,8 +1010,8 @@ var customOverlays = [];
                     <!-- ====== 결과 테이블 ========================================================== -->
                     <table class="table table-striped table-advance table-hover"  id="select">
                        <thead>
-                            <tr style="background-color:#d2d2d4;">
-                        <th><font color="#656565"> NO </font>
+                            <tr style="background-color:#7f9ed436;">
+            			 <th><font color="#39485f">NO</font>
                         
                      <!-- 순위-------------------------------------------------------------------------------------------------------------------  -->
                         <c:choose>

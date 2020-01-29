@@ -421,8 +421,8 @@ select::-ms-expand { display: none; }
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">내가쓴글</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">내가쓴글</font>
               </header>   
               <div class="panel-body">   
           <div class="container">

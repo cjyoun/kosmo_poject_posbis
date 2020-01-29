@@ -281,11 +281,16 @@
 											data.setCell(j,1,setMenuCnt[j]);
 										}
 
+									   var sumCnt=0;
+										for(var i=0; i<setMenuDTO.setMenuList.length; i++){
+											sumCnt=sumCnt + parseInt(setMenuCnt[i])
+										}
+										//alert(sumCnt);
 									//선택한 조건이 동일 업종일 때
 									//tooltip으로 메뉴이름 보여주기	
 					                  if(setMenuDTO.dataArea=="allStore"){
 					                	  for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-												data.setCell(j,2,setMenuName[j]);
+												data.setCell(j,2,setMenuName[j]+' '+ (parseFloat(setMenuCnt[j]/sumCnt)*100).toFixed(1) +'%');
 											}
 					                  }
 
@@ -293,7 +298,7 @@
 									//tooltip으로 메뉴이름, 판매건수 보여주기	
 					                  if(setMenuDTO.dataArea=="myStore"){
 					                	   for(var j=0; j<setMenuDTO.setMenuList.length; j++ ){
-												data.setCell(j,2,setMenuName[j] +' '+ setMenuCnt[j] + '건');
+												data.setCell(j,2,setMenuName[j] +' '+ (parseFloat(setMenuCnt[j]/sumCnt)*100).toFixed(1) +'%'+', '+ setMenuCnt[j] + '건');
 											}
 					                  }
 					                  
@@ -438,8 +443,8 @@
    <section class="wrapper">
        <div class="col-lg-11" align="center">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">마케팅 전략</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	   <font color="#39485f">마케팅 전략</font>
               </header>
               
                
@@ -463,9 +468,9 @@
 						</select> 
 				<tr>
 					<td align=left>
-						<input type="radio" name="dataArea" value="allStore" id="dataAreaType" checked>동일 업종
+						<input type="radio" name="dataArea" value="allStore" id="dataAreaType" checked><label for="dataAreaType">동일 업종</label>
 						&nbsp;
-						<input type="radio" name="dataArea" value="myStore" id="dataAreaMy">우리 가게
+						<input type="radio" name="dataArea" value="myStore" id="dataAreaMy"><label for="dataAreaMy">우리 가게</label>
 					</table>
 				</form>
 		<input type="hidden" name="user_id" value="${user_id}">  

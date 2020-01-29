@@ -35,8 +35,9 @@
          var commaNum = numberWithCommas(num);
          $(this).text(commaNum);
  		 });
-	 
-	   })
+		 
+		
+	   });
 
 
 		//월매출 콤마 넣기 함수
@@ -119,10 +120,10 @@
 		
  
 		function goMenuNameForm() { 
-			
-			 var unnum = $(".allPrice").find("span").text();
+			 
+			 /* var unnum = $(".allPrice").find("span").text();
 	         var uncommaNum = uncomma(unnum);
-	         $(".allPrice").find("span").text(uncommaNum);
+	         $(".allPrice").find("span").text(uncommaNum ); */
 
 			if($("[name=tablelist] [name=perMenuList]").find("tr").eq(0).text()!="" && $(".sales_count").val()==""){
 				$("[name=menu_name]").prop( "checked",false );
@@ -162,9 +163,18 @@
 									}
 
 									if(flag==false){
+										
+									  /*   $(".perPrice").each(function() {
+									         var unnum = $("perPrice").find("span").text();
+									         var uncommaNum = uncomma(unnum);
+									         $(".perPrice").find("span").text(uncommaNum);
+									    } */
+									    
+									    
+									    
 										var appendTr = "<tr><td>"+(++levelNum)
 										appendTr += "<td>"+menu_name+"<input type='hidden' value='"+menu_name+"'name='menu_name'>" //메뉴이름
-										appendTr += "<td class=perPrice>"+menu_price+"<input type='hidden' value='"+menu_price+"'name='menu_price'>" //메뉴 가격 
+										appendTr += "<td class=perPrice><span>"+menu_price+"<input type='hidden' value='"+menu_price+"'name='menu_price'></span>" //메뉴 가격 
 										appendTr += "<td><input type='text' name='"+menu_name+"' value="+sales_count+" class='sales_count' '"+menu_name+"' size=3 style='height:35px; text-align:center'><input type='hidden' name='sales_count' class='sales_countCNT' value="+sales_count+">"  //메뉴 개수
 								
 										appendTr += "<td style='width:100'><div style=float:left; ><input type=button class=count_updateButton1 name=count_update value='+' style='height:35px; width:35; font-size:30'></div>&nbsp;<div style=float:right;><input type=button class=count_updateButton2 name=count_update value='-' style='height:35px; width:35; font-size:40'></div><td><input type=button name=menu_deleteBtn  value='삭제' style='height:35px'></tr>"
@@ -180,14 +190,31 @@
 											
 											 var num = $(".allPrice").find("span").text();
 									         var commaNum = numberWithCommas(num);
-									         $(".allPrice").find("span").text(commaNum);  
+									         // 처음으로 메뉴 선택했을 때 total값 (원 붙이기)
+									         $(".allPrice").find("span").text(commaNum + " 원");  
+									         
+									    //////////////////////////////////////////////////////     
+									         $(".perPrice").each(function() {
+									             var num = $(this).text();
+									             var commaNum = numberWithCommas(num);
+									             $(this).text(commaNum );
+									     		 });
  
+									         //////////////////////////////////////////////////////  
 											return;
 											} 		
 
 										
 										var total=0;	 
 										for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+											
+											$(".perPrice").each(function() {
+									             var num = $(this).text();
+									             var commaNum = uncomma(num);
+									             $(this).text(commaNum);
+									     	});
+											
+											
  
 											var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 											var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
@@ -197,7 +224,8 @@
   											
   											var perPriceCnt=perPriceCheck*perCntCheck
 											 total=total+perPriceCnt;
-  											$(".allPrice").find("span").text(total);
+											 // 다른 메뉴를 선택했을 때 처음 total값 (원 붙이기)
+  											$(".allPrice").find("span").text(total + " 원");
  
 											 
 											}
@@ -206,6 +234,12 @@
 										  var num = $(".allPrice").find("span").text();
 								         var commaNum = numberWithCommas(num);
 								         $(".allPrice").find("span").text(commaNum);
+								         
+								         $(".perPrice").each(function() {
+								             var num = $(this).text();
+								             var commaNum = numberWithCommas(num);
+								             $(this).text(commaNum );
+								     		 });
 								 	 
 									 
  
@@ -237,6 +271,15 @@
 										
 										var total=0;	 
 										for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+											
+
+											$(".perPrice").each(function() {
+									             var num = $(this).text();
+									             var commaNum = uncomma(num);
+									             $(this).text(commaNum);
+									     	});
+											
+											
 											/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
 											var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 											var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
@@ -248,13 +291,21 @@
  
   											
 											 total=total+perPriceCnt;
-  											$(".allPrice").find("span").text(total);
+											 // 메뉴 여러번 선택해도 total 값에 원이 붙음.
+  											$(".allPrice").find("span").text(total+ " 원");
  
   											//콤마넣기
   											  var num = $(".allPrice").find("span").text();
   									         var commaNum = numberWithCommas(num);
   									         $(".allPrice").find("span").text(commaNum);
 									    
+  									         
+  									       $(".perPrice").each(function() {
+  								             var num = $(this).text();
+  								             var commaNum = numberWithCommas(num);
+  								             $(this).text(commaNum);
+  								     		 });
+  								 	 
 											 
 											}
 										 
@@ -284,6 +335,8 @@
 		 
 	 	$(document).on('click','.count_updateButton1',function() {
 	 		
+	 	
+	 		
 	 		var unnum = $(".allPrice").find("span").text();
 	         var uncommaNum = uncomma(unnum);
 	         $(".allPrice").find("span").text(uncommaNum);
@@ -311,6 +364,15 @@
 	 		
 			 //총합 계산
 			for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+				
+				$(".perPrice").each(function() {
+		             var num = $(this).text();
+		             var commaNum = uncomma(num);
+		             $(this).text(commaNum);
+		     	});
+				
+		 		
+				
 				/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
 				var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 				var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
@@ -328,7 +390,14 @@
 			//콤마넣기
 			  var num = $(".allPrice").find("span").text();
 	         var commaNum = numberWithCommas(num);
-	         $(".allPrice").find("span").text(commaNum);
+	         $(".allPrice").find("span").text(commaNum+ " 원");
+	         
+	         
+	         $(".perPrice").each(function() {
+		             var num = $(this).text();
+		             var commaNum = numberWithCommas(num);
+		             $(this).text(commaNum);
+		     });
 			
 	 		 
 	 		
@@ -405,6 +474,14 @@
  
 			
 			for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+				
+				$(".perPrice").each(function() {
+		             var num = $(this).text();
+		             var commaNum = uncomma(num);
+		             $(this).text(commaNum);
+		     	});
+				
+				
 				/* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
 				var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
 				var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
@@ -422,7 +499,13 @@
 			//콤마넣기
 			  var num = $(".allPrice").find("span").text();
 	         var commaNum = numberWithCommas(num);
-	         $(".allPrice").find("span").text(commaNum);
+	         $(".allPrice").find("span").text(commaNum+ " 원");
+	         
+	         $(".perPrice").each(function() {
+	             var num = $(this).text();
+	             var commaNum = numberWithCommas(num);
+	             $(this).text(commaNum);
+	     });
 			
 			
 			
@@ -480,27 +563,78 @@
 		$(document).on("click","[name=menu_deleteBtn]",function(){
 			 
 			
-			$(this).parent().parent().remove(); 
- 
 
-			var toStrperPrice=$(this).parent().parent().eq(0).find("td").eq(2).text()
-			var toStrperCnt= $(this).parent().parent().eq(0).find(".sales_count").val()
-			var perPrice= parseInt(toStrperPrice, 10);//가격
-			var perCnt= parseInt(toStrperCnt, 10); //개수
+	         
+	         $(this).parent().parent().remove(); 
+	 
 
-			var toStrallPrice=$(".allPrice").find("span").text()
-			var allPrice= parseInt(toStrallPrice, 10);
+	         var toStrperPrice=$(this).parent().parent().eq(0).find("td").eq(2).text()
+	         var toStrperCnt= $(this).parent().parent().eq(0).find(".sales_count").val()
+	         var perPrice= parseInt(toStrperPrice, 10);//가격
+	         var perCnt= parseInt(toStrperCnt, 10); //개수
 
- 
-			
-			$(".allPrice").find("span").text(toStrallPrice-(perPrice*perCnt));
+	         var toStrallPrice=$(".allPrice").find("span").text()
+	         var allPrice= parseInt(toStrallPrice, 10);
+
+	 
+	         
+	         $(".allPrice").find("span").text(toStrallPrice-(perPrice*perCnt));
 
 
-			
-			 for(var i=0; i<=$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){ 
-					var idx=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).index();
-					$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(0).text(idx+1);
-			 }
+	         //콤마넣기
+	           var num = $(".allPrice").find("span").text();
+	            var commaNum = numberWithCommas(num);
+	            $(".allPrice").find("span").text(commaNum);
+	         
+	          for(var i=0; i<=$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){ 
+	               var idx=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).index();
+	               $("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(0).text(idx+1);
+	          }
+
+
+	            
+	         //총합 계산
+	          
+	            var total=0;      
+	            $(".allPrice").find("span").text(total);
+	    
+	            
+	            for(var i=0; i<$("[name=tablelist] [name=perMenuList]").find("tr").length; i++){
+	               
+	               $(".perPrice").each(function() {
+	                      var num = $(this).text();
+	                      var commaNum = uncomma(num);
+	                      $(this).text(commaNum);
+	                 });
+	               
+	               
+	               /* $(".allPrice").append("<span name='"+menu_price+"'>"+menu_price+"</span>"); */
+	               var toStrperPriceCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find("td").eq(2).text();
+	               var toStrperCntCheck=$("[name=tablelist] [name=perMenuList]").find("tr").eq(i).find(".sales_count").val()
+	            
+	                  var perPriceCheck= parseInt(toStrperPriceCheck, 10);//가격
+	                  var perCntCheck= parseInt(toStrperCntCheck, 10); //개수 */
+	                  
+	                  var perPriceCnt=perPriceCheck*perCntCheck
+
+	                  
+	                total=total+perPriceCnt;
+	                  $(".allPrice").find("span").text(total);
+	               }   
+	            
+	            //콤마넣기
+	              var num = $(".allPrice").find("span").text();
+	               var commaNum = numberWithCommas(num);
+	               // 삭제 버튼 눌러도 total에 원붙음
+	               $(".allPrice").find("span").text(commaNum+ " 원");
+	               
+	               $(".perPrice").each(function() {
+	                   var num = $(this).text();
+	                   var commaNum = numberWithCommas(num);
+	                   $(this).text(commaNum);
+	           });
+
+	            
 
 		});
  	
@@ -629,17 +763,17 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav flex-column">
-                            <li class="nav-divider">
-                                Menu
+                        <ul class="navbar-nav flex-column" >
+                            <li class="nav-divider" style="font-size:25"> Menu</li>
+                            <li class="nav-item " style="cursor:pointer">
+                                <a class="nav-link active"  onClick="goPosPayForm();" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
+                                <i class="fa fa-fw fas fa-calculator" style="font-size:25"></i><span style="cursor:pointer; font-size:25">결제관리</span>
+                				</a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosPayForm();" style="cursor:pointer">결제관리</span>
-                				<span class="badge badge-success">6</span></a>
-                                <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
-                                <i class="fa fa-fw fas fa-calculator""></i><span onClick="goPosRefundForm();" style="cursor:pointer">매출관리</span>
-                				<span class="badge badge-success">6</span></a>
+                            <li class="nav-item " style="cursor:pointer">
+                                <a class="nav-link"  onClick="goPosRefundForm();" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2">
+                                <i class="fa fa-fw fas fa-won-sign" style="font-size:25"></i><span style="cursor:pointer; font-size:25">매출관리</span>
+                				</a>
                             </li>
                         </ul>
                     </div>
@@ -715,7 +849,7 @@
 		                                	<tr>
 		                                      <th width="5%">no</th>
 		                                      <th width="38%">메뉴이름</th>
-		                                      <th width="17%">가격</th>
+		                                      <th width="17%">가격(원)</th>
 		                                      <th width="40%" colspan="3">수량</th>
 		                                	</tr>
 	                             		</thead>

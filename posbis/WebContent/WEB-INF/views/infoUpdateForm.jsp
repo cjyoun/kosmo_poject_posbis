@@ -144,7 +144,13 @@
 	     	// 라디오 버튼의 value 값 1과 2 중에서 저장된 유저의 rank_code 값에 따라 라디오 버튼 체크	
 		 	   var st = ${myNStoreInfo[0].rank_code};
 		 	   $('input:radio[name=rank_code]:input[value=' + st + ']').attr("checked", true);
-	
+		 	   if(st=='1'){
+		 		  $('#label1').addClass("active");
+			 	}
+		 	   else if(st=='2'){
+		 		  $('#label2').addClass("active");
+			 	}
+
 	       
 	       
 	      //  구 검색시 동 구하기 -------------------------------------------------------
@@ -335,6 +341,13 @@
 	             return;
 	          }  
 
+
+	          if($("input[name=user_pwd]").val()!=${user_pwd}){
+		             alert("비밀번호가 틀렸습니다.");
+		             //alert(${user_pwd});
+		             return;
+		      } 
+
 	    	  $.ajax({ 
 	              url : "/posbis/infoUpdateProc.do"
 	              ,type : "post"   
@@ -369,7 +382,7 @@
 					}
 					else {
 						alert("서버 오류 발생. 관리자에게 문의 바람2");
-					} 
+					}
 	                 
 	             }, error : function(){
 	                alert("서버 접속 실패");
@@ -593,8 +606,8 @@
    <section class="wrapper">
        <div class="col-lg-6" align="center" style="margin:0 0 0 460">
             <section class="panel">
-              <header class="panel-heading">
-                	   <a href="">회원정보수정</a>
+              <header class="panel-heading" style="background-color:#7f9ed436;">
+                	  <font color="#39485f">회원정보수정</font>
               </header>  
               
  
@@ -605,8 +618,8 @@
       <div  class="form-group" style="border-bottom:insert;">
 
 		<section class="panel">
-		    <header class="panel-heading">
-		      	대표자 정보
+		    <header class="panel-heading" style="background-color:#7f9ed436;">
+		      	<font color="#39485f">대표자 정보</font>
 		    </header>
 		
 			  <table class="table table-hover">
@@ -662,8 +675,8 @@
  
   <div  class="form-group" style="border-bottom:insert;">
   <section class="panel">
-    <header class="panel-heading">
-       	사업장 정보
+    <header class="panel-heading" style="background-color:#7f9ed436;">
+       	<font color="#39485f">사업장 정보</font>
      </header>
 
      <table class="table table-hover">  
@@ -801,10 +814,10 @@
        <td>
        		<br>
        		<div class="btn-group" data-toggle="buttons">
-	       		<label class="btn btn-default active"> 
+	       		<label class="btn btn-default " id="label1"> 
 					<input type="radio" class="rank_code" name="rank_code" id="option1"	value="1"> 일반
 				</label> 
-				<label class="btn btn-default"> 
+				<label class="btn btn-default" id="label2"> 
 					<input type="radio"	class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
 				</label> 
 			</div>
