@@ -295,6 +295,17 @@ public class LoginDAOImp implements LoginDAO{
 	};
 	
 	
+	// 가게 영업시간 업데이트	==================================================================김수민
+	@Override
+	public int updateSalesTime(UpdateInfoDTO updateInfoDTO) {
+		int updateSalesTimeCnt = this.sqlSession.update(
+				 "com.naver.erp.LoginDAO.updateSalesTime"		// 실행할 SQL 구문의 위치 지정
+				, updateInfoDTO 	
+		);
+		return updateSalesTimeCnt;
+	};
+	
+	
 	// 카드갯수 구하기
 	@Override
 	public int getCardCnt(int u_no) {
@@ -371,7 +382,18 @@ public class LoginDAOImp implements LoginDAO{
 		};
 	
 	
-	//===============================김수민==================================================		
+	//=============================김수민 infoUpdate=========================================	
+		@Override
+		public String getUserPwd(int u_no) {
+			String userPwd =this.sqlSession.selectOne(
+					 "com.naver.erp.LoginDAO.getUserPwd"		// 실행할 SQL 구문의 위치 지정
+					, u_no 	
+			);
+			return userPwd;
+		};
+	//=======================================================================================	
+
+	//===============================김수민==================================================	
 		
 		public int insertBusi(BusiInfoDTO busiInfoDTO) {
 			int insertBusiCnt = this.sqlSession.insert(
@@ -381,7 +403,7 @@ public class LoginDAOImp implements LoginDAO{
 				return insertBusiCnt;
 		};
 		
-		
+	//=======================================================================================	
 		//---------------------------------------------------------------------------------
 		//회원가입 등록 운영시간 정보----------------------------------------------------------------------------------
 		//---------------------------------------------------------------------------------

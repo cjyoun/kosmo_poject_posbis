@@ -105,7 +105,7 @@
    function checkCardInsert(){
 	   
 	   if( is_empty(".credit") ){
-           alert("카드 체크 요망");
+           alert("카드 번호 입력이 필요합니다.");
            $(".credit").val("");
            return;
         }

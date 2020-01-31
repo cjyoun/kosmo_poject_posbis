@@ -33,6 +33,10 @@ public class UpdateInfoDTO {
 			private String rank_code;
 			private String rank_name;
 			
+			//영업시간 정보==================김수민
+			private String business_open;
+			private String business_close;
+			
 			
 			public int getU_no() {
 				return u_no;
@@ -154,9 +158,18 @@ public class UpdateInfoDTO {
 			public void setRank_name(String rank_name) {
 				this.rank_name = rank_name;
 			}
-			
-			
-			
+			public String getBusiness_open() {
+				return business_open;
+			}
+			public void setBusiness_open(String business_open) {
+				this.business_open = business_open;
+			}
+			public String getBusiness_close() {
+				return business_close;
+			}
+			public void setBusiness_close(String business_close) {
+				this.business_close = business_close;
+			}
 			
 			
 			

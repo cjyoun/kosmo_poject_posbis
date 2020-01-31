@@ -109,7 +109,7 @@
    function checkCardInsert(){
 	   
 	   if( is_empty(".credit") ){
-           alert("카드 체크 요망");
+           alert("카드 번호 입력이 필요합니다.");
            $(".credit").val("");
            return;
         }
@@ -293,11 +293,10 @@
    	        //alert("검색관리로 이동");
    			var rank_code = ${rank_code};
 	         if(rank_code == 2){
-	        	 var move = "/posbis/preSearchForm.do";
-	     		elseClick(move);
+	        	 location.replace("/posbis/preSearchForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{
@@ -311,11 +310,10 @@
    	        //alert("차트관리로 이동");
    			var rank_code = ${rank_code};
 	         if(rank_code == 2){
-	         	var move = "/posbis/preChartForm.do";
-	    		elseClick(move);
+	         	location.replace("/posbis/preChartForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{

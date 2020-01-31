@@ -237,7 +237,7 @@ function goInfoUpdateForm(){
 	        	 location.replace("/posbis/preSearchForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{
@@ -254,7 +254,7 @@ function goInfoUpdateForm(){
 	         	location.replace("/posbis/preChartForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{

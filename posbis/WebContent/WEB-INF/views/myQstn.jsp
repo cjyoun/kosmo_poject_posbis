@@ -236,7 +236,7 @@ select::-ms-expand { display: none; }
 	        	 location.replace("/posbis/preSearchForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{
@@ -253,7 +253,7 @@ select::-ms-expand { display: none; }
 	         	location.replace("/posbis/preChartForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{
@@ -487,11 +487,11 @@ select::-ms-expand { display: none; }
       
         <table class="table table-striped table-advance table-hover">
             <tr >
-              <th align=center style="background-color:#d2d2d4;"><font color="#656565">번호</th>
-              <th style="background-color:#d2d2d4;"><font color="#656565">제목</font></th>
-              <th style="background-color:#d2d2d4;"><font color="#656565">글쓴이</font></th>
-              <th style="background-color:#d2d2d4;"><font color="#656565">등록일</font></th>
-              <th style="background-color:#d2d2d4;"><font color="#656565">조회수</font></th>
+              <th align=center style="background-color:#7f9ed436;"><font color="#39485f">번호</th>
+              <th style="background-color:#7f9ed436;"><font color="#39485f">제목</font></th>
+              <th style="background-color:#7f9ed436;"><font color="#39485f">글쓴이</font></th>
+              <th style="background-color:#7f9ed436;"><font color="#39485f">등록일</font></th>
+              <th style="background-color:#7f9ed436;"><font color="#39485f">조회수</font></th>
               <c:forEach items="${myQstnList2}" var="myQstn" varStatus="loopTagStatus">
                <tr style="cursor:pointer" 
                onClick="goQstnContentForm(${myQstn.qna_no});">

@@ -207,8 +207,15 @@ public class LoginServiceImp implements LoginService {
 			int updateInfoBusinessCnt = this.loginDAO.updateInfoBusiness(updateInfoDTO);
 			return updateInfoBusinessCnt;
 		}
-
-
+		
+		// 가게 영업시간 업데이트	=======================김수민
+		@Override
+		public int updateSalesTime(UpdateInfoDTO updateInfoDTO) {
+			int updateSalesTimeCnt = this.loginDAO.updateSalesTime(updateInfoDTO);
+			return updateSalesTimeCnt;
+		}
+		
+		
 		// 카드 갯수 얻기
 		@Override
 		public int getCardCnt(int u_no) {
@@ -259,7 +266,15 @@ public class LoginServiceImp implements LoginService {
 		// 내가게 정보 가져오기///////////////////////////끝//////////////////////////////이정숙꺼///////////////////////////////////////////////////////////////////////////
 		
 		
-//========================================김수민============================================		
+	//========================================김수민============================================	
+		//유저의 현재 비밀번호 가져오기
+		@Override
+		public String getUserPwd(int u_no) {
+			String userPwd =this.loginDAO.getUserPwd(u_no);
+			return userPwd;
+		};
+	//==========================================================================================
+		
 
 		public int insertBusi(BusiInfoDTO busiInfoDTO) {
 			int pwdCnt=this.loginDAO.getPwdCnt(busiInfoDTO);

@@ -498,10 +498,21 @@ public class LoginController {
 			
 			String rank_code = (String)session.getAttribute("rank_code");
 			String user_id = (String)session.getAttribute("user_id");
+			
+			//김수민=====================================
+			int u_no = (int)session.getAttribute("u_no");
+			//===========================================
+			
 			mav.addObject("rank_code",rank_code);
 			mav.addObject("user_id",user_id);
 			
 			try {
+				//김수민=============================================
+				//유저의 현재 비밀번호 가져오기
+				String user_pwd = this.loginService.getUserPwd(u_no);
+				mav.addObject("user_pwd", user_pwd);
+				//===================================================
+				
 				// business_no에 따른 회원정보 가져오기
 				List<Map<String, String>> myNStoreInfo = this.loginService.getMyNStoreInfo(business_no);
 				System.out.println("myNStoreInfo : " + myNStoreInfo.size());
@@ -538,7 +549,8 @@ public class LoginController {
 		@ResponseBody
 		public int infoUpdateProc(
 				UpdateInfoDTO updateInfoDTO 
-				, HttpSession session 
+				, HttpSession session
+				, @RequestParam(value = "user_pwd") String user_pwd
 			) 
 		{
 			int updateSuccess = 0;
@@ -548,6 +560,11 @@ public class LoginController {
 			int infoUpdateBusinessCnt = 0;
 			// 사용자가 저장한 카드의 갯수
 			int cardCnt = 0;
+			
+			//영업시간 업데이트 갯수=========김수민
+			int updateSalesTimeCnt = 0;
+			
+			int pwdCnt = 0;
 			
 			int u_no = (int)session.getAttribute("u_no");
 			updateInfoDTO.setU_no(u_no);
@@ -568,6 +585,12 @@ public class LoginController {
 				infoUpdateBusinessCnt = this.loginService.updateInfoBusiness(updateInfoDTO);
 				System.out.println("infoUpdateBusinessCnt ======> " + infoUpdateBusinessCnt);
 				
+				// =============================김수민=====================================
+				// 영업 시간 업데이트
+				updateSalesTimeCnt = this.loginService.updateSalesTime(updateInfoDTO);
+				System.out.println("updateSalesTimeCnt ======> " + updateSalesTimeCnt);
+				//==========================================================================
+				
 				// 업데이트된 등급 구하기
 				String newRankCode = this.loginService.getRankCode(updateInfoDTO.getUser_id());
 				System.out.println("newRankCode ======> " + newRankCode);
@@ -576,8 +599,9 @@ public class LoginController {
 				cardCnt = this.loginService.getCardCnt(u_no);
 				System.out.println("cardCnt ======> " + cardCnt);
 				
-				// 유저정보와 가게정보 업데이트가 성공했다면
-				if(infoUpdateUserCnt!=0 && infoUpdateBusinessCnt!=0) {
+				
+				// 유저정보와 가게정보 업데이트가 성공했다면			김수민 추가
+				if(infoUpdateUserCnt!=0 && infoUpdateBusinessCnt!=0 && updateSalesTimeCnt!=0) {
 				    // 기존 등급에서 등급을 변경했을 때
 					if(!rank_code.equals(newRankCode)) {				
 						// 새로 업데이트된 등급이 프리미엄 등급일 때
@@ -866,8 +890,6 @@ public class LoginController {
 			insertCard = this.loginService.insertCard(cardDTO);		
 			
 			int updateRank = this.loginService.updateRank(cardDTO.getU_no());
-			
-				
 			
 
 		} catch (Exception e) {

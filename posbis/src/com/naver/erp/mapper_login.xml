@@ -267,8 +267,20 @@
 		where u_no=#{u_no} and business_no = #{business_no} 
 	
 	</update>	
+	
 
-
+<!--============================== 김수민 추가 ==============================-->
+<!-- (회원정보) 가게 영업시간 수정하기 -->
+	
+ 	<update id="updateSalesTime" parameterType="com.naver.erp.UpdateInfoDTO">
+		update sales_time set 
+			business_open = #{business_open}
+			, business_close = #{business_close}
+		where business_no = #{business_no} 
+	
+	</update>	
+<!-- ======================================================================= -->
+	
 
 <!-- 카드갯수구하기 -->
 
@@ -389,6 +401,13 @@
           
 		)
 </insert>
+
+<!-- 김수민 -->
+<!-- 회원정보 수정 시 유저의 현재 비밀번호 확인 -->
+<select id="getUserPwd" parameterType="int" resultType="String">
+	select user_pwd from user_info where u_no=#{u_no}
+</select>
+<!-- =========================================== -->
 
 <select id="getPwdCnt" parameterType="com.naver.erp.BusiInfoDTO" resultType="int">
 	select count(*) from user_info where u_no=#{u_no} and user_pwd=#{user_pwd}

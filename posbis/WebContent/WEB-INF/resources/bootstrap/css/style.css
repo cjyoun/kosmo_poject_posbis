@@ -1482,17 +1482,14 @@ Contact Page
 
 .contact-form input,
 .contact-form textarea {
-	width: 100%;
-	height: 59px;
-	border: none;
-	padding: 0 27px;
-	margin-bottom: 30px;
-	font-size: 14px;
-	font-style: italic;
-	color: #838383;
-	background: #ebf0f3;
+   width: 100%;
+   height: 59px;
+   border: none;
+   padding: 0 27px;
+   font-size: 14px;
+   color: #838383;
+   background: #fff;
 }
-
 .contact-form textarea {
 	height: 222px;
 	padding: 20px 27px 10px;

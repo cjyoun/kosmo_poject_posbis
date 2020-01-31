@@ -50,17 +50,12 @@
 	
  
     function goJoinForm(){
-	    alert("회원가입 페이지로 이동합니다. 감사합니다");
+	    //alert("회원가입 페이지로 이동합니다. 감사합니다");
 	    location.replace("/posbis/joinForm.do");
 
 	 }
 		
 
-	
-	function goMessageForm(){
-	    alert("건의사항이 접수 되었습니다. 감사합니다");
-
-	 }
 			
 			
   </script>

@@ -101,39 +101,39 @@
 	        //alert("메뉴관리로 이동");
 	        location.replace("/posbis/menuForm.do");
 	     }
-	//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
-		function goPreSearchForm(){
-	        //alert("검색관리로 이동");
-			var rank_code = ${rank_code};
-       if(rank_code == 2){
-      	 location.replace("/posbis/preSearchForm.do");
-       }
-       else{
-      	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-					return;
-				}
-      	 else{
-      		 location.replace("/posbis/payFormLogin.do");
-           }
-       }
-	        
-	     }
-		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
-		function goPreChartForm(){
-	        //alert("차트관리로 이동");
-			var rank_code = ${rank_code};
-       if(rank_code == 2){
-       	location.replace("/posbis/preChartForm.do");
-       }
-       else{
-      	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-					return;
-				}
-      	 else{
-      		 location.replace("/posbis/payFormLogin.do");
-           }
-       }
-	     }
+		//분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreSearchForm(){
+   	        //alert("검색관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	        	 location.replace("/posbis/preSearchForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payFormLogin.do");
+	             }
+	         }
+   	        
+   	     }
+   		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+   		function goPreChartForm(){
+   	        //alert("차트관리로 이동");
+   			var rank_code = ${rank_code};
+	         if(rank_code == 2){
+	         	location.replace("/posbis/preChartForm.do");
+	         }
+	         else{
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+						return;
+					}
+	        	 else{
+	        		 location.replace("/posbis/payFormLogin.do");
+	             }
+	         }
+   	     }
 		//내정보관리-내정보 보기
 		function goMyPageForm(){
 	        //alert("내정보 보기으로 이동");

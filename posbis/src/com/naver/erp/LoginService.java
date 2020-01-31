@@ -61,6 +61,9 @@ public interface LoginService {
 
 	// 가게 정보 업데이트
 	int updateInfoBusiness(UpdateInfoDTO updateInfoDTO);
+	
+	// 가게 영업시간 업데이트	=======================김수민
+	int updateSalesTime(UpdateInfoDTO updateInfoDTO);
 
 	// 카드 갯수 얻기
 	int getCardCnt(int u_no);
@@ -81,9 +84,17 @@ public interface LoginService {
 	// 내가게 정보 가져오기/////////////////////////////////////////////////////////이정숙꺼
 	List<Map<String, String>> getMyStoreInfoList(MyStoreInfoDTO myStoreInfoDTO);
 	int getMyStoreInfoAllCnt(MyStoreInfoDTO myStoreInfoDTO);
-		
 	
+		
+	//================================김수민 infoUpdate==================================	
+	//유저의 현재 비밀번호 가져오기
+		String getUserPwd(int u_no);
+	//===================================================================================	
+
+		
+		
 	//=================================김수민==================================================	
+	
 		int insertBusi(BusiInfoDTO busiInfoDTO);
 		
 

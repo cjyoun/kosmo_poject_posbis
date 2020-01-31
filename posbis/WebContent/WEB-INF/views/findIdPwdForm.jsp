@@ -84,7 +84,7 @@
 	         			location.replace('/posbis/findIdPwdForm.do');
 	         			
 	         		}else if( findIDPassword.user_id==null && findIDPassword.user_id==null ) {
-	         			alert("해당 아이디, 비밀번호, 사업자 등록번호가 존재하지 않습니다. 재입력 바랍니다.");
+	         			alert("해당 아이디, 비밀번호, 사업자 등록번호가 존재하지 않습니다.");
 	         			location.replace('/posbis/findIdPwdForm.do');
 	         			
 	         		}
@@ -120,11 +120,7 @@
 
             }
 
-    		
-    		function goMessageForm(){
-    		    alert("건의사항이 접수 되었습니다. 감사합니다");
-    	 
-    		 }
+
          
       </script>
  
@@ -206,7 +202,7 @@
                   
         			 <div style="margin:30 0 0 0">
                    <button class="btn btn-default" type="button" value="메인으로" onClick="findIdPwdStart();" style="margin:0 50 0 0" >아이디 비밀번호 찾기 </button>
- 				  <button class="btn btn-default" type="button" value="메인으로" onClick="goJoinForm();" >로그인 하기 </button>
+ 				  <button class="btn btn-default" type="button" value="메인으로" onClick="goMainForm();" >로그인 하기 </button>
  					</div>
  					
  					

@@ -243,7 +243,7 @@
      
          //회원가입 양식 빈칸체크
         if( is_empty(".user_pwd") ){
-             alert("암호 입력 요망");
+             alert("암호 입력이 필요합니다.");
              $(".user_pwd").val("");
              return;
           }
@@ -252,44 +252,44 @@
             return;
       	  }*/
         if( is_empty(".business_no") ){
-             alert("사업자번호 입력 요망");
+             alert("사업자번호 입력이 필요합니다.");
              $(".business_no").val("");
              return;
           }
         if( is_empty(".business_name") ){
-             alert("상호명 입력 요망");
+             alert("상호명 입력이 필요합니다.");
              $(".business_name").val("");
              return;
           }
  
         
         if( is_empty(".addr_gu") ){
-             alert("주소 체크 요망");
+             alert("주소(구) 체크가 필요합니다.");
              $(".addr_gu").val("");
              return;
           }
         if( is_empty(".addr_dong") ){
-             alert("주소 체크  요망");
+             alert("주소(동) 체크가 필요합니다.");
              $(".addr_dong").val("");
              return;
           }
         if( is_empty(".addr_detail") ){
-             alert("상세주소 입력  요망");
+             alert("상세주소 입력이 필요합니다.);
              $(".addr_detail").val("");
              return;
           }
         if( is_empty(".business_type_name1") ){
-             alert("업종1 체크  요망");
+             alert("업종1 체크가 필요합니다.");
              $(".business_type_name1").val("");
              return;
           }
         if( is_empty(".business_type_name2") ){
-             alert("업종2 체크  요망");
+             alert("업종2 체크가 필요합니다.");
              $(".business_type_name2").val("");
              return;
           }
         if( is_empty(".store_tel_num") ){
-             alert("매장번호 입력  요망");
+             alert("매장번호 입력이 필요합니다.");
              $(".store_tel_num").val("");
              return;
           }
@@ -385,7 +385,7 @@
 	        	 location.replace("/posbis/preSearchForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{
@@ -402,7 +402,7 @@
 	         	location.replace("/posbis/preChartForm.do");
 	         }
 	         else{
-	        	 if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
+	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
 						return;
 					}
 	        	 else{

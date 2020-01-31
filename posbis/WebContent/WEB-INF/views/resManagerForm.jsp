@@ -374,12 +374,14 @@ label {
 
               // today 버튼을 클릭하였을 경우
               $("button.fc-today-button").click(function() {
+                  var today = new Date();
                   var date = $("#calendar").fullCalendar("getDate");
                   convertDate(date);
                   var date2 = parseInt(convertDate(date));
                //console.log(date2);
                fn_get_events(date2);
                chartDraw();
+               goResList(today);
               });
 
 
@@ -530,7 +532,7 @@ label {
 	 		                                    <!-- 각 행의 예약자 휴대폰번호 출력  -->
 	 			                                '<td align=center onClick="goResUpDelForm('+data.data[i]["r_no"]+', '+t+');">'+data.data[i]["res_phone"]+'</td>'+
 	 			                                <!-- 각 행의 예약현황 출력  -->
-	 			                                '<td align=center ><input type=button  value=확인 style="width:50px; height:35px; font-size:20" onClick="changeSuccess('+data.data[i]["r_no"]+');">&nbsp;<input type=button  value=노쇼 style="width:50px; height:35px; font-size:20" onClick="changeNoshow('+data.data[i]["r_no"]+');">'+'</td>'+
+	 			                                '<td align=center ><input type=button  value=방문 style="width:50px; height:35px; font-size:20" onClick="changeSuccess('+data.data[i]["r_no"]+');">&nbsp;<input type=button  value=노쇼 style="width:50px; height:35px; font-size:20" onClick="changeNoshow('+data.data[i]["r_no"]+');">'+'</td>'+
 	 			                                <!-- 각 행의 비고란 내용 출력  -->
 	 			                                '<td align=center onClick="goResUpDelForm('+data.data[i]["r_no"]+', '+t+');">'+data.data[i]["res_text"]+'</td>'+
 	 		
@@ -540,29 +542,57 @@ label {
 		                    }
 	                        else{
 		                        //alert("2")
-		                        $('#resList > tbody').append(
-		                           '<tr style="cursor:pointer" onClick="goResUpDelForm('+data.data[i]["r_no"]+', '+t+');">'+
-		                                    <!-- 순서번호 -->
-		                                    '<td align=center >'+(i+1)+'</td>' +
-		                                    <!-- 각 행의 가게 이름 출력 -->
-		                                    '<td align=center >'+data.data[i]["business_name"]+'</td>'+
-		                                    <!-- 각 행의 예약자 이름 출력 -->
-		                                    '<td align=center >'+data.data[i]["res_name"]+'</td>'+
-		                                    <!-- 각 행의 예약날짜 출력  -->
-		                                    '<td align=center >'+data.data[i]["res_date"]+'</td>'+
-		                                    <!-- 각 행의 예약시간 출력  -->
-		                                    '<td align=center >'+data.data[i]["res_time"]+'</td>'+
-		                                    <!-- 각 행의 예약자 인원수 출력  -->
-		                                    '<td align=center >'+data.data[i]["res_guest"]+'</td>'+
-		                                    <!-- 각 행의 예약자 휴대폰번호 출력  -->
-			                                '<td align=center >'+data.data[i]["res_phone"]+'</td>'+
-			                                <!-- 각 행의 예약현황 출력  -->
-			                                '<td align=center >'+data.data[i]["res_result"]+'</td>'+
-			                                <!-- 각 행의 비고란 내용 출력  -->
-			                                '<td align=center >'+data.data[i]["res_text"]+'</td>'+
-		
-		                           '</tr>'
-		                        );
+		                        
+		                         if(data.data[i]["res_result"]=='success'){
+			                        $('#resList > tbody').append(
+			                           '<tr style="cursor:pointer" onClick="goResUpDelForm('+data.data[i]["r_no"]+', '+t+');">'+
+			                                    <!-- 순서번호 -->
+			                                    '<td align=center >'+(i+1)+'</td>' +
+			                                    <!-- 각 행의 가게 이름 출력 -->
+			                                    '<td align=center >'+data.data[i]["business_name"]+'</td>'+
+			                                    <!-- 각 행의 예약자 이름 출력 -->
+			                                    '<td align=center >'+data.data[i]["res_name"]+'</td>'+
+			                                    <!-- 각 행의 예약날짜 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_date"]+'</td>'+
+			                                    <!-- 각 행의 예약시간 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_time"]+'</td>'+
+			                                    <!-- 각 행의 예약자 인원수 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_guest"]+'</td>'+
+			                                    <!-- 각 행의 예약자 휴대폰번호 출력  -->
+				                                '<td align=center >'+data.data[i]["res_phone"]+'</td>'+
+				                                <!-- 각 행의 예약현황 출력  -->
+				                                '<td align=center >방문완료</td>'+
+				                                <!-- 각 행의 비고란 내용 출력  -->
+				                                '<td align=center >'+data.data[i]["res_text"]+'</td>'+
+			
+			                           '</tr>'
+			                        );
+		                         }
+		                         else{
+		                        	 $('#resList > tbody').append(
+			                           '<tr style="cursor:pointer" onClick="goResUpDelForm('+data.data[i]["r_no"]+', '+t+');">'+
+			                                    <!-- 순서번호 -->
+			                                    '<td align=center >'+(i+1)+'</td>' +
+			                                    <!-- 각 행의 가게 이름 출력 -->
+			                                    '<td align=center >'+data.data[i]["business_name"]+'</td>'+
+			                                    <!-- 각 행의 예약자 이름 출력 -->
+			                                    '<td align=center >'+data.data[i]["res_name"]+'</td>'+
+			                                    <!-- 각 행의 예약날짜 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_date"]+'</td>'+
+			                                    <!-- 각 행의 예약시간 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_time"]+'</td>'+
+			                                    <!-- 각 행의 예약자 인원수 출력  -->
+			                                    '<td align=center >'+data.data[i]["res_guest"]+'</td>'+
+			                                    <!-- 각 행의 예약자 휴대폰번호 출력  -->
+				                                '<td align=center >'+data.data[i]["res_phone"]+'</td>'+
+				                                <!-- 각 행의 예약현황 출력  -->
+				                                '<td align=center >노쇼</td>'+
+				                                <!-- 각 행의 비고란 내용 출력  -->
+				                                '<td align=center >'+data.data[i]["res_text"]+'</td>'+
+			
+			                           '</tr>'
+			                        );
+			                     }
 	                        }
 	                     }
 	                        
@@ -1085,11 +1115,11 @@ label {
 
 	                         if(res_all_cnt >=0 ){
 								
-							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 noshow 현황 ]</h1>');
+							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 노쇼 현황 ]</h1>');
 							$("#tdChart1").append('<div id="chart_div" style="width: 100%; height: 100%;"></div>');
-							$("#tdComment1").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(건) : '+res_all_cnt+'건<br><br>noshow(건)&nbsp;: '+no_show_cnt+'건</h1>');
+							$("#tdComment1").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(건) : '+res_all_cnt+'건<br><br>노&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;쇼(건)&nbsp;: '+no_show_cnt+'건</h1>');
 							$("#tdChart2").append('<div id="chart_div2" style="width: 100%; height: 100%;"></div>');
-							$("#tdComment2").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(명) : '+res_guest+'명<br><br>미&nbsp;방&nbsp;문&nbsp;(명)&nbsp;: '+no_show_guest+'명</h1>');
+							$("#tdComment2").append('<h1 style="font-size:30">'+res_date+'<br><br>예약완료(명) : '+res_guest+'명<br><br>노&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;쇼(명)&nbsp;: '+no_show_guest+'명</h1>');
 
 							
 							
@@ -1137,7 +1167,7 @@ label {
                          }
 
 						}else{
-							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 미방문 현황 ]</h1>');
+							$("#title").append('<h1 style="font-size:35;margin:33 0 36 0">[ 완료된 예약 노쇼 현황 ]</h1>');
 							$("#noRes").append('<h1 style="font-size:30">해당 월은 완료된 예약이 없습니다.');
 						}
 
@@ -1180,39 +1210,39 @@ label {
                     //alert("메뉴관리로 이동");
                     location.replace("/posbis/menuForm.do");
                  }
-               //분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
-                  function goPreSearchForm(){
-                       //alert("검색관리로 이동");
-                     var rank_code = ${rank_code};
-                     if(rank_code == 2){
-                        location.replace("/posbis/preSearchForm.do");
-                     }
-                     else{
-                        if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-                           return;
-                        }
-                        else{
-                           location.replace("/posbis/payFormLogin.do");
-                         }
-                     }
-                       
-                    }
-                  //분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
-                  function goPreChartForm(){
-                       //alert("차트관리로 이동");
-                     var rank_code = ${rank_code};
-                     if(rank_code == 2){
-                        location.replace("/posbis/preChartForm.do");
-                     }
-                     else{
-                        if(confirm("프리미엄 회원 등록을 위해 카드결제 화면으로 이동하시겠습니까?")==false) {
-                           return;
-                        }
-                        else{
-                           location.replace("/posbis/payFormLogin.do");
-                         }
-                     }
-                    }
+             //분석현황-검색관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+          		function goPreSearchForm(){
+          	        //alert("검색관리로 이동");
+          			var rank_code = ${rank_code};
+       	         if(rank_code == 2){
+       	        	 location.replace("/posbis/preSearchForm.do");
+       	         }
+       	         else{
+       	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+       						return;
+       					}
+       	        	 else{
+       	        		 location.replace("/posbis/payFormLogin.do");
+       	             }
+       	         }
+          	        
+          	     }
+          		//분석현황-차트관리 (프리미엄으로 이동 시일반 회원은 프리미엄 부분에 들어가지 못함)
+          		function goPreChartForm(){
+          	        //alert("차트관리로 이동");
+          			var rank_code = ${rank_code};
+       	         if(rank_code == 2){
+       	         	location.replace("/posbis/preChartForm.do");
+       	         }
+       	         else{
+       	        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+       						return;
+       					}
+       	        	 else{
+       	        		 location.replace("/posbis/payFormLogin.do");
+       	             }
+       	         }
+          	     }
                //내정보관리-내정보 보기
                function goMyPageForm(){
                     //alert("내정보 보기으로 이동");

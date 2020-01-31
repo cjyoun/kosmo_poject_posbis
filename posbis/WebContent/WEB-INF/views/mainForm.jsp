@@ -86,13 +86,13 @@ function gobeforeSignIntroForm(){
 */
 
     if( is_empty(".user_id") ){
-          alert("아이디 입력 요망");
+          alert("아이디를 입력하세요");
           $(".user_id").val("");
           return;
        }
     
     if( is_empty(".user_pwd") ){
-          alert("암호 입력 요망");
+          alert("비밀번호를 입력하세요");
           $(".user_pwd").val("");
           return;
        }      
@@ -110,7 +110,7 @@ function gobeforeSignIntroForm(){
              location.replace("/posbis/homePageForm.do");
           }
            else if(data == 0) {
-              alert("아이디 또는 암호가 존재하지 않습니다. 재입력 바람");
+              alert("아이디 또는 암호가 존재하지 않습니다.");
               $(".user_id").val("");
               $(".user_pwd").val("");
            }
@@ -169,7 +169,7 @@ function gobeforeSignIntroForm(){
 <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
    
                         
-                        <span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0; font-size:17">아이디 암호 찾기</a></span><br>
+                        <span> <a onClick="goIdPwdSearchForm();" style="cursor:pointer; float:right; padding:0 0 20px 0; font-size:17">내 계정 찾기</a></span><br>
                           </div>
                           <br><br> 
       
