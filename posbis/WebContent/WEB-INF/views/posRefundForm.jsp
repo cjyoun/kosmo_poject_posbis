@@ -299,12 +299,12 @@ function startTime() {
 	
 	}
 
-	function goPosLoginForm(){
-		
-		//alert("로그인 페이지로 이동");
-		location.replace("/posbis/posLoginForm.do");
+
+	// 로그아웃
+    function goPosLogoutForm(){
+ 	   location.replace("/posbis/posLogoutForm.do");
+		}
 	
-	}
 	
 </script>
 
@@ -337,7 +337,7 @@ function startTime() {
                         </li>
                         <!-- 로그아웃 -->
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLoginForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
+                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLogoutForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
                         </li>
                     </ul>
                 </div>

@@ -163,8 +163,62 @@
               return;
            }
 
-  	
-	   
+
+
+           if(is_valid_pattern("[name=jumin_no]",/^[0-9]{6}$/) == false){
+               alert(" 주민번호 숫자 6자리를 입력해주세요");
+               return;
+            }
+//============================================================================== 유효성 검사 수정 1/31
+           if($("[name=jumin_no2]").val()=='1' || $("[name=jumin_no2]").val()=='2'){
+     			var year= Number('19'+$("[name=jumin_no]").val().substr(0,2));
+        	}
+        	else if($("[name=jumin_no2]").val()=='3' || $("[name=jumin_no2]").val()=='4'){
+        		var year= Number('20'+$("[name=jumin_no]").val().substr(0,2));
+           }
+        	else{
+            	alert("주민번호 뒷자리의 첫번쨰 자리는 1~4까지만 입력 가능합니다.")
+            	return;
+           }
+       		var month= Number($("[name=jumin_no]").val().substr(2,2));
+       		var day= Number($("[name=jumin_no]").val().substr(4,2));
+       		var today = new Date();
+       		var yearNow = today.getFullYear();
+
+       		if(1900>year || year>yearNow){
+       			$('font[name=jumin_no]').text('');
+       			alert('생년월일을 다시 확인해주세요.');
+       			return;
+       		}
+       		else if(year>(yearNow-14)){
+       			$('font[name=jumin_no]').text('');
+       			alert('생년월일을 다시 확인해주세요.');
+       			return;
+       		}
+       		else if(month<1 || month>12){
+       			$('font[name=jumin_no]').text('');
+       			alert('생년월일을 다시 확인해주세요.');
+       			return;
+       		}
+       		else if(day<1 || day>31){
+       			$('font[name=jumin_no]').text('');
+       			alert('생년월일을 다시 확인해주세요.');
+       			return;
+       		}
+       		else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+       			$('font[name=jumin_no]').text('');
+       			alert('생년월일을 다시 확인해주세요.');
+       			return;
+       		}
+       		else if (month == 2) {
+       			var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+       			if (day>29 || (day==29 && !isleap)) {
+       					$('font[name=jumin_no]').text('');
+       	       			alert('생년월일을 다시 확인해주세요.');
+       					return;
+       			}
+       		}
+//===================================================================================
 	   
        //alert($("[name=payForm]").serialize());
 
@@ -407,7 +461,17 @@
           		<input type="text" name="jumin_no" size=5 maxlength=6  class="form-control jumin_no" >
           		</div>
           		<div class="col-lg-2">
-                    -&nbsp;******* 
+          			<div style="float:left">
+                    -&nbsp;
+                    </div>
+                    <div style="float:right">
+                    	<div style="float:left">
+                    	<input type="text" name="jumin_no2" size=1 maxlength=1  class="form-control jumin_no2"  style="width:35">
+                    	</div>
+                    	<div style="float:right; margin:7 10 0 5">
+                    	****** 
+                    	</div>
+                    </div>
                     </div>
  				</div>
           			<br>
@@ -417,7 +481,7 @@
                     <div class="col-lg-2">
                         <input type="password" name="credit_pwd"   placeholder="앞 2자리" class="form-control credit_pwd"  size=3 maxlength=2 >
                       </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2" style="margin:7 0 0 -77">
                     ** 
                     </div>
  

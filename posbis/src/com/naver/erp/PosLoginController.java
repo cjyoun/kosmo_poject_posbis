@@ -34,7 +34,7 @@ public class PosLoginController {
 		System.out.println("loginForm");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("posLoginForm.jsp"); 
+		mav.setViewName("/posLoginForm.jsp"); 
 
 		return mav;
 
@@ -100,5 +100,31 @@ public class PosLoginController {
 		
 		System.out.println("controller/admin_idCnt-->"+admin_idCnt);
 		return admin_idCnt;
+	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/posLogoutForm.do")
+	public ModelAndView posLogoutForm(
+
+			HttpSession session) {
+
+		session.removeAttribute("pos_business_no");
+
+		// session.removeAttribute("boardSearchDTO");
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/posLogout.jsp");
+		System.out.println(" 접속성공 posLogoutForm");
+		return mav;
+	}
+	
+	
+	@ExceptionHandler(Exception.class)
+	public String handlerException(HttpServletRequest request) {
+		return "posLogout.jsp";
 	}
 }

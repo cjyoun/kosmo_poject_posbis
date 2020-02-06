@@ -2,7 +2,7 @@ package com.naver.erp;
 
 public class JoinDTO {
 	
-	//대표자 정보
+		//대표자 정보
 		private int u_no;
 		private String user_id;
 		private String user_pwd;

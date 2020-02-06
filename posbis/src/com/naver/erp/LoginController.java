@@ -146,25 +146,10 @@ public class LoginController {
 //---------회원정보 띄워주기 ----------------	
 
 	@RequestMapping(value = "/myPageForm.do")
-	public ModelAndView myPageForm(
-			HttpSession session
-			
-		) { // 메소드 이름은 상관 없음.
-
-		
-		// [ModelAndView 객체] 생성.
-		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
-		// [ModelAndView 객체] 리턴하기
+	public ModelAndView myPageForm(	HttpSession session	) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("myPageForm.jsp"); // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49
-											// 줄이 접두사 , 접미사 설정이 되어있음.
-
-		System.out.println("myPageForm 시작");
-		// 마이페이지 가져오기
-
-		
-		  try {
-		  
+		mav.setViewName("myPageForm.jsp"); 
+		  try {		  
 	// 사업자번호 (가게명) 얻기.			
 	//=========================================================================================================
 			  	String rank_code = (String)session.getAttribute("rank_code");
@@ -207,49 +192,21 @@ public class LoginController {
 	)
 	@ResponseBody
 	public MyPageDTO myPageProc(
-
 			@RequestParam(value = "changeBusinessNo") String changeBusinessNo
 			, MyPageDTO myPageDTO
 			, HttpSession session
-
 	) {
-		System.out.println("myPageProc 시작1");
-
-		System.out.println("business_no ===> " + changeBusinessNo);
 		try {
-			
-			String rank_code = (String)session.getAttribute("rank_code");
-		  	System.out.println("로그인한 아이디의 등급 코드 ======= "+ rank_code);
-
-// 사업자번호별 나의 정보 얻어 오기
-//==================================================================================================================			
-			System.out.println("myInfo 시작1");
-			List<Map<String, String>> myInfo = this.loginService.getMyInfo(changeBusinessNo);
-			// List<String> salesMonthList =
-			// this.preChartService.getSalesMonthList(changeBusinessNo);
-//					sml.add((Map<String, String>) salesMonthList);
-
-			System.out.println("myInfo.size()=>" + myInfo.size());
-
-
-			System.out.println("myInfo.get(\"myInfo\")=>" + myInfo.get(0));
-
-			
-
-//==================================================================================================================	
+			System.out.println("정보얻기 시작 ======= myPageProc.do");
+			String rank_code = (String)session.getAttribute("rank_code");	
+			List<Map<String, String>> myInfo = this.loginService.getMyInfo(changeBusinessNo);			
 			myPageDTO.setMyInfo(myInfo);
 			System.out.println("정보얻기 끝");
-	//		preChartListDTO.setAllSalesMonthList(allSalesMonthList);
-
 		} catch (Exception e) {
-			// try 구문에서 예외가 발생하면 실행할 구문 설정
 			System.out.println("e.getMessage()" + e.getMessage());
 			System.out.println("myPageProc <에러발생>");
 		}
-
-
 		return myPageDTO;
-
 	}
 
 	
@@ -728,13 +685,17 @@ public class LoginController {
 //------------------------------------------------------------------------	
 	
 
-	@RequestMapping(value = "/logout.do")
+	@RequestMapping(value = "/logoutForm.do")
 	public ModelAndView logout(
 
 			HttpSession session) {
 
-		session.removeAttribute("admin_id");
+		session.removeAttribute("user_id");
 		session.removeAttribute("uri");
+		session.removeAttribute("rank_code");
+		session.removeAttribute("u_no");
+		session.removeAttribute("qstnSearchDTO");
+
 		// session.removeAttribute("boardSearchDTO");
 
 		ModelAndView mav = new ModelAndView();
@@ -743,10 +704,12 @@ public class LoginController {
 		return mav;
 	}
 
-//	@ExceptionHandler(Exception.class)
-//	public String handlerException(HttpServletRequest request) {
-//		return "logout.jsp";
-//	}
+	@ExceptionHandler(Exception.class)
+	public String handlerException(HttpServletRequest request) {
+		return "logout.jsp";
+	}
+	
+	
 //-----------------------------------------------------------------------------		
 	// 사업자 아이디 중복
 
@@ -805,10 +768,12 @@ public class LoginController {
 
 			findfindIDPwd = this.loginService.getfindIDPwd(map);
 
-			System.out.println(findfindIDPwd.getUser_id());
+			//System.out.println(findfindIDPwd.getUser_id());
+			System.out.println(findfindIDPwd);
 			System.out.println("<접속성공>findIDPassword \n\n\n");
 
 		} catch (Exception e) {
+			System.out.println(findfindIDPwd);
 			System.out.println("<접속실패>findIDPassword \n\n\n");
 
 		}
@@ -1041,6 +1006,10 @@ public class LoginController {
 		}
 	
 	//====================================================================================================================	
+		
+		
+		
+		
 	
 	
 	

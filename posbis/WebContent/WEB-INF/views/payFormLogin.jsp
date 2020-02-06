@@ -167,6 +167,58 @@
               return;
            }
 
+           
+         //============================================================================== 유효성 검사 수정 1/31
+         	if($("[name=jumin_no2]").val()=='1' || $("[name=jumin_no2]").val()=='2'){
+      			var year= Number('19'+$("[name=jumin_no]").val().substr(0,2));
+         	}
+         	else if($("[name=jumin_no2]").val()=='3' || $("[name=jumin_no2]").val()=='4'){
+         		var year= Number('20'+$("[name=jumin_no]").val().substr(0,2));
+            }
+         	else{
+             	alert("주민번호 뒷자리의 첫번쨰 자리는 1~4까지만 입력 가능합니다.")
+             	return;
+            }
+      		
+      		var month= Number($("[name=jumin_no]").val().substr(2,2));
+      		var day= Number($("[name=jumin_no]").val().substr(4,2));
+      		var today = new Date();
+      		var yearNow = today.getFullYear();
+
+      		if(1900>year || year>yearNow){
+      			$('font[name=jumin_no]').text('');
+      			alert('생년월일을 다시 확인해주세요.');
+      			return;
+      		}
+      		else if(year>(yearNow-14)){
+      			$('font[name=jumin_no]').text('');
+      			alert('생년월일을 다시 확인해주세요.');
+      			return;
+      		}
+      		else if(month<1 || month>12){
+      			$('font[name=jumin_no]').text('');
+      			alert('생년월일을 다시 확인해주세요.');
+      			return;
+      		}
+      		else if(day<1 || day>31){
+      			$('font[name=jumin_no]').text('');
+      			alert('생년월일을 다시 확인해주세요.');
+      			return;
+      		}
+      		else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+      			$('font[name=jumin_no]').text('');
+      			alert('생년월일을 다시 확인해주세요.');
+      			return;
+      		}
+      		else if (month == 2) {
+      			var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+      			if (day>29 || (day==29 && !isleap)) {
+      					$('font[name=jumin_no]').text('');
+      	       			alert('생년월일을 다시 확인해주세요.');
+      					return;
+      			}
+      		}
+//===================================================================================
   	
 	   
 	   
@@ -367,10 +419,26 @@
 
 		
 		// 마케팅 전략
-	    function goMarketingForm(){
-	        //alert("마케팅 전략 으로 이동");
-	        location.replace("/posbis/marketingForm.do");
-	     }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
 	  //예약관리
 	 	function goResManagerForm(){
@@ -451,7 +519,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
@@ -569,7 +637,17 @@
           		<input type="text" name="jumin_no" size=5 maxlength=6  class="form-control jumin_no" >
           		</div>
           		<div class="col-lg-2">
-                    -&nbsp;******* 
+          			<div style="float:left">
+                    -&nbsp;
+                    </div>
+                    <div style="float:right">
+                    	<div style="float:left">
+                    	<input type="text" name="jumin_no2" size=1 maxlength=1  class="form-control jumin_no2"  style="width:35">
+                    	</div>
+                    	<div style="float:right; margin:7 10 0 5">
+                    	****** 
+                    	</div>
+                    </div>
                     </div>
  				</div>
           			<br>
@@ -579,7 +657,7 @@
                     <div class="col-lg-2">
                         <input type="password" name="credit_pwd"   placeholder="앞 2자리" class="form-control credit_pwd"  size=3 maxlength=2 >
                       </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-2" style="margin:7 0 0 -77">
                     ** 
                     </div>
  

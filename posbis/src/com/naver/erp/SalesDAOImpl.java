@@ -159,5 +159,14 @@ public class SalesDAOImpl implements SalesDAO{
 					);
 			    //System.out.println("DAO : getSalesList 메소드 끝");
 						return setMenuList;
-			}		
+			}
+		
+		public List<Map<String,String>> getSetMenuListChart(MarketingDTO marketingDTO){
+			List<Map<String,String>> setMenuList = this.sqlSession.selectList(
+					"com.naver.erp.SalesDAO.getSetMenuListChart"	//실행할 SQL 구문의 위치 지정
+					,marketingDTO							//실행할 SQL 구문에서 사용할 데이터 지정
+				);
+		    //System.out.println("DAO : getSalesList 메소드 끝");
+					return setMenuList;
+		}
 }

@@ -697,12 +697,12 @@
 		
 		}
 
-		function goPosLoginForm(){
-			
-			//alert("로그인 페이지로 이동");
-			location.replace("/posbis/posLoginForm.do");
 		
-		}
+
+		// 로그아웃
+	       function goPosLogoutForm(){
+	    	   location.replace("/posbis/posLogoutForm.do");
+			}
 		
 </script>
 
@@ -740,7 +740,7 @@
                         
                         <!-- 로그아웃 -->
                         <li class="nav-item dropdown connection">
-                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLoginForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
+                            <a class="nav-link" style="cursor:pointer"  onClick="goPosLogoutForm();"><div><center><i class="icon-logout"></i></center>[로그아웃]</div></a>
                         </li>
                     </ul>
                 </div>
@@ -807,33 +807,32 @@
                     <!-- 주화면 상단 navi 끝 -->
                     <!-- ============================================================== -->
 
-                    <!-- ============================================================== -->
+                                        <!-- ============================================================== -->
                     <!-- ================ 메뉴 ======================================== -->
                     <!-- ============================================================== -->
                     <div class="row">
-					<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" style="height:800">
-					    <div class="card"  style="height:100%;">
-	                          <h5 class="card-header">메뉴 LIST</h5>
-	                          	<div class="sidebar-nav-fixed" >
-	                          	<div class="card-body">
-								<form id="form" data-parsley-validate="" novalidate="" name="menuNameform" method="post"  action="/posbis/menuNameform.do" >
-									<c:forEach items="${posMenuList}" var="posMenu">
-			                  			<div style="margin: 22px; float: left;">
-											<label for="${posMenu.MENU_NO}" class="btn btn-primary2"> 
-											<input type="checkbox"  class="btn btn-primary2" autocomplete="off" value="${posMenu.MENU_NAME}" name="menu_name" id="${posMenu.MENU_NO}" style="display:none" onClick="goMenuNameForm();">
-											<h2>${posMenu.MENU_NAME}</h2><span class="price" style="font-size:25px">${posMenu.MENU_PRICE}원</span>
-											</label>
-										</div>
-	                              	</c:forEach>
+               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" style="height:800">
+                   <div class="card"  style="height:100%;">
+                             <h5 class="card-header">메뉴 LIST</h5>
+                                <div class="sidebar-nav-fixed" style="overflow: auto;">
+                                <div class="card-body">
+                        <form id="form" data-parsley-validate="" novalidate="" name="menuNameform" method="post"  action="/posbis/menuNameform.do" >
+                           <c:forEach items="${posMenuList}" var="posMenu">
+                                    <div style="margin: 18px; float: left;">
+                                 <label for="${posMenu.MENU_NO}" class="btn btn-primary2"> 
+                                 <input type="checkbox"  class="btn btn-primary2" autocomplete="off" value="${posMenu.MENU_NAME}" name="menu_name" id="${posMenu.MENU_NO}" style="display:none" onClick="goMenuNameForm();">
+                                 <h2>${posMenu.MENU_NAME}</h2><span class="price" style="font-size:25px">${posMenu.MENU_PRICE}원</span>
+                                 </label>
+                              </div>
+                                    </c:forEach>
                                 </form>
-	                         	</div>
-	                      		</div>
-	                  	</div> 
-	                </div>
+                               </div>
+                               </div>
+                        </div> 
+                   </div>
                     <!-- ============================================================== -->
                     <!-- 메뉴목록 끝  -->
                     <!-- ============================================================== -->
-                    
                     
                     <!-- ============================================================== -->
                     <!-- 결제목록 -->

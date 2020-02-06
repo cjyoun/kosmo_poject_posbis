@@ -6,19 +6,19 @@ import java.util.Map;
 public class MenuDTO {
 	
 	private int menu_no;
-	private String business_no;
-	private String menu_name;
-	private int menu_price;
-	private int menu_cost;
-	private String menu_category_code;
-	private String main_category_name;
-	private String mid_category_name;
-	private String sub_category_name;
-	private String business_name;
-	private String menu_using;
-	private int menuListAllCnt;
-	private List<Map<String,String>> menuList;
-	private String[] chooseBusinessNo;
+    private String business_no="";
+    private String menu_name="";
+    private int menu_price;
+    private int menu_cost;
+    private String menu_category_code="";
+    private String main_category_name="";
+    private String mid_category_name="";
+    private String sub_category_name="";
+    private String business_name="";
+    private String menu_using="";
+    private int menuListAllCnt;
+    private List<Map<String,String>> menuList;
+    private String[] chooseBusinessNo;
 	
 	
 	

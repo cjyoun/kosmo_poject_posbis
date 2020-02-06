@@ -131,23 +131,12 @@ function goInfoUpdateForm(){
 	  	var b_no;
 
       function checkBusinessNoForm(){
-			//alert($("[name=preChartForm]").serialize());
-
 			$.ajax({
-				// 서버 쪽 호출 URL 주소 지정
 				url : "/posbis/myPageProc.do"
-				
-				// form 태그 안의 데이터 즉, 파라미터값을 보내는 방법 지정
 				, type : "post"
-
 				, async : false
-				// 서버로 보낼 파라미터명과 파라미터 값을 설정
-				, data : $("[name=myPageForm]").serialize()				
-					
+				, data : $("[name=myPageForm]").serialize()					
 				, success : function(myPageDTO){
-					//alert("salesMonthList : "+ preChartListDTO.salesMonthList[0].sales_amount);
-					//alert("allSalesMonthList : "+ preChartListDTO.allSalesMonthList[0].sales_amount);
-					//alert("성공----------");
 						$(".uid").empty();
 						$(".uName").empty();
 						$(".email").empty();
@@ -161,8 +150,6 @@ function goInfoUpdateForm(){
 						business_no = myPageDTO.myInfo[0].business_no;
 
 					if(myPageDTO != null){
-						
-
 						var info = myPageDTO.myInfo[0];
 						$('.uid').append(info.user_id);
 						$('.uName').append(info.user_name);						
@@ -173,26 +160,15 @@ function goInfoUpdateForm(){
 						$('.businessType').append(info.business_type );
 						$('.businessOpen').append(info.business_open + " 시");
 						$('.businessClose').append(info.business_close + " 시");
-						$('.storeNum').append(info.store_tel_num);
-						
-						
+						$('.storeNum').append(info.store_tel_num);							
 					}
-					else if (myPageDTO == null){
-						alert("실패");
-					}
-					else {
-						alert("서버 오류 발생. 관리자에게 문의 바람");
-					} 
+					else if (myPageDTO == null){alert("실패");}
+					else {alert("서버 오류 발생. 관리자에게 문의 바람");} 
 				}
-				
-				// 서버의 응답을 못 받았을 경우 실행할 익명함수 설정
 				, error : function(request, error){
 					alert("서버 접속 실패");
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					
-					
-				}
-				
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);				
+				}				
 			});
       }
 
@@ -296,10 +272,26 @@ function goInfoUpdateForm(){
 		 }
 		//--------------------------------------------------------
 		// 마케팅 전략
-	    function goMarketingForm(){
-	        //alert("마케팅 전략 으로 이동");
-	        location.replace("/posbis/marketingForm.do");
-	     }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
 	  //예약관리
 	 	function goResManagerForm(){
@@ -313,7 +305,6 @@ function goInfoUpdateForm(){
 		function delBusi(){
 			var userPwd = prompt('해당 가게를 삭제하기 위해 본인 확인이 필요합니다.','사용자 암호를 입력해주세요');
 			$("[name=myPageForm] [name=user_pwd]").val(userPwd+'');
-							//alert($("[name=myPageForm]").serialize() );
 			if(userPwd==null){ alert("삭제 취소"); }
 			else{
 		         $.ajax({
@@ -409,7 +400,7 @@ function goInfoUpdateForm(){
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->

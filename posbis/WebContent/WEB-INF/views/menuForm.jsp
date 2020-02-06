@@ -142,35 +142,37 @@ select::-ms-expand { display: none; }
             inputData("[name=keyword]","${menuSearchDTO.keyword}");
             inputData("[name=menu_using]","${menuSearchDTO.menu_using}");
             inputData("[name=sort]","${menuSearchDTO.sort}");
-            inputData("[name=chooseAllBusinessNo]","${menuSearchDTO.chooseAllBusinessNo}");
-            <c:forEach items="${menuSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
-               inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
-            </c:forEach>
 
-            
-            // 사업자번호 체크시
-            if($("[name=chooseBusinessNo]:checked").length==0){
-               $("[name=chooseBusinessNo]").prop("checked",true);
-               $("[name=chooseAllBusinessNo]").prop("checked",true);
-                document.menuForm.submit();
-                menuSearchDTO.setChooseBusinessNo($("[name=menuForm] [name=chooseBusinessNo]").val());
-            }
-            if($("[name=chooseBusinessNo]:not(:checked)").length==0){
-               $("[name=chooseAllBusinessNo]").prop("checked",true);
-            } 
-            var allbusi = $("[name=chooseAllBusinessNo]");
-            allbusi.change(function() {
-               $("[name=chooseBusinessNo]").prop( "checked", allbusi.is(":checked") );
-            });
-
-            $("[name=chooseBusinessNo]").change(function(){
-               if ($("[name=chooseBusinessNo]:not(:checked)").length > 0){
-                  allbusi.prop("checked",false);
-               }else{
-                  allbusi.prop("checked",true);
-               }
-            });// 사업자번호 체크시 끝
-            
+            <c:if test="${!empty businessNoList}">
+	            inputData("[name=chooseAllBusinessNo]","${menuSearchDTO.chooseAllBusinessNo}");
+	            <c:forEach items="${menuSearchDTO.chooseBusinessNo}" var="chooseBusinessNo">
+	               inputData("[name=chooseBusinessNo]","${chooseBusinessNo}");
+	            </c:forEach>
+	
+	            
+	            // 사업자번호 체크시
+	            if($("[name=chooseBusinessNo]:checked").length==0){
+	               $("[name=chooseBusinessNo]").prop("checked",true);
+	               $("[name=chooseAllBusinessNo]").prop("checked",true);
+	                document.menuForm.submit();
+	                menuSearchDTO.setChooseBusinessNo($("[name=menuForm] [name=chooseBusinessNo]").val());
+	            }
+	            if($("[name=chooseBusinessNo]:not(:checked)").length==0){
+	               $("[name=chooseAllBusinessNo]").prop("checked",true);
+	            } 
+	            var allbusi = $("[name=chooseAllBusinessNo]");
+	            allbusi.change(function() {
+	               $("[name=chooseBusinessNo]").prop( "checked", allbusi.is(":checked") );
+	            });
+	
+	            $("[name=chooseBusinessNo]").change(function(){
+	               if ($("[name=chooseBusinessNo]:not(:checked)").length > 0){
+	                  allbusi.prop("checked",false);
+	               }else{
+	                  allbusi.prop("checked",true);
+	               }
+	            });// 사업자번호 체크시 끝
+            </c:if>
             
             // 콤마처리 함수
             $(".price_amount").each(function() {
@@ -399,11 +401,27 @@ select::-ms-expand { display: none; }
                //--------------------------------------------------------
 
             
-            	 // 마케팅 전략
-                function goMarketingForm(){
-                    //alert("마케팅 전략 으로 이동");
-                    location.replace("/posbis/marketingForm.do");
-                 }
+             // 마케팅 전략
+      	      function goMarketingForm(){
+      	          //alert("마케팅 전략 으로 이동");
+      	          var rank_code = ${rank_code};
+      		         if(rank_code == 2){
+      		         	location.replace("/posbis/marketingForm.do");
+      		         }
+      		         else{
+      		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+      							return;
+      						}
+      		        	 else{
+      		        		 location.replace("/posbis/payFormLogin.do");
+      		             }
+      		         }
+      	       }   
+
+      	       // 로그아웃
+      	       function goLogoutForm(){
+      	    	   location.replace("/posbis/logoutForm.do");
+      			}
    
               //예약관리
         	 	function goResManagerForm(){
@@ -482,7 +500,7 @@ select::-ms-expand { display: none; }
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
@@ -535,11 +553,12 @@ select::-ms-expand { display: none; }
                <!-- 2020-01-09 수정 -->
 			<table><tr><td style="color:#330066">
                [ 사업자 번호 ]&nbsp; : &nbsp;
+      <c:if test="${!empty businessNoList}">
                   <td><input type = "checkbox" name="chooseAllBusinessNo" id="chooseAllBusinessNo"> <label for="chooseAllBusinessNo">모두선택</label>
                <tr><td>
             <c:forEach items="${businessNoList}" var="businessNoList" varStatus="status">
               <td><input type ="checkbox" name="chooseBusinessNo" value="${businessNoList.business_no}" id="${businessNoList.business_no}">
-              					<label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
+                             <label for="${businessNoList.business_no}">${businessNoList.business_no}(${businessNoList.business_name})</label>
                     <c:if test="${(status.index+1)%2!=0}">
                      <c:if test="${!status.last }">
                         <td width="40">
@@ -551,6 +570,10 @@ select::-ms-expand { display: none; }
                      </c:if>
                   </c:if>   
             </c:forEach>
+        </c:if>
+      <c:if test="${empty businessNoList}">
+         등록된 가게가 없습니다.
+        </c:if>
             </table>
                <br> 
             <tr>

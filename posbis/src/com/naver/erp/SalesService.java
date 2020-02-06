@@ -41,4 +41,6 @@ public interface SalesService {
 	// 마케팅폼!! 새로한거 !!!!!!!
 	// 세트메뉴 리스트 리턴하는 메소드 선언
 	List<Map<String,String>> getSetMenuList(MarketingDTO marketingDTO);
+
+	List<Map<String, String>> getSetMenuListChart(MarketingDTO marketingDTO);
 }

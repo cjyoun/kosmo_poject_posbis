@@ -831,76 +831,49 @@
 
 
 			  //------------ 내가 가진 가게들 전부의 월 매출을 보여주는 그래프 ----------------------------     	
-
 		 		function drawChart4() {
-		 		
-					//alert(allBusinessNoName.length);
-					//alert(allBusinessNoSales[0].length);
-
 					for(var i=0; i<allBusinessNoName.length; i++){
 						for(var j=(12*i); j<(12*(i+1)); j++ ){
 							allBusinessNoSales[i][j] *=1;
-							//alert(allBusinessNoName[i] +' = ' + allBusinessNoSales[i][j]);
 						}
 					} 
 
-
-				// 구글 차트 데이터 입력
-
-				   var data4 = new google.visualization.DataTable();
-
-
+					var data4 = new google.visualization.DataTable();
 					data4.addColumn('string', 'Month');
-				    for(var i=0; i<allBusinessNoName.length; i++){
-						
+				    for(var i=0; i<allBusinessNoName.length; i++){	
 						data4.addColumn('number' , allBusinessNoName[i]);
-						//alert(allBusinessNoName[i]);
+					}
+					
+					for(var j=0; j<12; j++ ){
+						data4.addRows(1);
+						var k = 0;
+						data4.setCell(j,k,(j+1)+'월');	
+						for(var t=0; t<allBusinessNoName.length; t++){
+							k++;
+							data4.setCell(j,k,allBusinessNoSales[t][j+(12*t)]);
+						}
 					}
 
-				    
-						for(var j=0; j<12; j++ ){
-							data4.addRows(1);
-							var k = 0;
-							//var sales[j] = allBusinessNoSales[i][j];
-							//alert(allBusinessNoSales[i][j]);
-							data4.setCell(j,k,(j+1)+'월');
-							//alert((j+1)+'월')			
-							for(var t=0; t<allBusinessNoName.length; t++){
-								k++;
-								data4.setCell(j,k,allBusinessNoSales[t][j+(12*t)]);
-								
-							}
-							
-							
-						}
-						//alert("나와라 좀!");
-
-						 
-			
-		              var options4 = {
-		                  title: '[월 매출]'
-		      		     , width: "100%"
-		    		     , height: "100%"
-		                 , fontSize : 20
-		                 , curveType : 'function'
-		                 , series: {
-		                         0: { lineWidth: 2, color: '#7966E3'   },
-		                         1: { lineWidth: 2, color: '#74A2F2'   }
-		                      }
-		                   , pointSize: 6
-		                   , dataOpacity: 0.3
-		                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
-		                       startup: true,
-		                       duration: 1500,
-		                       easing: 'out' }
-		              
-		                   };
-			
+	              	var options4 = {
+	                  title: '[월 매출]'
+	      		     , width: "100%"
+	    		     , height: "100%"
+	                 , fontSize : 20
+	                 , curveType : 'function'
+	                 , series: {
+	                         0: { lineWidth: 2, color: '#7966E3'   },
+	                         1: { lineWidth: 2, color: '#74A2F2'   }
+	                      }
+	                   , pointSize: 6
+	                   , dataOpacity: 0.3
+	                   , animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+	                       startup: true,
+	                       duration: 1500,
+	                       easing: 'out' }
+	                };
 			
 			       var chart4 = new google.visualization.LineChart(document.getElementById('allChart_div'));
-			       chart4.draw(data4, options4);
-
-			       
+			       chart4.draw(data4, options4);      
 			     }
 				
 
@@ -998,10 +971,6 @@
 						}	
 
 
-						
-
-						 
-			
 		              var options5 = {
 		                  title: '(월별) 시간대 판매 개수 (개)'
 		      		     , width: "100%"
@@ -1125,10 +1094,26 @@
 			//--------------------------------------------------------
  
 	      // 마케팅 전략
-	    function goMarketingForm(){
-	        //alert("마케팅 전략 으로 이동");
-	        location.replace("/posbis/marketingForm.do");
-	     }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
 
 	  //예약관리
@@ -1208,7 +1193,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->

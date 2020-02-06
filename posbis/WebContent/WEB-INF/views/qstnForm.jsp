@@ -297,41 +297,42 @@ select::-ms-expand { display: none; }
    // [1개의 게시판 내용물]을 보여주는 [게시판 상세 보기 화면]으로 이동하는 함수 선언
    //**********************************************************************************
      function goQstnContentForm(qna_no, writer_id, print_level, group_no){ 
-			
-			//alert(print_level);
+         
+         //alert(print_level);
 
-	    	 var flag = false;
-		 	<c:forEach items="${group_no}" var="group_no" varStatus="loopTagStatus">
-	     			 if (group_no=="${group_no.GROUP_NO}" | print_level==0){flag=true;} 
-			 </c:forEach>
-	  	   if(flag==false){
-			  		 $.ajax({
-		       		  url : "/posbis/qstnMasterRegProc.do"
-		                 , type : "post"
-		                 , data : $("[name=qstnContentForm]").serialize()
-		                 , success : function(masterCnt){
-		  	                  if(masterCnt == 1){
-		  		                      var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
-		  		                      location.replace( "/posbis/qstnContentForm.do?" + str );
-		  	                  }
-		  	                  else if(masterCnt==0){
-		  	       				alert("게시글에 대한 권한이 없습니다.");
-		  							
-		  	                  }
-		  	                  
-		                 }
-		                 // 서버의 응답을 못받았을 경우 실행할 익명함수 설정.
-		                 , error : function(){
-		                	    alert("서버 접속 실패");
-		                 }
-		   			});
-	    	}
-	  	   else if(flag==true){
-	  		 var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
+           var flag = false;
+           if( print_level==0 ){flag=true;}
+          <c:forEach items="${group_no}" var="group_no" varStatus="loopTagStatus">
+                  if (group_no=="${group_no.GROUP_NO}" ){flag=true;} 
+          </c:forEach>
+           if(flag==false){
+                  $.ajax({
+                     url : "/posbis/qstnMasterRegProc.do"
+                       , type : "post"
+                       , data : $("[name=qstnContentForm]").serialize()
+                       , success : function(masterCnt){
+                             if(masterCnt == 1){
+                                    var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
+                                    location.replace( "/posbis/qstnContentForm.do?" + str );
+                             }
+                             else if(masterCnt==0){
+                              alert("게시글에 대한 권한이 없습니다.");
+                             
+                             }
+                             
+                       }
+                       // 서버의 응답을 못받았을 경우 실행할 익명함수 설정.
+                       , error : function(){
+                             alert("서버 접속 실패");
+                       }
+                  });
+          }
+           else if(flag==true){
+            var str = "qna_no=" + qna_no + "&" + $("[name=qstnForm]").serialize();
             location.replace( "/posbis/qstnContentForm.do?" + str );
-	    		 
-			} 
-   } 
+              
+         } 
+     } 
      //**********************************************************************************
      //    //   끝    [1개의 게시판 내용물]을 보여주는 [게시판 상세 보기 화면]으로 이동하는 함수 선언
      //**********************************************************************************
@@ -432,11 +433,27 @@ select::-ms-expand { display: none; }
 		 }
 		//--------------------------------------------------------
 
- // 마케팅 전략
-	    function goMarketingForm(){
-	        //alert("마케팅 전략 으로 이동");
-	        location.replace("/posbis/marketingForm.do");
-	     }
+// 마케팅 전략
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
 	  //예약관리
 	 	function goResManagerForm(){
@@ -548,7 +565,7 @@ select::-ms-expand { display: none; }
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->

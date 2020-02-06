@@ -30,7 +30,7 @@
 	  @Autowired private SalesService salesService;
 	  
   @RequestMapping( value="/marketingForm.do" ) 
- public ModelAndView getSetMenuList(
+ public ModelAndView marketingForm(
 		 	MarketingDTO marketingDTO
 		  	,HttpSession session
 		 ) { 
@@ -63,7 +63,7 @@
 	     mav.addObject("setMenuList",setMenuList);
 	     mav.addObject("marketingDTO",marketingDTO);
 
-	     System.out.println(marketingDTO.getChangeBusinessNo());
+	     System.out.println("ㅡㅡㅡ"+marketingDTO.getChangeBusinessNo());
 	     System.out.println(marketingDTO.getDataArea());
 	     System.out.println(setMenuList);
      }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
@@ -73,6 +73,11 @@
 		 return mav;
 }
 
+  
+  
+  
+  
+  
 	@RequestMapping(value = "/marketingProc.do" // 접속하는 클라이언트의 URL주소 설정
 			, method=RequestMethod.POST // 접속하는 클라이언트의 파라미터값 전송.
 			, produces = "application/json;charset=UTF-8" // 응답할 데이터 종류는 json으로 설정.
@@ -88,13 +93,12 @@
 		//String changeBusinessNo = null;
 		
 		try {
-			System.out.println("proc시작");
+			System.out.println("proc시작~~");
 //==================================================================================================================	
 			//System.out.println( this.salesService.getSetMenuList(marketingDTO) );
 			//System.out.println( marketingDTO.getChangeBusinessNo() );		
-			
-			List<Map<String,String>> setMenuList = this.salesService.getSetMenuList(marketingDTO);
-			setMenuDTO.setSetMenuList(setMenuList);
+			List<Map<String,String>> setMenuListChart = this.salesService.getSetMenuListChart(marketingDTO);
+			setMenuDTO.setSetMenuList(setMenuListChart);
 			
 			String changeBusinessNo = marketingDTO.getChangeBusinessNo();
 			setMenuDTO.setChangeBusinessNo(changeBusinessNo);		
@@ -105,7 +109,7 @@
 			
 			System.out.println( setMenuDTO.getSetMenuList() );
 			System.out.println( setMenuDTO.getChangeBusinessNo() );
-			System.out.println( setMenuDTO.getDataArea()  );			
+			System.out.println( setMenuDTO.getDataArea()  );		
 
 		} catch (Exception e) {
 			// try 구문에서 예외가 발생하면 실행할 구문 설정

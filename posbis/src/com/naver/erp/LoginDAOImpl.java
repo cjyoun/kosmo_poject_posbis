@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class LoginDAOImp implements LoginDAO{
+public class LoginDAOImpl implements LoginDAO{
 
  
 	

@@ -169,10 +169,26 @@
 		//--------------------------------------------------------
 
 		// 마케팅 전략
-        function goMarketingForm(){
-            //alert("마케팅 전략 으로 이동");
-            location.replace("/posbis/marketingForm.do");
-         }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
       //예약관리
 	 	function goResManagerForm(){
@@ -253,7 +269,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
@@ -285,10 +301,13 @@
     <!--==========================
       Features Section
     ============================-->
+     <!--==========================
+      Features Section
+    ============================-->
     <header class="section-header"><center>
 	    <br><br><br>
 	    <br>
-      	<h3>POSBIS</h3>
+      	<h3><b>POSBIS</b></h3><br>
       	<p>POSBIS는 늘 가까이에서 당신의 사업을 응원합니다. POSBIS와 함께 걸어갈 날들을 환영합니다.</p>
     </header>
     <!-- About Section end -->
@@ -300,10 +319,11 @@
 				</div>
 				<div class="col-lg-7">
 					<div class="about-text">
-						<h2>A team to help you</h2>
-						<p>POSBIS는 이렇습니다. 
-POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로서 포스 단말기 및 주변 기기기의 제조, 소프트웨어 개발 등 국내 유일의 POS 토탈 서비스 회사입니다. POSBIS는 항상 도전하는 정신으로 시장을 리드하는 제품 개발과 동시에 소상공인을 위한 통계 분석에 총력을 기울이고 있습니다. 소상공인 여러분들이 쉽고 간단하게 고도의 정보를 활용하여 유통정보화 시대에 대응할 수 있는 새로운 경영 전략을 확립하실 수 있도록 돕기 위해 늘 최선을 다하고 있습니다. POS가 설치된 불특정 다수의 가맹점으로부터 데이터를 전송받아 종래의 POS 시스템으로는 불가능했던 판매 동향, 매출 추이 등의 분석 데이터를 제공하여 전략적 경영합리화의 구축을 가능하게 해주는 네트워크 POS 시스템을 운영하고 있습니다.</p>
-						
+						<h2>POSBIS is...</h2>
+						<p>POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로서 포스 단말기 및 주변 기기기의 제조, 소프트웨어 개발 등 국내 유일의 POS 토탈 서비스 회사입니다.
+						<br>POSBIS는 항상 도전하는 정신으로 시장을 리드하는 제품 개발과 동시에 소상공인을 위한 통계 분석에 총력을 기울이고 있습니다.
+							소상공인 여러분들이 쉽고 간단하게 고도의 정보를 활용하여 유통정보화 시대에 대응할 수 있는 새로운 경영 전략을 확립하실 수 있도록 돕기 위해 늘 최선을 다하고 있습니다.
+						<br>POS가 설치된 불특정 다수의 가맹점으로부터 데이터를 전송받아 종래의 POS 시스템으로는 불가능했던 판매 동향, 매출 추이 등의 분석 데이터를 제공하여 전략적 경영합리화의 구축을 가능하게 해주는 네트워크 POS 시스템을 운영하고 있습니다.</p>
 					</div>
 				</div>
 			</div>
@@ -320,8 +340,8 @@ POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로
 
         <header class="section-header">
         <br><br><br><br>
-          <h3>Services</h3>
-          <p>저희 POSBIS가 제공하는 서비스들입니다. 항상 여러분께 도움이 되는 서비스로 다가가겠습니다.</p>
+          <center><h3><b>Services</b></h3><br>
+          <p>저희 POSBIS가 제공하는 서비스들입니다. 항상 여러분께 도움이 되는 서비스로 다가가겠습니다.</p></center>
         </header>
 
         <div class="row">
@@ -332,15 +352,15 @@ POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로
             
               <div class="icon" style="background: #fceef3;"><i class="ion-ios-analytics-outline" style="color: #ff689b;"></i></div>
               <br>
-              <h4 class="title"><a href="">내 점포 마케팅 분석</a></h4>
-              <p class="description">내 점포 마케팅 분석으로 여러분의 상점을 분석해드립니다. 우리 점포에서 가장 많이 나가는 제품이 무엇인지, 가장 많은 매출을 달성한 달이 언제인 지 상세하게 다 분석해드립니다.</p>
+              <h4 class="title"><b>내 점포 마케팅 분석</b></h4><br>
+              <p class="description">내 점포 마케팅 분석으로 여러분의 상점을 분석해드립니다.<br>우리 점포에서 가장 많이 나가는 제품이 무엇인지, 가장 많은 매출을 달성한 달이 언제인 지 상세하게 분석해드립니다.</p>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
             <div class="box">
               <div class="icon" style="background: #fff0da;"><i class="ion-ios-bookmarks-outline" style="color: #e98e06;"></i></div>
               <br>
-              <h4 class="title"><a href="">업종 변경 분석</a></h4>
+              <h4 class="title"><b>업종 변경 분석</b></h4><br>
               <p class="description">주변 상권에서 가장 잘나가는 업종이 무엇인지도 알려드립니다. 만약 업종을 변경하고 싶으시다면 POSBIS가 정답입니다.</p>
             </div>
           </div>
@@ -349,8 +369,8 @@ POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로
             <div class="box">
               <div class="icon" style="background: #e6fdfc;"><i class="ion-ios-paper-outline" style="color: #3fcdc7;"></i></div>
               <br>
-              <h4 class="title"><a href="">소상공인 지원 서비스</a></h4>
-              <p class="description">POSBIS는 항상 소상공인 여러분을 응원합니다. 소상공인들을 위해 각종 소상공인 사이트와의 연결고리가 되어 드리겠습니다.</p>
+              <h4 class="title"><b>소상공인 지원 서비스</b></h4><br>
+              <p class="description">POSBIS는 항상 소상공인 여러분을 응원합니다.<br>소상공인들을 위해 각종 소상공인 사이트와의 연결고리가 되어 드리겠습니다.</p>
             </div>
           </div>
          <!--  <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
@@ -380,10 +400,10 @@ POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로
 
       </div>
     </section><!-- #services -->
-    <!--==========================
+ <!--    <!--==========================
       Team Section
     ============================-->
-    <section id="team" class="section-bg">
+<!--     <section id="team" class="section-bg">
       <div class="container">
         <div class="section-header">
         <br><br><br><br>
@@ -483,13 +503,13 @@ POSBIS는 서울의 소상공인을 위한 통계 및 분석 전문 기업으로
         </div>
 
       </div>
-    </section><!-- #team -->
+    </section>#team -->
     
     
     <section>
 	    <div class="map" style="width:1200; margin:60 0 120 351">
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.238950154267!2d126.87645931558676!3d37.478687236911554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b61fcb47b582b%3A0x536ee2f714c1e156!2z7JuU65Oc66mU66W065SU7JWZ67Kk7LKY7IS87YSwMuywqA!5e0!3m2!1sko!2skr!4v1578973183240!5m2!1sko!2skr" style="border:0" allowfullscreen></iframe>		</div>
-	</section>
+	</section> -->
     
     
 <!--==========================

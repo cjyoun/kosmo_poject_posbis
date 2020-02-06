@@ -8,13 +8,13 @@ public class CardDTO {
 	private String creditNum3;
 	private String creditNum4;
 	private String credit_no;
-	
 	private String ex_month;
 	private String ex_year;
 	private String cvc_no;
-	
 	private String jumin_no;
 	private String credit_pwd;
+	
+	
 	public int getU_no() {
 		return u_no;
 	}
@@ -81,12 +81,6 @@ public class CardDTO {
 	public void setCredit_pwd(String credit_pwd) {
 		this.credit_pwd = credit_pwd;
 	}
-	
-	
-	
-	
-	
 
-	
 	
 }

@@ -74,5 +74,11 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>    <!--[주의] *.do 로 하면 css, js 파일 에 접근할 수 없다. -->
 	</servlet-mapping>
+	
+	<!-- 세션 유지 시간 지정(분 단위) -->
+	<session-config>
+        <session-timeout>120</session-timeout>
+    </session-config>
+	
 </web-app>
 	

@@ -1101,38 +1101,39 @@
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label class="col-sm-2 control-label" style="margin:0 0 0 100">회원등급</label>&nbsp;
-									<div style="width:378; margin:-10 110 0 200">
-										<div class="btn-group" data-toggle="buttons" style="margin: 0 0 0 200">
-											<label class="btn btn-default active"> 
-												<input type="radio" class="rank_code" name="rank_code" id="option1"	value="1"> 일반
-											</label> 
-											<label class="btn btn-default"> 
-												<input type="radio"	class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
-											</label> 
-											<font name="checkRankCode" size="2" color="red" style="float:left; margin:5 0 0 0"></font> 
-										</div>
-										<br><br>
-										&nbsp;&nbsp;(월 10,000원)&nbsp;&nbsp; 
-							             
-							             [회원등급혜택]
-							             
-							             <div class='helpA' style="text-align:left; font-size:12">
-							             	&nbsp;일반<br>
-								            &nbsp;- 비용: 무료<br>
-								            &nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 <br>확인 가능
-								            <br>&nbsp;<br>프리미엄<br>
-								            &nbsp;- 비용: 월 10,000원 (부가세 별도)<br>
-								            &nbsp;- 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
-							             </div>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" style="margin:0 0 0 35">서비스이용약관</label>
-									<div class="col-sm-6">
-										<textarea class="form-control" name="editor1"
-											rows="6" readonly>회원 가입 약관
+						<div class="form-group">
+                           <label class="col-sm-2 control-label" style="margin:0 0 0 100">회원등급</label>
+                           <div style="width:450; ">
+                              <div class="btn-group" data-toggle="buttons" style="padding: 0 250 0 0; width:500;">
+                                 <label class="btn btn-default active"> 
+                                    <input type="radio" class="rank_code" name="rank_code" id="option1"   value="1"> 일반
+                                 </label> 
+                                 <label class="btn btn-default"> 
+                                    <input type="radio"   class="rank_code" name="rank_code" id="option2" value="2"> 프리미엄
+                                 </label> 
+                                 <font name="checkRankCode" size="2" color="red" style="float:right; margin:5 0 0 0"></font> 
+                              </div>
+                              <br><br>
+                              
+                                  <div  style="text-align:left; font-size:18">
+                                     [회원등급별 혜택]
+                                  </div>
+                                  
+                                  <div  style="text-align:left; font-size:12">
+                                     &nbsp;● 일반<br>
+                                    &nbsp;&nbsp;&nbsp;- 비용: 무료<br>
+                                    &nbsp;&nbsp;&nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 확인 가능<br>
+                                    &nbsp;● 프리미엄<br>
+                                    &nbsp;&nbsp;&nbsp;- 비용: 월 10,000원 (부가세 별도)<br>
+                                    &nbsp;&nbsp;&nbsp;- 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
+                                  </div>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label class="col-sm-2 control-label" style="margin:0 0 0 100">서비스이용약관</label>
+                           <div class="col-sm-6">
+                              <textarea class="form-control" name="editor1"
+                                 rows="6" readonly>회원 가입 약관
 제1조 (목적)
 본 약관은 포스비스 주식회사(이하 '회사')가 POSBIS 사이트(이하 ‘사이트’)를 통하여 인터넷상에서 제공하는 서비스(이하 ‘서비스’)를 이용하는 고객 (이하 '고객')간의 권리와 의무 및 책임 등 기타 제반사항을 규정함을 목적으로 합니다.
 
@@ -1274,9 +1275,9 @@
 
 								</div>
 								<br>
-								<div style="float: right">
+								<div style="float: center">
 									<button class="btn btn-default" type="button" value="등록"
-										onClick="checkUserRegForm();">가입</button>
+										onClick="checkUserRegForm();">가입하기</button>
 
 									<button class="btn btn-default" type="reset" value="다시작성">다시작성
 									</button>

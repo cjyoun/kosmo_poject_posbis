@@ -168,10 +168,26 @@
 	//--------------------------------------------------------
 	
 	// 마케팅 전략
-    function goMarketingForm(){
-        //alert("마케팅 전략 으로 이동");
-        location.replace("/posbis/marketingForm.do");
-     }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
   //예약관리
  	function goResManagerForm(){
@@ -290,10 +306,12 @@
 				// 메뉴판 수정/삭제 유효성 체크 함수 선언
 				function checkMenuUpDelForm(upDel){
 
-					// 삭제 버튼 눌렀을 경우
-					if(upDel=='del'){
-						$("[name=upDel]").val("del");
-						if(confirm("메뉴를 삭제 하시겠습니까?")==false) {return;}
+					 // 삭제 버튼 눌렀을 경우
+		               if(upDel=='del'){
+		                  $("[name=upDel]").val("del");
+		                  $("[name=menu_price]").val(${menuDTO.menu_price});
+		                  $("[name=menu_cost]").val(${menuDTO.menu_cost});
+		                  if(confirm("메뉴를 삭제 하시겠습니까?")==false) {return;}
 						
 					}else if(upDel=="up"){
 						if(is_empty("[name=main_category_name]")){
@@ -466,7 +484,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->

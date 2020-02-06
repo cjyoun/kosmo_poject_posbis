@@ -100,12 +100,15 @@
 				marketingDTO.setDataArea($("[name=marketingForm] [name=dataArea]").val());
 			}
 
-		   reSearch();
+			
+		   /* $("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
+		   reSearch(); */
 
 		   
 			//사업자번호 셀렉트 박스에 change 이벤트 발생 시 실행할 함수
 		   $('[name=changeBusinessNo]').change(function(){		
-
+			   
+			   $("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
 			   reSearch();
 									
 			});
@@ -113,14 +116,20 @@
 			//검색영역 라디오 버튼에 change 이벤트 발생 시 실행할 함수
 		   $('[name=dataArea]').change(function(){		
 			   
+			   $("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
 			   reSearch();
 									
 			});
 
+
+			$('[name=changeBusinessNo]').change();
+
+			
+
 			//창 크기 조절 시 차트그리기 재실행
-		    $(window).resize(function(){
-	    		drawChart();
-		    });
+		   $(window).resize(function(){
+	             reSearch();
+	          });
 		   
 	});
 	     //--------------------------------------------------------
@@ -215,10 +224,26 @@
 	   		//--------------------------------------------------------
 
 	   		// 마케팅 전략
-	        function goMarketingForm(){
-	            //alert("마케팅 전략 으로 이동");
-	            location.replace("/posbis/marketingForm.do");
-	         }
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
 	      //예약관리
 		 	function goResManagerForm(){
@@ -233,7 +258,7 @@
 					//alert($("[name=marketingForm]").serialize());
 					//alert($("[name=marketingForm] [name=dataArea]").val()  );
 				
-					$("#menuSet").load("/posbis/marketingForm.do #menuSet",$("[name=marketingForm]").serialize());
+					
 					
 					$.ajax({
 						// 서버 쪽 호출 URL 주소 지정
@@ -303,7 +328,7 @@
 					                  }
 					                  
 									  var options = {
-										    title: '세트메뉴 추천 TOP 10 \n\n'
+										    title: '세트메뉴 추천 TOP 5 \n\n'
 								   			,titleTextStyle: {
 								    	        fontSize: 25,
 								    	        bold: true
@@ -410,7 +435,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->

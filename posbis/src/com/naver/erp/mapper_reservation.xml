@@ -146,6 +146,7 @@
 		    ,res_time=to_date(#{res_time}, 'yyyy-mm-dd hh24:mi')
 			,res_guest=#{res_guest}
 			,res_phone=#{res_phone}
+			,res_text=#{res_text}
 		where r_no=${r_no}
 	</update>
 

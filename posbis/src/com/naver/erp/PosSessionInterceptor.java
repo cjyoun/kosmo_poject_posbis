@@ -32,7 +32,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 		// afterCompletion() : Controller 클래스의 메소드 실행 후, JSP 를 실행 후 호출됨. responseBody를 이용할 경우 값을 클라이언에게 전달 후 호출
 
 //mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-public class SessionInterceptor extends HandlerInterceptorAdapter {	
+public class PosSessionInterceptor extends HandlerInterceptorAdapter {	
 	//*************************************************
 	// URL 접속 시 [컨트롤러 클래스의 메소드] 호출 전에 실행될 preHandle(~) 메소드 선언
 	// 메소드가 false 를 리턴하면 메소드 호출 후 컨트롤러의 메소드를 호출하지 않고, 반대면 호출한다.
@@ -52,10 +52,6 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();   
 		//-------------------------------------
 		// Session 객체에서 키값이 admin_id 로 저장된 데이터 꺼내기. 
-		// 즉 로그인 정보 꺼내기
-		//-------------------------------------
-		String user_id = (String)session.getAttribute("user_id");	
-		
 		// 로그인한 사업자번호 꺼내기
 		String pos_business_no = (String)session.getAttribute("pos_business_no");	
 		
@@ -72,10 +68,10 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		//-------------------------------------
 		
 		
-		if(user_id==null) {
+		if(pos_business_no==null) {
 			// HttpServletResponse 객체의 sendRedirect 메솓 호출로 로그인 화면으로 이동. 
 				//<주의> 이동 URL 주소에서 컨택스루트명인 /erp 를 빼지 말것
-			response.sendRedirect( ctRoot+"/logoutForm.do" );
+			response.sendRedirect( ctRoot+"/posLogoutForm.do" );
 			System.out.println("<예외 없이 접속 성공>[접속 URI] → " + uri + "[호출메소드] → SessionInterceptor.preHandle(~)\n ");
 			// false 값을 리턴하기.
 			// false값을 리턴하면 컨트롤러 클래스의 메소드는 호출되지 않는다.
@@ -93,6 +89,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			// true 값을 리턴하면 컨트롤러 클래스의 메소드는 호출된다.
 			return true;
 		}
+		
 		
 		
 		

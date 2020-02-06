@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class LoginServiceImp implements LoginService {
+public class LoginServiceImpl implements LoginService {
 	
 		@Autowired
 		private LoginDAO loginDAO;

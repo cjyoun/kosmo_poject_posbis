@@ -27,10 +27,10 @@ public class HomePageController {
 	 @Autowired private LoginService loginService;
 	 @Autowired private QstnService qstnService;
 	  
-	@RequestMapping( value="/homePageForm.do" )	
-	public ModelAndView homePageForm(
+		@RequestMapping( value="/homePageForm.do" )	
+		public ModelAndView homePageForm(
 			HttpSession session
-			) {		// 메소드 이름은 상관 없음.
+		) {	
 		
 		// [ModelAndView 객체] 생성.
 		// [ModelAndView 객체] 에 [호출할 JSP 페이지명] 을 저장하기.
@@ -38,35 +38,24 @@ public class HomePageController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("homePageForm.jsp");    // webContent/WEB-INF/spring/appServlet 폴더 안의 servlet-context.xml 파일 안에 46~49 줄이 접두사 , 접미사 설정이 되어있음. 
 
-		
 	
 	    String rank_code = (String)session.getAttribute("rank_code");
 	    mav.addObject("rank_code",rank_code);
 
 		try {
 			
-			
 			// id,  u_no 얻기      
 			//=========================================================================================================
 			String user_id = (String)session.getAttribute("user_id"); 
-			//String user_id = "user7";
-		     //System.out.println(user_id);
-		     // user_id 를 가지고 u_no 값 얻기
-		     int u_no = this.salesService.getUserNo(user_id);
+
+			int u_no = this.salesService.getUserNo(user_id);
 		    
-		     //System.out.println("user_no : " + u_no);
+		    //System.out.println("user_no : " + u_no);
 
-
-		     
-		     
 			//========================================================================
 			//차트 김수민
 			//========================================================================
 		     List<Map<String,String>> salesNow = this.salesService.getSalesNow(u_no);
-		     
-		     // ModelAndView 객체에 검색 개수, 게시판 검색 목록 저장하기
-		     // ModelAndView 객체에 저장된 DB 연동 결과물은 JSP 페이지에서 EL 문법으로 꺼낼 수 있다. ${저장키값명}
-		     // JSP 페이지에서 사용하기 위해 addObject를 사용하여 ModelAndView 객체에 저장.
 		     
 		     mav.addObject("salesNow" , salesNow);
 		     
@@ -88,11 +77,12 @@ public class HomePageController {
 					int rowCntPerPage = myQstnSearchDTO.getRowCntPerPage();
 					// 검색할 시작행 번호 구하기
 					int beginRowNo = selectPageNo*rowCntPerPage - rowCntPerPage + 1;
-					// 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
-					// 선택한 페이지 번호를 1로 세팅하기
-					if(myQstnAllCnt < beginRowNo) {
-						myQstnSearchDTO.setSelectPageNo(1);
-					}
+				
+						// 만약 검색한 총 개수가 검색할 시작행 번호 보다 작으면
+						// 선택한 페이지 번호를 1로 세팅하기
+						if(myQstnAllCnt < beginRowNo) {
+							myQstnSearchDTO.setSelectPageNo(1);
+						}
 				}
 				
 				List<Map<String,String>> myQstnList = this.qstnService.getMyQstnList(myQstnSearchDTO);
@@ -123,9 +113,6 @@ public class HomePageController {
 				//========================================================================
 			    // /내 가게 정보 끝/////////////////////////////////////////////////////////이정숙꺼끝
 				//========================================================================
-			     
-
-
 			 		
 			 }catch(Exception e) { //try 구문에서 예외가 발생하면 실행할 구문 설정
 				 	System.out.println("<에러발생>");

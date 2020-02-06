@@ -86,16 +86,132 @@
 		    -->
 
 <!-- 모든 url 주소 중에 /loginForm.do 와 /loginProc.do 빼고 다른 주소로 들어오면 SessionIterceptor클래스의 메소드 먼저 호출. -->
-	<!-- <interceptors>
+	<interceptors>
         <interceptor>
 			<mapping path="/**/*" />                    
             <exclude-mapping path="/mainForm.do"/>
-            <exclude-mapping path="/mainProc.do"/>
+            <exclude-mapping path="/loginProc.do"/>
+            <exclude-mapping path="/joinForm.do"/>
+            <exclude-mapping path="/joinRegProc.do"/>
+            
+            <exclude-mapping path="/beforeSignIntroForm.do"/>
+            <exclude-mapping path="/joinPayForm.do"/>
+            <exclude-mapping path="/joinCheckUserId.do"/>
+            <exclude-mapping path="/findIdPwdForm.do"/>
+            <exclude-mapping path="/addrDongProc.do"/>
+            <exclude-mapping path="/businessTypeName2Proc.do"/>
+            <exclude-mapping path="/chekckBusinessNoProc.do"/>
+            <exclude-mapping path="/findIDPassword.do"/>
+            <exclude-mapping path="/payForm.do"/>
+            <exclude-mapping path="/payProc.do"/>
+            <exclude-mapping path="/payProc2.do"/>
+            
+            <exclude-mapping path="/posLoginForm.do"/>
+            <exclude-mapping path="/posLoginProc.do"/>
+            <exclude-mapping path="/posPayForm.do"/>
+            <exclude-mapping path="/posPerMenuProc.do"/>
+            <exclude-mapping path="/posSalesRegProc.do"/>
+            <exclude-mapping path="/posRefundForm.do"/>
+            <exclude-mapping path="/posDetailRegProc.do"/>
+            <exclude-mapping path="/posDeleteRegProc.do"/>
+            
+            <exclude-mapping path="/posLogoutForm.do"/>
+            <exclude-mapping path="/logoutForm.do"/>
             <exclude-mapping path="/logout.do"/>
             <exclude-mapping path="/resources/**"/>
-            <beans:bean class="com.naver.erp.SessionInterceptor"></beans:bean>            
-        </interceptor>        
-    </interceptors>   -->
+            <beans:bean class="com.naver.erp.SessionInterceptor"></beans:bean>          
+        </interceptor>   
+        
+        
+        <interceptor>
+			<mapping path="/**/*" />                    
+            <exclude-mapping path="/mainForm.do"/>
+            <exclude-mapping path="/loginProc.do"/>
+            <exclude-mapping path="/joinForm.do"/>
+            <exclude-mapping path="/joinRegProc.do"/>
+            
+            <exclude-mapping path="/beforeSignIntroForm.do"/>
+            <exclude-mapping path="/joinPayForm.do"/>
+            <exclude-mapping path="/joinCheckUserId.do"/>
+            <exclude-mapping path="/findIdPwdForm.do"/>
+            <exclude-mapping path="/addrDongProc.do"/>
+            <exclude-mapping path="/businessTypeName2Proc.do"/>
+            <exclude-mapping path="/chekckBusinessNoProc.do"/>
+            <exclude-mapping path="/findIDPassword.do"/>
+            <exclude-mapping path="/payForm.do"/>
+            <exclude-mapping path="/payProc.do"/>
+            <exclude-mapping path="/payProc2.do"/>
+            <exclude-mapping path="/payFormLogin.do"/>
+            
+            
+            <exclude-mapping path="/homePageForm.do"/>
+            <exclude-mapping path="/homeMyStoreInfoProc.do"/>
+            <exclude-mapping path="/myPageForm.do"/>
+            <exclude-mapping path="/myPageProc.do"/>
+            <exclude-mapping path="/introForm.do"/>
+            <exclude-mapping path="/withdrawalForm.do"/>
+            <exclude-mapping path="/withdrawalProc.do"/>
+            <exclude-mapping path="/infoUpdateForm.do"/>
+            <exclude-mapping path="/infoUpdateProc.do"/>
+            <exclude-mapping path="/newBusiForm.do"/>
+            <exclude-mapping path="/newBusiProc.do"/>
+            <exclude-mapping path="/delBusiProc.do"/>
+            <exclude-mapping path="/marketingForm.do"/>
+            <exclude-mapping path="/marketingProc.do"/>
+            <exclude-mapping path="/menuForm.do"/>
+            <exclude-mapping path="/menuProc.do"/>
+            <exclude-mapping path="/menuRegForm.do"/>
+            <exclude-mapping path="/menuRegProc.do"/>
+            <exclude-mapping path="/menuUpDelForm.do"/>
+            <exclude-mapping path="/menuUpDelProc.do"/>
+            <exclude-mapping path="/middleProc.do"/>
+            <exclude-mapping path="/subProc.do"/>
+            <exclude-mapping path="/preChartForm.do"/>
+            <exclude-mapping path="/preChartAllProc.do"/>
+            <exclude-mapping path="/preChartProc.do"/>
+            <exclude-mapping path="/preChartProc2.do"/>
+            <exclude-mapping path="/preChartProc3.do"/>
+            <exclude-mapping path="/preChartProc4.do"/>
+            <exclude-mapping path="/getPreResultProc.do"/>
+            <exclude-mapping path="/preSearchForm.do"/>
+            <exclude-mapping path="/getAddrDong1Proc.do"/>
+            <exclude-mapping path="/getBusinessTypeName2Proc.do"/>
+            <exclude-mapping path="/myQstn.do"/>
+            <exclude-mapping path="/qstnForm.do"/>
+            <exclude-mapping path="/qstnRegForm.do"/>
+            <exclude-mapping path="/qstnRegProc.do"/>
+            <exclude-mapping path="/qstnMasterRegProc.do"/>
+            <exclude-mapping path="/qstnContentForm.do"/>
+            <exclude-mapping path="/qstnUpDelForm.do"/>
+            <exclude-mapping path="/qstnUpDelProc.do"/>
+            <exclude-mapping path="/FAQForm.do"/>
+            <exclude-mapping path="/resManagerForm.do"/>
+            <exclude-mapping path="/resCntProc.do"/>
+            <exclude-mapping path="/resListProc.do"/>
+            <exclude-mapping path="/resRegProc.do"/>
+            <exclude-mapping path="/resUpDelForm.do"/>
+            <exclude-mapping path="/resUpDelProc.do"/>
+            <exclude-mapping path="/noShowChartProc.do"/>
+            <exclude-mapping path="/changeSuccessProc.do"/>
+            <exclude-mapping path="/changeNoshowProc.do"/>
+            <exclude-mapping path="/salesForm.do"/>
+            <exclude-mapping path="/salesProc.do"/>
+            <exclude-mapping path="/menuSalesForm.do"/>
+            <exclude-mapping path="/menuSalesProc.do"/>
+
+            
+            
+            <exclude-mapping path="/posLoginForm.do"/>
+            <exclude-mapping path="/posLoginProc.do"/>
+            <exclude-mapping path="/posLogoutForm.do"/>
+            <exclude-mapping path="/logoutForm.do"/>
+            <exclude-mapping path="/logout.do"/>
+            <exclude-mapping path="/resources/**"/>
+            <beans:bean class="com.naver.erp.PosSessionInterceptor"></beans:bean>          
+        </interceptor>
+        
+              
+    </interceptors>
 
 	<!-- 위 코드는 아래 코드로 대체 가능. 
 		

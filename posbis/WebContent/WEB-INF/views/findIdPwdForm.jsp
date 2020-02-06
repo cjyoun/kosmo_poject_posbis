@@ -78,12 +78,12 @@
 	         	, type : "post"
 	         	, data : $("[name=findIdPwdForm]").serialize()
 	         	, success : function(findIDPassword) {
-	         		if( findIDPassword.user_id!=null && findIDPassword.user_id!=null ){
+	         		if( findIDPassword.user_id!=null && findIDPassword.user_pwd!=null ){
 	         			alert("등록된 아이디는 "+findIDPassword.user_id+"\n비밀번호는 "+findIDPassword.user_pwd+" 입니다");
 	         			
 	         			location.replace('/posbis/findIdPwdForm.do');
 	         			
-	         		}else if( findIDPassword.user_id==null && findIDPassword.user_id==null ) {
+	         		}else if( findIDPassword.user_id==null && findIDPassword.user_pwd==null ) {
 	         			alert("해당 아이디, 비밀번호, 사업자 등록번호가 존재하지 않습니다.");
 	         			location.replace('/posbis/findIdPwdForm.do');
 	         			

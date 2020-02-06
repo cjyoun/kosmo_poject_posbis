@@ -325,11 +325,58 @@
 	              return;
 	           } 
 	         
-	         if( is_valid_pattern("[name=birth]", /^[0-9]{8}$/)==false ){
-	             alert("생년월일 형식을 벗어납니다.");
-	             return;
-	          }
 
+	       //생년월일 유효성 검사 함수 ============================================
+
+	     		if (is_valid_pattern("[name=birth]", /^[0-9]{8}$/) == false) {
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			$(".bitrhAvailability").val('false');
+	     			return;
+	     		}
+
+	     		var year= Number($("[name=birth]").val().substr(0,4));
+	     		var month= Number($("[name=birth]").val().substr(4,2));
+	     		var day= Number($("[name=birth]").val().substr(6,2));
+	     		var today = new Date();
+	     		var yearNow = today.getFullYear();
+
+	     		if(1900>year || year>yearNow){
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			return;
+	     		}
+	     		else if(year>(yearNow-14)){
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			return;
+	     		}
+	     		else if(month<1 || month>12){
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			return;
+	     		}
+	     		else if(day<1 || day>31){
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			return;
+	     		}
+	     		else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+	     			$('font[name=birth]').text('');
+	     			alert('생년월일을 다시 확인해주세요.');
+	     			return;
+	     		}
+	     		else if (month == 2) {
+	     			var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+	     			if (day>29 || (day==29 && !isleap)) {
+	     					$('font[name=checkBirth]').text('');
+	    	     			alert('생년월일을 다시 확인해주세요.');
+	     					return;
+	     			}
+	     		}
+
+
+	     	//생년월일 유효성 검사 함수  끝============================================
 	      
 	         if( is_valid_pattern("[name=email]", /^([0-9a-zA-Z]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/)==false ){
 	             alert("이메일 형식을 벗어납니다.");
@@ -487,11 +534,27 @@
    		//--------------------------------------------------------
 
    		 
-   		// 마케팅 전략
-        function goMarketingForm(){
-            //alert("마케팅 전략 으로 이동");
-            location.replace("/posbis/marketingForm.do");
-         }
+   	// 마케팅 전략
+	      function goMarketingForm(){
+	          //alert("마케팅 전략 으로 이동");
+	          var rank_code = ${rank_code};
+		         if(rank_code == 2){
+		         	location.replace("/posbis/marketingForm.do");
+		         }
+		         else{
+		        	 if(confirm("프리미엄 등급 전용 서비스로 월 10,000원 정기결제로 이용하실 수 있습니다.\n 결제 정보를 등록하시겠습니까?")==false) {
+							return;
+						}
+		        	 else{
+		        		 location.replace("/posbis/payFormLogin.do");
+		             }
+		         }
+	       }   
+
+	       // 로그아웃
+	       function goLogoutForm(){
+	    	   location.replace("/posbis/logoutForm.do");
+			}
 
       //예약관리
 	 	function goResManagerForm(){
@@ -570,7 +633,7 @@
 					<br>
                      <a style="cursor:pointer"  onClick="goMyPageForm();">[내정보 보기]</a>                        
                     &nbsp;
-                     <a style="cursor:pointer"  onClick="goMainForm();"> [로그아웃] </a> 
+                     <a style="cursor:pointer"  onClick="goLogoutForm();"> [로그아웃] </a> 
 				</div>
 				<!-- <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Call us now! </a>
 				<div class="hr-btn hr-btn-2">+45 332 65767 42</div> -->
@@ -737,7 +800,7 @@
    <td> 매장 번호 </td>
    <td>
     <input type = "text" size = "12" name="store_tel_num" class="store_tel_num form-control" value="${myNStoreInfo[0].store_tel_num}"/>
-    <span>&nbsp;&nbsp;*숫자만 입력하세요</span>
+    <!-- <span>&nbsp;&nbsp;*숫자만 입력하세요</span> -->
    </td>
   </tr>
   
@@ -823,16 +886,18 @@
 			</div>
              &nbsp;&nbsp; 
              <br><br>
-             (월 10,000원)&nbsp;&nbsp; [회원등급혜택]
-             <br>
-             <div class='helpA' style="font-size:12">
-             <br>&nbsp;일반<br>
-	             &nbsp;&nbsp;- 비용: 무료<br>
-	             &nbsp;&nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 확인 가능
-	             <br><br>&nbsp;프리미엄<br>
-	             &nbsp;&nbsp;- 비용: 월 10,000원 (부가세 별도)<br>
-	             &nbsp;&nbsp;- 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
-             </div>
+                                  <div  style="text-align:left; font-size:18">
+                                     [회원등급별 혜택]
+                                  </div>
+                                  
+                                  <div  style="text-align:left; font-size:12">
+                                     &nbsp;● 일반<br>
+                                    &nbsp;&nbsp;&nbsp;- 비용: 무료<br>
+                                    &nbsp;&nbsp;&nbsp;- 서비스: 점포에서 사용하는 POS의 정보를 사이트에서 원격으로 확인 가능<br>
+                                    &nbsp;● 프리미엄<br>
+                                    &nbsp;&nbsp;&nbsp;- 비용: 월 10,000원 (부가세 별도)<br>
+                                    &nbsp;&nbsp;&nbsp;- 서비스: 지역별/상품별 매출현황 비교, 위치기반 메뉴 추천
+                                  </div>
        </td>
   </tr>
     

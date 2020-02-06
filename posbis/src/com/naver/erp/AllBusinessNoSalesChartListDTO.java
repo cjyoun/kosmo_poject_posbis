@@ -15,10 +15,5 @@ public class AllBusinessNoSalesChartListDTO {
 	public void setAllBusinessNoSalesMonthList(List<Map<String, String>> allBusinessNoSalesMonthList) {
 		this.allBusinessNoSalesMonthList = allBusinessNoSalesMonthList;
 	}
-	
-	
-
-	
-	
 
 }

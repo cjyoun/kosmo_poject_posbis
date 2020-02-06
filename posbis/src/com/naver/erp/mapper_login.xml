@@ -98,7 +98,7 @@
  
 	)values (
           #{business_no}
-          ,(select u_no from(select * from user_info order by rownum desc) where rownum=1) 
+          ,(select u_no from(select * from user_info order by u_no desc) where rownum=1) 
           ,#{business_name}
           ,(select addr_no from addr where addr_no = (select addr_no from addr where addr_gu=#{addr_gu} and addr_dong=#{addr_dong}))
           ,#{addr_detail} 
@@ -166,10 +166,11 @@
 
 	<select id='getfindIDPwd' parameterType="hashmap" resultType="com.naver.erp.SearchIDPwdDTO">
 		select 
-			user_id		as "user_id"
-			,user_pwd	as "user_pwd"
-		from user_info 
+			u.user_id		as "user_id"
+			,u.user_pwd		as "user_pwd"
+		from user_info u, business_info b 
 		where user_name=#{user_name} and question_code=#{question_code} and answer=#{answer}
+				and business_no=#{business_no} and b.u_no=u.u_no
 	</select>
 <!--********************************************************************-->
 

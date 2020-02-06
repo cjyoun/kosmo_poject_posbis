@@ -2,11 +2,10 @@ package com.naver.erp;
 
 public class BusiInfoDTO {
 	
-	//대표자 정보
+		//대표자 정보
 		private int u_no;
 		private String user_id;
 		private String user_pwd;
-		
 		
 		//사업장 정보
 		private String business_no;
@@ -24,8 +23,8 @@ public class BusiInfoDTO {
 		private String business_type_code;
 		private String business_type_name1;
 		private String business_type_name2;
-		
-		
+
+		//매장 운영시간
 		private String business_open;
 		private String business_close;
 		
@@ -120,6 +119,5 @@ public class BusiInfoDTO {
 		public void setBusiness_close(String business_close) {
 			this.business_close = business_close;
 		}
-		
 
 }

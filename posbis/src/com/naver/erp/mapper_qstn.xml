@@ -140,7 +140,7 @@
             qna_no          "qna_no"
             ,subject       "subject"
             ,(select user_id from user_info u where u.u_no = q.u_no)       "user_id"
-            ,qna_date       "qna_date" 
+            ,to_char(q.qna_date,'YYYY-MM-DD') as "qna_date" 
             ,readcount      "readcount"
             ,qna_pwd       "qna_pwd"
             ,content       "content"

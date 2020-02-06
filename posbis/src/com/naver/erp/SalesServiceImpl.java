@@ -122,5 +122,10 @@ public class SalesServiceImpl implements SalesService{
 			
 			return setMenuList;
 	}	
+	public List<Map<String,String>> getSetMenuListChart(MarketingDTO marketingDTO){
+		List<Map<String,String>> setMenuList = this.salesDAO.getSetMenuListChart(marketingDTO);
+		
+		return setMenuList;
+}	
 	
 }
